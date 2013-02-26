@@ -136,6 +136,22 @@ class ApplicationController < ActionController::Base
     @current_user_session = UserSession.find
   end
 
+  def checkout_user
+    return @current_user if defined?(@current_user)
+    return @checkout_user if defined?(@checkout_user)
+    @checkout_user = checkout_user_session && checkout_user_session.record
+  end
+
+  def checkout_user_session
+    if checkout_user_session_id
+      User.find(checkout_user_session_id)
+    end
+  end
+
+  def checkout_user_session_id
+    session[:checkout_user_id]
+  end
+
   def current_user
     return @current_user if defined?(@current_user)
     @current_user = current_user_session && current_user_session.record
