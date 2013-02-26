@@ -19,6 +19,7 @@
 #  email             :string(255)
 #  state             :string(255)
 #  account_id        :integer(4)
+#  country_id        :integer(4)
 #  customer_cim_id   :string(255)
 #  password_salt     :string(255)
 #  crypted_password  :string(255)
@@ -60,6 +61,7 @@ class User < ActiveRecord::Base
                   :openid_identifier,
                   :birth_date,
                   :form_birth_date,
+                  :country_id,
                   :address_attributes,
                   :phones_attributes
 
@@ -126,12 +128,14 @@ class User < ActiveRecord::Base
   has_many    :return_authorizations
   has_many    :authored_return_authorizations, :class_name => 'ReturnAuthorization', :foreign_key => 'author_id'
 
+
+  validates :country_id,  :presence => true
   validates :first_name,  :presence => true, :if => :registered_user?,
                           :format   => { :with => CustomValidators::Names.name_validator },
                           :length => { :maximum => 30 }
   validates :last_name,   :presence => true, :if => :registered_user?,
                           :format   => { :with => CustomValidators::Names.name_validator },
-                          :length => { :maximum => 35 }
+                          :length   => { :maximum => 35 }
   validates :email,       :presence => true,
                           :uniqueness => true,##  This should be done at the DB this is too expensive in rails
                           :format   => { :with => CustomValidators::Emails.email_validator },
@@ -142,12 +146,13 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :addresses, :user_roles
   accepts_nested_attributes_for :phones, :reject_if => lambda { |t| ( t['display_number'].gsub(/\D+/, '').blank?) }
 
-  state_machine :state, :initial => :active do
+  state_machine :state, :initial => :signed_up do
     state :inactive
     state :active
     state :unregistered
     state :registered
     state :registered_with_credit
+    state :signed_up
     state :canceled
 
     event :activate do
@@ -159,6 +164,7 @@ class User < ActiveRecord::Base
       transition :from => :inactive,               :to => :registered
       transition :from => :unregistered,           :to => :registered
       transition :from => :registered_with_credit, :to => :registered
+      transition :from => :signed_up,              :to => :registered
       transition :from => :canceled,               :to => :registered
     end
 

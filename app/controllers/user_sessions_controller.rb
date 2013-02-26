@@ -1,4 +1,5 @@
 class UserSessionsController < ApplicationController
+  skip_before_filter :redirect_to_welcome
   def new
     @user_session = UserSession.new
     @user = User.new
@@ -13,10 +14,17 @@ class UserSessionsController < ApplicationController
       ## if there is a cart make sure the user_id is correct
       set_user_to_cart_items
       flash[:notice] = I18n.t('login_successful')
-      redirect_back_or_default root_url
+
+      respond_to do |format|
+        format.json { render :json => @user_session.to_json }
+        format.html { redirect_back_or_default root_url }
+      end
     else
       @user = User.new
-      redirect_to login_url, :alert => I18n.t('login_failure')
+      respond_to do |format|
+        format.json { render :json => @user_session.errors.to_json }
+        format.html { redirect_to login_url, :alert => I18n.t('login_failure') }
+      end
     end
   end
 

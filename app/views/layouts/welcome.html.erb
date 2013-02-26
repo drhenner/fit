@@ -8,6 +8,9 @@
 
   <%= stylesheet_link_tag "foundation" %>
   <%= stylesheet_link_tag 'site/app.css' %>
+  <%= stylesheet_link_tag 'site/temp_signup_form.css', :media => 'screen and (min-width: 500px) and (max-width: 9500px)' %>
+  <%= stylesheet_link_tag 'site/small_welcome.css', :media => 'screen and (min-width: 10px) and (max-width: 500px)' %>
+
     <!--[if lt IE 8]
   <%= stylesheet_link_tag 'ie.css', :media => 'screen, projection'%>
   <![endif]-->
@@ -18,11 +21,13 @@
 
   <%= javascript_include_tag 'application' %>
   <%= javascript_include_tag "foundation" %>
-  <%#, :cache => 'all_1' %>
+  <%= javascript_include_tag 'jquery.anystretch'%>
+
   <%= yield :head %>
 
 </head>
 <body >
+
 <div id='body_wrapper'>
   <% if notice || alert %>
     <div class="row">
@@ -31,28 +36,30 @@
     </div>
   <% end %>
 
-    <%= render :partial => '/shared/welcome_header'%>
+    <%#= render :partial => '/shared/welcome_header'%>
 
     <div id='content_wrapper' class='row'>
       <%= yield %>
     </div>
     <div id='prefooter_wrapper'>&nbsp;</div>
 </div>
-  <%= render 'shared/main_footer' %>
-  <%= yield :bottom %>
 
+  <%#= render 'shared/main_footer' %>
+  <%= yield :bottom %>
+  <%= javascript_include_tag 'rotate_images'%>
+  <%= javascript_include_tag 'temp_signup_form'%>
   <script>
   jQuery(window).ready(
     function() {
       jQuery('.flash_notice').delay(6000).slideUp( 'slow');
       jQuery('.flash_error').delay(6000).slideUp( 'slow');
+      //$.anystretch("<%= image_path('no_image.jpg') %>", {speed: 350});
+
     }
+    //$.anystretch($('#featured_item img').attr('src'), {speed: 150});
   );
   </script>
 
-  <%# javascript_include_tag :defaults %>
-  <%#= javascript_include_tag 'jquery-1.4.2.min', 'rails' %>
-  <%#= javascript_include_tag :all, :cache => true %>
 </body>
   <%= yield :below_body %>
 </html>

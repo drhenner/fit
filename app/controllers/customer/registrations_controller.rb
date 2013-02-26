@@ -1,4 +1,6 @@
 class Customer::RegistrationsController < ApplicationController
+  skip_before_filter :redirect_to_welcome
+
   def new
     @registration = true
     @user         = User.new

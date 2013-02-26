@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
                 :select_countries
 
   before_filter :secure_session
+  before_filter :redirect_to_welcome
 
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = "Access denied."
@@ -52,6 +53,10 @@ class ApplicationController < ActionController::Base
 
   def myaccount_tab
     false
+  end
+
+  def redirect_to_welcome
+    redirect_to root_url unless current_user && current_user.admin?
   end
 
   def require_user

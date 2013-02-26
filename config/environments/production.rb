@@ -41,7 +41,10 @@ Hadean::Application.configure do
                                 'shopping_cart_page.css',
                                 'signup.css',
                                 'site/app.css',
+                                'site/small_welcome.css',
+                                'site/temp_signup_form.css',
                                 'sprite.css',
+                                'supersized.css',
                                 'tables.css',
                                 'cupertino/jquery-ui-1.8.12.custom.css',# in vendor
                                 'modstyles.css', # in vendor

@@ -5,7 +5,8 @@
 $nav-bar-color:       #6B1412;
 $nav-sub-bar-color:   #222;
 $top-bar-js-breakpoint-width:   1090px;
-$top-bar-js-breakpoint_media-width:   550px;
+$top-bar-js-breakpoint_media-width:   450px;
+$breakpoint-width-767:   500px;
 
 *, *:before, *:after { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 
@@ -223,7 +224,7 @@ form.custom .custom.disabled { background-color: #dddddd; }
 .lt-ie9 form.custom div.custom.dropdown a.selector { height: 30px; }
 
 /* The Grid ---------------------- */
-.row { width: $top-bar-js-breakpoint-width; max-width: 100%; min-width: 768px; margin: 0 auto; }
+.row { width: $top-bar-js-breakpoint-width; max-width: 100%; min-width: $breakpoint-width-767; margin: 0 auto; }
 .row .row { width: auto; max-width: none; min-width: 0; margin: 0 -15px; }
 .row.collapse .column, .row.collapse .columns { padding: 0; }
 .row .row { width: auto; max-width: none; min-width: 0; margin: 0 -15px; }
@@ -585,7 +586,7 @@ div.orbit, div.orbit-wrapper { width: 100% !important; }
 
 .lt-ie9 div.orbit-caption { background: black; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,endColorstr=#99000000); zoom: 1; }
 
-@media only screen and (max-width: 767px) { div.orbit.orbit-stack-on-small img.fluid-placeholder { visibility: visible; }
+@media only screen and (max-width: $breakpoint-width-767) { div.orbit.orbit-stack-on-small img.fluid-placeholder { visibility: visible; }
   div.orbit.orbit-stack-on-small .orbit-slide { position: static; margin-bottom: 10px; } }
 /* CSS for jQuery Reveal Plugin Maintained for Foundation. foundation.zurb.com Free to use under the MIT license. http://www.opensource.org/licenses/mit-license.php */
 /* Reveal Modals ---------------------- */
@@ -990,10 +991,10 @@ ul.block-grid[data-clearing] { overflow: visible; }
 @media only screen and (min-width: 1441px) { .hide-for-small, .hide-for-medium, .hide-for-medium-down, .hide-for-large, .show-for-large-up, .show-for-xlarge { display: inherit !important; }
   .show-for-small, .show-for-medium, .show-for-medium-down, .show-for-large, .hide-for-large-up, .hide-for-xlarge { display: none !important; } }
 /* Medium display targeting */
-@media only screen and (max-width: 1279px) and (min-width: 768px) { .hide-for-small, .show-for-medium, .show-for-medium-down, .hide-for-large, .hide-for-large-up, .hide-for-xlarge { display: inherit !important; }
+@media only screen and (max-width: 1279px) and (min-width: $breakpoint-width-767) { .hide-for-small, .show-for-medium, .show-for-medium-down, .hide-for-large, .hide-for-large-up, .hide-for-xlarge { display: inherit !important; }
   .show-for-small, .hide-for-medium, .hide-for-medium-down, .show-for-large, .show-for-large-up, .show-for-xlarge { display: none !important; } }
 /* Small display targeting */
-@media only screen and (max-width: 767px) { .show-for-small, .hide-for-medium, .show-for-medium-down, .hide-for-large, .hide-for-large-up, .hide-for-xlarge { display: inherit !important; }
+@media only screen and (max-width: $breakpoint-width-767) { .show-for-small, .hide-for-medium, .show-for-medium-down, .hide-for-large, .hide-for-large-up, .hide-for-xlarge { display: inherit !important; }
   .hide-for-small, .show-for-medium, .hide-for-medium-down, .show-for-large, .show-for-large-up, .show-for-xlarge { display: none !important; } }
 /* Orientation targeting */
 .show-for-landscape, .hide-for-portrait { display: inherit !important; }
@@ -1016,16 +1017,16 @@ ul.block-grid[data-clearing] { overflow: visible; }
 /* Specific overrides for elements that require something other than display: block */
 table.show-for-xlarge, table.show-for-large, table.hide-for-small, table.hide-for-medium { display: table !important; }
 
-@media only screen and (max-width: 1279px) and (min-width: 768px) { .touch table.hide-for-xlarge, .touch table.hide-for-large, .touch table.hide-for-small, .touch table.show-for-medium { display: table !important; } }
-@media only screen and (max-width: 767px) { table.hide-for-xlarge, table.hide-for-large, table.hide-for-medium, table.show-for-small { display: table !important; } }
+@media only screen and (max-width: 1279px) and (min-width: $breakpoint-width-767) { .touch table.hide-for-xlarge, .touch table.hide-for-large, .touch table.hide-for-small, .touch table.show-for-medium { display: table !important; } }
+@media only screen and (max-width: $breakpoint-width-767) { table.hide-for-xlarge, table.hide-for-large, table.hide-for-medium, table.show-for-small { display: table !important; } }
 /* 1280 tablet ------------ */
 @media only screen and (max-device-width: 1280px) { /* NavBar --- */
   /*            */
   .touch .nav-bar li.has-flyout > a { padding-right: 36px !important; } }
 /* Covering almost all ----- */
-@media only screen and (max-device-width: 800px), only screen and (device-width: 1024px) and (device-height: 600px), only screen and (width: 1280px) and (orientation: landscape), only screen and (device-width: 800px), only screen and (max-width: 767px) { .flex-video { padding-top: 0; } }
+@media only screen and (max-device-width: 800px), only screen and (device-width: 1024px) and (device-height: 600px), only screen and (width: 1280px) and (orientation: landscape), only screen and (device-width: 800px), only screen and (max-width: $breakpoint-width-767) { .flex-video { padding-top: 0; } }
 /* Between Medium and Small */
-@media only screen and (max-width: 1279px) and (min-width: 768px) { /* NavBar --- */
+@media only screen and (max-width: 1279px) and (min-width: $breakpoint-width-767) { /* NavBar --- */
   /*            */
   .touch .nav-bar li a { font-size: 13px; }
   .touch .nav-bar li.has-flyout > a.flyout-toggle { padding: 20px !important; }
@@ -1039,7 +1040,7 @@ table.show-for-xlarge, table.show-for-large, table.hide-for-small, table.hide-fo
   .clearing-main-right { height: 100%; right: 0; }
   .clearing-main-right:before { content: ""; display: block; width: 0; height: 0; border: solid 16px; border-color: transparent transparent transparent white; } }
 /* Small Devices ------------ */
-@media only screen and (max-width: 767px) { /* Global Misc --- */
+@media only screen and (max-width: $breakpoint-width-767) { /* Global Misc --- */
   /*                 */
   .left, .right { float: none; }
   body { -webkit-text-size-adjust: none; -ms-text-size-adjust: none; width: 100%; min-width: 0; margin-left: 0; margin-right: 0; padding-left: 0; padding-right: 0; }

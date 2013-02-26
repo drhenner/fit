@@ -1,5 +1,6 @@
 class Admin::BaseController < ApplicationController
   layout 'admin'
+  skip_before_filter :redirect_to_welcome
 
   before_filter :verify_admin
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121123184227) do
+ActiveRecord::Schema.define(:version => 20130226202951) do
 
   create_table "accounting_adjustments", :force => true do |t|
     t.integer  "adjustable_id",                                 :null => false
@@ -528,6 +528,14 @@ ActiveRecord::Schema.define(:version => 20121123184227) do
     t.string "name", :null => false
   end
 
+  create_table "signups", :force => true do |t|
+    t.string   "email",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "signups", ["email"], :name => "index_signups_on_email", :unique => true
+
   create_table "slugs", :force => true do |t|
     t.string   "name"
     t.integer  "sluggable_id"
@@ -639,9 +647,11 @@ ActiveRecord::Schema.define(:version => 20121123184227) do
     t.integer  "comments_count",    :default => 0
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
+    t.integer  "country_id"
   end
 
   add_index "users", ["access_token"], :name => "index_users_on_access_token", :unique => true
+  add_index "users", ["country_id"], :name => "index_users_on_country_id"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["first_name"], :name => "index_users_on_first_name"
   add_index "users", ["last_name"], :name => "index_users_on_last_name"

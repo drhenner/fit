@@ -1,12 +1,5 @@
 ##This is a random list of thoughts that I would like todo.
 
-add tax and not adding tax
-
-global flag for VAT
-
-VAT tax calculation:
-100E (1/(1 - tax%))
-
 ---------
 
 Github Wiki is git based
