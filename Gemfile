@@ -2,6 +2,9 @@ source 'http://rubygems.org'
 
 ## Bundle rails:
 gem 'rails', '3.2.11'
+#gem 'heroku-api'
+#gem 'heroku'
+#gem 'taps'
 
 group :assets do
   #gem 'coffee-rails', "~> 3.1.0"
