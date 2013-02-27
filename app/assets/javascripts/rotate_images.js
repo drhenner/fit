@@ -23,7 +23,7 @@ if (typeof Hadean.Welcome.rotateImages == "undefined") {
         },
         isMobile : function(){
           return ( /Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent) );
-        }
+        },
         next : function(){
           if (Hadean.Welcome.rotateImages.isMobile()) {
             $('.anystretch img').hide();
