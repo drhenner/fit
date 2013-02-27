@@ -13,7 +13,8 @@ body {
     left:0px;
 
     div#input-fields {
-      min-height:232.375px;
+      min-height:335px;
+      float:none;
       //@include opacity(0.5);
       font-family: MyriadPro, 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
       font-weight:14px;
@@ -27,6 +28,9 @@ body {
       }
       #please-subscribe {width: 240px;}
       #congrats_user {font-size:20px;line-height: 32px;}
+    }
+    div#ufcfit-logo {
+      float:none;
     }
     #background-transparent {
       background-color:#333;
@@ -55,7 +59,7 @@ body {
     ul#signup_form {
       list-style:none;
       width:200px;
-      li {display:block;}
+      li {display:block;width:183px;}
 
       input[type="email"], input[type="text"]{
         height: 26px;
@@ -78,6 +82,7 @@ body {
     .styled-select {
       @include border-radius(2px, 2px);
       height: 26px;
+      width:183px;
       overflow: hidden;
       background: image-url('down_arrow_select.jpg') no-repeat right #bbb;
       border: 1px solid #ccc;
