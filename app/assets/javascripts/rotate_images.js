@@ -31,7 +31,7 @@ if (typeof Hadean.Welcome.rotateImages == "undefined") {
             $('#signup_form_wrapper').css('background-color', '#888');
             $('#signup_form_wrapper').css('top', 0);
             $('#signup_form_wrapper').css('left', 0);
-            $('#input-fields').css('width', 355);
+            $('#input-fields').css('width', 353);
             $('#input-fields').css('float', 'none');
             $('#input-fields').css('min-height', '335px');
             $('#background-transparent').css('min-height', '335px');
@@ -40,8 +40,8 @@ if (typeof Hadean.Welcome.rotateImages == "undefined") {
             $.each($('#input-fields li'), function(index, obj){
               $(obj).removeClass();
             })
-            $('#background-transparent').css('width', 355);
-            $('#background-non-transparent').css('width', 355);
+            $('#background-transparent').css('width', 353);
+            $('#background-non-transparent').css('width', 353);
             $('#ufcfit-logo').css('float', 'none');
 
           } else {
