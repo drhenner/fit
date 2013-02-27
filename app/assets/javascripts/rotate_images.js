@@ -27,8 +27,23 @@ if (typeof Hadean.Welcome.rotateImages == "undefined") {
         next : function(){
           if (Hadean.Welcome.rotateImages.isMobile()) {
             $('.anystretch img').hide();
+
+            $('#signup_form_wrapper').css('background-color', '#888');
             $('#signup_form_wrapper').css('top', 0);
             $('#signup_form_wrapper').css('left', 0);
+            $('#input-fields').css('width', 355);
+            $('#input-fields').css('float', 'none');
+            $('#input-fields').css('min-height', '335px');
+            $('#background-transparent').css('min-height', '335px');
+            $('#background-non-transparent').css('min-height', '335px');
+            $('#background-non-transparent').css('padding-left', 8);
+            $.each($('#input-fields li'), function(index, obj){
+              $(obj).removeClass();
+            })
+            $('#background-transparent').css('width', 355);
+            $('#background-non-transparent').css('width', 355);
+            $('#ufcfit-logo').css('float', 'none');
+
           } else {
             $('.anystretch').show();
             $.anystretch(Hadean.Welcome.rotateImages.images[Hadean.Welcome.rotateImages.currentIndex], {speed: Hadean.Welcome.rotateImages.transitionSpeed});
