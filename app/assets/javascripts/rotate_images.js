@@ -21,12 +21,15 @@ if (typeof Hadean.Welcome.rotateImages == "undefined") {
         setNext : function(){
           setTimeout('Hadean.Welcome.rotateImages.next()', Hadean.Welcome.rotateImages.speed);
         },
+        isMobile : function(){
+          return ( /Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent) );
+        }
         next : function(){
-          if ($('body').width() >= 500) {
+          if (Hadean.Welcome.rotateImages.isMobile()) {
+            $('.anystretch img').hide();
+          } else {
             $('.anystretch').show();
             $.anystretch(Hadean.Welcome.rotateImages.images[Hadean.Welcome.rotateImages.currentIndex], {speed: Hadean.Welcome.rotateImages.transitionSpeed});
-          } else {
-            $('.anystretch img').hide();
           }
 
           Hadean.Welcome.rotateImages.currentIndex = Hadean.Welcome.rotateImages.nextIndex();
