@@ -27,6 +27,8 @@ if (typeof Hadean.Welcome.rotateImages == "undefined") {
         next : function(){
           if (Hadean.Welcome.rotateImages.isMobile()) {
             $('.anystretch img').hide();
+            $('#signup_form_wrapper').css('top', 0);
+            $('#signup_form_wrapper').css('left', 0);
           } else {
             $('.anystretch').show();
             $.anystretch(Hadean.Welcome.rotateImages.images[Hadean.Welcome.rotateImages.currentIndex], {speed: Hadean.Welcome.rotateImages.transitionSpeed});
