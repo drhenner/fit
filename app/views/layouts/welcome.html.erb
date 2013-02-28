@@ -65,5 +65,6 @@
   </script>
 
 </body>
+  <%= render 'shared/google_analytics' unless @disable_ga %>
   <%= yield :below_body %>
 </html>
