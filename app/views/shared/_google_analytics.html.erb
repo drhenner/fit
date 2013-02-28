@@ -1,0 +1,46 @@
+<% tracker = Settings.google.analytics_code %>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', '<%= tracker %>']);
+  _gaq.push(['_setDomainName', 'ufcfit.com']);
+
+  <% if flash[:analytics] -%>
+    _gaq.push(['_trackPageview', '<%=flash[:analytics]%>']);
+  <% else -%>
+    _gaq.push(['_trackPageview']);
+  <% end -%>
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  <% if flash[:commerce_tracking] && @order %>
+    // report e-commerce transaction information when applicable
+    _gaq.push(['_addTrans',
+      '<%= @order.number %>', //Order Number
+      '', //Affiliation
+      '<%= @order.total %>', //Order total
+      '<%= @order.tax_charges %>', //Tax Amount
+      '<%= @order.shipping_charges %>', //Ship Amount
+      '', //City
+      '', //State
+      ''  //Country
+    ]);
+
+    <% @order.order_items.each do |order_item| -%>
+      _gaq.push(['_addItem',
+        '<%= @order.number %>',
+        '<%= order_item.variant.sku %>',
+        '<%= order_item.variant.product_name %>',
+        '', // category or variation
+        '<%= order_item.price %>',
+        '1'
+      ]);
+    <% end %>
+
+    _gaq.push(['_trackTrans']);
+  <% end %>
+</script>
