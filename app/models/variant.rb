@@ -90,6 +90,10 @@ class Variant < ActiveRecord::Base
     deleted_at ? true : false
   end
 
+  def subscription_plan_name
+    subscription_plan ? subscription_plan.name : '---'
+  end
+
   # returns true if the stock level is above or == the out of stock level
   #
   # @param [none]

@@ -1,4 +1,5 @@
 class Admin::Merchandise::Multi::VariantsController < Admin::BaseController
+  helper_method :subscription_plans
   def edit
     @product        = Product.includes(:properties,:product_properties, {:prototype => :properties}).find(params[:product_id])
     form_info
@@ -20,5 +21,9 @@ class Admin::Merchandise::Multi::VariantsController < Admin::BaseController
 
   def form_info
     @brands = Brand.all.collect{|b| [b.name, b.id] }
+  end
+
+  def subscription_plans
+    @subscription_plans ||= SubscriptionPlan.all.collect{|b| [b.name, b.id] }
   end
 end
