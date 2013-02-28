@@ -40,6 +40,7 @@ class Product < ActiveRecord::Base
   has_many :properties,          :through => :product_properties
 
   has_many :variants
+  has_many :image_groups
   has_many :images, :as         => :imageable,
                     :order      => :position,
                     :dependent  => :destroy
@@ -84,6 +85,10 @@ class Product < ActiveRecord::Base
   # @return [String] name of the file to show from the public folder
   def featured_image(image_size = :small)
     images.first ? images.first.photo.url(image_size) : "no_image_#{image_size.to_s}.jpg"
+  end
+
+  def image_urls(image_size = :small)
+    images.empty? ? ["no_image_#{image_size.to_s}.jpg"] : images.map{|i| i.photo.url(image_size) }
   end
 
   # Price of cheapest variant

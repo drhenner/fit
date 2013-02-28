@@ -38,6 +38,7 @@ class Variant < ActiveRecord::Base
   belongs_to :brand
   belongs_to :inventory
   belongs_to :subscription_plan
+  belongs_to :image_group
 
   before_validation :create_inventory, :on => :create
 
@@ -67,6 +68,10 @@ class Variant < ActiveRecord::Base
   # @return [Boolean]
   def quantity_purchaseable(admin_purchase = false)
     admin_purchase ? (quantity_available - ADMIN_OUT_OF_STOCK_QTY) : (quantity_available - OUT_OF_STOCK_QTY)
+  end
+
+  def image_urls(image_size = :small)
+    image_group ? image_group.image_urls(image_size) : product.image_urls(image_size)
   end
 
   # returns quantity available in stock
