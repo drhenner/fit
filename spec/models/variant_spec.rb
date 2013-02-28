@@ -290,10 +290,11 @@ end
 describe Variant, "#admin_grid(product, params = {})" do
   it "should return variants for a specific product" do
     product = create(:product)
-    variant1 = create(:variant, :product => product)
-    variant2 = create(:variant, :product => product)
+    variant1 = create(:variant, :product_id => product.id)
+    variant2 = create(:variant, :product_id => product.id)
     admin_grid = Variant.admin_grid(product)
     admin_grid.size.should == 2
-    admin_grid.should == [variant1, variant2]
+    admin_grid.include?(variant1).should be_true
+    admin_grid.include?(variant2).should be_true
   end
 end

@@ -103,6 +103,7 @@ class User < ActiveRecord::Base
   has_many    :roles,                     :through => :user_roles
 
   has_many    :carts,                     :dependent => :destroy
+  has_many    :subscriptions
 
   has_many    :cart_items
   has_many    :shopping_cart_items,       :conditions => {:cart_items => { :active        => true,

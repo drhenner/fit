@@ -37,6 +37,7 @@ class Variant < ActiveRecord::Base
   belongs_to :product
   belongs_to :brand
   belongs_to :inventory
+  belongs_to :subscription_plan
 
   before_validation :create_inventory, :on => :create
 

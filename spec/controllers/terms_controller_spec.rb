@@ -4,6 +4,7 @@ describe TermsController do
   render_views
 
   it "index action should render index template" do
+    @controller.stubs(:redirect_to_welcome)
     get :index
     response.should render_template(:index)
   end

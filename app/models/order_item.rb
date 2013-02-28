@@ -21,6 +21,7 @@ class OrderItem < ActiveRecord::Base
   belongs_to :variant
   belongs_to :tax_rate
   belongs_to :shipment
+  has_one :subscription
 
   has_many   :return_items
 

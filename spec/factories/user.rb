@@ -5,6 +5,7 @@ FactoryGirl.define do
     sequence(:email)      { |n| "person#{n}@example.com" }
     password              'pasword'
     password_confirmation "pasword"
+    country_id  Country::USA_ID
     after(:build) {|user| user.send(:initialize_state_machines, :dynamic => :force)}
   end
 

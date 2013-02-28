@@ -19,6 +19,7 @@ describe Shopping::CouponsController do
     @order_item   = create(:order_item, :order => @order, :variant => @variant)
     @order.stubs(:order_items).returns([@order_item])
     @controller.stubs(:find_or_create_order).returns(@order)
+    @controller.stubs(:redirect_to_welcome)
   end
 
   it "show action should render show template" do

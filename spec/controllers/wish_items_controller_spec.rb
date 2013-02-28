@@ -4,6 +4,7 @@ describe WishItemsController do
   render_views
 
   it "redirect to login if no current_user" do
+    @controller.stubs(:redirect_to_welcome)
     get :index
     response.should redirect_to(login_url)
   end
@@ -17,7 +18,7 @@ describe WishItemsController do
     login_as(@cur_user)
     @variant = create(:variant)
     @wish_item = create(:cart_item, :item_type_id => ItemType::WISH_LIST_ID, :user_id => @cur_user.id, :variant => @variant)
-
+    @controller.stubs(:redirect_to_welcome)
   end
   it "index action should render index template" do
     get :index

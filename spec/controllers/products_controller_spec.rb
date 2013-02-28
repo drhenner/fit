@@ -8,6 +8,7 @@ describe ProductsController do
     @variant.stubs(:primary_property).returns(nil)
     @variant.stubs(:properties).returns(nil)
     @product.activate!
+    @controller.stubs(:redirect_to_welcome)
   end
 
   it "index action should render index template" do

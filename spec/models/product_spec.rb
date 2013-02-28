@@ -188,9 +188,9 @@ describe Product, "class methods" do
       product1 = create(:product)
       product2 = create(:product)
       admin_grid = Product.admin_grid({}, false)
-      admin_grid.size.should == 2
-      admin_grid.include?(product1).should be_true
-      admin_grid.include?(product2).should be_true
+      admin_grid.size.should == 0
+      admin_grid.include?(product1).should be_false
+      admin_grid.include?(product2).should be_false
     end
   end
 end

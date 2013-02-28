@@ -3,6 +3,10 @@ require  'spec_helper'
 describe Customer::PasswordResetsController do
   render_views
 
+  before do
+    @controller.stubs(:redirect_to_welcome)
+  end
+
   it "new action should render new template" do
     @user = create(:user)
     get :new

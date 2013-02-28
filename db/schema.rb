@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130226202951) do
+ActiveRecord::Schema.define(:version => 20130227201054) do
 
   create_table "accounting_adjustments", :force => true do |t|
     t.integer  "adjustable_id",                                 :null => false
@@ -215,16 +215,17 @@ ActiveRecord::Schema.define(:version => 20130226202951) do
   end
 
   create_table "order_items", :force => true do |t|
-    t.decimal  "price",            :precision => 8, :scale => 2
-    t.decimal  "total",            :precision => 8, :scale => 2
-    t.integer  "order_id",                                       :null => false
-    t.integer  "variant_id",                                     :null => false
-    t.string   "state",                                          :null => false
+    t.decimal  "price",             :precision => 8, :scale => 2
+    t.decimal  "total",             :precision => 8, :scale => 2
+    t.integer  "order_id",                                        :null => false
+    t.integer  "variant_id",                                      :null => false
+    t.string   "state",                                           :null => false
     t.integer  "tax_rate_id"
     t.integer  "shipping_rate_id"
     t.integer  "shipment_id"
-    t.datetime "created_at",                                     :null => false
-    t.datetime "updated_at",                                     :null => false
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
+    t.boolean  "subscription_item"
   end
 
   add_index "order_items", ["order_id"], :name => "index_order_items_on_order_id"
@@ -569,6 +570,33 @@ ActiveRecord::Schema.define(:version => 20130226202951) do
 
   add_index "store_credits", ["user_id"], :name => "index_store_credits_on_user_id"
 
+  create_table "subscription_plans", :force => true do |t|
+    t.string   "name",           :null => false
+    t.string   "stripe_id",      :null => false
+    t.integer  "amount",         :null => false
+    t.integer  "total_payments"
+    t.string   "interval",       :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "subscription_plans", ["stripe_id"], :name => "index_subscription_plans_on_stripe_id"
+
+  create_table "subscriptions", :force => true do |t|
+    t.integer  "subscription_plan_id",                     :null => false
+    t.integer  "user_id",                                  :null => false
+    t.integer  "order_id"
+    t.string   "stripe_customer_token",                    :null => false
+    t.integer  "total_payments"
+    t.boolean  "active",                :default => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+  end
+
+  add_index "subscriptions", ["order_id"], :name => "index_subscriptions_on_order_id"
+  add_index "subscriptions", ["subscription_plan_id"], :name => "index_subscriptions_on_subscription_plan_id"
+  add_index "subscriptions", ["user_id"], :name => "index_subscriptions_on_user_id"
+
   create_table "suppliers", :force => true do |t|
     t.string   "name",       :null => false
     t.string   "email"
@@ -684,22 +712,24 @@ ActiveRecord::Schema.define(:version => 20130226202951) do
   add_index "variant_suppliers", ["variant_id"], :name => "index_variant_suppliers_on_variant_id"
 
   create_table "variants", :force => true do |t|
-    t.integer  "product_id",                                                    :null => false
-    t.string   "sku",                                                           :null => false
+    t.integer  "product_id",                                                            :null => false
+    t.string   "sku",                                                                   :null => false
     t.string   "name"
-    t.decimal  "price",        :precision => 8, :scale => 2, :default => 0.0,   :null => false
-    t.decimal  "cost",         :precision => 8, :scale => 2, :default => 0.0,   :null => false
+    t.decimal  "price",                :precision => 8, :scale => 2, :default => 0.0,   :null => false
+    t.decimal  "cost",                 :precision => 8, :scale => 2, :default => 0.0,   :null => false
     t.datetime "deleted_at"
-    t.boolean  "master",                                     :default => false, :null => false
-    t.datetime "created_at",                                                    :null => false
-    t.datetime "updated_at",                                                    :null => false
+    t.boolean  "master",                                             :default => false, :null => false
+    t.datetime "created_at",                                                            :null => false
+    t.datetime "updated_at",                                                            :null => false
     t.integer  "brand_id"
     t.integer  "inventory_id"
+    t.integer  "subscription_plan_id"
   end
 
   add_index "variants", ["brand_id"], :name => "index_variants_on_brand_id"
   add_index "variants", ["inventory_id"], :name => "index_variants_on_inventory_id"
   add_index "variants", ["product_id"], :name => "index_variants_on_product_id"
   add_index "variants", ["sku"], :name => "index_variants_on_sku"
+  add_index "variants", ["subscription_plan_id"], :name => "index_variants_on_subscription_plan_id"
 
 end

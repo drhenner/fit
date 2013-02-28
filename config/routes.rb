@@ -121,6 +121,7 @@ Hadean::Application.routes.draw do
       resources :shipping_rates
       resources :shipping_methods
       resources :shipping_zones
+      resources :subscription_plans
       resources :tax_rates
       resources :tax_categories
     end

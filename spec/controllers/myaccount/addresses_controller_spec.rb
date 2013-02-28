@@ -9,6 +9,7 @@ describe Myaccount::AddressesController do
 
     @user = create(:user)
     login_as(@user)
+    @controller.stubs(:redirect_to_welcome)
   end
 
 

@@ -7,6 +7,7 @@ describe Myaccount::CreditCardsController do
     activate_authlogic
     @user = create(:user)
     login_as(@user)
+    @controller.stubs(:redirect_to_welcome)
   end
 
   it "index action should render index template" do
@@ -74,11 +75,13 @@ describe Myaccount::CreditCardsController do
   render_views
 
   it "index action should go to login page" do
+    @controller.stubs(:redirect_to_welcome)
     get :index
     response.should redirect_to(login_url)
   end
 
   it "show action should go to login page" do
+    @controller.stubs(:redirect_to_welcome)
     @credit_card = create(:payment_profile)
     get :show, :id => @credit_card.id
     response.should redirect_to(login_url)
