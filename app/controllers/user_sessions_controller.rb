@@ -14,11 +14,12 @@ class UserSessionsController < ApplicationController
       ## if there is a cart make sure the user_id is correct
       set_user_to_cart_items
       flash[:notice] = I18n.t('login_successful')
-
-      respond_to do |format|
-        format.json { render :json => @user_session.to_json }
-        format.html { redirect_back_or_default root_url }
-      end
+@user = User.new
+render :template => '/welcome/index', :layout => 'welcome'
+      #respond_to do |format|
+      #  format.json { render :json => @user_session.to_json }
+      #  format.html { redirect_to root_url }
+      #end
     else
       @user = User.new
       respond_to do |format|
