@@ -16,7 +16,7 @@ Hadean::Application.configure do
       ############################################################################################
       "
     end
-    unless Settings.authnet.login
+    unless Settings.stripe.secret_key
       puts "
       ############################################################################################
       ############################################################################################
@@ -24,14 +24,9 @@ Hadean::Application.configure do
       !  copy settings.yml.example to settings.yml
       !
       !  YOUR ENV variables are not ready for checkout!
-      !  please adjust ENV['AUTHNET_LOGIN'] && ENV['AUTHNET_PASSWORD']
+      !  please adjust ENV['STRIPE_SECRET_KEY'] && ENV['STRIPE_PUBLISHABLE_KEY']
       !  if you are not using authorize.net go to each file in /config/environments/*.rb and
       !  adjust the following code accordingly...
-
-      ::GATEWAY = ActiveMerchant::Billing::AuthorizeNetGateway.new(
-        :login    => Settings.authnet.login,
-        :password => Settings.authnet.password
-      )
 
       !  This is required for the checkout process to work.
       !

@@ -118,11 +118,6 @@ Hadean::Application.configure do
       :test     => true
     )
 
-    ::CIM_GATEWAY = ActiveMerchant::Billing::AuthorizeNetCimGateway.new(
-      :login    => Settings.authnet.login,
-      :password => Settings.authnet.password,
-      :test     => true
-    )
     Paperclip::Attachment.default_options[:storage] = :s3
     #::GATEWAY = ActiveMerchant::Billing::BraintreeGateway.new(
     #  :login     => Settings.braintree.login
