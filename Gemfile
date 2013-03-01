@@ -7,7 +7,6 @@ gem 'rails', '3.2.11'
 #gem 'taps'
 
 group :assets do
-  #gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier', '>= 1.0.3'
 end
   gem 'sass-rails', "  ~> 3.2.3"
@@ -19,7 +18,7 @@ gem "asset_sync"
 gem 'aws-sdk'
 gem 'bluecloth',     '~> 2.1.0'
 gem 'cancan', '~> 1.6.8'
-gem 'compass'#, '~> 0.13.0'
+gem 'compass', '~> 0.12.2'
 gem 'compass-rails'
 gem 'dalli'#, '~> 1.0.2'
 
@@ -32,7 +31,7 @@ gem 'json', '~>1.7.7'
 gem 'mandrill-api'#, :git => 'git@github.com:drhenner/mandrill-api-ruby.git'
 gem 'nested_set', '~> 1.7.0'
 #gem "nifty-generators", :git => 'git://github.com/drhenner/nifty-generators.git'
-gem 'nokogiri', '~> 1.5.0'
+gem 'nokogiri', '~> 1.5.6'
 gem 'paperclip', '~> 3.0'
 gem 'prawn', '~> 0.12.0'
 
@@ -53,7 +52,6 @@ group :production do
 end
 
 group :development do
-  gem 'sqlite3'
   #gem 'awesome_print'
   #gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
   gem "autotest-rails-pure"
