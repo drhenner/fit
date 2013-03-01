@@ -37,6 +37,7 @@ Hadean::Application.configure do
   config.action_dispatch.best_standards_support = :builtin
 
   config.cache_store = :memory_store
+  #config.cache_store = :dalli_store
 
   #config.cache_store = :dalli_store
   #config.cache_store = :redis_store
