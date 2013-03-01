@@ -7,12 +7,12 @@ gem 'rails', '3.2.11'
 #gem 'taps'
 
 group :assets do
-  gem 'uglifier', '>= 1.0.3'
+  gem 'uglifier', '>= 1.3.0'
 end
   gem 'sass-rails', "  ~> 3.2.3"
 
 gem "activemerchant", '~> 1.29.3'#, :lib => 'active_merchant'
-gem "american_date"
+gem "american_date", '~> 1.0'
 gem 'authlogic'#, "3.2.0"
 gem "asset_sync"
 gem 'aws-sdk'
