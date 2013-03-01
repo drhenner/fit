@@ -21,7 +21,7 @@ gem 'bluecloth',     '~> 2.1.0'
 gem 'cancan', '~> 1.6.8'
 gem 'compass'#, '~> 0.13.0'
 gem 'compass-rails'
-#  gem 'dalli', '~> 1.0.2'
+gem 'dalli'#, '~> 1.0.2'
 
 gem 'dynamic_form'
 gem "friendly_id", "~> 3.3"
@@ -29,6 +29,7 @@ gem 'haml',  ">= 3.0.13"#, ">= 3.0.4"#, "2.2.21"#,
 gem "jquery-rails"
 gem 'json', '~>1.7.7'
 
+gem 'mandrill-api'#, :git => 'git@github.com:drhenner/mandrill-api-ruby.git'
 gem 'nested_set', '~> 1.7.0'
 #gem "nifty-generators", :git => 'git://github.com/drhenner/nifty-generators.git'
 gem 'nokogiri', '~> 1.5.0'
@@ -47,7 +48,7 @@ gem 'will_paginate', '~> 3.0.4'
 
 #gem 'memcache-client', '~> 1.8.5'
 group :production do
-  gem 'mysql2', '~> 0.3.10'
+  #gem 'mysql2', '~> 0.3.10'
   gem 'pg'
 end
 
@@ -61,8 +62,8 @@ group :development do
   gem "debugger"
 
   # YARD AND REDCLOTH are for generating yardocs
-  gem 'yard'
-  gem 'RedCloth'
+  #gem 'yard'
+  #gem 'RedCloth'
 end
 group :test, :development do
   gem 'capybara', "~> 1.1"#, :git => 'git://github.com/jnicklas/capybara.git'

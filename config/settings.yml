@@ -45,3 +45,9 @@ stripe:
   secret_key: <%= ENV['STRIPE_SECRET_KEY'] %>
   secret_publishable_key: <%= ENV['STRIPE_PUBLISHABLE_KEY'] %>
 
+mandrill:
+  host: smtp.mandrillapp.com
+  port: 587
+  smtp_username: <%= ENV['MANDRILL_USERNAME'] %>
+  smtp_password: <%= ENV['MANDRILL_APIKEY'] %>
+
