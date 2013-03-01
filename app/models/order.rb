@@ -199,7 +199,6 @@ class Order < ActiveRecord::Base
   def order_complete!
     self.state = 'complete'
     self.completed_at = Time.zone.now
-set_stripe_token_to_subscriptions
     update_inventory
   end
 
@@ -328,6 +327,10 @@ set_stripe_token_to_subscriptions
     (find_total - amount_to_credit).round_at( 2 )
   end
 
+
+  def integer_credited_total
+    (credited_total * 100.0).to_i
+  end
   # amount to credit based off the user store credit
   #
   # @param [none]
@@ -580,10 +583,11 @@ set_stripe_token_to_subscriptions
   def create_invoice_transaction(credit_card, charge_amount, payment_method, credited_amount = 0.0)
     invoice_statement = Invoice.generate(self.id, charge_amount, payment_method, credited_amount)
     invoice_statement.save
-    invoice.capture_stripe_customer_payment(payment_method.customer_token)
+    invoice_statement.capture_stripe_customer_payment(payment_method.customer_token)
     invoices.push(invoice_statement)
     if invoice_statement.succeeded?
       self.order_complete! #complete!
+      set_stripe_token_to_subscriptions(invoice_statement)
       self.save
     else
       #role_back
@@ -592,5 +596,9 @@ set_stripe_token_to_subscriptions
 
     end
     invoice_statement
+  end
+
+  def set_stripe_token_to_subscriptions(invoice)
+    Subscription.where('order_item_id IN (?)', order_items.map(&:id)).update_all(["stripe_customer_token = ?, active = ?",invoice.customer_token, true])
   end
 end

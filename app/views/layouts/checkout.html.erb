@@ -15,7 +15,7 @@
       <%= stylesheet_link_tag 'ie6.css', :media => 'screen, projection' %>
   <![endif]-->
   <%= csrf_meta_tag %>
-  <%= tag :meta, :name => "stripe-key", :content => Settings.stripe.key.publishable %>
+  <%= tag :meta, :name => "stripe-key", :content => Settings.stripe.publishable_key %>
 
   <%= javascript_include_tag 'application' %>
   <%= javascript_include_tag "foundation" %>

@@ -1,5 +1,7 @@
 class Shopping::OrdersController < Shopping::BaseController
   before_filter :require_login
+
+  layout 'checkout'
   # GET /shopping/orders
   ### The intent of this action is two fold
   #
@@ -14,6 +16,14 @@ class Shopping::OrdersController < Shopping::BaseController
       redirect_to f
     else
       form_info
+    end
+  end
+  # method stripe calls to get the order total right before getting the token
+  def show
+    @order = find_or_create_order
+    @order.credited_total
+    respond_to do |format|
+      format.json  { render :json => @order.to_json(:only => [:number, :integer_credited_total], :methods => [:integer_credited_total]) }
     end
   end
 
@@ -31,7 +41,7 @@ class Shopping::OrdersController < Shopping::BaseController
     @order = find_or_create_order
     @order.ip_address = request.remote_ip
 
-    @credit_card ||= ActiveMerchant::Billing::CreditCard.new(cc_params)
+    @credit_card ||= ActiveMerchant::Billing::CreditCard.new()
 
     address = @order.bill_address.cc_params
 
@@ -39,7 +49,7 @@ class Shopping::OrdersController < Shopping::BaseController
       session_cart.mark_items_purchased(@order)
       flash[:error] = I18n.t('the_order_purchased')
       redirect_to myaccount_order_url(@order)
-    elsif @credit_card.valid?
+    elsif payment_profile
       if response = @order.create_invoice(@credit_card,
                                           @order.credited_total,
                                           payment_profile,
@@ -58,15 +68,47 @@ class Shopping::OrdersController < Shopping::BaseController
       render :action => 'index'
     else
       form_info
-      flash[:alert] = [I18n.t('credit_card'), I18n.t('is_not_valid')].join(' ')
+      flash[:alert] = [I18n.t('form not filled out correctly')].join(' ')
       render :action => 'index'
     end
   end
 
   private
 
+  def payment_profile
+    return @payment_profile if @payment_profile
+    if create_a_new_profile?
+      @payment_profile = current_user.payment_profiles.new(cc_params)
+      @payment_profile.active = save_card?
+      @payment_profile.save!
+      @payment_profile
+    elsif params[:use_credit_card_on_file].present? #charge the profile
+      @payment_profile = current_user.payment_profiles.find_by_id(params[:use_credit_card_on_file])
+    end
+  end
+
+  def cc_params
+    {"first_name"       => params[:first_name],
+    "last_name"         => params[:last_name],
+    "stripe_card_token" => params[:stripe_card_token],
+    "cc_type"           => params[:brand],
+    "month"             => params[:month],
+    "year"              => params[:year],
+    "active"            => save_card?,
+    :address_id         => @order.bill_address_id}
+  end
+
+  def create_a_new_profile?
+    params[:stripe_card_token].present?
+  end
+
+  def save_card?
+    params[:save_card] == '1'
+  end
+
   def form_info
     @credit_card ||= ActiveMerchant::Billing::CreditCard.new()
+    @payment_profiles = current_user.active_payment_profiles
     @order.credited_total
   end
   def require_login

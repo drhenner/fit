@@ -1,6 +1,12 @@
 <% content_for :head do -%>
   <%= stylesheet_link_tag 'tables.css' %>
 <% end %>
+
+<% content_for :below_body do -%>
+  <%= javascript_include_tag 'validators.js' %>
+  <%= javascript_include_tag 'shopping/checkout.js' %>
+<% end %>
+
 <div id='order-wrapper' class='twelve'>
   <div class='seven columns'>
     <h1>Order Summary</h1>
@@ -68,50 +74,55 @@
 
       <tfoot>
         <tr class='even'>
-          <td></td><td>Total:</td><td><em><%= number_to_currency @order.credited_total %></em></td>
+          <td></td><td>Total:</td>
+          <td id='credited_total' data-integer_credited_total='<%= @order.integer_credited_total %>'>
+            <em><%= number_to_currency @order.credited_total %></em>
+          </td>
         </tr>
       </tfoot>
     </table>
     <div>
   </div>
+
     <%= form_tag( shopping_order_path(@order),
                                   :method => :put,
-                                  #:as   => :order,
-                                  :id   => 'purchase_order') do  %>
+                                  :id   => 'purchase_cart_order') do  %>
 
+      <% if @payment_profiles.present? %>
+        <% @payment_profiles.each do |payment_method| %>
+          <div id='card_on_file' class="field column ar-use-saved-card span-11 last" style='width:425px'>
+            <%= label_tag 'Use Credit Card on file?' %><br/>
+            <%= payment_method.cc_type %> - <%= payment_method.last4 %>
+            (<%= payment_method.month %>/<%= payment_method.year %>)
+            <%= radio_button_tag(:use_credit_card_on_file, payment_method.id, false) %>
+            <%= submit_tag 'Complete Order', :class => 'button  ar-red-small-button cart-submit-button' %>
+          </div>
+        <% end %>
+        Use New Card: <%= radio_button_tag(:use_credit_card_on_file, nil, true) %>
+      <% end %>
 
-      <%# text_field(object_name, method, options = {}) %>
-
-
-
-      <div class="field ">
-        <%= label_tag  :name %>
-      </div>
 <div class='clear'></div>
-      <div class="field six column">
-        <%= label_tag 'First' %>
-         <%= text_field_tag(:first_name, @credit_card.first_name) %>
-      </div>
-
-      <div class="field six column">
-        <%= label_tag :last_name, 'Last' %>
-         <%= text_field_tag(:last_name, @credit_card.last_name) %>
+      <div class="field twelve column">
+        <%= label_tag :name %>
+         <%= text_field_tag(:full_name, @credit_card.name) %>
       </div>
 
       <div class='clear'></div>
       <div class="field twelve column">
-        <%= label_tag 'Number'%>
-         <%= text_field_tag(:number, @credit_card.number ,:class => ' disableAutoComplete', :autocomplete => "off") %>
+        <%= label_tag 'Number'%> <%= '4242424242424242' if Rails.env != 'production' %>
+         <%= text_field_tag(:number, @credit_card.number ,:class => ' disableAutoComplete', :autocomplete => "off", name: nil) %>
+         <%= hidden_field_tag('stripe_card_token', nil) %>
+         <%= hidden_field_tag('token_amount', nil) %>
       </div>
       <div class='twelve clearfix'>
         <div class="field three column">
           <%= label_tag :verification_value, 'VCC'%>
-           <%= text_field_tag(:verification_value, @credit_card.verification_value ,:class => 'disableAutoComplete', :autocomplete => "off") %>
+           <%= text_field_tag(:verification_value, @credit_card.verification_value ,:class => 'disableAutoComplete', :autocomplete => "off", name: nil) %>
         </div>
 
         <div class="field column float-left ">
-          <%= label_tag :type, 'Type'%>
-           <%= select_tag(:type, options_for_select(['visa', 'mastercard'])) %>
+          <%= label_tag :brand, 'Type'%>
+           <%= select_tag(:brand, options_for_select(['visa', 'mastercard', 'discover', 'American Express'])) %>
         </div>
 
         <div class="field column float-left">
@@ -121,8 +132,13 @@
 
         <div class="field column float-left">
           <%= label_tag :year %>
-           <%= select_tag(:year, options_for_select((Time.zone.now.year..(Time.zone.now.year + 10)))) %>
+           <%= select_tag(:year, options_for_select((Time.zone.now.year..(Time.zone.now.year + 12)))) %>
         </div>
+      </div>
+
+      <div class="field column float-left">
+        <%= label_tag :save_card %>
+         <%= check_box_tag(:save_card, 1) %>
       </div>
 
 
@@ -130,4 +146,3 @@
     <% end %>
   </div>
 </div>
-

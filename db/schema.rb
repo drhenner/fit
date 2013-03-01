@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130227201054) do
+ActiveRecord::Schema.define(:version => 20130301091731) do
 
   create_table "accounting_adjustments", :force => true do |t|
     t.integer  "adjustable_id",                                 :null => false
@@ -172,6 +172,13 @@ ActiveRecord::Schema.define(:version => 20130227201054) do
   add_index "deals", ["deal_type_id"], :name => "index_deals_on_deal_type_id"
   add_index "deals", ["product_type_id"], :name => "index_deals_on_product_type_id"
 
+  create_table "image_groups", :force => true do |t|
+    t.string   "name"
+    t.integer  "product_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "images", :force => true do |t|
     t.integer  "imageable_id"
     t.string   "imageable_type"
@@ -198,14 +205,19 @@ ActiveRecord::Schema.define(:version => 20130227201054) do
   end
 
   create_table "invoices", :force => true do |t|
-    t.integer  "order_id",                                                              :null => false
-    t.decimal  "amount",          :precision => 8, :scale => 2,                         :null => false
-    t.string   "invoice_type",                                  :default => "Purchase", :null => false
-    t.string   "state",                                                                 :null => false
-    t.boolean  "active",                                        :default => true,       :null => false
-    t.datetime "created_at",                                                            :null => false
-    t.datetime "updated_at",                                                            :null => false
-    t.decimal  "credited_amount", :precision => 8, :scale => 2, :default => 0.0
+    t.integer  "order_id",                                                                             :null => false
+    t.decimal  "amount",                         :precision => 8, :scale => 2,                         :null => false
+    t.string   "invoice_type",                                                 :default => "Purchase", :null => false
+    t.string   "state",                                                                                :null => false
+    t.boolean  "active",                                                       :default => true,       :null => false
+    t.datetime "created_at",                                                                           :null => false
+    t.datetime "updated_at",                                                                           :null => false
+    t.decimal  "credited_amount",                :precision => 8, :scale => 2, :default => 0.0
+    t.string   "card_token",      :limit => 100
+    t.integer  "tax_amount"
+    t.integer  "tax_state_id"
+    t.string   "charge_token",    :limit => 100
+    t.string   "customer_token",  :limit => 100
   end
 
   add_index "invoices", ["order_id"], :name => "index_invoices_on_order_id"
@@ -266,8 +278,8 @@ ActiveRecord::Schema.define(:version => 20130227201054) do
     t.string   "payment_cim_id"
     t.boolean  "default"
     t.boolean  "active"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.string   "last_digits"
     t.string   "month"
     t.string   "year"
@@ -275,6 +287,7 @@ ActiveRecord::Schema.define(:version => 20130227201054) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "card_name"
+    t.string   "customer_token", :limit => 100
   end
 
   add_index "payment_profiles", ["address_id"], :name => "index_payment_profiles_on_address_id"
@@ -585,15 +598,14 @@ ActiveRecord::Schema.define(:version => 20130227201054) do
   create_table "subscriptions", :force => true do |t|
     t.integer  "subscription_plan_id",                     :null => false
     t.integer  "user_id",                                  :null => false
-    t.integer  "order_id"
-    t.string   "stripe_customer_token",                    :null => false
+    t.string   "stripe_customer_token"
     t.integer  "total_payments"
     t.boolean  "active",                :default => false
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
+    t.integer  "order_item_id"
   end
 
-  add_index "subscriptions", ["order_id"], :name => "index_subscriptions_on_order_id"
   add_index "subscriptions", ["subscription_plan_id"], :name => "index_subscriptions_on_subscription_plan_id"
   add_index "subscriptions", ["user_id"], :name => "index_subscriptions_on_user_id"
 
@@ -636,6 +648,7 @@ ActiveRecord::Schema.define(:version => 20130227201054) do
     t.string   "period"
     t.datetime "created_at",                                                            :null => false
     t.datetime "updated_at",                                                            :null => false
+    t.integer  "tax_state_id"
   end
 
   add_index "transaction_ledgers", ["accountable_id"], :name => "index_transaction_ledgers_on_accountable_id"

@@ -124,6 +124,7 @@ class User < ActiveRecord::Base
 
   has_many    :deleted_cart_items,        :conditions => {:cart_items => { :active => false}}, :class_name => 'CartItem'
   has_many    :payment_profiles
+  has_many    :active_payment_profiles, :class_name => 'PaymentProfile', :conditions => {:payment_profiles => {:active => true}}
   has_many    :transaction_ledgers, :as => :accountable
 
   has_many    :return_authorizations

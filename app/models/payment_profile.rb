@@ -30,18 +30,36 @@ class PaymentProfile < ActiveRecord::Base
   belongs_to :user
   belongs_to :address
 
-  before_save :set_default_if_first_card
+  before_save :set_default_if_first_card, :save_stripe_customer
 
-  attr_accessor       :request_ip, :credit_card
+  attr_accessor       :request_ip, :card_token
 
   validates :user_id,         :presence => true
-  validates :payment_cim_id,  :presence => true
   validates :cc_type,         :presence => true, :length => { :maximum => 60 }
-  validates :last_digits,     :presence => true, :length => { :maximum => 10 }
   validates :month,           :presence => true, :length => { :maximum => 6 }
   validates :year,            :presence => true, :length => { :maximum => 6 }
 
+  def stripe_card_token=(val)
+    self.card_token = val
+  end
+
+  def last4
+    stripe_card['active_card'] && stripe_card['active_card'][:last4]
+  end
+
+  def stripe_card
+    @stripe_card ||= Stripe::Customer.retrieve(customer_token)
+  end
+
   private
+    def save_stripe_customer
+      customer = Stripe::Customer.create(
+        :description  => "Card for #{user.name}",
+        :card         => card_token, # obtained with Stripe.js
+        :email        => user.email
+      )
+      self.customer_token = customer['id']
+    end
 
     def set_default_if_first_card
       if PaymentProfile.where('user_id = ?', user_id).count == 0

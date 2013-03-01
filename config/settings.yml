@@ -43,7 +43,7 @@ google:
   analytics_code: UA-38891059-1
 stripe:
   secret_key: <%= ENV['STRIPE_SECRET_KEY'] %>
-  secret_publishable_key: <%= ENV['STRIPE_PUBLISHABLE_KEY'] %>
+  publishable_key: <%= ENV['STRIPE_PUBLISHABLE_KEY'] %>
 
 mandrill:
   host: smtp.mandrillapp.com

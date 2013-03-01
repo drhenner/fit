@@ -41,6 +41,7 @@ gem 'rmagick',    :require => 'RMagick'
 
 gem 'rake', '~> 0.9.2'
 gem 'state_machine', '~> 1.1.2'
+gem 'stripe'
 #gem 'sunspot_solr'
 #gem 'sunspot_rails', '~> 1.3.0rc'
 gem 'will_paginate', '~> 3.0.4'

@@ -144,9 +144,9 @@ class Invoice < ActiveRecord::Base
   # @param [Decimal] amount in dollars
   # @return [Invoice] invoice object
   def Invoice.generate(order_id, charge_amount, payment_method, credited_amount = 0.0)
-    amount = (charge_amount.to_f / 100.0).round_at(2)
+    #amount = (charge_amount.to_f / 100.0).round_at(2)
     invoice = Invoice.new(:order_id       => order_id,
-                :amount         => amount,
+                :amount         => charge_amount,
                 :invoice_type   => PURCHASE,
                 :credited_amount => credited_amount,
                 :customer_token => payment_method.customer_token)
