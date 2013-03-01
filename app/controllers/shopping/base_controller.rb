@@ -22,13 +22,14 @@ class Shopping::BaseController < ApplicationController
       return login_url()
     elsif session_order.ship_address_id.nil?
       return shopping_addresses_url()
-    elsif session_order.all_order_items_have_a_shipping_rate?
+    elsif !session_order.all_order_items_have_a_shipping_rate?
       return shopping_shipping_methods_url()
     end
   end
 
   def not_secure?
-    !current_user || has_not_logged_in_recently? || user_visited_a_non_ssl_page_since_login?
+    #!current_user || has_not_logged_in_recently? || user_visited_a_non_ssl_page_since_login?
+    false
   end
 
   def has_not_logged_in_recently?(minutes = 20)

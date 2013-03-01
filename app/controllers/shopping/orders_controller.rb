@@ -42,7 +42,7 @@ class Shopping::OrdersController < Shopping::BaseController
     elsif @credit_card.valid?
       if response = @order.create_invoice(@credit_card,
                                           @order.credited_total,
-                                          {:email => @order.email, :billing_address=> address, :ip=> @order.ip_address },
+                                          payment_profile,
                                           @order.amount_to_credit)
         if response.succeeded?
           ##  MARK items as purchased

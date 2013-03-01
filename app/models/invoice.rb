@@ -69,6 +69,12 @@ class Invoice < ActiveRecord::Base
       transition :from => :authorized,
                   :to   => :paid
     end
+    event :payment_charge do
+      transition :from => :payment_declined,
+                  :to   => :paid
+      transition :from => :pending,
+                  :to   => :paid
+    end
     event :transaction_declined do
       transition :from => :pending,
                   :to   => :payment_declined
@@ -137,8 +143,35 @@ class Invoice < ActiveRecord::Base
   # @param [Integer] order id
   # @param [Decimal] amount in dollars
   # @return [Invoice] invoice object
-  def Invoice.generate(order_id, charge_amount, credited_amount = 0.0)
-    Invoice.new(:order_id => order_id, :amount => charge_amount, :invoice_type => PURCHASE, :credited_amount => credited_amount)
+  def Invoice.generate(order_id, charge_amount, payment_method, credited_amount = 0.0)
+    amount = (charge_amount.to_f / 100.0).round_at(2)
+    invoice = Invoice.new(:order_id       => order_id,
+                :amount         => amount,
+                :invoice_type   => PURCHASE,
+                :credited_amount => credited_amount,
+                :customer_token => payment_method.customer_token)
+    invoice
+  end
+  def capture_stripe_customer_payment(customer_token, options = {})
+    transaction do
+      capture = Payment.stripe_customer_capture(integer_amount_charge, customer_token, order.number, options)
+      if capture.paid
+        self.charge_token = capture.id #  charge_token
+        payment_charge!
+        capture_complete_order
+      else
+        transaction_declined!
+      end
+      capture
+    end
+  end
+
+  def integer_amount_charge
+    (amount_charged * 100.0).to_i
+  end
+
+  def amount_charged
+    amount - credited_amount
   end
 
   def capture_complete_order

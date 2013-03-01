@@ -180,9 +180,9 @@ class Order < ActiveRecord::Base
 
 
   ## This method creates the invoice and payment method.  If the payment is not authorized the whole transaction is roled back
-  def create_invoice(credit_card, charge_amount, args, credited_amount = 0.0)
+  def create_invoice(credit_card, charge_amount, payment_method, credited_amount = 0.0)
     transaction do
-      new_invoice = create_invoice_transaction(credit_card, charge_amount, args, credited_amount)
+      new_invoice = create_invoice_transaction(credit_card, charge_amount, payment_method, credited_amount)
       if new_invoice.succeeded?
         remove_user_store_credits
         Notifier.order_confirmation(@order, new_invoice).deliver rescue puts( 'do nothing...  dont blow up over an email')
@@ -199,6 +199,7 @@ class Order < ActiveRecord::Base
   def order_complete!
     self.state = 'complete'
     self.completed_at = Time.zone.now
+set_stripe_token_to_subscriptions
     update_inventory
   end
 
@@ -393,7 +394,7 @@ class Order < ActiveRecord::Base
     self.save! if self.new_record?
     tax_rate_id = state_id ? variant.product.tax_rate(state_id) : nil
     quantity.times do
-      self.order_items.push(OrderItem.create(:order => self,:variant_id => variant.id, :price => variant.price, :tax_rate_id => tax_rate_id))
+      self.order_items.push(OrderItem.create(:order => self,:variant_id => variant.id, :price => variant.price, :tax_rate_id => tax_rate_id, :subscription_plan_id => variant.subscription_plan_id))
     end
   end
 
@@ -576,10 +577,10 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def create_invoice_transaction(credit_card, charge_amount, args, credited_amount = 0.0)
-    invoice_statement = Invoice.generate(self.id, charge_amount, credited_amount)
+  def create_invoice_transaction(credit_card, charge_amount, payment_method, credited_amount = 0.0)
+    invoice_statement = Invoice.generate(self.id, charge_amount, payment_method, credited_amount)
     invoice_statement.save
-    invoice_statement.authorize_payment(credit_card, args)#, options = {})
+    invoice.capture_stripe_customer_payment(payment_method.customer_token)
     invoices.push(invoice_statement)
     if invoice_statement.succeeded?
       self.order_complete! #complete!

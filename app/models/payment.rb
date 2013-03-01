@@ -73,6 +73,23 @@ class Payment < ActiveRecord::Base
 
   class << self
 
+      def stripe_customer_capture(integer_amount, customer_token, order_number, options)
+        if integer_amount > 50
+          stripe_charge = Stripe::Charge.create(
+              :amount => integer_amount,
+              :currency => "usd",
+              :customer => customer_token,
+              :description => "Charge for #{order_number}" )
+        else
+          #  Return a true paid object
+          free_transaction_fake_data(integer_amount, customer_token, order_number)
+        end
+      end
+
+      def free_transaction_fake_data(integer_amount, customer_token, order_number)
+        FreeCharge.new(integer_amount, customer_token, order_number)
+      end
+
       def store( credit_card, options = {})
         options[:order_id] ||= unique_order_number
         process( 'store' ) do |gw|

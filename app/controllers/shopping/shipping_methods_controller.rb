@@ -28,9 +28,11 @@ class Shopping::ShippingMethodsController < Shopping::BaseController
 
         OrderItem.update_all("shipping_rate_id = #{rate_id}","id IN (#{items.map{|i| i.id}.join(',')})")
       else
+        debugger
         all_selected = false
       end
     end
+    debugger
     if all_selected
       redirect_to(shopping_orders_url, :notice => I18n.t('shipping_method_updated'))
     else

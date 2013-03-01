@@ -21,7 +21,7 @@ class OrderItem < ActiveRecord::Base
   belongs_to :variant
   belongs_to :tax_rate
   belongs_to :shipment
-  has_one :subscription
+  has_one :subscription, :dependent => :destroy
 
   has_many   :return_items
 
@@ -91,6 +91,18 @@ class OrderItem < ActiveRecord::Base
     ShippingRate.joins(:shipping_method).where(['shipping_rates.shipping_category_id = ?
                         AND shipping_methods.shipping_zone_id = ?
                         AND shipping_rates.minimum_charge <= ?', ship_category_id, order.ship_address.state.shipping_zone_id, total_charge]).all
+  end
+
+  def subscription_plan_id=(val)
+    if subscription_plan = SubscriptionPlan.find_by_id(val)
+      #debugger
+      self.build_subscription( #:product_id           => self.variant.product_id,
+                              :stripe_customer_token => nil,
+                              :subscription_plan_id => subscription_plan.id,
+                              :total_payments       => subscription_plan.total_payments,
+                              :user_id              => self.order.user_id,
+                              :active               => false)
+    end
   end
 
   # called in checkout process. will give you the 'quantity', 'sum of all the prices' and 'sum of all the totals'
