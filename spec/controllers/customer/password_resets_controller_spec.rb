@@ -24,6 +24,8 @@ describe Customer::PasswordResetsController do
     @user = create(:user)
     User.any_instance.stubs(:valid?).returns(true)
     User.any_instance.stubs(:find_by_email).returns(@user)
+    User.stubs(:deliver_password_reset_instructions!)
+    User.expects(:deliver_password_reset_instructions!).once
     post :create, :user => {:email => @user.email}
     #response.should render_template('/customer/password_resets/confirmation')
   end
