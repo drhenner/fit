@@ -9,16 +9,6 @@ FactoryGirl.define do
     month           '05'
     year            '2013'
     last_digits     '3955'
-    credit_card_info  do
-      {
-        :number       => '4916477365453955',
-        :verification_value => '343',
-        :month        => '05',
-        :year         => '2013',
-        :first_name   => 'David',
-        :last_name    => 'Bowe',
-        :brand        => 'visa'
-      }
-    end
+    customer_token  'fakeCCtoken'
   end
 end
