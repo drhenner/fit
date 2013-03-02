@@ -1,6 +1,6 @@
 class Myaccount::CreditCardsController < Myaccount::BaseController
   def index
-    @credit_cards = current_user.payment_profiles
+    @credit_cards = current_user.active_payment_profiles
   end
 
   def new
@@ -20,7 +20,7 @@ class Myaccount::CreditCardsController < Myaccount::BaseController
   def destroy
     @credit_card = current_user.payment_profiles.find(params[:id])
     @credit_card.inactivate!
-    flash[:notice] = "Successfully destroyed credit card."
+    flash[:notice] = "Successfully removed credit card."
     redirect_to myaccount_credit_cards_url
   end
 
