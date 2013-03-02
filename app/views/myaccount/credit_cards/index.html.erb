@@ -8,11 +8,14 @@
     <table>
       <tr>
         <th>Name</th>
+        <th>Last 4</th>
+        <th></th>
+        <th></th>
       </tr>
       <% for credit_card in @credit_cards %>
         <tr>
-          <td><%= credit_card.name %></td>
-          <td><%= link_to "Show", myaccount_credit_card_path(credit_card) %></td>
+          <td><%= credit_card.full_name %></td>
+          <td><%= credit_card.last4 %></td>
           <td><%= link_to "Edit", edit_myaccount_credit_card_path(credit_card) %></td>
           <td><%= link_to "Remove", myaccount_credit_card_path(credit_card), :confirm => 'Are you sure?', :method => :delete %></td>
         </tr>

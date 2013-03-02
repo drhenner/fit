@@ -51,6 +51,11 @@ class PaymentProfile < ActiveRecord::Base
     @stripe_card ||= Stripe::Customer.retrieve(customer_token)
   end
 
+  def inactivate!
+    self.active = false
+    self.save
+  end
+
   private
     def save_stripe_customer
       customer = Stripe::Customer.create(
