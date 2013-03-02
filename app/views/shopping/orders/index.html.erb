@@ -96,10 +96,10 @@
                 <%= radio_button_tag(:use_credit_card_on_file, payment_method.id, false) %>
                 <%= payment_method.cc_type %> - <%= payment_method.last4 %>
                 (<%= payment_method.month %>/<%= payment_method.year %>)
-                <div>
+                <div style='margin-top:10px;'>
                 <%= link_to 'Use Card and Complete Order', '#use-card-on-file-button',
                                 :id     => 'use-card-on-file-button',
-                                :class  => 'button small cart-submit-button' %>
+                                :class  => 'button small success cart-submit-button' %>
                 </div>
               </div>
             <% end %>
