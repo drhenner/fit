@@ -1,6 +1,10 @@
 class Shopping::ShippingMethodsController < Shopping::BaseController
   # GET /shopping/shipping_methods
   def index
+    if session_cart.shopping_cart_items.empty?
+      flash[:notice] = I18n.t('do_not_have_anything_in_your_cart')
+      redirect_to products_url and return
+    end
     unless find_or_create_order.ship_address_id
       flash[:notice] = I18n.t('select_address_before_shipping_method')
       redirect_to shopping_addresses_url

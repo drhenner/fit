@@ -2,6 +2,10 @@ class Shopping::AddressesController < Shopping::BaseController
   helper_method :countries
   # GET /shopping/addresses
   def index
+    if session_cart.shopping_cart_items.empty?
+      flash[:notice] = I18n.t('do_not_have_anything_in_your_cart')
+      redirect_to products_url and return
+    end
     @form_address = @shopping_address = Address.new
     if !Settings.require_state_in_address && countries.size == 1
       @shopping_address.country = countries.first
