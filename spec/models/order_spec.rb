@@ -172,9 +172,16 @@ describe Order, "instance methods" do
       credit_card               = ActiveMerchant::Billing::CreditCard.new(cc_params)
       payment_profile = mock()
       payment_profile.stubs(:customer_token).returns('fakeTOKEN')
+
+
+      charge_mock = mock()
+      charge_mock.stubs(:paid).returns(true)
+      charge_mock.stubs(:id).returns('fakeTOKEN')
+
+      Stripe::Charge.stubs(:create).returns(charge_mock)
       invoice                   = @order.create_invoice(credit_card, 12.45,payment_profile, {})
       invoice.class.to_s.should == 'Invoice'
-      invoice.state.should      == 'authorized'
+      invoice.state.should      == 'paid'
     end
     it 'should return an create_invoice on failure' do
       cc_params = {
@@ -192,6 +199,11 @@ describe Order, "instance methods" do
       credit_card               = ActiveMerchant::Billing::CreditCard.new(cc_params)
       payment_profile = mock()
       payment_profile.stubs(:customer_token).returns('fakeTOKEN')
+
+      charge_mock = mock()
+      charge_mock.stubs(:paid).returns(false)
+      Stripe::Charge.stubs(:create).returns(charge_mock)
+
       invoice                   = @order.create_invoice(credit_card, 12.45, payment_profile, {})
       invoice.class.to_s.should == 'Invoice'
       invoice.state.should      == 'payment_declined'
@@ -536,3 +548,53 @@ describe Order, "#fulfillment_grid(params = {})" do
     admin_grid.include?(order2).should be_false
   end
 end
+
+=begin
+{
+  id: "ch_1NqVtdAqiklyDZ",
+  object: "charge",
+  created: 1362189133,
+  livemode: false,
+  paid: true,
+  amount: 4000,
+  currency: "usd",
+  refunded: false,
+  fee: 146,
+  fee_details: [
+    {
+      amount: 146,
+      currency: "usd",
+      type: "stripe_fee",
+      description: "Stripe processing fees",
+      application: nil,
+      amount_refunded: 0
+    }
+  ],
+  card: {
+    object: "card",
+    last4: "4242",
+    type: "Visa",
+    exp_month: 3,
+    exp_year: 2017,
+    fingerprint: "bEJDqrw2L1n23HcN",
+    country: "US",
+    name: nil,
+    address_line1: nil,
+    address_line2: nil,
+    address_city: nil,
+    address_state: nil,
+    address_zip: nil,
+    address_country: nil,
+    cvc_check: nil,
+    address_line1_check: nil,
+    address_zip_check: nil
+  },
+  failure_message: nil,
+  amount_refunded: 0,
+  customer: "cus_1Ndwm9tlkcqKNd",
+  invoice: nil,
+  description: "Charge for 159g60acfg",
+  dispute: nil
+}
+=end
+
