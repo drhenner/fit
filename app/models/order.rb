@@ -581,7 +581,7 @@ class Order < ActiveRecord::Base
   end
 
   def create_invoice_transaction(credit_card, charge_amount, payment_method, credited_amount = 0.0)
-    invoice_statement = Invoice.generate(self.id, charge_amount, payment_method, credited_amount)
+    invoice_statement = Invoice.generate(self.id, charge_amount, payment_method, taxed_amount, credited_amount)
     invoice_statement.save
     invoice_statement.capture_stripe_customer_payment(payment_method.customer_token)
     invoices.push(invoice_statement)

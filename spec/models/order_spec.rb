@@ -170,7 +170,9 @@ describe Order, "instance methods" do
       ##  Create fake admin_cart object in memcached
       # create_invoice(credit_card, charge_amount, args)
       credit_card               = ActiveMerchant::Billing::CreditCard.new(cc_params)
-      invoice                   = @order.create_invoice(credit_card, 12.45, {})
+      payment_profile = mock()
+      payment_profile.stubs(:customer_token).returns('fakeTOKEN')
+      invoice                   = @order.create_invoice(credit_card, 12.45,payment_profile, {})
       invoice.class.to_s.should == 'Invoice'
       invoice.state.should      == 'authorized'
     end
@@ -188,7 +190,9 @@ describe Order, "instance methods" do
       ##  Create fake admin_cart object in memcached
       # create_invoice(credit_card, charge_amount, args)
       credit_card               = ActiveMerchant::Billing::CreditCard.new(cc_params)
-      invoice                   = @order.create_invoice(credit_card, 12.45, {})
+      payment_profile = mock()
+      payment_profile.stubs(:customer_token).returns('fakeTOKEN')
+      invoice                   = @order.create_invoice(credit_card, 12.45, payment_profile, {})
       invoice.class.to_s.should == 'Invoice'
       invoice.state.should      == 'payment_declined'
     end

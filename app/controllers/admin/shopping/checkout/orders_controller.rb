@@ -44,10 +44,10 @@ class Admin::Shopping::Checkout::OrdersController < Admin::Shopping::Checkout::B
       session_admin_cart.mark_items_purchased(@order)
       flash[:alert] = I18n.t('the_order_purchased')
       redirect_to admin_history_order_url(@order)
-    elsif @credit_card.valid?
+    elsif payment_profile
       if response = @order.create_invoice(@credit_card,
                                           @order.credited_total,
-                                          {:email => @order.email, :billing_address=> address, :ip=> @order.ip_address },
+                                          payment_profile,
                                           @order.amount_to_credit)
         if response.succeeded?
           order_completed!(@order)
@@ -72,4 +72,24 @@ class Admin::Shopping::Checkout::OrdersController < Admin::Shopping::Checkout::B
 
   end
 
+  def payment_profile
+    return @payment_profile if @payment_profile
+    if create_a_new_profile?
+      @payment_profile = @order.user.payment_profiles.new(cc_params)
+      @payment_profile.active = save_card?
+      @payment_profile.save!
+      @payment_profile
+    elsif params[:use_credit_card_on_file].present? #charge the profile
+      @payment_profile = @order.user.payment_profiles.find_by_id(params[:use_credit_card_on_file])
+    end
+  end
+
+  def create_a_new_profile?
+    params[:stripe_card_token].present?
+  end
+
+  def save_card?
+    params[:save_card] == '1'
+  end
 end
+

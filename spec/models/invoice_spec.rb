@@ -130,11 +130,13 @@ describe Invoice, "Class methods" do
   end
 end
 
-describe Invoice, "#generate(order_id, charge_amount)" do
+describe Invoice, "#generate(order_id, charge_amount, payment_method, tax_amount = 0.0)" do
   it 'should find the invoice by number' do
     #invoice = create(:invoice)
     charge_amount = 20.15
-    invoice = Invoice.generate(1, charge_amount)
+    payment_method = mock()
+    payment_method.stubs(:customer_token).returns('fakeTOKEN')
+    invoice = Invoice.generate(1, charge_amount, payment_method)
     invoice.id.should == nil
     invoice.invoice_type.should == Invoice::PURCHASE
     invoice.valid?.should be_true

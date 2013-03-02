@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130301091731) do
+ActiveRecord::Schema.define(:version => 20130302015430) do
 
   create_table "accounting_adjustments", :force => true do |t|
     t.integer  "adjustable_id",                                 :null => false
@@ -436,6 +436,7 @@ ActiveRecord::Schema.define(:version => 20130301091731) do
     t.boolean  "active",                                       :default => true
     t.datetime "created_at",                                                     :null => false
     t.datetime "updated_at",                                                     :null => false
+    t.integer  "tax_amount"
   end
 
   add_index "return_authorizations", ["created_by"], :name => "index_return_authorizations_on_created_by"
