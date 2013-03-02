@@ -21,6 +21,32 @@ if (typeof UfcFit.Shopping.cart == "undefined") {
             // prevent the form from submitting with the default action
             return false;
           });
+          $('#use-card-on-file-button').click(function(){
+            paymentProfileId = $('input[name=use_credit_card_on_file]:checked', '#purchase_cart_order').val();
+            if (paymentProfileId > 0){
+              UfcFit.Shopping.cart.submitPaymentProfileForm();
+              return false;
+            } else {
+              alert('Please select a card.');
+            }
+          })
+        },
+        submitPaymentProfileForm : function () {
+          jQuery.ajax({
+            type : "GET",
+            url: "/shopping/orders/xyz",
+            success: function(jsonText){
+              // if what they is what we will be charging... Proceed
+              if ( jsonText.order.integer_credited_total == UfcFit.Shopping.cart.orderAmount()) {
+                var form = $("#purchase_cart_order");
+                form.get(0).submit();
+              } else {
+                $(".payment-errors").html("Error handling transaction.");
+                window.location.href = "/shopping/orders";
+              }
+            },
+            dataType: 'json'
+          });
         },
         submitForm : function () {
           // don't submit if this isn't valid

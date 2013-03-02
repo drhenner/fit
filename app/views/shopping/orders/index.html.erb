@@ -88,18 +88,27 @@
                                   :method => :put,
                                   :id   => 'purchase_cart_order') do  %>
 
-      <% if @payment_profiles.present? %>
-        <% @payment_profiles.each do |payment_method| %>
+        <% if @payment_profiles.present? %>
+          <div class='panel clearfix'>
+            <% @payment_profiles.each do |payment_method| %>
+              <div id='card_on_file' class="field column ar-use-saved-card span-11 last" style='width:425px'>
+                <h5> Use Credit Card on file? </h5>
+                <%= radio_button_tag(:use_credit_card_on_file, payment_method.id, false) %>
+                <%= payment_method.cc_type %> - <%= payment_method.last4 %>
+                (<%= payment_method.month %>/<%= payment_method.year %>)
+                <div>
+                <%= link_to 'Use Card and Complete Order', '#use-card-on-file-button',
+                                :id     => 'use-card-on-file-button',
+                                :class  => 'button small cart-submit-button' %>
+                </div>
+              </div>
+            <% end %>
+          </div>
           <div id='card_on_file' class="field column ar-use-saved-card span-11 last" style='width:425px'>
-            <%= label_tag 'Use Credit Card on file?' %><br/>
-            <%= payment_method.cc_type %> - <%= payment_method.last4 %>
-            (<%= payment_method.month %>/<%= payment_method.year %>)
-            <%= radio_button_tag(:use_credit_card_on_file, payment_method.id, false) %>
-            <%= submit_tag 'Complete Order', :class => 'button  ar-red-small-button cart-submit-button' %>
+            <%= radio_button_tag(:use_credit_card_on_file, 0, true) %> Use New Card.
           </div>
         <% end %>
-        Use New Card: <%= radio_button_tag(:use_credit_card_on_file, nil, true) %>
-      <% end %>
+      <div class='payment-errors' style='display:none;color:#d06050;font-weight:bold;'></div>
 
 <div class='clear'></div>
       <div class="field twelve column">
@@ -142,7 +151,7 @@
       </div>
 
 
-      <%= submit_tag 'Complete Order', :class => 'button success' %>
+      <%= submit_tag 'Complete Order', :class => 'button success cart-submit-button' %>
     <% end %>
   </div>
 </div>
