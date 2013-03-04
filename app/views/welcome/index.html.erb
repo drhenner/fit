@@ -3,48 +3,5 @@
 <% end %>
 
 
-
-  <div id='signup_form_wrapper' class='row'>
-    <div class='clearfix  '>
-      <div  id='input-fields' class='seven column'>
-        <div id='background-transparent'> </div>
-        <div id='background-non-transparent'>
-          <h2>Get Notified About Our launch.</h2>
-          <div id='please-subscribe' class=' white-text'>
-            Enter your email below to <br/>subscribe to our newsletter and be notified <br/>when we launch our new site.
-          </div>
-          <div id='congrats_user' style='display:none;' class=' white-text'>
-            Congrats you will be notified <br/> when we launch!
-           </div>
-          <div style='max-width: 450px; '>
-            <%= form_for  @user,
-                        :url => user_sessions_path(@user),
-                        :html => {:class => 'twelve '} do |form| %>
-
-               <ul id='signup_form' style='padding-top: 10px;'>
-                  <li class='four column' style='padding: 0 5px 0 0;'>
-                      <%= form.email_field :email, :autocomplete => 'off', :autocapitalize => 'off', :placeholder => 'Email' %>
-                  </li>
-                  <li class='four column' style='padding: 0 5px 0 0;' >
-                    <div class='styled-select'>
-                      <%= form.select :country_id, Country.landing_page_form_selector,:prompt => "Country" %>
-                    </div>
-                  </li>
-                  <li class='three ' style='padding: 0;' >
-                    <div class='nofity-button-wrapper' >
-                    <%= link_to "Notify Me",'#new_user', :class => 'button small', :id => 'submit-notify' %>
-                    </div>
-                  </li>
-               </ul>
-            <% end %>
-          </div>
-        </div>
-      </div>
-      <div id='ufcfit-logo' class='five column' style='padding:0;'>
-        <%= image_tag 'landing_page/UFCfit_signup.png', :class =>' ' %>
-      </div>
-    </div>
-
-  </div>
-
+<h1>Welcome to UFCfit</h1>
 
