@@ -46,7 +46,9 @@ class PaymentProfile < ActiveRecord::Base
   def last4
     stripe_card['active_card'] && stripe_card['active_card'][:last4]
   end
-
+  def name
+    stripe_card['active_card'] && stripe_card['active_card'][:name]
+  end
   def stripe_card
     @stripe_card ||= Stripe::Customer.retrieve(customer_token)
   end
