@@ -40,8 +40,6 @@
     </div>
   <% end %>
 
-    <%#= render :partial => '/shared/welcome_header'%>
-
     <div id='content_wrapper' class='row'>
       <%= yield %>
     </div>
@@ -57,10 +55,8 @@
     function() {
       jQuery('.flash_notice').delay(6000).slideUp( 'slow');
       jQuery('.flash_error').delay(6000).slideUp( 'slow');
-      //$.anystretch("<%= image_path('no_image.jpg') %>", {speed: 350});
 
     }
-    //$.anystretch($('#featured_item img').attr('src'), {speed: 150});
   );
   </script>
 
