@@ -155,7 +155,7 @@ class Invoice < ActiveRecord::Base
     invoice
   end
 
-  def Invoice.generate_preorder(self.id, charge_amount, payment_method, taxed_amount, credited_amount)
+  def Invoice.generate_preorder(order_id, charge_amount, payment_method, taxed_amount, credited_amount)
     invoice = Invoice.new(:order_id       => order_id,
                 :amount         => charge_amount,
                 :invoice_type   => PREPURCHASE,
