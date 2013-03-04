@@ -13,7 +13,11 @@ Hadean::Application.routes.draw do
 
   match 'admin'   => 'admin/overviews#index'
   match 'login'   => 'user_sessions#new'
+  match 'signin'  => 'user_sessions#new'
+  match 'sign-in' => 'user_sessions#new'
+
   match 'logout'  => 'user_sessions#destroy'
+  match 'signout'  => 'user_sessions#destroy'
   match 'signup'  => 'customer/registrations#new'
   match 'admin/merchandise' => 'admin/merchandise/summary#index'
   resources :products, :only => [:index, :show, :create]
