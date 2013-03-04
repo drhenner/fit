@@ -1,6 +1,6 @@
 Hadean::Application.routes.draw do
 
-  resources :terms_of_uses
+  resource :terms_of_use, :only => [:show]
 
   resource  :contact_us,        :only => [:show]
   resources :shipping_returns,  :only => [:index]
