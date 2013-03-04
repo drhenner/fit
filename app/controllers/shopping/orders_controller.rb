@@ -43,9 +43,7 @@ class Shopping::OrdersController < Shopping::BaseController
 
     @credit_card ||= ActiveMerchant::Billing::CreditCard.new()
 
-    address = @order.bill_address.cc_params
-
-    if @order.complete?
+    if !@order.in_progress?
       session_cart.mark_items_purchased(@order)
       flash[:error] = I18n.t('the_order_purchased')
       redirect_to myaccount_order_url(@order)
@@ -73,7 +71,54 @@ class Shopping::OrdersController < Shopping::BaseController
     end
   end
 
+  def preorder
+    @order = find_or_create_order
+    @order.ip_address = request.remote_ip
+
+    @credit_card ||= ActiveMerchant::Billing::CreditCard.new()
+
+    if !@order.in_progress?
+      session_cart.mark_items_purchased(@order)
+      flash[:error] = I18n.t('the_order_purchased')
+      redirect_to myaccount_order_url(@order)
+    elsif preorder_payment_profile
+      if response = @order.create_preorder_invoice(@credit_card,
+                                          @order.credited_total,
+                                          preorder_payment_profile,
+                                          @order.amount_to_credit)
+        if response.succeeded?
+          ##  MARK items as purchased
+          session_cart.mark_items_purchased(@order)
+          redirect_to( myaccount_order_path(@order) ) and return
+        else
+          flash[:alert] =  [I18n.t('could_not_process'), I18n.t('the_order')].join(' ')
+        end
+      else
+        flash[:alert] = [I18n.t('could_not_process'), I18n.t('the_credit_card')].join(' ')
+      end
+      form_info
+      render :action => 'index'
+    else
+      form_info
+      flash[:alert] = [I18n.t('form not filled out correctly')].join(' ')
+      render :action => 'index'
+    end
+  end
+
   private
+
+  def preorder_payment_profile
+    return @preorder_payment_profile if @preorder_payment_profile
+    if Date.parse("01-#{params[:month]}-#{params[:year]}") - 3.months  < Date.today
+      @preorder_payment_profile = current_user.payment_profiles.new(cc_params)
+      @preorder_payment_profile.active = true
+      @preorder_payment_profile.save!
+      @preorder_payment_profile
+    else
+      flash[:notice] = 'Your card can not expire before the items will be shipped.'
+      false
+    end
+  end
 
   def payment_profile
     return @payment_profile if @payment_profile

@@ -1,5 +1,7 @@
 class Shopping::BaseController < ApplicationController
   helper_method :session_order, :session_order_id
+  skip_before_filter :redirect_to_welcome
+  before_filter :redirect_unless_preorder
   # these are methods that can be used for all orders
 
   protected
