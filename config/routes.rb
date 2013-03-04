@@ -1,5 +1,12 @@
 Hadean::Application.routes.draw do
 
+  resources :terms_of_uses
+
+  resource  :contact_us,        :only => [:show]
+  resources :shipping_returns,  :only => [:index]
+  resource  :privacy_policy,    :only => [:show]
+  resources :faqs,              :only => [:index]
+
   resource :unsubscribe, :only => :show
 
   resources :user_sessions, :only => [:new, :create, :destroy]
