@@ -7,18 +7,16 @@ describe Notifier, "Signup Email" do
     include Rails.application.routes.url_helpers
 
     before(:each) do
-      #"jojo@yahoo.com", "Jojo Binks"
-      #[first_name.capitalize, last_name.capitalize ]
-      @user  = create(:user, :email => 'myfake@email.com', :first_name => 'Dave', :last_name => 'Commerce')
+      @user  = create(:user, :email => 'myfake@email.com', :first_name => nil, :last_name => nil)
       @email = Notifier.signup_notification(@user)
     end
 
     it "should be set to be delivered to the email passed in" do
-      @email.should deliver_to("Dave Commerce <myfake@email.com>")
+      @email.should deliver_to("myfake@email.com")
     end
 
     it "should contain the user's message in the mail body" do
-      @email.should have_body_text(/Dave Commerce/)
+      @email.should have_body_text(/wish to unsubscribe/)
     end
 
     #it "should contain a link to the confirmation link" do
@@ -26,7 +24,7 @@ describe Notifier, "Signup Email" do
     #end
 
     it "should have the correct subject" do
-      @email.should have_subject(/New account information/)
+      @email.should have_subject(/Thank you for Subscribing/)
     end
 
 end
