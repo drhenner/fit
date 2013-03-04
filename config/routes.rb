@@ -1,5 +1,7 @@
 Hadean::Application.routes.draw do
 
+  resource :unsubscribe, :only => :show
+
   resources :user_sessions, :only => [:new, :create, :destroy]
 
   match 'admin'   => 'admin/overviews#index'
