@@ -34,6 +34,7 @@ class Invoice < ActiveRecord::Base
   #validates :order_id,      :presence => true
 
   PURCHASE  = 'Purchase'
+  PREPURCHASE = 'Pre-Purchase'
   RMA       = 'RMA'
 
   INVOICE_TYPES = [PURCHASE, RMA]
@@ -153,6 +154,17 @@ class Invoice < ActiveRecord::Base
                 :customer_token => payment_method.customer_token)
     invoice
   end
+
+  def Invoice.generate_preorder(self.id, charge_amount, payment_method, taxed_amount, credited_amount)
+    invoice = Invoice.new(:order_id       => order_id,
+                :amount         => charge_amount,
+                :invoice_type   => PREPURCHASE,
+                :tax_amount     => (taxed_amount * 100.0).to_i,
+                :credited_amount => credited_amount,
+                :customer_token => payment_method.customer_token)
+    invoice
+  end
+
   def capture_stripe_customer_payment(customer_token, options = {})
     transaction do
       capture = Payment.stripe_customer_capture(integer_amount_charge, customer_token, order.number, options)

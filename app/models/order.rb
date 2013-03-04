@@ -191,6 +191,17 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def create_preorder_invoice(charge_amount, payment_profile, credited_amount = 0.0)
+    transaction do
+      new_invoice = create_preorder_invoice_transaction(charge_amount, payment_method, credited_amount)
+      if new_invoice.succeeded?
+        remove_user_store_credits
+        Notifier.order_confirmation(@order, new_invoice).deliver rescue puts( 'do nothing...  dont blow up over an email')
+      end
+      new_invoice
+    end
+  end
+
   # call after the order is completed (authorized the payment)
   # => sets the order.state to completed, sets completed_at to time.now and updates the inventory
   #
@@ -578,6 +589,22 @@ class Order < ActiveRecord::Base
         end
       end
     end
+  end
+
+  def create_preorder_invoice_transaction(charge_amount, payment_method, credited_amount)
+    invoice_statement = Invoice.generate_preorder(self.id, charge_amount, payment_method, taxed_amount, credited_amount)
+    invoice_statement.save
+    #invoice_statement.capture_stripe_customer_payment(payment_method.customer_token)
+    invoices.push(invoice_statement)
+    if invoice_statement.succeeded?
+      self.order_complete! #complete!
+      set_stripe_token_to_subscriptions(invoice_statement)
+      self.save
+    else
+      invoice_statement.errors.add(:base, 'Payment denied!!!')
+      invoice_statement.save
+    end
+    invoice_statement
   end
 
   def create_invoice_transaction(credit_card, charge_amount, payment_method, credited_amount = 0.0)
