@@ -53,6 +53,8 @@ class User < ActiveRecord::Base
 
   before_validation :sanitize_data, :before_validation_on_create
   before_create :start_store_credits
+  after_create  :subscribe_to_newsletters
+
   attr_accessible :email,
                   :password,
                   :password_confirmation,
@@ -66,6 +68,9 @@ class User < ActiveRecord::Base
                   :phones_attributes
 
   belongs_to :account
+
+  has_many    :users_newsletters
+  has_many    :newsletters, :through => :users_newsletters
 
   has_one     :store_credit
   has_many    :orders
@@ -438,5 +443,10 @@ class User < ActiveRecord::Base
 
   def before_validation_on_create
     self.access_token = SecureRandom::hex(9+rand(6)) if new_record? and access_token.nil?
+  end
+
+  def subscribe_to_newsletters
+    self.newsletter_ids = Newsletter.where(:autosubscribe => true).pluck(:id)
+    self.save(:validate => false)
   end
 end
