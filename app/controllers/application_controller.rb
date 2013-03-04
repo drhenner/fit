@@ -56,7 +56,13 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_to_welcome
-    redirect_to root_url unless current_user && current_user.admin?
+    if Settings.in_signup_period
+      redirect_to root_url unless current_user && current_user.admin?
+    end
+  end
+
+  def redirect_unless_preorder
+    redirect_to_welcome unless Settings.allow_preorders
   end
 
   def require_user
