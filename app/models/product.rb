@@ -65,6 +65,8 @@ class Product < ActiveRecord::Base
   validates :meta_description,      :presence => true,        :length => { :maximum => 255 }, :if => :active
   validates :permalink,             :uniqueness => true,      :length => { :maximum => 150 }
 
+  PREORDER_IDS = [1,2]
+
   def hero_variant
     active_variants.detect{|v| v.master } || active_variants.first
   end
@@ -192,6 +194,10 @@ class Product < ActiveRecord::Base
   # @return [String]
   def brand_name
     brand_id ? brand.name : ''
+  end
+
+  def self.preorders
+    where(:id => PREORDER_IDS)
   end
   # paginated results from the admin products grid
   #
