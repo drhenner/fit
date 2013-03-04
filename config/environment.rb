@@ -25,9 +25,6 @@ Hadean::Application.configure do
       !
       !  YOUR ENV variables are not ready for checkout!
       !  please adjust ENV['STRIPE_SECRET_KEY'] && ENV['STRIPE_PUBLISHABLE_KEY']
-      !  if you are not using authorize.net go to each file in /config/environments/*.rb and
-      !  adjust the following code accordingly...
-
       !  This is required for the checkout process to work.
       !
       !  Remove or Adjust this warning in /config/environment.rb for developers on your team
