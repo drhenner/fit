@@ -1,15 +1,14 @@
 Hadean::Application.routes.draw do
 
-  resource :terms_of_use, :only => [:show]
-
+  resource  :terms_of_use,      :only => [:show]
   resource  :contact_us,        :only => [:show]
   resources :shipping_returns,  :only => [:index]
   resource  :privacy_policy,    :only => [:show]
   resources :faqs,              :only => [:index]
+  resource  :unsubscribe,       :only => :show
+  resources :preorders,         :only => [:index, :show]
 
-  resource :unsubscribe, :only => :show
-
-  resources :user_sessions, :only => [:new, :create, :destroy]
+  resources :user_sessions,     :only => [:new, :create, :destroy]
 
   match 'admin'   => 'admin/overviews#index'
   match 'login'   => 'user_sessions#new'
