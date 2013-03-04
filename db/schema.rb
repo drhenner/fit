@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130302015430) do
+ActiveRecord::Schema.define(:version => 20130304021204) do
 
   create_table "accounting_adjustments", :force => true do |t|
     t.integer  "adjustable_id",                                 :null => false
@@ -224,6 +224,11 @@ ActiveRecord::Schema.define(:version => 20130302015430) do
 
   create_table "item_types", :force => true do |t|
     t.string "name"
+  end
+
+  create_table "newsletters", :force => true do |t|
+    t.string  "name",          :null => false
+    t.boolean "autosubscribe", :null => false
   end
 
   create_table "order_items", :force => true do |t|
@@ -605,8 +610,13 @@ ActiveRecord::Schema.define(:version => 20130302015430) do
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
     t.integer  "order_item_id"
+    t.date     "next_bill_date"
+    t.integer  "failed_attempts",       :default => 0
+    t.boolean  "canceled",              :default => false
+    t.integer  "remaining_payments",    :default => 1,     :null => false
   end
 
+  add_index "subscriptions", ["next_bill_date"], :name => "index_subscriptions_on_next_bill_date"
   add_index "subscriptions", ["subscription_plan_id"], :name => "index_subscriptions_on_subscription_plan_id"
   add_index "subscriptions", ["user_id"], :name => "index_subscriptions_on_user_id"
 
@@ -699,6 +709,15 @@ ActiveRecord::Schema.define(:version => 20130302015430) do
   add_index "users", ["last_name"], :name => "index_users_on_last_name"
   add_index "users", ["perishable_token"], :name => "index_users_on_perishable_token", :unique => true
   add_index "users", ["persistence_token"], :name => "index_users_on_persistence_token", :unique => true
+
+  create_table "users_newsletters", :force => true do |t|
+    t.integer  "user_id",       :null => false
+    t.integer  "newsletter_id", :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "users_newsletters", ["newsletter_id"], :name => "index_users_newsletters_on_newsletter_id"
+  add_index "users_newsletters", ["user_id"], :name => "index_users_newsletters_on_user_id"
 
   create_table "variant_properties", :force => true do |t|
     t.integer "variant_id",                     :null => false
