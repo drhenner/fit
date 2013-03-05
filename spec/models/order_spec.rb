@@ -382,6 +382,33 @@ describe Order, "instance methods" do
     end
   end
 
+  context ".all_in_stock?" do
+    it 'should return true' do
+      Variant.any_instance.stubs(:create_inventory)
+      inventory   = create(:inventory, :count_on_hand => 100, :count_pending_to_customer => 99)
+      variant     = create(:variant,   :inventory_id => inventory.id )
+      order       = create(:order)
+      order_item  = create(:order_item, :order => order, :variant => variant)
+      variant.stubs(:inventory).returns(inventory)
+      order_item.stubs(:variant).returns(variant)
+      order.stubs(:order_items).returns([order_item])
+
+      expect(order.all_in_stock?).to be_true
+    end
+    it 'should return false' do
+      Variant.any_instance.stubs(:create_inventory)
+      inventory   = create(:inventory, :count_on_hand => 100, :count_pending_to_customer => 99)
+      variant     = create(:variant,   :inventory => inventory )
+      order       = create(:order)
+      variant.stubs(:inventory).returns(inventory)
+      order_item  = create(:order_item, :order => order, :variant => variant)
+      order_item.stubs(:variant).returns(variant)
+      order.stubs(:order_items).returns([order_item, order_item])
+
+      expect(order.all_in_stock?).to be_false
+    end
+  end
+
   context ".variant_ids" do
     #order_items.collect{|oi| oi.variant_id }
     it 'should return each  variant_id' do

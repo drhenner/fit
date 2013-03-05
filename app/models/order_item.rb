@@ -39,10 +39,10 @@ class OrderItem < ActiveRecord::Base
   end
 
   state_machine :initial => 'unpaid' do
-    state :paid
-    state :preordered
-    state :returned
-    state :unpaid
+    state 'paid'
+    state 'preordered'
+    state 'returned'
+    state 'unpaid'
 
     event :pay do
       transition :to => 'paid', :from => ['unpaid', 'preorder']

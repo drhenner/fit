@@ -249,10 +249,10 @@ class Order < ActiveRecord::Base
   end
 
   def all_in_stock?
-    h = order_items.inject({}) {|item, hash| hash[item.id] ||=0; hash[item.id] += 1; hash }
-    h.all? do |order_item_id, qty|
-      item = OrderItem.includes(:variant => :inventory).find(order_item_id)
-      item.variant.inventory.has_this_many_available?(qty)
+    h = order_items.inject({}) {|hash, item| hash[item.variant_id] ||=0; hash[item.variant_id] += 1; hash }
+    h.all? do |variant_id, qty|
+      variant = Variant.includes(:inventory).find(variant_id)
+      variant.inventory.has_this_many_available?(qty)
     end
   end
 
