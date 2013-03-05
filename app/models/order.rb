@@ -217,10 +217,10 @@ class Order < ActiveRecord::Base
   #
   # @param [none]
   # @return [Payment] payment object
-  def order_complete!
+  def order_complete!(track_inventory = true)
     self.state = 'complete'
     self.completed_at = Time.zone.now
-    update_inventory
+    update_inventory if track_inventory
   end
 
   # This method will go to every order_item and calculate the total for that item.
@@ -615,7 +615,7 @@ class Order < ActiveRecord::Base
     invoice_statement.log_preorder_stripe_customer_payment(payment_profile.customer_token)
     invoices.push(invoice_statement)
     if invoice_statement.preordered?
-      self.order_complete! #complete!
+      self.order_complete!(false) #complete!
       set_stripe_token_to_subscriptions(invoice_statement)
       self.preorder!
     else
