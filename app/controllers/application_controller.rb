@@ -51,10 +51,7 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_without_www
-    #if (!request.subdomain.present? || request.subdomain != "www")
-    #  redirect_to ['www', request.domain, request.port_string].join
-    #end
-    redirect_to "https://www." + request.host_with_port + request.fullpath if !/^www/.match(request.host)
+    redirect_to "https://www." + request.host_with_port + request.fullpath if Settings.force_ssl && !/^www/.match(request.host)
   end
 
   def has_subdomain?
