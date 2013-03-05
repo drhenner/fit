@@ -5,8 +5,7 @@ describe Admin::Reports::OverviewsController do
   render_views
 
   it "show action should render show template" do
-    overview = FactoryGirl.create(:overview)
-    get :show, :id => overview.id
+    get :show
     expect(response).to render_template(:show)
   end
 end
