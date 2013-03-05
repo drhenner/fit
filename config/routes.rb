@@ -10,7 +10,7 @@ Hadean::Application.routes.draw do
 
   resources :user_sessions,     :only => [:new, :create, :destroy]
 
-  match 'admin'   => 'admin/overviews#index'
+  match 'admin'   => 'admin/users#index'
   match 'login'   => 'user_sessions#new'
   match 'signin'  => 'user_sessions#new'
   match 'sign-in' => 'user_sessions#new'
@@ -70,7 +70,7 @@ Hadean::Application.routes.draw do
     resources :overviews, :only => [:index]
 
     match "help" => "help#index"
-    namespace :reports do
+    namespace :reporting do
       resource :overview, :only => [:show]
     end
     namespace :rma do

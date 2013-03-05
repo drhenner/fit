@@ -1,0 +1,15 @@
+<h1> Reports </h1>
+
+<div class='panel three '>
+  <h4>Accounting </h4>
+  <p>
+    <%= I18n.localize(@accounting_report.start_time,  :format => :us_time)  %><br/>
+    <%= I18n.localize(@accounting_report.end_time,    :format => :us_time) %>
+  </p>
+  <ul>
+    <li><label>Revenue              </label><%= number_to_currency @accounting_report.revenue             %></li>
+    <li><label>Cash                 </label><%= number_to_currency @accounting_report.cash                %></li>
+    <li><label>Accounts Receivable  </label><%= number_to_currency @accounting_report.accounts_receivable %></li>
+    <li><label>Accounts Payable     </label><%= number_to_currency @accounting_report.accounts_payable    %></li>
+  </ul>
+</div>

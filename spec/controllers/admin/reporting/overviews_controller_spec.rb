@@ -1,6 +1,6 @@
 require  'spec_helper'
 
-describe Admin::Reports::OverviewsController do
+describe Admin::Reporting::OverviewsController do
   # fixtures :all
   render_views
 
