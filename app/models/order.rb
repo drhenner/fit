@@ -84,21 +84,31 @@ class Order < ActiveRecord::Base
     state 'in_progress'
     state 'complete'
     state 'paid'
+    state 'preordered'
     state 'canceled'
 
     after_transition :to => 'paid', :do => [:mark_items_paid]
+    after_transition :to => 'preordered', :do => [:mark_items_preordered]
 
     event :complete do
       transition :to => 'complete', :from => 'in_progress'
     end
 
+    event :preorder do
+      transition :to => 'preordered', :from => ['in_progress', 'complete']
+    end
+
     event :pay do
-      transition :to => 'paid', :from => ['in_progress', 'complete']
+      transition :to => 'paid', :from => ['in_progress', 'complete', 'preordered']
     end
   end
 
   def mark_items_paid
     order_items.map(&:pay!)
+  end
+
+  def mark_items_preordered
+    order_items.map(&:preorder!)
   end
 
   # user name on the order
@@ -236,6 +246,14 @@ class Order < ActiveRecord::Base
 
   def all_order_items_have_a_shipping_rate?
     !order_items.any?{ |item| item.shipping_rate_id.nil? }
+  end
+
+  def all_in_stock?
+    h = order_items.inject({}) {|item, hash| hash[item.id] ||=0; hash[item.id] += 1; hash }
+    h.all? do |order_item_id, qty|
+      item = OrderItem.includes(:variant => :inventory).find(order_item_id)
+      item.variant.inventory.has_this_many_available?(qty)
+    end
   end
 
   # This returns a hash where product_type_id is the key and an Array of prices are the values.
@@ -599,7 +617,7 @@ class Order < ActiveRecord::Base
     if invoice_statement.preordered?
       self.order_complete! #complete!
       set_stripe_token_to_subscriptions(invoice_statement)
-      self.save
+      self.preorder!
     else
       invoice_statement.errors.add(:base, 'Payment denied!!!')
       invoice_statement.save
@@ -615,7 +633,7 @@ class Order < ActiveRecord::Base
     if invoice_statement.succeeded?
       self.order_complete! #complete!
       set_stripe_token_to_subscriptions(invoice_statement)
-      self.save
+      self.pay!
     else
       #role_back
       invoice_statement.errors.add(:base, 'Payment denied!!!')

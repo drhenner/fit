@@ -39,15 +39,27 @@ class OrderItem < ActiveRecord::Base
   end
 
   state_machine :initial => 'unpaid' do
+    state :paid
+    state :preordered
+    state :returned
+    state :unpaid
 
     event :pay do
-      transition :to => 'paid', :from => ['unpaid']
+      transition :to => 'paid', :from => ['unpaid', 'preorder']
+    end
+
+    event :preorder do
+      transition :to => 'preordered', :from => ['unpaid']
     end
 
     event :return do
       transition :to => 'returned', :from => ['paid']
     end
     #after_transition :to => 'complete', :do => [:update_inventory]
+  end
+
+  def self.preorders
+    where(:state => :preordered)
   end
 
   def product_type

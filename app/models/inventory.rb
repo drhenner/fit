@@ -19,6 +19,14 @@ class Inventory < ActiveRecord::Base
 
   validate :must_have_stock
 
+  def has_this_many_available?(qty)
+    quantity_available >= qty
+  end
+
+  def quantity_available
+    (count_on_hand - count_pending_to_customer)
+  end
+
   private
 
     def must_have_stock
