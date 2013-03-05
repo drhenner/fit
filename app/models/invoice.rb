@@ -173,6 +173,7 @@ class Invoice < ActiveRecord::Base
   def log_preorder_stripe_customer_payment(customer_token, options = {})
     self.customer_token = customer_token
     preorder!
+    log_accounting_for_preordered_order
   end
 
   def capture_stripe_customer_payment(customer_token, options = {})
@@ -214,6 +215,12 @@ class Invoice < ActiveRecord::Base
   def capture_complete_order_without_authorization
     batch = self.batches.create()
     batch.transactions.push(CreditCardCapture.new_capture_payment_directly(order.user, amount, decimal_tax_amount))
+    batch.save
+  end
+
+  def log_accounting_for_preordered_order
+    batch = self.batches.create()
+    batch.transactions.push(CreditCardPreorder.new_preorder_payment(order.user, amount, decimal_tax_amount))
     batch.save
   end
 

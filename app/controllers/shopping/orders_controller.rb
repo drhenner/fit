@@ -82,7 +82,7 @@ class Shopping::OrdersController < Shopping::BaseController
       flash[:error] = I18n.t('the_order_purchased')
       redirect_to myaccount_order_url(@order)
     elsif preorder_payment_profile
-      if response = @order.create_preorder_invoice(@credit_card,
+      if response = @order.create_preorder_invoice(
                                           @order.credited_total,
                                           preorder_payment_profile,
                                           @order.amount_to_credit)
@@ -109,14 +109,18 @@ class Shopping::OrdersController < Shopping::BaseController
 
   def preorder_payment_profile
     return @preorder_payment_profile if @preorder_payment_profile
-    if Date.parse("01-#{params[:month]}-#{params[:year]}") - 3.months  < Date.today
-      @preorder_payment_profile = current_user.payment_profiles.new(cc_params)
-      @preorder_payment_profile.active = true
-      @preorder_payment_profile.save!
-      @preorder_payment_profile
-    else
-      flash[:notice] = 'Your card can not expire before the items will be shipped.'
-      false
+    if create_a_new_profile?
+      if Date.parse("01-#{params[:month]}-#{params[:year]}") - 3.months  < Date.today
+        @preorder_payment_profile = current_user.payment_profiles.new(cc_params)
+        @preorder_payment_profile.active = true
+        @preorder_payment_profile.save!
+        @preorder_payment_profile
+      else
+        flash[:notice] = 'Your card can not expire before the items will be shipped.'
+        false
+      end
+    elsif params[:use_credit_card_on_file].present?
+      @preorder_payment_profile = current_user.payment_profiles.find_by_id(params[:use_credit_card_on_file])
     end
   end
 

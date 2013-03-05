@@ -29,7 +29,7 @@ force_ssl: false
 redirect: false
 
 in_signup_period: true
-allow_preorders: false
+allow_preorders: true
 allow_orders: false
 
 # tax_per_state_id is a field for tax being applied at the state level or country wide level in "TaxRate model"

@@ -53,6 +53,7 @@ Hadean::Application.routes.draw do
     resources  :orders do
       member do
         get :checkout
+        put :preorder
       end
     end
     resources  :shipping_methods
