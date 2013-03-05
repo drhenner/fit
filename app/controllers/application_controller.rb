@@ -14,8 +14,12 @@ class ApplicationController < ActionController::Base
                 :myaccount_tab,
                 :select_countries
 
+  #before_filter :force_ssl
+  before_filter :redirect_without_www
   before_filter :secure_session
   before_filter :redirect_to_welcome
+
+  APP_DOMAIN = 'www.ufcfit.com'
 
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = "Access denied."
@@ -41,6 +45,21 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def force_ssl
+    has_subdomain? && Settings.force_ssl
+  end
+
+  def redirect_without_www
+    if (!request.subdomain.present? || request.subdomain != "www")
+      redirect_to ['www', request.domain, request.port_string].join
+    end
+    redirect_to "https://www." + request.host_with_port + request.request_uri if !/^www/.match(request.host)
+  end
+
+  def has_subdomain?
+    request.subdomain.present? && request.subdomain == "www" # right now only allow www
+  end
 
   def pagination_page
     params[:page] ||= 1
