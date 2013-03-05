@@ -591,12 +591,12 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def create_preorder_invoice_transaction(charge_amount, payment_method, credited_amount)
-    invoice_statement = Invoice.generate_preorder(self.id, charge_amount, payment_method, taxed_amount, credited_amount)
+  def create_preorder_invoice_transaction(charge_amount, payment_profile, credited_amount)
+    invoice_statement = Invoice.generate_preorder(self.id, charge_amount, payment_profile, taxed_amount, credited_amount)
     invoice_statement.save
-    #invoice_statement.capture_stripe_customer_payment(payment_method.customer_token)
+    invoice_statement.log_preorder_stripe_customer_payment(payment_profile.customer_token)
     invoices.push(invoice_statement)
-    if invoice_statement.succeeded?
+    if invoice_statement.preordered?
       self.order_complete! #complete!
       set_stripe_token_to_subscriptions(invoice_statement)
       self.save

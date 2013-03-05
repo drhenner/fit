@@ -50,6 +50,7 @@ class Invoice < ActiveRecord::Base
   state_machine :initial => :pending do
     state :pending
     state :authorized
+    state :preordered
     state :paid
     state :payment_declined
     state :canceled
@@ -59,6 +60,10 @@ class Invoice < ActiveRecord::Base
     event :payment_rma do
       transition :from => :pending,
                   :to   => :refunded
+    end
+    event :preorder do
+      transition :from => :pending,
+                 :to   => :preordered
     end
     event :payment_authorized do
       transition :from => :pending,
@@ -165,6 +170,11 @@ class Invoice < ActiveRecord::Base
     invoice
   end
 
+  def log_preorder_stripe_customer_payment(customer_token, options = {})
+    self.customer_token = customer_token
+    preorder!
+  end
+
   def capture_stripe_customer_payment(customer_token, options = {})
     transaction do
       capture = Payment.stripe_customer_capture(integer_amount_charge, customer_token, order.number, options)
@@ -178,7 +188,6 @@ class Invoice < ActiveRecord::Base
       capture
     end
   end
-
   def integer_amount_charge
     (amount_charged * 100.0).to_i
   end

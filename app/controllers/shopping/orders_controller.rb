@@ -86,7 +86,7 @@ class Shopping::OrdersController < Shopping::BaseController
                                           @order.credited_total,
                                           preorder_payment_profile,
                                           @order.amount_to_credit)
-        if response.succeeded?
+        if response.preordered?
           ##  MARK items as purchased
           session_cart.mark_items_purchased(@order)
           redirect_to( myaccount_order_path(@order) ) and return
