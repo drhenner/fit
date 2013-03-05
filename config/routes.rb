@@ -70,7 +70,9 @@ Hadean::Application.routes.draw do
     resources :overviews, :only => [:index]
 
     match "help" => "help#index"
-
+    namespace :reports do
+      resource :overview, :only => [:show]
+    end
     namespace :rma do
       resources  :orders do
         resources  :return_authorizations do
