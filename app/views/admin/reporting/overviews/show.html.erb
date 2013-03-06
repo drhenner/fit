@@ -1,15 +1,67 @@
 <h1> Reports </h1>
 
-<div class='panel three '>
-  <h4>Accounting </h4>
-  <p>
-    <%= I18n.localize(@accounting_report.start_time,  :format => :us_time)  %><br/>
-    <%= I18n.localize(@accounting_report.end_time,    :format => :us_time) %>
-  </p>
-  <ul>
-    <li><label>Revenue              </label><%= number_to_currency @accounting_report.revenue             %></li>
-    <li><label>Cash                 </label><%= number_to_currency @accounting_report.cash                %></li>
-    <li><label>Accounts Receivable  </label><%= number_to_currency @accounting_report.accounts_receivable %></li>
-    <li><label>Accounts Payable     </label><%= number_to_currency @accounting_report.accounts_payable    %></li>
-  </ul>
+<div class='row'>
+  <div class=' three column'>
+    <div class='panel'>
+    <h4>Accounting </h4>
+    <p>
+      <%= I18n.localize(@accounting_report.start_time,  :format => :us_time)  %><br/>
+      <%= I18n.localize(@accounting_report.end_time,    :format => :us_time) %>
+    </p>
+    <ul>
+      <li><label>Revenue              </label><%= number_to_currency @accounting_report.revenue             %></li>
+      <li><label>Cash                 </label><%= number_to_currency @accounting_report.cash                %></li>
+      <li><label>Accounts Receivable  </label><%= number_to_currency @accounting_report.accounts_receivable %></li>
+      <li><label>Accounts Payable     </label><%= number_to_currency @accounting_report.accounts_payable    %></li>
+    </ul>
+    </div>
+  </div>
+  <div class='three column'>
+    <div class='panel'>
+    <h4>Orders </h4>
+    <p>
+      <%= I18n.localize(@orders_report.start_time,  :format => :us_time)  %><br/>
+      <%= I18n.localize(@orders_report.end_time,    :format => :us_time) %>
+    </p>
+    <ul>
+      <li><label># of Orders      </label><%= @orders_report.quantity        %></li>
+      <li><label>Amount           </label><%= number_to_currency @orders_report.total_amount    %></li>
+      <li><label>Amount Returned  </label><%= number_to_currency @orders_report.amount_returned %></li>
+      <li><label>Taxes Collected  </label><%= number_to_currency @orders_report.taxes_collected %></li>
+      <li><label>Taxes Returned   </label><%= number_to_currency @orders_report.taxes_returned  %></li>
+    </ul>
+    </div>
+  </div>
+  <div class=' three column'>
+    <div class='panel'>
+    <h4>Customers </h4>
+    <p>
+      <%= I18n.localize(@customers_report.start_time,  :format => :us_time)  %><br/>
+      <%= I18n.localize(@customers_report.end_time,    :format => :us_time) %>
+    </p>
+    <ul>
+      <li>
+        <label># of Users at (<%= I18n.localize(@customers_report.end_time, :format => :us_time) %>) </label>
+        <%= @customers_report.total_users %>
+      </li>
+      <li><label>New Users in TimeFrame  </label><%= @customers_report.users_in_timeframe     %></li>
+      <li>
+        <label># of Customers at (<%= I18n.localize(@customers_report.end_time, :format => :us_time) %>) </label>
+        <%= @customers_report.total_customers        %>
+      </li>
+      <li><label> Customers in TimeFrame </label><%= @customers_report.customers_in_timeframe %></li>
+    </ul>
+    </div>
+  </div>
+  <div id='' class=' three column'>
+    <div class='panel graceful'>
+    <h4>Filter </h4>
+    <ul id='report-filters'>
+      <li><label>Start Date       </label><%= text_field_tag 'start_date', nil, :placeholder => 'dd/mm/yyyy', :class => 'ui-datepicker' %></li>
+      <li><%= link_to 'Daily',    '#', :id => 'generate-daily-report' ,  :class => 'button small' %></li>
+      <li><%= link_to 'Weekly',   '#', :id => 'generate-weekly-report',  :class => 'button small' %></li>
+      <li><%= link_to 'Monthly',  '#', :id => 'generate-monthly-report', :class => 'button small' %></li>
+    </ul>
+    </div>
+  </div>
 </div>
