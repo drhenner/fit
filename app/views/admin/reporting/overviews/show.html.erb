@@ -62,16 +62,33 @@
   </div>
   <div id='' class=' three column'>
     <div class='panel graceful'>
-    <h4>Filter </h4>
-    <ul id='report-filters'>
-      <li>
-        <label>Start Date       </label>
-        <%= text_field_tag 'start_date', nil, :placeholder => 'dd/mm/yyyy', :class => 'ui-datepicker' %>
-      </li>
-      <li><%= link_to 'Daily',    '#', :id => 'generate-daily-report' ,  :class => 'button small' %></li>
-      <li><%= link_to 'Weekly',   '#', :id => 'generate-weekly-report',  :class => 'button small' %></li>
-      <li><%= link_to 'Monthly',  '#', :id => 'generate-monthly-report', :class => 'button small' %></li>
-    </ul>
+      <h4>Filter </h4>
+      <%= form_tag(  admin_reporting_overview_path(),
+                                    :method => :get,
+                                    :id   => 'request_report_form') do  %>
+        <%= hidden_field_tag('schedule', nil) %>
+        <ul id='report-filters'>
+          <li>
+            <label>Start Date       </label>
+            <%= text_field_tag 'start_date', nil, :placeholder => 'dd/mm/yyyy', :class => 'ui-datepicker' %>
+          </li>
+          <li>
+            <%= submit_tag 'Daily',
+                                    :disable_with => "Please wait...",
+                                    :class => 'button small report-submit-button' %>
+          </li>
+          <li>
+            <%= submit_tag 'Weekly',
+                                      :disable_with => "Please wait...",
+                                      :class => 'button small report-submit-button' %>
+          </li>
+          <li>
+            <%= submit_tag 'Monthly',
+                                      :disable_with => "Please wait...",
+                                      :class => 'button small report-submit-button' %>
+          </li>
+        </ul>
+      <% end %>
     </div>
   </div>
 </div>

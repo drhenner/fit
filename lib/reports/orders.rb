@@ -16,19 +16,19 @@ module ROReReports
     end
 
     def taxes_collected
-      @taxes_collected  ||= (Invoice.where({:invoices => {:state => 'paid'}}).sum(:tax_amount)).to_f / 100.0
+      @taxes_collected  ||= (Invoice.where("created_at >= ? AND created_at <= ?", start_time, end_time).where({:invoices => {:state => 'paid'}}).sum(:tax_amount)).to_f / 100.0
     end
 
     def total_amount
-      @total_amount     ||= Invoice.where({:invoices => {:state => 'paid'}}).sum(:amount).round_at(2)
+      @total_amount     ||= Invoice.where("created_at >= ? AND created_at <= ?", start_time, end_time).where({:invoices => {:state => 'paid'}}).sum(:amount).round_at(2)
     end
 
     def taxes_returned
-      @taxes_returned   ||= (ReturnAuthorization.where({:return_authorizations => {:state => 'complete'}}).sum(:tax_amount)).to_f / 100.0
+      @taxes_returned   ||= (ReturnAuthorization.where("created_at >= ? AND created_at <= ?", start_time, end_time).where({:return_authorizations => {:state => 'complete'}}).sum(:tax_amount)).to_f / 100.0
     end
 
     def amount_returned
-      @amount_returned  ||= ReturnAuthorization.where({:return_authorizations => {:state => 'complete'}}).sum(:amount).round_at(2)
+      @amount_returned  ||= ReturnAuthorization.where("created_at >= ? AND created_at <= ?", start_time, end_time).where({:return_authorizations => {:state => 'complete'}}).sum(:amount).round_at(2)
     end
 
     def start_time

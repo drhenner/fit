@@ -2,7 +2,6 @@ class Admin::Reporting::OverviewsController < Admin::Reporting::BaseController
   before_filter :set_time_range
 
   def show
-    params[:start_time] if params[:start_time].present?
     @accounting_report  = ROReReports::Accounting.new(start_time, end_time)
     @orders_report      = ROReReports::Orders.new(start_time, end_time)
     @customers_report   = ROReReports::Customers.new(start_time, end_time)
@@ -11,11 +10,24 @@ class Admin::Reporting::OverviewsController < Admin::Reporting::BaseController
   private
 
   def set_time_range
-    if params[:start_time].present?
-      @start_time = Time.parse(params[:start_time])
-      @end_time   = params[:start_time].present? ? Time.parse(params[:end_time]) : Time.zone.now
+    if params[:start_date].present?
+      @start_time = Time.parse(params[:start_date])
     else
-      @start_time, @end_time = ROReReports::Accounting.weekly
+      @start_time = Chronic.parse('last week').beginning_of_week
+    end
+    set_end_time
+  end
+
+  def set_end_time
+    @end_time = case params[:commit]
+    when 'Daily'
+      start_time + 1.day
+    when 'Weekly'
+      start_time + 1.week
+    when 'Monthly'
+      start_time + 1.month
+    else
+      start_time + 1.week
     end
   end
 
