@@ -12,10 +12,10 @@ if (typeof Hadean.Admin.products == "undefined") {
         //scheduled_at    : null,
         initialize      : function( ) {
           // If the user clicks add new variant button
-          jQuery('.add_variant_child').live('click', function() {
+          jQuery(document).on('click','.add_variant_child', function() {
             Hadean.Admin.products.addVariant();// product_table_body
           });
-          jQuery('.remove_variant_child').live('click', function() {
+          jQuery(document).on('click','.remove_variant_child', function() {
             Hadean.Admin.products.removeVariant(this);// product_table_body
           });
         },

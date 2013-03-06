@@ -24,7 +24,7 @@ jQuery(document).ready(function ($) {
     $(contentLocation).css('display', 'block');
   }
 
-  $('dl.tabs dd a').on('click.fndtn', function (event) {
+  $('dl.tabs').on('click.fndtn','dd a', function (event) {
     activateTab($(this).parent('dd'));
   });
 
@@ -60,7 +60,7 @@ jQuery(document).ready(function ($) {
   var lockNavBar = false;
   /* Windows Phone, sadly, does not register touch events :( */
   if (Modernizr.touch || navigator.userAgent.match(/Windows Phone/i)) {
-    $('.nav-bar a.flyout-toggle').on('click.fndtn touchstart.fndtn', function(e) {
+    $(document).on('click.fndtn touchstart.fndtn','.nav-bar a.flyout-toggle', function(e) {
       e.preventDefault();
       var flyout = $(this).siblings('.flyout').first();
       if (lockNavBar === false) {
@@ -86,20 +86,20 @@ jQuery(document).ready(function ($) {
   /* SPLIT BUTTONS/DROPDOWNS */
   $('.button.dropdown > ul').addClass('no-hover');
 
-  $('.button.dropdown').on('click.fndtn touchstart.fndtn', function (e) {
+  $(document).on('click.fndtn touchstart.fndtn','.button.dropdown', function (e) {
     e.stopPropagation();
   });
-  $('.button.dropdown.split span').on('click.fndtn touchstart.fndtn', function (e) {
+  $(document).on('click.fndtn touchstart.fndtn','.button.dropdown.split span',  function (e) {
     e.preventDefault();
     $('.button.dropdown').not($(this).parent()).children('ul').removeClass('show-dropdown');
     $(this).siblings('ul').toggleClass('show-dropdown');
   });
-  $('.button.dropdown').not('.split').on('click.fndtn touchstart.fndtn', function (e) {
+  $('.button.dropdown').not('.split').live('click.fndtn touchstart.fndtn', function (e) {
     e.preventDefault();
     $('.button.dropdown').not(this).children('ul').removeClass('show-dropdown');
     $(this).children('ul').toggleClass('show-dropdown');
   });
-  $('body, html').on('click.fndtn touchstart.fndtn', function () {
+  $(document).on('click.fndtn touchstart.fndtn','body, html', function () {
     $('.button.dropdown ul').removeClass('show-dropdown');
   });
 
