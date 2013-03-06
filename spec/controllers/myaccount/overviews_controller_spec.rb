@@ -8,7 +8,7 @@ describe Myaccount::OverviewsController do
 
     @user = create(:user)
     login_as(@user)
-    @controller.stubs(:redirect_to_welcome)
+    stub_redirect_to_welcome
   end
 
   it "show action should render show template" do
@@ -45,7 +45,7 @@ describe Myaccount::OverviewsController do
   render_views
 
   it "not logged in should redirect to login page" do
-    @controller.stubs(:redirect_to_welcome)
+    stub_redirect_to_welcome
     get :show
     response.should redirect_to(login_url)
   end

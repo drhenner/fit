@@ -19,7 +19,7 @@ describe Shopping::ShippingMethodsController do
     @order_item   = create(:order_item, :order => @order, :variant => @variant)
     @order.stubs(:order_items).returns([@order_item])
     @controller.stubs(:find_or_create_order).returns(@order)
-    @controller.stubs(:redirect_to_welcome)
+    stub_redirect_to_welcome
   end
 
   it "index action should render index template" do
@@ -40,7 +40,7 @@ describe Shopping::ShippingMethodsController do
     @variant  = create(:variant)
 
     create_cart(@cur_user, @cur_user, [@variant])
-    @controller.stubs(:redirect_to_welcome)
+    stub_redirect_to_welcome
   end
   it "update action should render edit template when model is invalid" do
     @variant2  = create(:variant)

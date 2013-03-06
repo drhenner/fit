@@ -14,7 +14,6 @@ class ApplicationController < ActionController::Base
                 :myaccount_tab,
                 :select_countries
 
-  #before_filter :force_ssl
   before_filter :redirect_without_www
   before_filter :secure_session
   before_filter :redirect_to_welcome

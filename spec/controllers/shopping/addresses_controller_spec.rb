@@ -12,7 +12,7 @@ describe Shopping::AddressesController do
     @variant  = create(:variant)
     create_cart(@cur_user, @cur_user, [@variant])
     @shipping_address = create(:address, :addressable_id => @cur_user.id, :addressable_type => 'User')
-    @controller.stubs(:redirect_to_welcome)
+    stub_redirect_to_welcome
   end
 
   it "index action should render index template" do

@@ -7,7 +7,7 @@ describe Myaccount::CreditCardsController do
     activate_authlogic
     @user = create(:user)
     login_as(@user)
-    @controller.stubs(:redirect_to_welcome)
+    stub_redirect_to_welcome
 
     charge_mock = mock()
     charge_mock.stubs(:customer_token).returns('fakeTOKEN')
@@ -49,7 +49,7 @@ describe Myaccount::CreditCardsController do
   render_views
 
   it "index action should go to login page" do
-    @controller.stubs(:redirect_to_welcome)
+    stub_redirect_to_welcome
     get :index
     response.should redirect_to(login_url)
   end
@@ -61,7 +61,7 @@ describe Myaccount::CreditCardsController do
     #Stripe::Charge.stubs(:create).returns(charge_mock)
     PaymentProfile.any_instance.stubs(:save_stripe_customer).returns(true)
 
-    @controller.stubs(:redirect_to_welcome)
+    stub_redirect_to_welcome
     @credit_card = create(:payment_profile)
     get :index
     response.should redirect_to(login_url)

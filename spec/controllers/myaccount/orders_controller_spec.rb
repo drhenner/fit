@@ -8,7 +8,7 @@ describe Myaccount::OrdersController do
 
     @user = create(:user)
     login_as(@user)
-    @controller.stubs(:redirect_to_welcome)
+    stub_redirect_to_welcome
   end
 
   it "index action should render index template" do
@@ -31,13 +31,13 @@ describe Myaccount::OrdersController do
   render_views
 
   it "index action should go to login page" do
-    @controller.stubs(:redirect_to_welcome)
+    stub_redirect_to_welcome
     get :index
     response.should redirect_to(login_url)
   end
 
   it "show action should go to login page" do
-    @controller.stubs(:redirect_to_welcome)
+    stub_redirect_to_welcome
     @order = create(:order)
     @order.state = 'complete'
     @order.save

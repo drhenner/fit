@@ -4,7 +4,7 @@ describe Customer::ActivationsController do
   render_views
 
   before do
-    @controller.stubs(:redirect_to_welcome)
+    stub_redirect_to_welcome
   end
 
   it "show action should render show template" do

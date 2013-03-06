@@ -4,6 +4,10 @@ describe PreordersController do
   # fixtures :all
   render_views
 
+  before do
+    http_login
+  end
+
   it "index action should render index template" do
     Settings.stubs(:allow_preorders).returns(true)
     get :index

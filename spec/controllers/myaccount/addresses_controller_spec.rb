@@ -6,10 +6,9 @@ describe Myaccount::AddressesController do
 
   before(:each) do
     activate_authlogic
-
     @user = create(:user)
     login_as(@user)
-    @controller.stubs(:redirect_to_welcome)
+    stub_redirect_to_welcome
   end
 
 

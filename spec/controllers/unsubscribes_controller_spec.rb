@@ -5,6 +5,7 @@ describe UnsubscribesController do
   render_views
 
   it "show action should render show template" do
+    http_login
     newsletter = FactoryGirl.create(:newsletter)
     unsubscribing_user = FactoryGirl.create(:user)
     expect(unsubscribing_user.newsletter_ids).to eq [newsletter.id]
