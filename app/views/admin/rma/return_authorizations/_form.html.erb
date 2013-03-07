@@ -24,10 +24,10 @@
 
 
 
-  <div id="return_items" class='span-12'>
+  <div id="return_items" class='row'>
     <% @order.order_items.each do |item| %>
       <div  id='image_<%= item.id %>'
-            class="variant_form left span-12 last">
+            class="variant_form left six large-6 column">
         <% return_item = @return_authorization.return_items.detect {|p| p.order_item_id == item.id } %>
         <% return_item = return_item || ReturnItem.new(:order_item => item) %>
         <% return_item.updated_by = current_user.id %>
@@ -41,11 +41,11 @@
     <% end %>
   </div>
 
-    <%= f.hidden_field :user_id %>
-    <%= f.hidden_field :created_by %>
+  <%= f.hidden_field :user_id %>
+  <%= f.hidden_field :created_by %>
 
 
-  <div class='column float-left'>
+  <div class='twelve large-12'>
     <%= f.fields_for :comments do |comment_form|%>
       <%= comment_form.hidden_field :user_id %>
       <%= comment_form.hidden_field :created_by %>

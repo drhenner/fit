@@ -17,6 +17,8 @@ class Admin::Rma::ReturnAuthorizationsController < Admin::Rma::BaseController
   def new
     load_info
 
+    @stripe_charge = Stripe::Charge.retrieve(@order.completed_invoices.last.charge_token) if @order.completed_invoices.last.try(:charge_token)
+
     @return_authorization = ReturnAuthorization.new
     @return_authorization.comments << (Comment.new(:user_id => @order.user_id, :created_by => current_user.id))
     form_info

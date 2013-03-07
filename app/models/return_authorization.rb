@@ -49,7 +49,7 @@ class ReturnAuthorization < ActiveRecord::Base
   state_machine :initial => 'authorized' do
     #after_transition :to => 'received', :do => :process_receive
     #after_transition :to => 'cancelled', :do => :process_canceled
-    before_transition :to => 'complete', :do => [:process_ledger_transactions, :mark_items_returned]
+    before_transition :to => 'complete', :do => [:process_ledger_transactions, :mark_items_returned, :return_money_to_card]
 
     event :receive do
       transition :to => 'received', :from => 'authorized'
@@ -75,6 +75,10 @@ class ReturnAuthorization < ActiveRecord::Base
 
   def mark_items_returned
     return_items.map(&:mark_returned!)
+  end
+
+  def amount_in_cents
+    (amount * 100.0).to_i
   end
 
   # number of the order that is returning the item
@@ -163,5 +167,19 @@ class ReturnAuthorization < ActiveRecord::Base
     if restocking_fee && restocking_fee >= amount
       self.errors.add(:amount, "The amount must be larger than the restocking fee.")
     end
+
+    if amount > (max_refund.to_f / 100.0)
+      self.errors.add(:amount, "The amount can not exceed #{max_refund.to_f / 100.0}.")
+    end
+  end
+
+  def return_money_to_card
+    @stripe_charge ||= Stripe::Charge.retrieve(order.completed_invoices.last.charge_token)
+    @stripe_charge.refund(:amount => amount_in_cents)
+  end
+
+  def max_refund
+    @stripe_charge ||= Stripe::Charge.retrieve(order.completed_invoices.last.charge_token)
+    (@stripe_charge[:amount] - @stripe_charge[:amount_refunded])
   end
 end
