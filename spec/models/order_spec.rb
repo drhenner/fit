@@ -41,6 +41,8 @@ describe Order, "instance methods" do
     it 'should return ""' do
       @invoice = create(:invoice, :amount => 13.49)
       @order = create(:order)
+      @order.state = 'paid'
+      @order.save
       @invoice.stubs(:cancel_authorized_payment).returns(true)
       @order.cancel_unshipped_order(@invoice).should == true
       @order.active.should be_false
