@@ -7,8 +7,7 @@
 <% @addresses.each_with_index do |address, i| %>
   <% selected = @address.id == address.id %>
   <div  id='select-address-<%= i %>'
-        class='span-5 rounded-4
-              <%= cycle("line_item_yellow", "line_item_gray") %>
+        class='large-3 three rounded-4
               <%= 'address_selected' if selected %>'>
     <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => address} %>
     <% if selected %>

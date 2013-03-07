@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-<div class=' ten column'>
+<div class=' ten large-10 column'>
   <b>Order Information:</b>
   <div  id='order-items'
         class='panel '>
@@ -15,7 +15,7 @@
 
 <% if @order.order_items.size > 0 %>
 
-  <div class=' six column'>
+  <div class=' six large-6 column'>
   <b>Items</b>
     <div  id='order-items'
           class=' panel '>
@@ -27,7 +27,7 @@
   </div>
 
 <% end %>
-<div class=' six column'>
+<div class=' six large-6 column'>
   <b>Shipping Address</b>
   <div  id='order-address'
         class='panel '>
@@ -38,7 +38,7 @@
   </div>
 </div>
 
-<div class=' six column '>
+<div class=' six large-6 column '>
   <b>Shipments:</b>
   <% @order.shipments.each do |shipment| %>
       <div  id='order-shipment-items'
@@ -57,7 +57,7 @@
 </div>
 
 
-<div class=' span-7 six column'>
+<div class=' six large-6 column'>
   <b>Invoices:</b>
   <% @order.invoices.each do |invoice| %>
       <div  id='order-invoices'
@@ -71,7 +71,7 @@
   <% end %>
 </div>
 
-<div class=' six column'>
+<div class=' six large-6 column'>
   <b>Return Merchandise Authorization:</b>
   <div class=' panel'>
     <% if @order.return_authorizations.size > 0 %>

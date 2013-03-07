@@ -78,6 +78,10 @@ class OrderItem < ActiveRecord::Base
     shipment_id?
   end
 
+  def unshipped?
+    !shipped?
+  end
+
   # shipping method for the order item
   #
   # @param [none]

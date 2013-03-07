@@ -3,9 +3,9 @@
 <%= form_for @purchase_order, :url  => admin_inventory_receiving_path(@purchase_order),
                               :html => {:class => 'prepend-4'}  do |form| %>
 
-  <fieldset id="admin-product-names" class='span-11 fields'>
-    <div class='span-15'>
-        <div class='span-14'>
+  <fieldset id="admin-product-names" class=' fields'>
+    <div>
+        <div class='large-6'>
           <div class='span-11'>
             Invoice: <%= @purchase_order.invoice_number %>
             --- Tracking #: <%= @purchase_order.display_tracking_number %>
@@ -16,7 +16,7 @@
         </div>
 
         <%= form.fields_for :purchase_order_variants,  @purchase_order.purchase_order_variants do |po_variant_form| %>
-          <div class='span-14'>
+          <div class='large-6'>
             <%= render :partial => 'form', :locals => { :po_variant_form => po_variant_form } %>
           </div>
         <% end %>

@@ -4,7 +4,7 @@
   Shipment for <%= @order.user.name %>
 </div>
 <div class='clear'></div>
-<div id='order-shipment-items' class='span-7 last float-left'>
+<div id='order-shipment-items' class='span-7 large-4 last float-left'>
 <h4>Order Items</h4>
   <% @order.order_items.each_with_index do |item,i| %>
     <div  id='order-shipment-item<%= i %>'
@@ -21,14 +21,14 @@
     </div>
   <% end %>
 </div>
-<div class='span-7 last float-left' >
+<div class='large-4 last float-left' >
 <h4>Shipping address</h4>
   <div  id='order-ship-address'
         class='span-6 rounded-4 line_item_yellow'>
     <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => @order.ship_address} %>
   </div>
 </div>
-<div class='span-7 last float-left'>
+<div class='large-4 last float-left'>
 <h4>Shipment Details</h4>
   <% if @order.shipments.empty? %>
     No Shipments have been made on this order.
@@ -43,7 +43,7 @@
 </div>
 <div class='clear'></div>
 Ask if you want to authorize full amount of partial with reason<br/>
-<div class='span-12 last'>
+<div class='large-6 last'>
   <% @order.invoices.each do |invoice| %>
     <div style='display:inline-block;' class='line_item_gray'> <%= invoice.state %> Invoice:</div>
     <%=  invoice.number %> => <%= number_to_currency invoice.amount %>

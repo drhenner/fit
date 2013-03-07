@@ -24,7 +24,8 @@ jQuery(document).ready(function ($) {
     $(contentLocation).css('display', 'block');
   }
 
-  $('dl.tabs').on('click.fndtn','dd a', function (event) {
+  $(document).on('click.fndtn','dl.tabs dd a', function (event) {
+    alert('dddd');
     activateTab($(this).parent('dd'));
   });
 
@@ -87,9 +88,10 @@ jQuery(document).ready(function ($) {
   $('.button.dropdown > ul').addClass('no-hover');
 
   $(document).on('click.fndtn touchstart.fndtn','.button.dropdown', function (e) {
+    alert('aaaa');
     e.stopPropagation();
   });
-  $('.button.dropdown.split').on('click.fndtn touchstart.fndtn','span',  function (e) {
+  $(document).on('click.fndtn touchstart.fndtn','.button.dropdown.split span',  function (e) {
     e.preventDefault();
     $('.button.dropdown').not($(this).parent()).children('ul').removeClass('show-dropdown');
     $(this).siblings('ul').toggleClass('show-dropdown');

@@ -10,10 +10,6 @@ class Admin::Fulfillment::OrdersController < Admin::Fulfillment::BaseController
   # GET /admin/fulfillment/orders/1
   def show
     @order = Order.includes([:shipments, {:order_items => [:shipment, :variant]}]).find(params[:id])
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @order }
-    end
   end
 
   # GET /admin/fulfillment/orders/1/edit
@@ -55,16 +51,15 @@ class Admin::Fulfillment::OrdersController < Admin::Fulfillment::BaseController
     end
   end
 
-  # DELETE /admin/fulfillment/shipments/1
-  # DELETE /admin/fulfillment/shipments/1.xml
+  # DELETE /admin/fulfillment/orders/1
   def destroy
 
     @order    = Order.find(params[:id])
-    @invoice  = @order.invoices.find(params[:invoice_id])
+    @invoice  = @order.invoices.find_by_id(params[:invoice_id])
 
-    @order.cancel_unshipped_order(@invoice)
+    @order.cancel_unshipped_order(@invoice) unless @order.canceled?
     respond_to do |format|
-      format.html { render :partial => 'invoice_details', :locals => {:invoice => @invoice} }
+      format.html { render :edit }
       format.json { render :json => @order.to_json }
     end
   end

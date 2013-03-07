@@ -52,7 +52,7 @@ class Order < ActiveRecord::Base
   has_many   :order_items, :dependent => :destroy
   has_many   :shipments
   has_many   :invoices
-  has_many   :completed_invoices,  :class_name => 'Invoice', :conditions => ['state = ? OR state = ?', 'authorized', 'paid']
+  has_many   :completed_invoices,  :class_name => 'Invoice', :conditions => ['state = ? OR state = ? OR state = ?', 'authorized', 'paid', 'preordered']
   has_many   :authorized_invoices, :class_name => 'Invoice', :conditions => ['state = ?', 'authorized']
   has_many   :paid_invoices      , :class_name => 'Invoice', :conditions => ['state = ?', 'paid']
   has_many   :return_authorizations
@@ -92,6 +92,10 @@ class Order < ActiveRecord::Base
 
     event :complete do
       transition :to => 'complete', :from => 'in_progress'
+    end
+
+    event :cancel do
+      transition :to => 'canceled', :from => ['complete', 'preordered', 'paid']
     end
 
     event :preorder do
@@ -147,8 +151,9 @@ class Order < ActiveRecord::Base
   # @return [none]
   def cancel_unshipped_order(invoice)
     transaction do
-      self.update_attributes(:active => false)
+      self.active = false
       invoice.cancel_authorized_payment
+      self.cancel!
     end
   end
 
@@ -402,6 +407,25 @@ class Order < ActiveRecord::Base
       rates << item.shipping_rate if item.shipping_rate.individual? || !rates.include?(item.shipping_rate)
       rates
     end
+  end
+
+  def create_shipments_with_order_item_ids(order_item_ids)
+    created_shipments = false
+    self.order_items.find(order_item_ids).group_by(&:shipping_method_id).each do |shipping_method_id, order_items|
+      shipment = Shipment.new(:shipping_method_id => shipping_method_id,
+                              :address_id         => self.ship_address_id,
+                              :order_id           => self.id
+                              )
+      shipment_has_items = false
+      order_items.each do |item|
+        if item.paid?
+          shipment.order_items.push(item)
+          shipment_has_items = true
+        end
+      end
+      created_shipments = shipment.prepare! if shipment_has_items # just because there might not be any order items that are paid? within order_item_ids
+    end
+    created_shipments
   end
 
   # all the tax charges to apply to the order

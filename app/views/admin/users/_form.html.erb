@@ -2,7 +2,7 @@
   <legend>New User</legend>
 
   <div class="row">
-    <div class="six columns">
+    <div class="six large-6 columns">
       <label>First Name</label>
       <%= form.text_field :first_name %>
 
@@ -13,7 +13,7 @@
       <%= form.select :state, @states %>
     </div>
 
-    <div class="six columns">
+    <div class="six large-6 columns">
       <label>Last Name</label>
       <%= form.text_field :last_name %>
 
@@ -37,14 +37,15 @@
       </li>
     </ul>
   </fieldset>
+
+  <fieldset>
+    <legend>User Roles</legend>
+    <% @all_roles.each do |role| %>
+      <div class="property_form left span-9 last">
+        <% checked = @user.id && @user.roles.include?(role)%>
+        <%= check_box_tag "user[role_ids][]", role.id, checked %>
+        <%= role.name %>
+      </div>
+    <% end %>
+  </fieldset>
 <% end %>
-<fieldset>
-  <legend>User Roles</legend>
-  <% @all_roles.each do |role| %>
-    <div class="property_form left span-9 last">
-      <% checked = @user.id && @user.roles.include?(role)%>
-      <%= check_box_tag "user[role_ids][]", role.id, checked %>
-      <%= role.name %>
-    </div>
-  <% end %>
-</fieldset>
