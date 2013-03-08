@@ -31,7 +31,7 @@ if (typeof Hadean.Welcome.rotateImages == "undefined") {
             $('#signup_form_wrapper').css('background-color', '#888');
             $('#signup_form_wrapper').css('top', 0);
             $('#signup_form_wrapper').css('left', 0);
-            $('#signup_form_wrapper').css('width', '480px');
+            $('#signup_form_wrapper').css('width', '400px');
             $('#input-fields').css('width', 353);
             $('#input-fields').css('float', 'none');
             $('#input-fields').css('min-height', '335px');
