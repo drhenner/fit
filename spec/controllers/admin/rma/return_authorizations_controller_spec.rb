@@ -61,6 +61,8 @@ describe Admin::Rma::ReturnAuthorizationsController do
   end
 
   it "update action should redirect when model is valid" do
+
+    ReturnAuthorization.any_instance.stubs(:return_money_to_card).returns(true)
     @return_authorization = create(:return_authorization)
     ReturnAuthorization.any_instance.stubs(:valid?).returns(true)
     put :complete, :id => @return_authorization.id, :order_id => @order.id

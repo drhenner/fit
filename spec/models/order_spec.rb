@@ -39,6 +39,7 @@ describe Order, "instance methods" do
 
   context ".cancel_unshipped_order(invoice)" do
     it 'should return ""' do
+      ReturnAuthorization.any_instance.stubs(:max_refund).returns(10000)
       @invoice = create(:invoice, :amount => 13.49)
       @order = create(:order)
       @order.state = 'paid'
