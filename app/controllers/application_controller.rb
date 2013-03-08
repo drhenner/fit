@@ -32,6 +32,7 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from ActiveRecord::DeleteRestrictionError do |exception|
+    notify_airbrake(exception)
     redirect_to :back, alert: exception.message
   end
 
@@ -51,7 +52,6 @@ class ApplicationController < ActionController::Base
 
   def redirect_without_www
     if Settings.force_ssl && !/^www/.match(request.host)
-      notify_airbrake(request) if params[:itsdave].present?
       redirect_to "https://www." + request.host_with_port + request.fullpath
     end
   end
