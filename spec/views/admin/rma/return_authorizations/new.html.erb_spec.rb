@@ -3,6 +3,7 @@ require 'spec_helper'
 describe "admin/rma/return_authorizations/new.html.erb" do
   before(:each) do
     @order = create(:order)
+    ReturnAuthorization.any_instance.stubs(:max_refund).returns(10000)
     @return_authorization = build(:return_authorization)
 
     @order = create(:order)

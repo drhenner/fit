@@ -158,6 +158,11 @@ class ReturnAuthorization < ActiveRecord::Base
     grid
   end
 
+  def max_refund
+    @stripe_charge ||= Stripe::Charge.retrieve(order.completed_invoices.last.charge_token)
+    (@stripe_charge[:amount] - @stripe_charge[:amount_refunded])
+  end
+
   private
 
   # rma validation, if the rma amount is less than the restocking fee why would anyone return an item
@@ -179,8 +184,4 @@ class ReturnAuthorization < ActiveRecord::Base
     @stripe_charge.refund(:amount => amount_in_cents)
   end
 
-  def max_refund
-    @stripe_charge ||= Stripe::Charge.retrieve(order.completed_invoices.last.charge_token)
-    (@stripe_charge[:amount] - @stripe_charge[:amount_refunded])
-  end
 end

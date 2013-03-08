@@ -4,6 +4,7 @@ describe ReturnAuthorization, 'instance methods' do
   before(:each) do
     @user                 = create(:user)
     @order                = create(:order)
+    ReturnAuthorization.any_instance.stubs(:max_refund).returns(10000)
     @return_authorization = create(:return_authorization, :order => @order, :user => @user)
   end
 
@@ -69,30 +70,35 @@ describe ReturnAuthorization, 'instance methods' do
   end
 
 end
-
-describe ReturnAuthorization, "#id_from_number(num)" do
-  it 'should return invoice id' do
-    return_authorization     = create(:return_authorization)
-    return_authorization_id  = ReturnAuthorization.id_from_number(return_authorization.number)
-    return_authorization_id.should == return_authorization.id
+describe ReturnAuthorization do
+  before(:each) do
+    ReturnAuthorization.any_instance.stubs(:max_refund).returns(10000)
   end
-end
 
-describe ReturnAuthorization, "#find_by_number(num)" do
-  it 'should find the invoice by number' do
-    return_authorization = create(:return_authorization)
-    find_return_authorization = ReturnAuthorization.find_by_number(return_authorization.number)
-    find_return_authorization.id.should == return_authorization.id
+  context "#id_from_number(num)" do
+    it 'should return invoice id' do
+      return_authorization     = create(:return_authorization)
+      return_authorization_id  = ReturnAuthorization.id_from_number(return_authorization.number)
+      return_authorization_id.should == return_authorization.id
+    end
   end
-end
 
-describe ReturnAuthorization, '#admin_grid(params)' do
-  it "should return Return Authorizations " do
-    return_authorization1 = create(:return_authorization)
-    return_authorization2 = create(:return_authorization)
-    admin_grid = ReturnAuthorization.admin_grid
-    admin_grid.size.should == 2
-    admin_grid.include?(return_authorization1).should be_true
-    admin_grid.include?(return_authorization2).should be_true
+  context "#find_by_number(num)" do
+    it 'should find the invoice by number' do
+      return_authorization = create(:return_authorization)
+      find_return_authorization = ReturnAuthorization.find_by_number(return_authorization.number)
+      find_return_authorization.id.should == return_authorization.id
+    end
+  end
+
+  context '#admin_grid(params)' do
+    it "should return Return Authorizations " do
+      return_authorization1 = create(:return_authorization)
+      return_authorization2 = create(:return_authorization)
+      admin_grid = ReturnAuthorization.admin_grid
+      admin_grid.size.should == 2
+      admin_grid.include?(return_authorization1).should be_true
+      admin_grid.include?(return_authorization2).should be_true
+    end
   end
 end

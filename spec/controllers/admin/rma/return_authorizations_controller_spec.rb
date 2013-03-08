@@ -7,6 +7,7 @@ describe Admin::Rma::ReturnAuthorizationsController do
     activate_authlogic
     @user = create_admin_user
     login_as(@user)
+    ReturnAuthorization.any_instance.stubs(:max_refund).returns(10000)
     @order = create(:order, :state => 'complete')
   end
 
