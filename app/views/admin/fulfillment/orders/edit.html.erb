@@ -7,7 +7,7 @@
   <div class='panel'>
     <h4>Order Items</h4>
     <% @order.order_items.each_with_index do |item,i| %>
-      <ul class='vertical-list'>
+      <ul class='vertical-list compact'>
         <li> <b><%= item.variant.product_name %></b> </li>
         <li> <label>SKU:</label> <%= item.variant.sku %> </li>
         <li> <label>Price:</label> <%= number_to_currency item.variant.price %> </li>
@@ -21,16 +21,24 @@
 
       <b><%= item.state.upcase %></b>
       <% if item.paid? && !item.shipped? %>
-        <%= link_to 'Ship Individually!',
+        <%= link_to 'Ship Item Individually!',
                     admin_fulfillment_partial_order_shipments_path( @order, :order_item_ids => [item.id]),
-                    :method => 'POST', :class => 'button' %>
+                    :method => 'POST', :class => 'small button' %>
       <% end %>
     <% end %>
-
+<hr/>
     <% if @order.paid? && @order.order_items.any?(&:unshipped?) %>
       <%= link_to 'New Shipment',
                     new_admin_fulfillment_partial_order_shipment_path( @order ),
                     :class => 'button' %>
+      <% if !@order.shipped? %>
+      <br/>
+        <%= link_to 'Cancel Order',
+                    admin_fulfillment_order_path(@order, :invoice_id => @order.completed_invoices.first.try(:id) ),
+                    {:method   => 'DELETE',:class    => 'button alert',
+                    :confirm  => 'Are you sure you want to cancel?'}
+                     %>
+      <% end %>
     <% elsif !@order.shipped? && !@order.canceled? %>
       <%= link_to 'Cancel Order',
                   admin_fulfillment_order_path(@order, :invoice_id => @order.completed_invoices.first.try(:id) ),
@@ -67,8 +75,8 @@
     </div>
   </div>
   <div class=' six large-6 column'>
-    <b>Return Merchandise Authorization:</b>
     <div class=' panel'>
+      <h4>Return Merchandise Authorization:</h4>
       <% if @order.return_authorizations.size > 0 %>
          <%= link_to 'View RMAs', admin_rma_order_return_authorizations_path(@order),
                                   :class => 'button ' %>

@@ -55,6 +55,7 @@ class Order < ActiveRecord::Base
   has_many   :completed_invoices,  :class_name => 'Invoice', :conditions => ['state = ? OR state = ? OR state = ?', 'authorized', 'paid', 'preordered']
   has_many   :authorized_invoices, :class_name => 'Invoice', :conditions => ['state = ?', 'authorized']
   has_many   :paid_invoices      , :class_name => 'Invoice', :conditions => ['state = ?', 'paid']
+  has_many   :canceled_invoices  , :class_name => 'Invoice', :conditions => ['state = ?', 'canceled']
   has_many   :return_authorizations
   has_many   :comments, :as => :commentable
 
@@ -89,6 +90,7 @@ class Order < ActiveRecord::Base
 
     after_transition :to => 'paid', :do => [:mark_items_paid]
     after_transition :to => 'preordered', :do => [:mark_items_preordered]
+    after_transition :to => 'canceled', :do => [:mark_items_canceled]
 
     event :complete do
       transition :to => 'complete', :from => 'in_progress'
@@ -113,6 +115,10 @@ class Order < ActiveRecord::Base
 
   def mark_items_preordered
     order_items.map(&:preorder!)
+  end
+
+  def mark_items_canceled
+    order_items.map(&:cancel!)
   end
 
   # user name on the order
@@ -140,8 +146,8 @@ class Order < ActiveRecord::Base
   # @param [none]
   # @return [String] amount in dollars as decimal or a blank string
   def first_invoice_amount
-    return '' if completed_invoices.empty?
-    completed_invoices.first.amount
+    return '' if completed_invoices.empty? && canceled_invoices.empty?
+    completed_invoices.last ? completed_invoices.last.amount : canceled_invoices.last.amount
   end
 
   # cancel the order and payment
@@ -152,7 +158,7 @@ class Order < ActiveRecord::Base
   def cancel_unshipped_order(invoice)
     transaction do
       self.active = false
-      invoice.cancel_authorized_payment
+      paid? ? invoice.cancel_paid_payment : invoice.cancel_authorized_payment
       self.cancel!
     end
   end
@@ -529,9 +535,9 @@ class Order < ActiveRecord::Base
   # @return [ Array[Order] ]
   def self.find_finished_order_grid(params = {})
     grid = Order.includes([:user]).where("orders.completed_at IS NOT NULL")
-    grid = grid.where({:active => true })                     unless  params[:show_all].present?   && params[:show_all] == 'true'
-    grid = grid.where("orders.shipment_counter = ?", 0)               if params[:shipped].present? && params[:shipped] == 'true'
-    grid = grid.where("orders.shipment_counter > ?", 0)               if params[:shipped].present? && params[:shipped] == 'false'
+    #grid = grid.where({:active => true })                     unless  params[:show_all].present?   && params[:show_all] == 'true'
+    grid = grid.where("orders.shipments_count > ?", 0)               if params[:shipped].present? && params[:shipped] == 'true'
+    grid = grid.where("orders.shipments_count = ?", 0)               if params[:shipped].present? && params[:shipped] == 'false'
     grid = grid.where("orders.number LIKE ?", "#{params[:number]}%")  if params[:number].present?
     grid = grid.where("orders.email LIKE ?", "#{params[:email]}%")    if params[:email].present?
     grid = grid.order("#{params[:sidx]} #{params[:sord]}")

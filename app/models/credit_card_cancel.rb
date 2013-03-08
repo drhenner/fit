@@ -15,4 +15,9 @@ class CreditCardCancel < Transaction
     transaction.new_transaction_ledgers( transacting_user, TransactionAccount::ACCOUNTS_RECEIVABLE_ID, TransactionAccount::REVENUE_ID, total_cost, tax_amount, at)
     transaction
   end
+  def self.new_cancel_paid_payment(transacting_user, total_cost, tax_amount, at = Time.zone.now)
+    transaction = CreditCardCancel.new()
+    transaction.new_transaction_ledgers( transacting_user, TransactionAccount::CASH_ID, TransactionAccount::REVENUE_ID, total_cost, tax_amount, at)
+    transaction
+  end
 end

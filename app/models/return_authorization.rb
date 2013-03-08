@@ -49,7 +49,8 @@ class ReturnAuthorization < ActiveRecord::Base
   state_machine :initial => 'authorized' do
     #after_transition :to => 'received', :do => :process_receive
     #after_transition :to => 'cancelled', :do => :process_canceled
-    before_transition :to => 'complete', :do => [:process_ledger_transactions, :mark_items_returned, :return_money_to_card]
+    before_transition :to => 'complete', :do => [:process_ledger_transactions, :mark_items_returned]
+    after_transition  :to => 'complete', :do => [:return_money_to_card]
 
     event :receive do
       transition :to => 'received', :from => 'authorized'

@@ -75,6 +75,10 @@ class User < ActiveRecord::Base
   has_one     :store_credit
   has_many    :orders
   has_many    :shipments, :through => :orders
+
+  has_many    :viewable_orders,          :class_name => 'Order',
+                                          :conditions => {:orders => { :state => ['complete', 'paid', 'preordered', 'canceled']}}
+
   has_many    :finished_orders,          :class_name => 'Order',
                                           :conditions => {:orders => { :state => ['complete', 'paid', 'preordered']}}
   has_many    :completed_orders,          :class_name => 'Order',

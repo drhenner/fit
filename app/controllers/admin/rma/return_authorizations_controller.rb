@@ -29,6 +29,7 @@ class Admin::Rma::ReturnAuthorizationsController < Admin::Rma::BaseController
     load_info
     @return_authorization = ReturnAuthorization.includes(:comments).find(params[:id])
     form_info
+    redirect_to(admin_rma_order_return_authorization_url(@order, @return_authorization), :notice => 'Return authorization can not be changed.') if !@return_authorization.authorized?
   end
 
   # POST /return_authorizations

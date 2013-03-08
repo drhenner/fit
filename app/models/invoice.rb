@@ -55,7 +55,8 @@ class Invoice < ActiveRecord::Base
     state :payment_declined
     state :canceled
 
-    #after_transition :on => 'cancel', :do => :cancel_authorized_payment
+    #after_transition :on => 'return_money_and_cancel', :do => [:return_money]
+    after_transition :to => :canceled, :do => [:return_money]
 
     event :payment_rma do
       transition :from => :pending,
@@ -91,8 +92,14 @@ class Invoice < ActiveRecord::Base
     end
 
     event :cancel do
-      transition :from => :authorized,
+      transition :from => :paid,
                   :to  => :canceled
+
+    end
+    event :return_money_and_cancel do
+      #transition :from => :paid, :to  => :canceled
+      transition :from => :authorized, :to  => :canceled
+      transition :from => :preordered, :to  => :canceled
     end
   end
 
@@ -242,9 +249,20 @@ class Invoice < ActiveRecord::Base
   def cancel_authorized_payment
     batch       = batches.first
     if batch# if not we never authorized the payment
-      self.cancel!
       batch.transactions.push(CreditCardCancel.new_cancel_authorized_payment(order.user, amount, decimal_tax_amount))
+      self.return_money_and_cancel!
       batch.save
+    end
+  end
+
+  def cancel_paid_payment
+    batch       = batches.first
+    if batch# if not we never authorized the payment
+      batch.transactions.push(CreditCardCancel.new_cancel_paid_payment(order.user, amount, decimal_tax_amount))
+      self.cancel!
+      batch.save
+    else
+      raise error_no_batch_hence_something_is_wrong
     end
   end
 
@@ -346,6 +364,13 @@ class Invoice < ActiveRecord::Base
   end
 
   private
+
+  def return_money
+    if charge_token && !order.shipped? && charge_token.present?
+      @stripe_charge ||= Stripe::Charge.retrieve(charge_token)
+      @stripe_charge.refund()
+    end
+  end
 
   def unique_order_number
     "#{Time.now.to_i}-#{rand(1000000)}"

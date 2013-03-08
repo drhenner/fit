@@ -10,6 +10,7 @@ class Admin::Fulfillment::OrdersController < Admin::Fulfillment::BaseController
   # GET /admin/fulfillment/orders/1
   def show
     @order = Order.includes([:shipments, {:order_items => [:shipment, :variant]}]).find(params[:id])
+    render :edit
   end
 
   # GET /admin/fulfillment/orders/1/edit
@@ -53,11 +54,11 @@ class Admin::Fulfillment::OrdersController < Admin::Fulfillment::BaseController
 
   # DELETE /admin/fulfillment/orders/1
   def destroy
-
     @order    = Order.find(params[:id])
+    redirect_to admin_fulfillment_order_url(@order) and return if @order.canceled?
     @invoice  = @order.invoices.find_by_id(params[:invoice_id])
 
-    @order.cancel_unshipped_order(@invoice) unless @order.canceled?
+    @order.cancel_unshipped_order(@invoice)
     respond_to do |format|
       format.html { render :edit }
       format.json { render :json => @order.to_json }
