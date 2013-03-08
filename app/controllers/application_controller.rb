@@ -50,7 +50,10 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_without_www
-    redirect_to "https://www." + request.host_with_port + request.fullpath if Settings.force_ssl && !/^www/.match(request.host)
+    if Settings.force_ssl && !/^www/.match(request.host)
+      notify_airbrake(request) if params[:itsdave].present?
+      redirect_to "https://www." + request.host_with_port + request.fullpath
+    end
   end
 
   def has_subdomain?
