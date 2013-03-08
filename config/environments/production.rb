@@ -16,8 +16,6 @@ Hadean::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
-  # config.assets.precompile += %w( *.css *.js )
-
   config.assets.precompile += %w( *.js )
   config.assets.precompile += [ 'admin.css',
                                 'admin/app.css',
@@ -65,11 +63,6 @@ Hadean::Application.configure do
   # For nginx:
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
 
-  # If you have no front-end server that supports something like X-Sendfile,
-  # just comment this out and Rails will serve the files
-  # config.cache_store = :memory_store
-  # config.cache_store = :dalli_store
-
   # See everything in the log (default is :info)
   # config.log_level = :debug
 
@@ -84,10 +77,8 @@ Hadean::Application.configure do
   # In production, Apache or nginx will already do this
   config.serve_static_assets = false
 
-  # Enable serving of images, stylesheets, and javascripts from an asset server
-  # config.action_controller.asset_host = "http://assets.example.com"
-
-  config.action_mailer.default_url_options = { :host => 'https://www.ufcfit.com' }
+  config.action_mailer.default_url_options = { :host => 'www.ufcfit.com' }
+  config.action_mailer.asset_host = "//#{ENV['FOG_DIRECTORY']}.s3.amazonaws.com"
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 
@@ -103,16 +94,8 @@ Hadean::Application.configure do
 
 
   config.after_initialize do
-    #Formtastic::SemanticFormBuilder.send(:include, Formtastic::DatePicker)
-    #Formtastic::SemanticFormBuilder.send(:include, Formtastic::FuturePicker)
-    #Formtastic::SemanticFormBuilder.send(:include, Formtastic::YearPicker)
 
     ActiveMerchant::Billing::Base.mode = :test
-    #::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
-    #  :login      => Settings.paypal.login
-    #  :password   => Settings.paypal.password
-    #  :signature  => Settings.paypal.signature
-    #)
 
     ::GATEWAY = ActiveMerchant::Billing::AuthorizeNetGateway.new(
       :login    => Settings.authnet.login,
@@ -121,10 +104,6 @@ Hadean::Application.configure do
     )
 
     Paperclip::Attachment.default_options[:storage] = :s3
-    #::GATEWAY = ActiveMerchant::Billing::BraintreeGateway.new(
-    #  :login     => Settings.braintree.login
-    #  :password  => Settings.braintree.password
-    #)
   end
   PAPERCLIP_STORAGE_OPTS = {  :styles => {:mini => '48x48>',
                                           :small => '100x100>',

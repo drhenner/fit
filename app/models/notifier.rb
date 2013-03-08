@@ -1,5 +1,5 @@
 class Notifier < ActionMailer::Base
-  default :from => "system@example.com"
+  default :from => "no-reply@ufcfit.com"
 
   def order_confirmation(order,invoice)
     @invoice = invoice
