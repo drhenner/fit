@@ -51,6 +51,7 @@ gem 'will_paginate', '~> 3.0.4'
 group :production do
   #gem 'mysql2', '~> 0.3.10'
   gem 'pg'
+  gem "airbrake"
 end
 
 group :development do
