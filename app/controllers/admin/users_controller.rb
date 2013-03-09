@@ -10,7 +10,7 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def show
-    @user = User.includes([:shipments, :finished_orders, :return_authorizations]).find(params[:id])
+    @user = User.includes([:shipments, :finished_orders, :return_authorizations, :comments]).find(params[:id])
   end
 
   def new

@@ -66,6 +66,11 @@ Hadean::Application.routes.draw do
   end
 
   namespace :admin do
+    namespace :customer_service do
+      resources :users do
+        resources :comments
+      end
+    end
     resources :users
     resources :overviews, :only => [:index]
 

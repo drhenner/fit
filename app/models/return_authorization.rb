@@ -27,7 +27,7 @@ class ReturnAuthorization < ActiveRecord::Base
 
   accepts_nested_attributes_for :return_items,  :reject_if => proc { |attributes| attributes['return_reason_id'].blank? ||
                                                                                   attributes['return_condition_id'].blank? }
-  accepts_nested_attributes_for :comments,      :reject_if => proc { |attributes| attributes['note'].blank? }
+  accepts_nested_attributes_for :comments,      :reject_if => proc { |attributes| attributes['note'].strip.blank? }
 
   #validates :number,      :presence => true
   validates :amount,      :presence     => true,
