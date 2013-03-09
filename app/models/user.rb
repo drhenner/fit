@@ -74,6 +74,7 @@ class User < ActiveRecord::Base
 
   has_one     :store_credit
   has_many    :orders
+  has_many    :comments
   has_many    :shipments, :through => :orders
 
   has_many    :viewable_orders,          :class_name => 'Order',
