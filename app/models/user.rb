@@ -33,7 +33,6 @@
 
 class User < ActiveRecord::Base
   include TransactionAccountable
-  include UserCim
 
   acts_as_authentic do |config|
     config.validate_email_field
