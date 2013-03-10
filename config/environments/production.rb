@@ -94,15 +94,6 @@ Hadean::Application.configure do
 
 
   config.after_initialize do
-
-    ActiveMerchant::Billing::Base.mode = :test
-
-    ::GATEWAY = ActiveMerchant::Billing::AuthorizeNetGateway.new(
-      :login    => Settings.authnet.login,
-      :password => Settings.authnet.password,
-      :test     => true
-    )
-
     Paperclip::Attachment.default_options[:storage] = :s3
   end
   PAPERCLIP_STORAGE_OPTS = {  :styles => {:mini => '48x48>',
