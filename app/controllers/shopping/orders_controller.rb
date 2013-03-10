@@ -135,6 +135,7 @@ class Shopping::OrdersController < Shopping::BaseController
   def cc_params
     {"first_name"       => params[:first_name],
     "last_name"         => params[:last_name],
+    "card_name"         => params[:full_name],
     "stripe_card_token" => params[:stripe_card_token],
     "cc_type"           => params[:brand],
     "month"             => params[:month],

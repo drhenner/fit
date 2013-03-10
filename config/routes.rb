@@ -130,6 +130,7 @@ Hadean::Application.routes.draw do
         resource  :order, :only => [:show, :update, :start_checkout_process] do
           member do
             post :start_checkout_process
+            get  :total
           end
         end
         resources :shipping_addresses, :only => [:index, :update, :new, :create, :select_address] do

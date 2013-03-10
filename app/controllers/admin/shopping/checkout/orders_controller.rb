@@ -22,6 +22,14 @@ class Admin::Shopping::Checkout::OrdersController < Admin::Shopping::Checkout::B
     end
   end
 
+  def total
+    @order = find_or_create_order
+    @order.credited_total
+    respond_to do |format|
+      format.json  { render :json => @order.to_json(:only => [:number, :integer_credited_total], :methods => [:integer_credited_total]) }
+    end
+  end
+
   def start_checkout_process
     authorize! :create_orders, current_user
 
@@ -81,11 +89,13 @@ class Admin::Shopping::Checkout::OrdersController < Admin::Shopping::Checkout::B
   def payment_profile
     return @payment_profile if @payment_profile
     if create_a_new_profile?
+      debugger
       @payment_profile = @order.user.payment_profiles.new(cc_params)
       @payment_profile.active = save_card?
       @payment_profile.save!
       @payment_profile
     elsif params[:use_credit_card_on_file].present? #charge the profile
+      debugger
       @payment_profile = @order.user.payment_profiles.find_by_id(params[:use_credit_card_on_file])
     end
   end
@@ -99,8 +109,8 @@ class Admin::Shopping::Checkout::OrdersController < Admin::Shopping::Checkout::B
   end
 
   def cc_params
-    {"first_name"       => params[:first_name],
-    "last_name"         => params[:last_name],
+    {
+    "card_name"         => params[:full_name],
     "stripe_card_token" => params[:stripe_card_token],
     "cc_type"           => params[:brand],
     "month"             => params[:month],

@@ -1,8 +1,10 @@
 <% content_for :head do -%>
   <%#= stylesheet_link_tag 'tables.css' %>
+  <%= tag :meta, :name => "stripe-key", :content => Settings.stripe.publishable_key %>
 <% end %>
 
 <% content_for :below_body do -%>
+  <%= javascript_include_tag "https://js.stripe.com/v1/" %>
   <%= javascript_include_tag 'validators.js' %>
   <%= javascript_include_tag 'admin/shopping/checkout.js' %>
 <% end %>
@@ -47,18 +49,9 @@
 
    <%= hidden_field_tag('stripe_card_token', nil) %>
    <%= hidden_field_tag('token_amount', nil) %>
-    <div class="field column">
-      <%= label_tag  :name %>
-    </div>
-  <div class='clearfix'></div>
-    <div class="field column">
-      <%= label_tag :first_name, 'First' %>
-       <%= text_field_tag(:first_name, '' ,:class => '') %>
-    </div>
-
-    <div class="field column">
-      <%= label_tag :last_name, 'Last' %>
-       <%= text_field_tag(:last_name, '',:class => '') %>
+    <div class="field twelve large-12 column">
+      <%= label_tag :name %>
+       <%= text_field_tag(:full_name, '') %>
     </div>
 
   <div class='clearfix'></div>

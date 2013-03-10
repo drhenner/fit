@@ -56,7 +56,7 @@ if (typeof UfcFit.AdminShopping.cart == "undefined") {
             // get the amount
             jQuery.ajax({
               type : "GET",
-              url: "/shopping/orders/xyz",
+              url: "/admin/shopping/checkout/order/total",
               success: function(jsonText){
                 // if the price they see is what we will be charging... Proceed
                 if ( jsonText.order.integer_credited_total == UfcFit.AdminShopping.cart.orderAmount()) {
@@ -70,7 +70,7 @@ if (typeof UfcFit.AdminShopping.cart == "undefined") {
                 } else {
                   alert('payment-errors');
                   $(".payment-errors").html("Error handling transaction.");
-                  window.location.href = "/admin/shopping/checkout/orders";
+                  window.location.href = "/admin/shopping/checkout/order";
                 }
               },
               dataType: 'json'

@@ -68,7 +68,7 @@
     <tfoot>
       <tr class='even'>
         <td></td><td>Total:</td><td></td>
-        <td><em>
+        <td id='credited_total' data-integer_credited_total='<%= session_admin_order.integer_credited_total %>'><em>
           <% if session_admin_order.ready_to_checkout? %>
             <%= number_to_currency session_admin_order.credited_total %>
           <% end %>
