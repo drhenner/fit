@@ -4,7 +4,7 @@
   <div class='four large-4 column'>
     <div class='panel'>
       <h4>Orders</h4>
-      <% @user.finished_orders.blank? %>
+      <% if @user.finished_orders.blank? %>
         <p>N/A</p>
       <% end %>
       <% @user.finished_orders.sort_by{|o| o.completed_at}.reverse!.each do |order| %>
@@ -19,7 +19,7 @@
     </div>
     <div class='panel'>
       <h4>Subscriptions</h4>
-      <% @user.subscriptions.blank? %>
+      <% if @user.subscriptions.blank? %>
         <p>N/A</p>
       <% end %>
       <% @user.subscriptions.each do |subscription| %>
@@ -37,7 +37,7 @@
   <div class='four large-4 column'>
     <div class='panel'>
       <h4>Shipments</h4>
-      <% @user.shipments.blank? %>
+      <% if @user.shipments.blank? %>
         <p>N/A</p>
       <% end %>
       <% @user.shipments.each do |shipment| %>
@@ -49,7 +49,7 @@
     </div>
     <div class='panel'>
       <h4>Returns</h4>
-      <% @user.return_authorizations.blank? %>
+      <% if @user.return_authorizations.blank? %>
         <p>N/A</p>
       <% end %>
       <% @user.return_authorizations.each do |rma| %>
@@ -65,7 +65,7 @@
   <div class='four large-4 column'>
     <div class='panel'>
       <h4>Notes</h4>
-      <% @user.comments.blank? %>
+      <% if @user.comments.blank? %>
         <p>N/A</p>
       <% end %>
       <% @user.comments.each do |comment| %>
