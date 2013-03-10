@@ -1,7 +1,7 @@
 <div class='nine columns'>
   <h3> Add Credit Card </h3>
 
-    <%= form_tag( myaccount_credit_cards_path(@credit_card),
+    <%= form_tag( myaccount_credit_cards_path(),
                                   :method => :post,
                                   :id   => 'purchase_cart_order') do  %>
 
@@ -11,20 +11,20 @@
 <div class='clear'></div>
       <div class="field twelve column">
         <%= label_tag :name %>
-         <%= text_field_tag(:full_name, @credit_card.name) %>
+         <%= text_field_tag(:full_name, '') %>
       </div>
 
       <div class='clear'></div>
       <div class="field twelve column">
         <%= label_tag 'Number'%> <%= '4242424242424242' if Rails.env != 'production' %>
-         <%= text_field_tag(:number, @credit_card.number ,:class => ' disableAutoComplete', :autocomplete => "off", name: nil) %>
+         <%= text_field_tag(:number, '' ,:class => ' disableAutoComplete', :autocomplete => "off", name: nil) %>
          <%= hidden_field_tag('stripe_card_token', nil) %>
          <%= hidden_field_tag('token_amount', nil) %>
       </div>
       <div class='twelve clearfix'>
         <div class="field three column">
           <%= label_tag :verification_value, 'VCC'%>
-           <%= text_field_tag(:verification_value, @credit_card.verification_value ,:class => 'disableAutoComplete', :autocomplete => "off", name: nil) %>
+           <%= text_field_tag(:verification_value, '' ,:class => 'disableAutoComplete', :autocomplete => "off", name: nil) %>
         </div>
 
         <div class="field column ">

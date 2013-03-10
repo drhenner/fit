@@ -310,35 +310,6 @@ class Invoice < ActiveRecord::Base
     (amount * times_x_amount).to_i
   end
 
-  def authorize_payment(credit_card, options = {})
-    options[:number] ||= unique_order_number
-    transaction do
-      authorization = Payment.authorize(integer_amount, credit_card, options)
-      payments.push(authorization)
-      if authorization.success?
-        payment_authorized!
-        authorize_complete_order
-      else
-        transaction_declined!
-      end
-      authorization
-    end
-  end
-
-  def capture_payment(options = {})
-    transaction do
-      capture = Payment.capture(integer_amount, authorization_reference, options)
-      payments.push(capture)
-      if capture.success?
-        payment_captured!
-        capture_complete_order
-      else
-        transaction_declined!
-      end
-      capture
-    end
-  end
-
   # find the user id of the order associated to the invoice.
   #
   # @param [none]

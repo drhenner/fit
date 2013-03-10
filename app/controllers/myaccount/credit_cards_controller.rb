@@ -4,7 +4,6 @@ class Myaccount::CreditCardsController < Myaccount::BaseController
   end
 
   def new
-    @credit_card ||= ActiveMerchant::Billing::CreditCard.new()
   end
 
   def create
@@ -12,7 +11,6 @@ class Myaccount::CreditCardsController < Myaccount::BaseController
       flash[:notice] = "Successfully created credit card."
       redirect_to myaccount_credit_card_url(@credit_card)
     else
-      @credit_card ||= ActiveMerchant::Billing::CreditCard.new()
       render :action => 'new'
     end
   end

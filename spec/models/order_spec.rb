@@ -141,16 +141,6 @@ describe Order, "instance methods" do
     end
   end
 
-  context ".capture_invoice(invoice)" do
-    it 'should return an payment object' do
-      ##  Create fake admin_cart object in memcached
-      @invoice  = create(:invoice)
-      payment   = @order.capture_invoice(@invoice)
-      payment.class.to_s.should == 'Payment'
-      @invoice.state.should == 'paid'
-    end
-  end
-
 
 
   #def create_invoice(credit_card, charge_amount, args)
@@ -175,7 +165,7 @@ describe Order, "instance methods" do
 
       ##  Create fake admin_cart object in memcached
       # create_invoice(credit_card, charge_amount, args)
-      credit_card               = ActiveMerchant::Billing::CreditCard.new(cc_params)
+      credit_card     = mock()
       payment_profile = mock()
       payment_profile.stubs(:customer_token).returns('fakeTOKEN')
 
@@ -202,7 +192,7 @@ describe Order, "instance methods" do
 
       ##  Create fake admin_cart object in memcached
       # create_invoice(credit_card, charge_amount, args)
-      credit_card               = ActiveMerchant::Billing::CreditCard.new(cc_params)
+      credit_card     = mock()
       payment_profile = mock()
       payment_profile.stubs(:customer_token).returns('fakeTOKEN')
 

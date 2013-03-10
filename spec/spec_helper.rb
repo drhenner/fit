@@ -19,7 +19,6 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 include Hadean::TruncateHelper
 include Hadean::TestHelpers
 include Authlogic::TestCase
-include ActiveMerchant::Billing
 
 Rails.logger.level = 4
 Settings.require_state_in_address = true
@@ -104,10 +103,6 @@ end
       :verification_value => '323',
       :brand       => 'visa'
     }.update(options)
-  end
-
-  def credit_card(options = {})
-    ActiveMerchant::Billing::CreditCard.new( credit_card_hash(options) )
   end
 
   # -------------Payment profile and payment could use this
