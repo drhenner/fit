@@ -67,6 +67,10 @@ class OrderItem < ActiveRecord::Base
     where(:state => :preordered)
   end
 
+  def order_number
+    order.number
+  end
+
   def product_type
     variant.product.product_type
   end

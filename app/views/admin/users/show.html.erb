@@ -4,6 +4,9 @@
   <div class='four large-4 column'>
     <div class='panel'>
       <h4>Orders</h4>
+      <% @user.finished_orders.blank? %>
+        <p>N/A</p>
+      <% end %>
       <% @user.finished_orders.sort_by{|o| o.completed_at}.reverse!.each do |order| %>
         <ul class='vertical-list'>
           <li><label>Order #</label><%= link_to order.number, edit_admin_fulfillment_order_path(order) %></li>
@@ -14,10 +17,29 @@
         <hr/>
       <% end %>
     </div>
+    <div class='panel'>
+      <h4>Subscriptions</h4>
+      <% @user.subscriptions.blank? %>
+        <p>N/A</p>
+      <% end %>
+      <% @user.subscriptions.each do |subscription| %>
+        <ul class='vertical-list'>
+          <li><label>Order #</label><%= link_to subscription.order_item.try(:order_number), edit_admin_fulfillment_order_path(subscription.order_item.try(:order)) %></li>
+          <li><label>Item:</label><%= subscription.subscription_plan.name %></li>
+          <li><label>Price</label><%= number_to_currency( subscription.subscription_plan.decimal_amount ) %></li>
+          <li><label>Next Bill Date:</label><%= subscription.next_bill_date %></li>
+          <li><label>Payments Remaining:</label><%= subscription.remaining_payments %></li>
+          <li><label>Total Payments:</label><%= subscription.total_payments + 1 %></li>
+        </ul>
+      <% end %>
+    </div>
   </div>
   <div class='four large-4 column'>
     <div class='panel'>
       <h4>Shipments</h4>
+      <% @user.shipments.blank? %>
+        <p>N/A</p>
+      <% end %>
       <% @user.shipments.each do |shipment| %>
         <ul class='vertical-list'>
           <li><label># of Items</label><%= shipment.order_items.count %></li>
@@ -27,6 +49,9 @@
     </div>
     <div class='panel'>
       <h4>Returns</h4>
+      <% @user.return_authorizations.blank? %>
+        <p>N/A</p>
+      <% end %>
       <% @user.return_authorizations.each do |rma| %>
         <ul class='vertical-list'>
           <li><label>Number:</label><%= rma.number %></li>
@@ -40,6 +65,9 @@
   <div class='four large-4 column'>
     <div class='panel'>
       <h4>Notes</h4>
+      <% @user.comments.blank? %>
+        <p>N/A</p>
+      <% end %>
       <% @user.comments.each do |comment| %>
         <hr/>
         <div>

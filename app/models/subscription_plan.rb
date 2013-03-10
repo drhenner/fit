@@ -12,4 +12,8 @@ class SubscriptionPlan < ActiveRecord::Base
 
   PLANS = ['month']
 
+  def decimal_amount
+    (amount.to_f / 100.0).round_at(2)
+  end
+
 end
