@@ -1,7 +1,12 @@
 class Admin::Shopping::Checkout::BaseController < Admin::Shopping::BaseController
   helper_method :session_admin_order
+  before_filter :ensure_customer
 
   private
+
+  def ensure_customer
+    redirect_to admin_shopping_users_url and return unless checkout_user
+  end
 
   def checkout_user
     session_admin_cart.customer
