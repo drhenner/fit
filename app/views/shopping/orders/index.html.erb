@@ -25,17 +25,17 @@
       <% end %>
     </div>
 
-    <div id='final-order-shipping-address' class='panel four columns radius' >
+    <div id='final-order-shipping-address' class='panel four large-4 columns radius' >
       <h5>Shipping Address</h5>
       <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => @order.ship_address} %>
       <%= link_to 'Change address', shopping_addresses_path, :class => 'button tiny green' %>
     </div>
-    <div id='final-order-shipping-address' class='panel four  columns radius last' >
+    <div id='final-order-shipping-address' class='panel four large-4 columns radius last' >
       <h5>Billing Address</h5>
       <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => @order.bill_address} %>
     </div>
   </div>
-  <div class='pretty_table five columns last'>
+  <div class='pretty_table five large-5 columns last'>
     <table>
       <thead>
         <tr class='odd'>
@@ -95,7 +95,7 @@
         <% if @payment_profiles.present? %>
           <div class='panel clearfix'>
             <% @payment_profiles.each do |payment_method| %>
-              <div id='card_on_file' class="field column ar-use-saved-card span-11 last" style='width:425px'>
+              <div id='card_on_file' class="field column ar-use-saved-card  last" style='width:425px'>
                 <h5> Use Credit Card on file? </h5>
                 <%= radio_button_tag(:use_credit_card_on_file, payment_method.id, false) %>
                 <%= payment_method.cc_type %> - <%= payment_method.last4 %>
@@ -108,29 +108,29 @@
               </div>
             <% end %>
           </div>
-          <div id='card_on_file' class="field column ar-use-saved-card span-11 last" style='width:425px'>
+          <div id='card_not_on_file' class="field column ar-use-saved-card last" style='width:425px'>
             <%= radio_button_tag(:use_credit_card_on_file, 0, true) %> Use New Card.
           </div>
         <% end %>
       <div class='payment-errors' style='display:none;color:#d06050;font-weight:bold;'></div>
 
 <div class='clear'></div>
-      <div class="field twelve column">
+      <div class="field twelve large-12 column">
         <%= label_tag :name %>
-         <%= text_field_tag(:full_name, @credit_card.name) %>
+         <%= text_field_tag(:full_name, '') %>
       </div>
 
       <div class='clear'></div>
-      <div class="field twelve column">
+      <div class="field twelve large-12 column">
         <%= label_tag 'Number'%> <%= '4242424242424242' if Rails.env != 'production' %>
-         <%= text_field_tag(:number, @credit_card.number ,:class => ' disableAutoComplete', :autocomplete => "off", name: nil) %>
+         <%= text_field_tag(:number, '' ,:class => ' disableAutoComplete', :autocomplete => "off", name: nil) %>
          <%= hidden_field_tag('stripe_card_token', nil) %>
          <%= hidden_field_tag('token_amount', nil) %>
       </div>
       <div class='twelve clearfix'>
         <div class="field three column">
           <%= label_tag :verification_value, 'VCC'%>
-           <%= text_field_tag(:verification_value, @credit_card.verification_value ,:class => 'disableAutoComplete', :autocomplete => "off", name: nil) %>
+           <%= text_field_tag(:verification_value, '' ,:class => 'disableAutoComplete', :autocomplete => "off", name: nil) %>
         </div>
 
         <div class="field column ">

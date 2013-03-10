@@ -1,4 +1,5 @@
 class Admin::Shopping::Checkout::OrdersController < Admin::Shopping::Checkout::BaseController
+  helper_method :customer
   ### The intent of this action is two fold
   #
   # A)  if there is a current order redirect to the process that
@@ -17,7 +18,7 @@ class Admin::Shopping::Checkout::OrdersController < Admin::Shopping::Checkout::B
       if @order.order_items.empty?
         redirect_to admin_shopping_products_url() and return
       end
-      @credit_card ||= ActiveMerchant::Billing::CreditCard.new(cc_params)
+      form_info
     end
   end
 
@@ -36,7 +37,7 @@ class Admin::Shopping::Checkout::OrdersController < Admin::Shopping::Checkout::B
     @order = session_admin_order
     @order.ip_address = request.remote_ip
 
-    @credit_card ||= ActiveMerchant::Billing::CreditCard.new(cc_params)
+    form_info
 
     address = @order.bill_address.cc_params
 
@@ -45,11 +46,11 @@ class Admin::Shopping::Checkout::OrdersController < Admin::Shopping::Checkout::B
       flash[:alert] = I18n.t('the_order_purchased')
       redirect_to admin_history_order_url(@order)
     elsif payment_profile
-      if response = @order.create_invoice(@credit_card,
+      if invoice = @order.create_invoice(@credit_card,
                                           @order.credited_total,
                                           payment_profile,
                                           @order.amount_to_credit)
-        if response.succeeded?
+        if invoice.succeeded?
           order_completed!(@order)
           redirect_to admin_history_order_url(@order)
         else
@@ -69,7 +70,12 @@ class Admin::Shopping::Checkout::OrdersController < Admin::Shopping::Checkout::B
   private
 
   def form_info
+    @payment_profiles = customer.active_payment_profiles
+    @order.credited_total
+  end
 
+  def customer
+    @customer ||= @order.user
   end
 
   def payment_profile
@@ -91,5 +97,17 @@ class Admin::Shopping::Checkout::OrdersController < Admin::Shopping::Checkout::B
   def save_card?
     params[:save_card] == '1'
   end
+
+  def cc_params
+    {"first_name"       => params[:first_name],
+    "last_name"         => params[:last_name],
+    "stripe_card_token" => params[:stripe_card_token],
+    "cc_type"           => params[:brand],
+    "month"             => params[:month],
+    "year"              => params[:year],
+    "active"            => save_card?,
+    :address_id         => @order.bill_address_id}
+  end
+
 end
 

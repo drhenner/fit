@@ -41,8 +41,6 @@ class Shopping::OrdersController < Shopping::BaseController
     @order = find_or_create_order
     @order.ip_address = request.remote_ip
 
-    @credit_card ||= ActiveMerchant::Billing::CreditCard.new()
-
     if !@order.in_progress?
       session_cart.mark_items_purchased(@order)
       flash[:error] = I18n.t('the_order_purchased')
@@ -74,8 +72,6 @@ class Shopping::OrdersController < Shopping::BaseController
   def preorder
     @order = find_or_create_order
     @order.ip_address = request.remote_ip
-
-    @credit_card ||= ActiveMerchant::Billing::CreditCard.new()
 
     if !@order.in_progress?
       session_cart.mark_items_purchased(@order)

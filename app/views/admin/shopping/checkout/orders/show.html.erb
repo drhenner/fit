@@ -1,3 +1,13 @@
+<% content_for :head do -%>
+  <%#= stylesheet_link_tag 'tables.css' %>
+<% end %>
+
+<% content_for :below_body do -%>
+  <%= javascript_include_tag 'validators.js' %>
+  <%= javascript_include_tag 'admin/shopping/checkout.js' %>
+<% end %>
+
+
 <h3>Shipping Method</h3>
   <% i = 1 %>
   <% session_admin_order.order_items.group_by(&:variant_id).each do |variant_id, items| %>
@@ -8,55 +18,82 @@
   <% end %>
 
 
-<h3>Credit Card Info<h3>
+<h3>Credit Card Info</h3>
+  <% if @payment_profiles.present? %>
+    <div class='panel clearfix'>
+      <% @payment_profiles.each do |payment_method| %>
+        <div id='card_on_file' class="field column ar-use-saved-card  last" style='width:425px'>
+          <h5> Use Credit Card on file? </h5>
+          <%= radio_button_tag(:use_credit_card_on_file, payment_method.id, false) %>
+          <%= payment_method.cc_type %> - <%= payment_method.last4 %>
+          (<%= payment_method.month %>/<%= payment_method.year %>)
+          <div style='margin-top:10px;'>
+          <%= link_to 'Use Card and Complete Order', '#use-card-on-file-button',
+                          :id     => 'use-card-on-file-button',
+                          :class  => 'button small success cart-submit-button' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div id='card_not_on_file' class="field column ar-use-saved-card last" style='width:425px'>
+      <%= radio_button_tag(:use_credit_card_on_file, 0, true) %> Use New Card.
+    </div>
+  <% end %>
+  <div class='payment-errors' style='display:none;color:#d06050;font-weight:bold;'></div>
+
   <%= form_tag( admin_shopping_checkout_order_path(),
                                 :method => :put,
                                 :id   => 'purchase_admin_order') do  %>
 
+   <%= hidden_field_tag('stripe_card_token', nil) %>
+   <%= hidden_field_tag('token_amount', nil) %>
     <div class="field column">
       <%= label_tag  :name %>
     </div>
   <div class='clearfix'></div>
     <div class="field column">
-      <%= label_tag 'First' %>
-       <%= text_field_tag(:first_name, @credit_card.first_name ,:class => '') %>
+      <%= label_tag :first_name, 'First' %>
+       <%= text_field_tag(:first_name, '' ,:class => '') %>
     </div>
 
     <div class="field column">
       <%= label_tag :last_name, 'Last' %>
-       <%= text_field_tag(:last_name, @credit_card.last_name,:class => '') %>
+       <%= text_field_tag(:last_name, '',:class => '') %>
     </div>
 
   <div class='clearfix'></div>
     <div class="five large-5 columns">
       <%= label_tag 'Number'%>
-       <%= text_field_tag(:number, @credit_card.number ,:class => ' disableAutoComplete', :autocomplete => "off") %>
+      <%= '4242424242424242' if Rails.env != 'production' %>
+      <%= text_field_tag(:number, '' ,:class => ' disableAutoComplete', :autocomplete => "off") %>
     </div>
 
     <div class="five large-5 columns">
       <%= label_tag :verification_value, 'VCC'%>
-       <%= text_field_tag(:verification_value, @credit_card.verification_value ,:class => 'four disableAutoComplete', :autocomplete => "off") %>
+       <%= text_field_tag(:verification_value, '' ,:class => 'four disableAutoComplete', :autocomplete => "off") %>
     </div>
 
   <div class='clearfix'></div>
-    <div class="field column float-left <%= 'form-field error' if @credit_card.errors['brand'].present? %>">
-      <%= label_tag :brand, 'Type'%>
-       <%= select_tag(:brand, options_for_select(['visa', 'mastercard']), :class => " #{'form-field error' if @credit_card.errors['brand'].present?}" ) %>
+  <div class='row'>
+    <div class="field large-4 column">
+      <%= label_tag :brand, 'Type' %>
+       <%= select_tag(:brand, options_for_select(['visa', 'mastercard', 'discover', 'American Express']) ) %>
     </div>
 
-    <div class="field column float-left <%= 'form-field error' if @credit_card.errors['month'].present? %>">
-      <%= label_tag :month, 'Month', :class => " #{'form-field error' if @credit_card.errors['month'].present?}" %>
+    <div class="field large-4 column ">
+      <%= label_tag :month, 'Month' %>
       <%= select_tag(:month, options_for_select(['01', '02',  '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'])) %>
     </div>
 
-    <div class="field column float-left <%= 'form-field error' if @credit_card.errors['year'].present? %>">
-      <%= label_tag :year, 'Year', :class => " #{'form-field error' if @credit_card.errors['year'].present?}" %>
-       <%= select_tag(:year, options_for_select((Time.zone.now.year..(Time.zone.now.year + 10))), :class => " #{'form-field error' if @credit_card.errors['year'].present?}") %>
+    <div class="field large-4 column ">
+      <%= label_tag :year, 'Year' %>
+       <%= select_tag(:year, options_for_select((Time.zone.now.year..(Time.zone.now.year + 10))) ) %>
     </div>
+  </div>
   <div class='clear'></div>
 
 
-    <%= submit_tag 'Complete Order', :class => 'button ' %>
+    <%= submit_tag 'Complete Order', :class => 'button cart-submit-button', :style => 'margin-top:10px;' %>
   <% end %>
 
 
@@ -77,5 +114,4 @@
     <%= link_to 'Change', admin_shopping_checkout_billing_addresses_path %>
   </div>
   <div class='clear' style='margin-bottom:8px;'></div>
-  <%#= link_to 'Complete Order', admin_shopping_checkout_carts_path(), :class => 'button light' %>
 <% end %>
