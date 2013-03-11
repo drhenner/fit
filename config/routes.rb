@@ -1,5 +1,7 @@
 Hadean::Application.routes.draw do
 
+
+
   resource  :terms_of_use,      :only => [:show]
   resource  :contact_us,        :only => [:show]
   resources :shipping_returns,  :only => [:index]
@@ -33,6 +35,16 @@ Hadean::Application.routes.draw do
     resources :registrations,   :only => [:new, :create]
     resource  :password_reset,  :only => [:new, :create, :edit, :update]
     resource  :activation,      :only => [:show]
+  end
+
+  namespace :members do
+    resource :blog,       :only => [:show]
+    resource :community,  :only => [:show]
+    resource :fitness,    :only => [:show]
+    resource :lifestyle,  :only => [:show]
+    resource :nutrition,  :only => [:show]
+    resource :tracking,   :only => [:show]
+    resource :tv,         :only => [:show]
   end
 
   namespace :myaccount do
