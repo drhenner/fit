@@ -89,13 +89,11 @@ class Admin::Shopping::Checkout::OrdersController < Admin::Shopping::Checkout::B
   def payment_profile
     return @payment_profile if @payment_profile
     if create_a_new_profile?
-      debugger
       @payment_profile = @order.user.payment_profiles.new(cc_params)
       @payment_profile.active = save_card?
       @payment_profile.save!
       @payment_profile
     elsif params[:use_credit_card_on_file].present? #charge the profile
-      debugger
       @payment_profile = @order.user.payment_profiles.find_by_id(params[:use_credit_card_on_file])
     end
   end
