@@ -63,10 +63,23 @@ class TalExportSerializer
       xml.BILL_TO_ZIP('TESTING')
       xml.BILL_TO_COUNTRY_CODE('TESTING')
       xml.UNIQUE-ID('TESTING')
-      xml.HAS_FINANCIAL('TESTING')
+      xml.HAS_FINANCIAL('Y')
       xml.HAS_GIFT_REC('')
       xml.HAS_CSTM('')
+    }
+  end
+  def order_detail_xml(xml, order)
+    xml.OrderDetail {
+      xml.LineItem() {
+        xml.QUANTITY_ORDERED(1)
+        xml.OFFER_CODE('XXXXXX')
+      }
+    }
+  end
 
+  def order_customer_info_xml(xml, order)
+    xml.CSTM {
+      xml.CUSTOMER-NUMBER()
     }
   end
 end
