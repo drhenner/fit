@@ -6,6 +6,7 @@ class UsersController < ApplicationController
     # auto-login which can't happen here because
     # the User has not yet been activated
     if @user.save_without_session_maintenance
+      @user.deliver_activation_instructions!
       respond_to do |format|
         format.json { render :json => @user.to_json }
       end

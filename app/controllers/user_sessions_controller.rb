@@ -13,7 +13,6 @@ class UserSessionsController < ApplicationController
       cookies[:insecure] = false
       ## if there is a cart make sure the user_id is correct
       set_user_to_cart_items
-      @user_session.record.deliver_activation_instructions!
       flash[:notice] = I18n.t('login_successful')
 @user = User.new
 render :template => '/welcome/index', :layout => 'welcome'
