@@ -18,7 +18,11 @@
       <%= form.text_field :last_name %>
 
       <label>Birthday</label>
-      <%= form.text_field :form_birth_date, :class => "eleven columns ui-yearpicker" %>
+      <%= form.text_field :form_birth_date, :class => "eleven large-10 columns ui-yearpicker" %>
+    </div>
+    <div class="six large-6 columns">
+      <label>Country</label>
+      <%= form.select :country_id, Country.landing_page_form_selector %>
     </div>
   </div>
 </fieldset>
