@@ -31,24 +31,31 @@ if (typeof Hadean.Welcome.rotateImages == "undefined") {
             $('#signup_form_wrapper').css('background-color', '#888');
             $('#signup_form_wrapper').css('top', 0);
             $('#signup_form_wrapper').css('left', 0);
-            $('#signup_form_wrapper').css('width', '370px');
+            $('#signup_form_wrapper').css('width', '320px');
             $('.nofity-button-wrapper').css('margin-top', '10px');
             $('#mobile-banner').show();
-            $('key-to-changing').hide();
+            $('#mobile-banner').css('text-align', 'center');
+            $('#mobile-banner').css('background-color', '#000');
+            $('#key-to-changing').css('display', 'none');
             $('#main-landing-signup-image').hide();
             $('#mobile-landing-signup-image').show();
-            $('#input-fields').css('width', 353);
+            $('#mobile-landing-signup-image').css('width', '320px');
+            $('#ufcfit-logo').css('width', '320px');
+            $('#input-fields').css('width', '320px');
             $('#input-fields').css('float', 'none');
-            $('#input-fields').css('min-height', '335px');
-            $('#background-transparent').css('min-height', '335px');
+            $('#input-fields').css('padding', '0');
+            $('#input-fields').css('min-height', '320px');
+            $('#background-transparent').css('min-height', '320px');
             $('#background-transparent').css('background-color', '#000');
-            $('#background-non-transparent').css('min-height', '335px');
+            $('#background-non-transparent').css('min-height', '320px');
             $('#background-non-transparent').css('padding-left', 8);
             $.each($('#input-fields li'), function(index, obj){
               $(obj).removeClass();
+              $(obj).css('padding-right', '8px');
+              $(obj).css('width', '100%');
             })
-            $('#background-transparent').css('width', 353);
-            $('#background-non-transparent').css('width', 353);
+            //$('#background-transparent').css('width', 353);
+            //$('#background-non-transparent').css('width', 353);
             $('#ufcfit-logo').css('float', 'none');
 
           } else {
