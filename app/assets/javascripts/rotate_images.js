@@ -44,7 +44,7 @@ if (typeof Hadean.Welcome.rotateImages == "undefined") {
             $('#ufcfit-logo').css('width', '320px');
             $('#input-fields').css('width', '320px');
             $('#input-fields').css('float', 'none');
-            $('#input-fields').css('padding', '0 0 0 5px');
+            $('#input-fields').css('padding', '0');
             $('#input-fields').css('min-height', '320px');
             $('#background-transparent').css('min-height', '320px');
             $('#background-transparent').css('background-color', '#000');
