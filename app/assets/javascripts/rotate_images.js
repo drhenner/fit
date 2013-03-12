@@ -40,7 +40,8 @@ if (typeof Hadean.Welcome.rotateImages == "undefined") {
             $('#input-fields').css('width', 353);
             $('#input-fields').css('float', 'none');
             $('#input-fields').css('min-height', '335px');
-            $('#background-transparent').css('min-height', '335px');
+            $('#background-transparent').css('min-height', '75px');
+            $('#background-transparent').css('background-color', '#000');
             $('#background-non-transparent').css('min-height', '335px');
             $('#background-non-transparent').css('padding-left', 8);
             $.each($('#input-fields li'), function(index, obj){
