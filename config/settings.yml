@@ -44,7 +44,8 @@ paperclip:
   bucket: <%= ENV['FOG_DIRECTORY'] %>
   hash_secret: f8c07cf79094ec06f77b6024b5d7936c79b5227274fb8e82c00baha
 google:
-  analytics_code: UA-38891059-1
+  analytics_code: UA-18220598-1
+  rore_analytics_code: UA-38891059-1
 stripe:
   secret_key: <%= ENV['STRIPE_SECRET_KEY'] %>
   publishable_key: <%= ENV['STRIPE_PUBLISHABLE_KEY'] %>

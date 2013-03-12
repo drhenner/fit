@@ -4,6 +4,7 @@
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', '<%= tracker %>']);
   _gaq.push(['_setDomainName', 'ufcfit.com']);
+  _gaq.push(['_setAllowLinker', true]);
 
   <% if flash[:analytics] -%>
     _gaq.push(['_trackPageview', '<%=flash[:analytics]%>']);
