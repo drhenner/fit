@@ -34,6 +34,7 @@ if (typeof Hadean.Welcome.rotateImages == "undefined") {
             $('#signup_form_wrapper').css('width', '370px');
             $('.nofity-button-wrapper').css('margin-top', '10px');
             $('#mobile-banner').show();
+            $('key-to-changing').hide();
             $('#main-landing-signup-image').hide();
             $('#mobile-landing-signup-image').show();
             $('#input-fields').css('width', 353);

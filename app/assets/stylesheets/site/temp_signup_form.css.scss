@@ -3,11 +3,24 @@
 img {max-width: 200%;}
 
 
-
+#key-to-changing {
+  position:relative;
+  left:80px;
+  top:20px;
+  color:white;
+  font-size:40px;
+  span {
+    &.line-one {margin-left:60px;}
+    &.line-two {margin-left:50px;}
+    &.line-three {margin-left:0px;}
+    &.line-four {margin-left:55px;}
+    &.line-five {margin-left:190px;}
+  }
+}
 #signup_form_wrapper {
   position:relative;
   width:840px;
-  top:330px;
+  top:50px;
   left:120px;
 
   div#input-fields {
