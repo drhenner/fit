@@ -8,6 +8,9 @@
     <div class='clearfix  '>
       <div  id='input-fields' class='seven column'>
         <div id='background-transparent'> </div>
+        <div id='mobile-banner' style='display:none;'>
+          <%= image_tag 'landing_page/ufcfit_mobile_banner.png' %>
+        </div>
         <div id='background-non-transparent'>
           <h2>Get Notified About Our launch.</h2>
           <div id='please-subscribe' class=' white-text'>
@@ -41,7 +44,8 @@
         </div>
       </div>
       <div id='ufcfit-logo' class='five column' style='padding:0;'>
-        <%= image_tag 'landing_page/UFCfit_signup.png', :class =>' ' %>
+        <%= image_tag 'landing_page/UFCfit_signup.png', :class =>' ', :id => 'main-landing-signup-image' %>
+        <%= image_tag 'landing_page/ufcfit_mobile_landing_image.jpg', :style =>'display:none;', :id => 'mobile-landing-signup-image' %>
       </div>
     </div>
 

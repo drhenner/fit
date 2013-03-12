@@ -31,7 +31,11 @@ if (typeof Hadean.Welcome.rotateImages == "undefined") {
             $('#signup_form_wrapper').css('background-color', '#888');
             $('#signup_form_wrapper').css('top', 0);
             $('#signup_form_wrapper').css('left', 0);
-            $('#signup_form_wrapper').css('width', '375px');
+            $('#signup_form_wrapper').css('width', '370px');
+            $('.nofity-button-wrapper').css('margin-top', '10px');
+            $('#mobile-banner').show();
+            $('#main-landing-signup-image').hide();
+            $('#mobile-landing-signup-image').show();
             $('#input-fields').css('width', 353);
             $('#input-fields').css('float', 'none');
             $('#input-fields').css('min-height', '335px');
