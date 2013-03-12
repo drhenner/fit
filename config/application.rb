@@ -17,7 +17,7 @@ module Hadean
     config.assets.enabled = true
 
     # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '0.10.1'
+    config.assets.version = '0.10.2'
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/app/reports/*)
