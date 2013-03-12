@@ -150,6 +150,10 @@ class Address < ActiveRecord::Base
     state ? state.abbreviation : state_name
   end
 
+  def display_state_name
+    state ? state.name : state_name
+  end
+
   # Use this method to represent the "city, state.abbreviation"
   #
   # @param [none]
@@ -164,6 +168,10 @@ class Address < ActiveRecord::Base
   # @return [String] "city, state.abbreviation"
   def state_country_name
     [state_abbr_name, country.try(:name)].compact.join(', ')
+  end
+
+  def country_code
+    country.try(:abbreviation)
   end
 
   # Use this method to represent the "city, state.abbreviation zip_code"

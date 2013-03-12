@@ -1,4 +1,4 @@
-class TalExportSerializer
+class ThreePLSerializer
   require 'builder'
 
   #attr_accessor :attributes, :order_ids, :order_item_ids
@@ -6,20 +6,21 @@ class TalExportSerializer
   def initialize()
   end
 
-  def build_xml(order)
+  def build_xml(order_ids) ##  Moulton only supports one order at a time.
     builder = Nokogiri::XML::Builder.new(:encoding => 'utf-8') do |xml|
-      xml.order(:version => "2.1") {
-        order_header_xml(xml, order)
-        order_items = OrderItem.includes([{:customizations => :custom_type}, :easement_profile, :order]).find(order_item_ids)
-
-        order_items.group_by(&:order_id).each do |order_id, items|
-          items.each do |item|
-            order_xml(xml, order_items, item)
-          end
-        end
-      }
+      Order.find_each(order_ids).each do |order|
+        order_xml(xml, order)
+      end
     end
     builder.to_xml
+  end
+
+  def order_xml(xml, order)
+    xml.order(:version => "2.1") {
+      order_header_xml(xml, order)
+      order_detail_xml(xml, order)
+      order_customer_info_xml(xml, order)
+    }
   end
 
   def order_header_xml(xml, order)
@@ -36,33 +37,33 @@ class TalExportSerializer
       xml.MICRCODE()
       xml.PAY_TYPE('C')
       xml.NUM_PYMNTS(1)
-      xml.EMAIL('test@test12345.com')
+      xml.EMAIL("#{order.email}")
       xml.COMPANY()
-      xml.F_NAME('JOHN')
-      xml.L_NAME('DOE')
-      xml.ADDR_1('TESTING')
-      xml.ADDR_2('TESTING')
-      xml.CITY('TESTING')
-      xml.ST('TESTING')
-      xml.ZIP('TESTING')
+      xml.F_NAME("#{order.ship_address.try(:first_name)}")
+      xml.L_NAME("#{order.ship_address.try(:last_name)}")
+      xml.ADDR_1("#{order.ship_address.try(:address1)}")
+      xml.ADDR_2("#{order.ship_address.try(:address2)}")
+      xml.CITY("#{order.ship_address.try(:city)}")
+      xml.ST("#{order.ship_address.try(:display_state_name)}")
+      xml.ZIP("#{order.ship_address.try(:zip_code)}")
       xml.PHONE('')
       xml.PHONE_EXT('')
-      xml.COUNTRY_CODE('US')
+      xml.COUNTRY_CODE("#{order.ship_address.try(:country_code)}")
       xml.OPT_IN()
       xml.OPT_OUT()
       xml.ADJ_CODE()
       xml.AMT_DISC()
       xml.PURCHASE_ORDER()
       xml.BILL_TO_COMPANY()
-      xml.BILL_TO_F_NAME('')
-      xml.BILL_TO_L_NAME('')
-      xml.BILL_TO_ADDR_1('TESTING')
-      xml.BILL_TO_ADDR_2('TESTING')
-      xml.BILL_TO_CITY('TESTING')
-      xml.BILL_TO_ST('TESTING')
-      xml.BILL_TO_ZIP('TESTING')
-      xml.BILL_TO_COUNTRY_CODE('TESTING')
-      xml.UNIQUE-ID('TESTING')
+      xml.BILL_TO_F_NAME("#{order.bill_address.try(:first_name)}")
+      xml.BILL_TO_L_NAME("#{order.bill_address.try(:last_name)}")
+      xml.BILL_TO_ADDR_1("#{order.bill_address.try(:address1)}")
+      xml.BILL_TO_ADDR_2("#{order.bill_address.try(:address2)}")
+      xml.BILL_TO_CITY("#{order.bill_address.try(:city)}")
+      xml.BILL_TO_ST("#{order.bill_address.try(:display_state_name)}")
+      xml.BILL_TO_ZIP("#{order.bill_address.try(:zip_code)}")
+      xml.BILL_TO_COUNTRY_CODE("#{order.bill_address.try(:country_code)}")
+      xml.UNIQUE-ID("#{order.number}-001")
       xml.HAS_FINANCIAL('Y')
       xml.HAS_GIFT_REC('')
       xml.HAS_CSTM('')
@@ -79,7 +80,7 @@ class TalExportSerializer
 
   def order_customer_info_xml(xml, order)
     xml.CSTM {
-      xml.CUSTOMER-NUMBER()
+      xml.CUSTOMER-NUMBER(order.user.number)
     }
   end
 end
