@@ -9,10 +9,13 @@ class Country < ActiveRecord::Base
 
   USA_ID    = 214
   CANADA_ID = 35
+  UK_ID         = 213
+  AUSTRALIA_ID  = 12
 
   after_save :expire_cache
 
   ACTIVE_COUNTRY_IDS = [ USA_ID, CANADA_ID ]
+  DROPDOWN_COUNTRY_IDS = [ USA_ID, CANADA_ID, UK_ID, AUSTRALIA_ID ]
 
   # Call this method to display the country_abbreviation - country with and appending name
   #
@@ -51,9 +54,9 @@ class Country < ActiveRecord::Base
   end
 
   def self.landing_page_form_selector
-    Rails.cache.fetch("Landing-Page-Country-form_selector") do
-      data = Country.order('abbreviation ASC').all().reject{|c| [ACTIVE_COUNTRY_IDS].include?(c.id)}.map { |c| [c.abbrev_and_name, c.id] }
-      data = Country.order('abbreviation DESC').find( ACTIVE_COUNTRY_IDS ).map { |c| [c.abbrev_and_name, c.id] } + data
+    Rails.cache.fetch("Landing_Page_Country-form_selector") do
+      data = Country.order('abbreviation ASC').all().reject{|c| [DROPDOWN_COUNTRY_IDS].include?(c.id)}.map { |c| [c.abbrev_and_name, c.id] }
+      data = Country.order('abbreviation DESC').find( DROPDOWN_COUNTRY_IDS ).map { |c| [c.abbrev_and_name, c.id] } + data
     end
   end
   private
