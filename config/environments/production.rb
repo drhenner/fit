@@ -79,7 +79,7 @@ Hadean::Application.configure do
   config.serve_static_assets = false
 
   config.action_mailer.default_url_options = { :host => 'www.ufcfit.com' }
-  config.action_mailer.asset_host = "//www.ufcfit.com"
+  config.action_mailer.asset_host = "https://www.ufcfit.com"
   #config.action_mailer.asset_host = "//#{ENV['FOG_DIRECTORY']}.s3.amazonaws.com"
 
   # Disable delivery errors, bad email addresses will be ignored
