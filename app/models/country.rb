@@ -14,7 +14,7 @@ class Country < ActiveRecord::Base
 
   after_save :expire_cache
 
-  ACTIVE_COUNTRY_IDS = [ USA_ID, CANADA_ID ]
+  ACTIVE_COUNTRY_IDS = [ USA_ID ]
   DROPDOWN_COUNTRY_IDS = [ USA_ID, CANADA_ID, UK_ID, AUSTRALIA_ID ]
 
   # Call this method to display the country_abbreviation - country with and appending name
