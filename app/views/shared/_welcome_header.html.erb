@@ -14,53 +14,50 @@
       <!-- Left Nav Section -->
       <ul class="left">
         <li class="divider"></li>
-        <li class="has-dropdown">
-          <%= link_to 'Products', products_path, :class => 'active' %>
-          <ul class="dropdown">
-            <li class="has-dropdown">
-              <a href="#" class="">Level 1 &rarr;</a>
-              <ul class="dropdown">
-                <li><a href="#">Add Link here</a></li>
-                <li><a href="#">Add Link 2 here</a></li>
-              </ul>
-            </li>
-            <% product_types.each do |pt_tab| %>
-              <li> <%= link_to_unless_current pt_tab.name.capitalize, products_path(:product_type_id => pt_tab.id) %> </li>
-            <% end %>
-            <li class="divider"></li>
-            <li>
-              <%= link_to 'All Products', products_path %>
-            </li>
-          </ul>
-        </li>
-        <li class="divider hide-for-small"></li>
+        <% unless Settings.in_signup_period %>
+          <li class="has-dropdown">
+            <%= link_to 'Products', products_path, :class => 'active' %>
+            <ul class="dropdown">
+              <% product_types.each do |pt_tab| %>
+                <li> <%= link_to_unless_current pt_tab.name.capitalize, products_path(:product_type_id => pt_tab.id) %> </li>
+              <% end %>
+              <li class="divider"></li>
+              <li>
+                <%= link_to 'All Products', products_path %>
+              </li>
+            </ul>
+          </li>
+          <li class="divider hide-for-small"></li>
+        <% end %>
       </ul>
 
       <!-- Right Nav Section -->
       <ul class="right">
         <li class="divider show-for-medium-and-up"></li>
-        <li class="has-dropdown">
-          <%= link_to( 'Your Cart', shopping_cart_items_path) %>
-          <ul class="dropdown">
+        <% unless Settings.in_signup_period %>
+          <li class="has-dropdown">
+            <%= link_to( 'Your Cart', shopping_cart_items_path) %>
+            <ul class="dropdown">
 
-            <% if session_cart.shopping_cart_items.size > 0 %>
-              <li>
-              <%= link_to(shopping_cart_items_path, :id => 'cart_items_buttons') do %>
-                 <strong> Items </strong>
+              <% if session_cart.shopping_cart_items.size > 0 %>
+                <li>
+                <%= link_to(shopping_cart_items_path, :id => 'cart_items_buttons') do %>
+                   <strong> Items </strong>
+                <% end %>
+                </li>
+                <li class="divider"></li>
+                <% session_cart.shopping_cart_items.each do |item| %>
+                  <li> <%= item.name %> </li>
+                <% end %>
+              <% else %>
+                <li class="divider"></li>
+                <li>
+                  <%= link_to( 'Your cart is Empty!', shopping_cart_items_path) %>
+                </li>
               <% end %>
-              </li>
-              <li class="divider"></li>
-              <% session_cart.shopping_cart_items.each do |item| %>
-                <li> <%= item.name %> </li>
-              <% end %>
-            <% else %>
-              <li class="divider"></li>
-              <li>
-                <%= link_to( 'Your cart is Empty!', shopping_cart_items_path) %>
-              </li>
-            <% end %>
-          </ul>
-        </li>
+            </ul>
+          </li>
+        <% end %>
         <li class="has-dropdown">
           <a href="#">Your Account</a>
           <ul class="dropdown">
@@ -89,51 +86,3 @@
     </section>
   </nav>
 </div>
-
-<% if nil %>
-<div class=" bp top-bar">
-<div id="header_wrapper" class='bp'>
-  <div class="container logged-in" id="header">
-    <h1 id="logo">
-      <%= link_to image_tag( "logos/#{Image::MAIN_LOGO}.png", :alt => 'hadean image.'), root_path %>
-      <%#= link_to 'RoR Ecommerce', root_path %>
-    </h1>
-    <ul id="menu-main">
-      <li id="menu-main-discover">
-        <a href="/"><strong>Commerce</strong> <span>that scales</span></a>
-      </li>
-
-      <li class="" id="menu-main-cart">
-          <%= link_to(shopping_cart_items_path, :id => 'cart_items_buttons') do %>
-              <strong> Cart </strong> <span>view your stuff.</span>
-          <% end %>
-      </li>
-      <li class="" id="menu-main-wish">
-          <%= link_to(wish_items_path, :id => 'wish_items_button') do %>
-              <strong> Wish List </strong> <span>what you want.</span>
-          <% end %>
-      </li>
-
-      <li class="" id="menu-main-user">
-        <div>
-          <% unless current_user %>
-            <strong><%= link_to 'Login',  login_path %></strong> or
-            <span><%= link_to 'Sign up', signup_path %></span>
-          <% else %>
-            <strong>Hi <%= current_user.first_name %></strong>
-            <span>(<%= link_to 'not you?', logout_path %>)</span>
-          <% end %>
-        </div>
-      </li>
-    </ul>
-
-    <%= render '/layouts/product_search' %>
-  </div>
-  <div id="sub_header_wrapper" class='bp'>
-    <div id="sub_sub_header_wrapper" class='container'>
-      <%= render 'shared/main_product_tabs' %>
-    </div>
-  </div>
-</div>
-
-<% end %>
