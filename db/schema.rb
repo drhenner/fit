@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130304021204) do
+ActiveRecord::Schema.define(:version => 20130313182323) do
 
   create_table "accounting_adjustments", :force => true do |t|
     t.integer  "adjustable_id",                                 :null => false
@@ -569,11 +569,12 @@ ActiveRecord::Schema.define(:version => 20130304021204) do
   add_index "slugs", ["sluggable_id"], :name => "index_slugs_on_sluggable_id"
 
   create_table "states", :force => true do |t|
-    t.string  "name",                          :null => false
-    t.string  "abbreviation",     :limit => 5, :null => false
+    t.string  "name",                                            :null => false
+    t.string  "abbreviation",     :limit => 5,                   :null => false
     t.string  "described_as"
-    t.integer "country_id",                    :null => false
-    t.integer "shipping_zone_id",              :null => false
+    t.integer "country_id",                                      :null => false
+    t.integer "shipping_zone_id",                                :null => false
+    t.boolean "active",                        :default => true
   end
 
   add_index "states", ["abbreviation"], :name => "index_states_on_abbreviation"
@@ -604,12 +605,12 @@ ActiveRecord::Schema.define(:version => 20130304021204) do
   create_table "subscriptions", :force => true do |t|
     t.integer  "subscription_plan_id",                     :null => false
     t.integer  "user_id",                                  :null => false
+    t.integer  "order_item_id"
     t.string   "stripe_customer_token"
     t.integer  "total_payments"
     t.boolean  "active",                :default => false
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
-    t.integer  "order_item_id"
     t.date     "next_bill_date"
     t.integer  "failed_attempts",       :default => 0
     t.boolean  "canceled",              :default => false
@@ -617,6 +618,7 @@ ActiveRecord::Schema.define(:version => 20130304021204) do
   end
 
   add_index "subscriptions", ["next_bill_date"], :name => "index_subscriptions_on_next_bill_date"
+  add_index "subscriptions", ["order_item_id"], :name => "index_subscriptions_on_order_item_id"
   add_index "subscriptions", ["subscription_plan_id"], :name => "index_subscriptions_on_subscription_plan_id"
   add_index "subscriptions", ["user_id"], :name => "index_subscriptions_on_user_id"
 

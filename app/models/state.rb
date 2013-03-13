@@ -33,13 +33,27 @@ class State < ActiveRecord::Base
     abbreviation_name
   end
 
+  def inactivate!
+    self.active = false
+    self.save
+  end
+
+  def activate!
+    self.active = true
+    self.save
+  end
+
   # method to get all the states for a form
   # [['NY New York', 32], ['CA California', 3] ... ]
   #
   # @param [none]
   # @return [ Array[Array] ]
   def self.form_selector
-    find(:all, :order => 'country_id ASC, abbreviation ASC').collect { |state| [state.abbrev_and_name, state.id] }
+    active.order('country_id ASC, abbreviation ASC').all.collect { |state| [state.abbrev_and_name, state.id] }
+  end
+
+  def self.active
+    where(:active => true)
   end
 
   # filter all the states for a form for a given country_id
