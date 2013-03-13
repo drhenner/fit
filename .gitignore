@@ -22,8 +22,8 @@ solr/*
 
 .project
 *.sw*
-public/assets/**/*
-public/assets/*
+#public/assets/**/*
+#public/assets/*
 coverage/*
 ERD.pdf
 # Gemfile.lock
@@ -38,3 +38,4 @@ doc/*
 config/settings.local.yml
 config/settings/*.local.yml
 config/environments/*.local.yml
+

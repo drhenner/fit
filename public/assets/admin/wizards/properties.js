@@ -1,0 +1,1 @@
+var Hadean=window.Hadean||{};typeof Hadean.Admin=="undefined"&&(Hadean.Admin={});var kk=null;typeof Hadean.Admin.properties=="undefined"&&(Hadean.Admin.properties={initialize:function(){jQuery(".chzn-select").data("placeholder","Select Properties...").chosen()}},jQuery(function(){Hadean.Admin.properties.initialize()}));

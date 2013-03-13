@@ -1,0 +1,1 @@
+jQuery(document).ready(function(){jQuery("input.ui-datepicker").datepicker(),jQuery("input.ui-futurepicker").datepicker({yearRange:"2010:2020",changeYear:!0}),jQuery("input.ui-yearpicker").datepicker({yearRange:"1910:2000",changeYear:!0,constrainInput:!0,showOn:"button",buttonImage:"/assets/icons/calendar_sm.png",buttonImageOnly:!0})});
