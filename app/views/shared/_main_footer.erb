@@ -9,8 +9,12 @@ loop_footer_tabs = {
 <div id="footer_wrapper" class='row'>
   <div  class='nine columns'>
     <ul id='main-footer-tabs' class='inline-list'>
-      <% loop_footer_tabs.each_pair do |tab_name, tab_path| %>
-        <li> <%= link_to_unless_current tab_name, tab_path %> </li>
+      <% unless Settings.in_signup_period %>
+        <% loop_footer_tabs.each_pair do |tab_name, tab_path| %>
+          <li> <%= link_to_unless_current tab_name, tab_path %> </li>
+        <% end %>
+      <% else %>
+        <li> &nbsp; </li>
       <% end %>
     </ul>
   </div>
