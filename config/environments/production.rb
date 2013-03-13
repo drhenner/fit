@@ -53,9 +53,10 @@ Hadean::Application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
-  if ENV['FOG_DIRECTORY'].present?
-    config.action_controller.asset_host = "https://#{ENV['FOG_DIRECTORY']}.s3.amazonaws.com"
-  end
+  #if ENV['FOG_DIRECTORY'].present?
+    #config.action_controller.asset_host = "https://#{ENV['FOG_DIRECTORY']}.s3.amazonaws.com"
+    config.action_controller.asset_host = "https://www.ufcfit.com"
+  #end
 
   # Specifies the header that your server uses for sending files
   config.action_dispatch.x_sendfile_header = "X-Sendfile"
@@ -78,7 +79,9 @@ Hadean::Application.configure do
   config.serve_static_assets = false
 
   config.action_mailer.default_url_options = { :host => 'www.ufcfit.com' }
-  config.action_mailer.asset_host = "//#{ENV['FOG_DIRECTORY']}.s3.amazonaws.com"
+  config.action_mailer.asset_host = "//www.ufcfit.com"
+  #config.action_mailer.asset_host = "//#{ENV['FOG_DIRECTORY']}.s3.amazonaws.com"
+
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 

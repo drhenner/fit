@@ -11,13 +11,14 @@ module InvoicePrinter
     return document
   end # end of print_form method
 
-  def print_invoice_background(pdf, png_background = "https://s3.amazonaws.com/#{ENV['FOG_DIRECTORY']}/invoice_template.png")
+  def print_invoice_background(pdf, png_background = "https://www.ufcfit.com/assets/invoice_template.png")
     pdf.bounding_box([10,730], :width => 530) do
       pdf.image open(png_background), :width => 519 if png_background && ENV['FOG_DIRECTORY'].present?
     end
     begin
       pdf.bounding_box([20,720], :width => 120) do
-        pdf.image open("https://s3.amazonaws.com/#{ENV['FOG_DIRECTORY']}/logos/logo.png") if ENV['FOG_DIRECTORY'].present?
+        #pdf.image open("https://s3.amazonaws.com/#{ENV['FOG_DIRECTORY']}/logos/logo.png") if ENV['FOG_DIRECTORY'].present?
+        pdf.image open("https://www.ufcfit.com/assets/logos/logo.png")
       end
     rescue
       pdf.bounding_box([20,720], :width => 120) do

@@ -14,7 +14,7 @@ end
 #gem "activemerchant", '~> 1.29.3'#, :lib => 'active_merchant'
 gem "american_date", '~> 1.0'
 gem 'authlogic'#, "3.2.0"
-gem "asset_sync"
+#gem "asset_sync"
 gem 'aws-sdk'
 gem 'bluecloth',     '~> 2.1.0'
 gem 'cancan', '~> 1.6.8'
