@@ -8,13 +8,14 @@ img {max-width: 200%;}
   left:80px;
   top:20px;
   color:white;
-  font-size:40px;
+  font-size:25px;
+  line-height: 33px;
   span {
     &.line-one {margin-left:60px;}
     &.line-two {margin-left:50px;}
     &.line-three {margin-left:0px;}
     &.line-four {margin-left:55px;}
-    &.line-five {margin-left:190px;}
+    &.line-five {margin-left:290px;}
   }
 }
 #signup_form_wrapper {
@@ -50,6 +51,7 @@ img {max-width: 200%;}
   }
   #background-non-transparent {
     position: absolute;
+    padding-top: 35px;
     padding-left:30px;
   }
   select {
