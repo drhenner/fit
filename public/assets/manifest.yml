@@ -125,6 +125,8 @@ jqgrid/images/ui-icons_f9bd01_256x240.png: jqgrid/images/ui-icons_f9bd01_256x240
 jqgrid/images/ui-icons_f9bd01_256x240/index.png: jqgrid/images/ui-icons_f9bd01_256x240-28c15ced15aef589016ce978095127fd.png
 landing_page/UFCfit_signup.png: landing_page/UFCfit_signup-747545f7a62dead3fd57871642325b49.png
 landing_page/UFCfit_signup/index.png: landing_page/UFCfit_signup-747545f7a62dead3fd57871642325b49.png
+landing_page/dolce_320.jpg: landing_page/dolce_320-6cb0d85afdbeb11c59ca8eaf6f21701c.jpg
+landing_page/dolce_320/index.jpg: landing_page/dolce_320-6cb0d85afdbeb11c59ca8eaf6f21701c.jpg
 landing_page/landing_page_opt2.jpg: landing_page/landing_page_opt2-d3512dbfdd634685d91140cfa1bdd69a.jpg
 landing_page/landing_page_opt2/index.jpg: landing_page/landing_page_opt2-d3512dbfdd634685d91140cfa1bdd69a.jpg
 landing_page/landing_page_opt_rob1.jpg: landing_page/landing_page_opt_rob1-7617c46a8e5087c6b04521140de2b0a6.jpg
@@ -399,8 +401,8 @@ site/app.css: site/app-8fcc6030d58cd49bb4a35a5d4b8bc1ef.css
 site/app/index.css: site/app-8fcc6030d58cd49bb4a35a5d4b8bc1ef.css
 site/small_welcome.css: site/small_welcome-d8c17f069b1c1165a466cc7fca4fc9a1.css
 site/small_welcome/index.css: site/small_welcome-d8c17f069b1c1165a466cc7fca4fc9a1.css
-site/temp_signup_form.css: site/temp_signup_form-9f9cceae6d5b21d7a5af85bbc1ea1593.css
-site/temp_signup_form/index.css: site/temp_signup_form-9f9cceae6d5b21d7a5af85bbc1ea1593.css
+site/temp_signup_form.css: site/temp_signup_form-fe751145831ef995c1561d8f4ab3207b.css
+site/temp_signup_form/index.css: site/temp_signup_form-fe751145831ef995c1561d8f4ab3207b.css
 sprite.css: sprite-fd930c256f28e642630bce4cf274d9ac.css
 sprite/index.css: sprite-fd930c256f28e642630bce4cf274d9ac.css
 tables.css: tables-f167ad4ed4a0973b39b319b928f40d20.css
