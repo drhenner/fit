@@ -343,8 +343,8 @@ markitup/templates/preview.html: markitup/templates/preview-ea7ef26f7fbb7a2e36c2
 markitup/templates/preview/index.html: markitup/templates/preview-ea7ef26f7fbb7a2e36c2be66bf8cc5a0.html
 modernizr.foundation.js: modernizr.foundation-cd84997b39769f19523b9be48b3cedc6.js
 modernizr/index.foundation.js: modernizr.foundation-cd84997b39769f19523b9be48b3cedc6.js
-rotate_images.js: rotate_images-242ad87ab2a95d617a181ce2a53f2729.js
-rotate_images/index.js: rotate_images-242ad87ab2a95d617a181ce2a53f2729.js
+rotate_images.js: rotate_images-5fc6c6995f38cd955df9b376165823cb.js
+rotate_images/index.js: rotate_images-5fc6c6995f38cd955df9b376165823cb.js
 shopping/cart.js: shopping/cart-80d65f7da96080cd27b58fcbcff7d6b2.js
 shopping/cart/index.js: shopping/cart-80d65f7da96080cd27b58fcbcff7d6b2.js
 shopping/checkout.js: shopping/checkout-61bf654bb14e9dfe9778e3db50cd7752.js
