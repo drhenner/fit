@@ -45,8 +45,8 @@ chosen-sprite.png: chosen-sprite-682dfed55785d8451049be63d4306080.png
 chosen-sprite/index.png: chosen-sprite-682dfed55785d8451049be63d4306080.png
 down_arrow_select.jpg: down_arrow_select-1a17e2932bdee429ec562c3be7ab307b.jpg
 down_arrow_select/index.jpg: down_arrow_select-1a17e2932bdee429ec562c3be7ab307b.jpg
-emails/ufc-thankyou.png: emails/ufc-thankyou-06632e02a05812ca6ad18f0d2242c10b.png
-emails/ufc-thankyou/index.png: emails/ufc-thankyou-06632e02a05812ca6ad18f0d2242c10b.png
+emails/ufc-thankyou.png: emails/ufc-thankyou-7de55a5dd30d01c219b19c5b96cff377.png
+emails/ufc-thankyou/index.png: emails/ufc-thankyou-7de55a5dd30d01c219b19c5b96cff377.png
 favicon.ico: favicon-a3e427e0de01ecfadcb8a426f84f0870.ico
 favicon/index.ico: favicon-a3e427e0de01ecfadcb8a426f84f0870.ico
 foundation/orbit/bullets.jpg: foundation/orbit/bullets-cf4183432e41de6d116afdd8a9668e5b.jpg
@@ -133,6 +133,8 @@ landing_page/landing_page_opt_rob2.jpg: landing_page/landing_page_opt_rob2-2a4b2
 landing_page/landing_page_opt_rob2/index.jpg: landing_page/landing_page_opt_rob2-2a4b2ac1d06bb1483cbad9fb64f71722.jpg
 landing_page/landing_page_opt_rob4.jpg: landing_page/landing_page_opt_rob4-6a5c660c58822b236f93a854a8793dff.jpg
 landing_page/landing_page_opt_rob4/index.jpg: landing_page/landing_page_opt_rob4-6a5c660c58822b236f93a854a8793dff.jpg
+landing_page/landing_page_opt_rob8.jpg: landing_page/landing_page_opt_rob8-fb6b6385d9617052db83261cba2d86d8.jpg
+landing_page/landing_page_opt_rob8/index.jpg: landing_page/landing_page_opt_rob8-fb6b6385d9617052db83261cba2d86d8.jpg
 landing_page/ufcfit_mobile_banner.png: landing_page/ufcfit_mobile_banner-ad5a4db8d2a759b1614644e6e1788d53.png
 landing_page/ufcfit_mobile_banner/index.png: landing_page/ufcfit_mobile_banner-ad5a4db8d2a759b1614644e6e1788d53.png
 landing_page/ufcfit_mobile_landing_image.jpg: landing_page/ufcfit_mobile_landing_image-ef8041c750e4bc3a412ef35ed7cdff83.jpg
@@ -339,8 +341,8 @@ markitup/templates/preview.html: markitup/templates/preview-ea7ef26f7fbb7a2e36c2
 markitup/templates/preview/index.html: markitup/templates/preview-ea7ef26f7fbb7a2e36c2be66bf8cc5a0.html
 modernizr.foundation.js: modernizr.foundation-cd84997b39769f19523b9be48b3cedc6.js
 modernizr/index.foundation.js: modernizr.foundation-cd84997b39769f19523b9be48b3cedc6.js
-rotate_images.js: rotate_images-485923be288e5d08bdb900b6b753d1f4.js
-rotate_images/index.js: rotate_images-485923be288e5d08bdb900b6b753d1f4.js
+rotate_images.js: rotate_images-242ad87ab2a95d617a181ce2a53f2729.js
+rotate_images/index.js: rotate_images-242ad87ab2a95d617a181ce2a53f2729.js
 shopping/cart.js: shopping/cart-80d65f7da96080cd27b58fcbcff7d6b2.js
 shopping/cart/index.js: shopping/cart-80d65f7da96080cd27b58fcbcff7d6b2.js
 shopping/checkout.js: shopping/checkout-61bf654bb14e9dfe9778e3db50cd7752.js
@@ -397,8 +399,8 @@ site/app.css: site/app-8fcc6030d58cd49bb4a35a5d4b8bc1ef.css
 site/app/index.css: site/app-8fcc6030d58cd49bb4a35a5d4b8bc1ef.css
 site/small_welcome.css: site/small_welcome-d8c17f069b1c1165a466cc7fca4fc9a1.css
 site/small_welcome/index.css: site/small_welcome-d8c17f069b1c1165a466cc7fca4fc9a1.css
-site/temp_signup_form.css: site/temp_signup_form-d9715a98058b8710a8b20b8ebca5df3a.css
-site/temp_signup_form/index.css: site/temp_signup_form-d9715a98058b8710a8b20b8ebca5df3a.css
+site/temp_signup_form.css: site/temp_signup_form-9f9cceae6d5b21d7a5af85bbc1ea1593.css
+site/temp_signup_form/index.css: site/temp_signup_form-9f9cceae6d5b21d7a5af85bbc1ea1593.css
 sprite.css: sprite-fd930c256f28e642630bce4cf274d9ac.css
 sprite/index.css: sprite-fd930c256f28e642630bce4cf274d9ac.css
 tables.css: tables-f167ad4ed4a0973b39b319b928f40d20.css
