@@ -399,8 +399,8 @@ site/app.css: site/app-8fcc6030d58cd49bb4a35a5d4b8bc1ef.css
 site/app/index.css: site/app-8fcc6030d58cd49bb4a35a5d4b8bc1ef.css
 site/small_welcome.css: site/small_welcome-d8c17f069b1c1165a466cc7fca4fc9a1.css
 site/small_welcome/index.css: site/small_welcome-d8c17f069b1c1165a466cc7fca4fc9a1.css
-site/temp_signup_form.css: site/temp_signup_form-fe751145831ef995c1561d8f4ab3207b.css
-site/temp_signup_form/index.css: site/temp_signup_form-fe751145831ef995c1561d8f4ab3207b.css
+site/temp_signup_form.css: site/temp_signup_form-62d576043f31936ae761dedfea5d3e9e.css
+site/temp_signup_form/index.css: site/temp_signup_form-62d576043f31936ae761dedfea5d3e9e.css
 sprite.css: sprite-fd930c256f28e642630bce4cf274d9ac.css
 sprite/index.css: sprite-fd930c256f28e642630bce4cf274d9ac.css
 tables.css: tables-f167ad4ed4a0973b39b319b928f40d20.css
