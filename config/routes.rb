@@ -1,5 +1,7 @@
 Hadean::Application.routes.draw do
 
+  match 'loaderio-79aeb8198cf6b8d1faffd0edad063326'  => 'welcome#index'
+
   resource  :terms_of_use,      :only => [:show]
   resource  :contact_us,        :only => [:show]
   resources :shipping_returns,  :only => [:index]
