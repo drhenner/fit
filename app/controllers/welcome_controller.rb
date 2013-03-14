@@ -9,4 +9,8 @@ class WelcomeController < ApplicationController
       render :template => 'welcome/signup', :layout => 'welcome' if Settings.in_signup_period
     end
   end
+
+  def load
+    render :text => 'loaderio-79aeb8198cf6b8d1faffd0edad063326', :layout => false
+  end
 end
