@@ -15,7 +15,7 @@ if (typeof Hadean.Welcome.rotateImages == "undefined") {
         currentIndex : 0,
         initialize      : function( ) {
           // If the user clicks add new variant button
-          Hadean.Welcome.rotateImages.images = ['/assets/landing_page/landing_page_opt_rob1.jpg','/assets/landing_page/landing_page_opt_rob2.jpg','/assets/landing_page/landing_page_opt_rob4.jpg','/assets/landing_page/landing_page_opt2.jpg']
+          Hadean.Welcome.rotateImages.images = ['/assets/landing_page/landing_page_opt_rob1.jpg','/assets/landing_page/landing_page_opt_rob8.jpg','/assets/landing_page/landing_page_opt_rob4.jpg','/assets/landing_page/landing_page_opt2.jpg']
           Hadean.Welcome.rotateImages.next();
         },
         setNext : function(){
