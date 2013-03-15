@@ -29,14 +29,14 @@ describe Admin::SignupsController do
   it "create action should render new template when model is invalid" do
     signup = FactoryGirl.build(:signup)
     Signup.any_instance.stubs(:valid?).returns(false)
-    post :create, :signup => signup.attributes.reject {|k,v| ['id'].include?(k)}
+    post :create, :signup => signup.attributes.reject {|k,v| ['id', 'created_at', 'updated_at'].include?(k)}
     expect(response).to render_template(:new)
   end
 
   it "create action should redirect when model is valid" do
     signup = FactoryGirl.build(:signup)
     Signup.any_instance.stubs(:valid?).returns(true)
-    post :create, :signup => signup.attributes.reject {|k,v| ['id'].include?(k)}
+    post :create, :signup => signup.attributes.reject {|k,v| ['id', 'created_at', 'updated_at'].include?(k)}
     expect(response).to redirect_to(admin_signup_url(assigns[:signup]))
   end
 
@@ -49,14 +49,14 @@ describe Admin::SignupsController do
   it "update action should render edit template when model is invalid" do
     signup = FactoryGirl.create(:signup)
     Signup.any_instance.stubs(:valid?).returns(false)
-    put :update, :id => signup.id, :signup => signup.attributes.reject {|k,v| ['id'].include?(k)}
+    put :update, :id => signup.id, :signup => signup.attributes.reject {|k,v| ['id', 'created_at', 'updated_at'].include?(k)}
     expect(response).to render_template(:edit)
   end
 
   it "update action should redirect when model is valid" do
     signup = FactoryGirl.create(:signup)
     Signup.any_instance.stubs(:valid?).returns(true)
-    put :update, :id => signup.id, :signup => signup.attributes.reject {|k,v| ['id'].include?(k)}
+    put :update, :id => signup.id, :signup => signup.attributes.reject {|k,v| ['id', 'created_at', 'updated_at'].include?(k)}
     expect(response).to redirect_to(admin_signup_url(assigns[:signup]))
   end
 
@@ -65,6 +65,5 @@ describe Admin::SignupsController do
     delete :destroy, :id => signup.id
     expect(response).to redirect_to(admin_signups_url)
     Signup.exists?(signup.id).should be_false
-    Signup.find(signup.id).active.should be_false
   end
 end
