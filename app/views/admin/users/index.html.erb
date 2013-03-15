@@ -19,6 +19,9 @@
         <%= submit_tag "Search", :name => nil, :class => "button" %>
       </div>
       <div id="users">
+        <div>
+          # of users: <%= @users.total_entries %>
+        </div>
         <%= render 'users' %>
       </div>
     <% end %>
