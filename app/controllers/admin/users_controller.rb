@@ -78,7 +78,7 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def sort_column
-    User.column_names.include?(params[:sort]) ? params[:sort] : "first_name"
+    User.column_names.include?(params[:sort]) ? params[:sort] : "users.id"
   end
 
   def sort_direction
