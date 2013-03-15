@@ -21,7 +21,12 @@
     <li><%= link_to 'Adjustments', admin_inventory_adjustments_path %></li>
   </ul>
 </li>
-<li><%= link_to "Users", admin_users_path %></li>
+<li class="has-dropdown">
+  <%= link_to "Users", admin_users_path %>
+  <ul class="dropdown">
+    <li><%= link_to "Signups", admin_signups_path %></li>
+  </ul>
+</li>
 <% if current_user.super_admin? %>
   <li class="has-dropdown">
     <%= link_to "Config", admin_config_accounts_path %>
