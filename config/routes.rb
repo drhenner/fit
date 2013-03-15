@@ -1,5 +1,6 @@
 Hadean::Application.routes.draw do
 
+
   match 'loaderio-79aeb8198cf6b8d1faffd0edad063326'  => 'welcome#load'
 
   resource  :terms_of_use,      :only => [:show]
@@ -83,6 +84,7 @@ Hadean::Application.routes.draw do
         resources :comments
       end
     end
+    resources :signups
     resources :users
     resources :overviews, :only => [:index]
 
