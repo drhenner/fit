@@ -74,7 +74,7 @@ class Admin::UsersController < Admin::BaseController
 
   def form_info
     @all_roles = Role.all
-    @states    = ['inactive', 'active', 'canceled']
+    @states    = ['inactive', 'active', 'canceled', 'signed_up']
   end
 
   def sort_column
