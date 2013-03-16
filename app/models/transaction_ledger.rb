@@ -48,13 +48,13 @@ class TransactionLedger < ActiveRecord::Base
   end
 
   def transaction_account_name
-    Rails.cache.fetch("transaction_account_name-#{transaction_account_id}"), :expires_in => 12.hours do
+    Rails.cache.fetch("transaction_account_name-#{transaction_account_id}", :expires_in => 12.hours) do
       transaction_account.name
     end
   end
 
   def tax_state_name
-    Rails.cache.fetch("tax_state_name-#{tax_state_id}"), :expires_in => 12.hours do
+    Rails.cache.fetch("tax_state_name-#{tax_state_id}", :expires_in => 12.hours) do
       tax_state.try(:name)
     end
   end
