@@ -15,7 +15,12 @@ class UserSessionsController < ApplicationController
       set_user_to_cart_items
       flash[:notice] = I18n.t('login_successful')
 @user = User.new
-render :template => '/welcome/index', :layout => 'welcome'
+#render :template => '/welcome/index', :layout => 'welcome'
+if @user_session.record.admin?
+  redirect_to admin_users_url
+else
+  redirect_to root_url
+end
       #respond_to do |format|
       #  format.json { render :json => @user_session.to_json }
       #  format.html { redirect_to root_url }
