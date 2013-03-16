@@ -32,6 +32,7 @@ if (typeof Hadean.Welcome.tempSignup == "undefined") {
               if (typeof( debug_var.errors) == "undefined") {
                 jQuery('#new_user').hide();
                 jQuery('#please-subscribe').hide();
+                jQuery('#background-non-transparent h2').hide();
                 jQuery('#congrats_user').fadeIn();
               }else{
                 jQuery('#user_email').removeClass('error');

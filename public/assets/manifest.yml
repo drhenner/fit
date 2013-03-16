@@ -347,8 +347,8 @@ shopping/checkout.js: shopping/checkout-61bf654bb14e9dfe9778e3db50cd7752.js
 shopping/checkout/index.js: shopping/checkout-61bf654bb14e9dfe9778e3db50cd7752.js
 shopping/preorder_checkout.js: shopping/preorder_checkout-61bf654bb14e9dfe9778e3db50cd7752.js
 shopping/preorder_checkout/index.js: shopping/preorder_checkout-61bf654bb14e9dfe9778e3db50cd7752.js
-temp_signup_form.js: temp_signup_form-ada96e83f4130b68eb9805fae11da556.js
-temp_signup_form/index.js: temp_signup_form-ada96e83f4130b68eb9805fae11da556.js
+temp_signup_form.js: temp_signup_form-b38678b176edf8aba4d40c38395877c8.js
+temp_signup_form/index.js: temp_signup_form-b38678b176edf8aba4d40c38395877c8.js
 validators.js: validators-8c2da45f6afa2a65093b7f16f702f42f.js
 validators/index.js: validators-8c2da45f6afa2a65093b7f16f702f42f.js
 three_p_l_serializer.rb: three_p_l_serializer-564c81a456243c2f4a00722a5c88de6b.rb
