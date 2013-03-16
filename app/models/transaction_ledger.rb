@@ -19,6 +19,7 @@ class TransactionLedger < ActiveRecord::Base
   belongs_to :transaction_account
   belongs_to :transaction
   belongs_to :accountable, :polymorphic => true
+  belongs_to :tax_state, :class_name => 'State'
 
 
   validates :accountable_type,        :presence => true
@@ -44,5 +45,17 @@ class TransactionLedger < ActiveRecord::Base
 
   def accounts_payable
     (transaction_account_id == TransactionAccount::ACCOUNTS_PAYABLE_ID) ? (credit - debit) : 0.0
+  end
+
+  def transaction_account_name
+    Rails.cache.fetch("transaction_account_name-#{transaction_account_id}"), :expires_in => 12.hours do
+      transaction_account.name
+    end
+  end
+
+  def tax_state_name
+    Rails.cache.fetch("tax_state_name-#{tax_state_id}"), :expires_in => 12.hours do
+      tax_state.try(:name)
+    end
   end
 end
