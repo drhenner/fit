@@ -21,6 +21,7 @@ vat: false
 require_state_in_address: true
 force_ssl: true
 redirect: true
+redirect_www: true
 
 in_signup_period: true
 allow_preorders: false

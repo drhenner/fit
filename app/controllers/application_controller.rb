@@ -50,8 +50,10 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_without_www
-    if Settings.force_ssl && !/^www/.match(request.host)
-      redirect_to "https://www." + request.host_with_port + request.fullpath
+    if Settings.force_ssl && !/^www/.match(request.host) && Rails.env == 'production'
+        redirect_to "https://www." + request.host_with_port + request.fullpath
+    elsif Settings.force_ssl && Rails.env == 'staging' && !request.ssl?
+        redirect_to "https://" + request.host_with_port + request.fullpath
     end
   end
 
