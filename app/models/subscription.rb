@@ -35,6 +35,10 @@ class Subscription < ActiveRecord::Base
     (number_of_total_payments * subscription_plan.amount) + total_tax_amount
   end
 
+  def individual_cost
+    (subscription_plan.amount) + individual_tax_amount
+  end
+
   def number_of_total_payments
     total_payments ? total_payments : subscription_plan.total_payments
   end
@@ -47,7 +51,11 @@ class Subscription < ActiveRecord::Base
     (subscription_plan.amount * order_item.tax_percentage / 100.0).to_i
   end
 
-
+  def subscription_plan_name
+    Rails.cache.fetch("subscription_plan_name-#{subscription_plan_id}", :expires_in => 3.hours) do
+      subscription_plan.name
+    end
+  end
 
   def self.active
     where(:subscriptions => {:active => true})
