@@ -6,6 +6,6 @@ FactoryGirl.define do
     stripe_id "MyString"
     amount 1
     total_payments 1
-    interval "MyString"
+    interval "month"
   end
 end

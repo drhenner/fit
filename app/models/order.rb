@@ -668,5 +668,14 @@ class Order < ActiveRecord::Base
 
   def set_stripe_token_to_subscriptions(invoice)
     Subscription.where('order_item_id IN (?)', order_items.map(&:id)).update_all(["stripe_customer_token = ?, active = ?",invoice.customer_token, true])
+    # Invoice.log_accounting_transaction_for_authorized_subscriptions(self.id, charge_amount, payment_profile, taxed_amount, credited_amount)
+    # payment_authorized!
+    order_items.each do |order_item|
+      if order_item.subscription
+        batch = order_item.subscription.batches.create()
+        batch.transactions.push(SubscriptionTransaction.new_authorized_payment(order_item.subscription, order_item.subscription.total_cost, order_item.subscription.total_tax_amount))
+        batch.save
+      end
+    end
   end
 end

@@ -20,6 +20,11 @@
 #  created_at      :datetime
 #  updated_at      :datetime
 #  credited_amount :decimal(8, 2)   default(0.0)
+#  card_token       character varying(100),
+#  tax_amount       integer,
+#  tax_state_id     integer,
+#  charge_token     character varying(100),
+#  customer_token   character varying(100),
 #
 
 class Invoice < ActiveRecord::Base

@@ -2,10 +2,10 @@
 
 FactoryGirl.define do
   factory :subscription do
-    subscription_plan_id 1
-    user_id 1
-    order_id 1
+    subscription_plan { |c| c.association(:subscription_plan) }
+    user       { |c| c.association(:user) }
+    order_item { |c| c.association(:order_item) }
     stripe_customer_token "MyString"
-    total_payments ""
+    total_payments nil
   end
 end

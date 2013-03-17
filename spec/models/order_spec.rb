@@ -7,6 +7,44 @@ describe Order, "instance methods" do
     @order = create(:order, :user => @user)
   end
 
+#  def set_stripe_token_to_subscriptions(invoice)
+#    Subscription.where('order_item_id IN (?)', order_items.map(&:id)).update_all(["stripe_customer_token = ?, active = ?",invoice.customer_token, true])
+#    # Invoice.log_accounting_transaction_for_authorized_subscriptions(self.id, charge_amount, payment_profile, taxed_amount, credited_amount)
+#    # payment_authorized!
+#    order_items.each do |order_item|
+#      if order_item.subscription
+#        SubscriptionTransaction.new_authorized_payment(order_item.subscription, order_item.subscription.total_cost, order_item.subscription.total_tax_amount)
+#      end
+#    end
+#  end
+  context ".set_stripe_token_to_subscriptions(invoice)" do
+    it 'should set all the subscription to active and assign the stripe_customer_token' do
+      invoice = create(:invoice, :amount => 13.49, :order => @order, :customer_token => 'blah1230')
+      order_item = FactoryGirl.create(:order_item, :order => @order )
+      @order.stubs(:order_items).returns([order_item])
+      subscription = FactoryGirl.create(:subscription, :order_item => order_item, :user => @user )
+      @order.send(:set_stripe_token_to_subscriptions, invoice)
+      subscription.reload
+      expect(subscription.stripe_customer_token).to eq 'blah1230'
+      expect(subscription.active).to         be_true
+    end
+    it 'should create a SubscriptionTransaction with an authorized payment' do
+      Settings.vat = false
+      invoice       = FactoryGirl.create(:invoice, :amount => 13.49, :tax_amount => 50, :order => @order, :customer_token => 'blah1230')
+      tax_rate      = FactoryGirl.create(:tax_rate, :percentage => 10.0 )
+      order_item    = FactoryGirl.create(:order_item, :order => @order, :tax_rate => tax_rate )
+      @order.stubs(:order_items).returns([order_item])
+      subscription_plan = FactoryGirl.create(:subscription_plan, :amount => 1340)
+      subscription      = FactoryGirl.create(:subscription, :order_item => order_item, :user => @user, :subscription_plan => subscription_plan)
+      @order.send(:set_stripe_token_to_subscriptions, invoice)
+      subscription.reload
+      expect(subscription.transaction_ledgers.blank?).to be_false
+      expect(subscription.transaction_ledgers.detect{|t| t.transaction_account_id == TransactionAccount::ACCOUNTS_RECEIVABLE_ID }.credit).to eq 1474
+      expect(subscription.transaction_ledgers.detect{|t| t.transaction_account_id == TransactionAccount::ACCOUNTS_RECEIVABLE_ID }.debit).to eq 0
+      expect(subscription.transaction_ledgers.detect{|t| t.transaction_account_id == TransactionAccount::REVENUE_ID }.credit).to eq 0
+      expect(subscription.transaction_ledgers.detect{|t| t.transaction_account_id == TransactionAccount::REVENUE_ID }.debit).to eq 1474
+    end
+  end
   context ".name" do
     it 'should return the users name' do
       @order.name.should == 'Freddy Boy'
