@@ -527,8 +527,8 @@ class Order < ActiveRecord::Base
     #grid = grid.where({:active => true })                     unless  params[:show_all].present?   && params[:show_all] == 'true'
     grid = grid.where("orders.shipments_count > ?", 0)               if params[:shipped].present? && params[:shipped] == 'true'
     grid = grid.where("orders.shipments_count = ?", 0)               if params[:shipped].present? && params[:shipped] == 'false'
-    grid = grid.where("orders.number LIKE ?", "#{params[:number]}%")  if params[:number].present?
-    grid = grid.where("orders.email LIKE ?", "#{params[:email]}%")    if params[:email].present?
+    grid = grid.where("orders.number iLIKE ?", "#{params[:number]}%")  if params[:number].present?
+    grid = grid.where("orders.email iLIKE ?", "#{params[:email]}%")    if params[:email].present?
     grid = grid.order("#{params[:sidx]} #{params[:sord]}")
   end
 
@@ -539,9 +539,9 @@ class Order < ActiveRecord::Base
   def self.fulfillment_grid(params = {})
     grid = Order.includes([:user]).where({ :orders => {:shipped => false }} ).where("orders.completed_at IS NOT NULL")
     grid = grid.where({:active => true })                     unless  params[:show_all].present? && params[:show_all] == 'true'
-    grid = grid.where("orders.number LIKE ?", "#{params[:number]}%")  if params[:number].present?
+    grid = grid.where("orders.number iLIKE ?", "#{params[:number]}%")  if params[:number].present?
     grid = grid.where("orders.shipped = ?", true)                     if (params[:shipped].present? && params[:shipped] == 'true')
-    grid = grid.where("orders.email LIKE ?", "#{params[:email]}%")    if params[:email].present?
+    grid = grid.where("orders.email iLIKE ?", "#{params[:email]}%")    if params[:email].present?
     grid
   end
 
