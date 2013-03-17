@@ -58,4 +58,8 @@ class TransactionLedger < ActiveRecord::Base
       tax_state.try(:name)
     end
   end
+
+  def self.between(start_time, end_time)
+    where("created_at >= ? AND created_at <= ?", start_time, end_time)
+  end
 end

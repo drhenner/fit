@@ -6,14 +6,14 @@ module ROReReports
     def initialize(start_time, end_time)
       @start_time = start_time
       @end_time   = end_time
-      @ledgers = TransactionLedger.where("created_at >= ? AND created_at <= ?", start_time, end_time).all
+      @ledgers = TransactionLedger.between(start_time, end_time).all
     end
 
-    def self.generate_csv
+    def self.generate_csv(start_time, end_time)
 
       csv_string = CSV.generate do |csv|
          csv << ["Id", "Account", "Debit","Credit", 'Tax', 'State', 'Period']
-         TransactionLedger.find_each do |ledger|
+         TransactionLedger.between(start_time, end_time).find_each do |ledger|
            csv << [ ledger.id,
                     ledger.transaction_account_name,
                     ledger.debit,
