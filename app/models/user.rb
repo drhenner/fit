@@ -377,9 +377,9 @@ class User < ActiveRecord::Base
   def self.admin_grid(params = {})
     grid = self
     grid = grid.includes(:roles)
-    grid = grid.where("users.first_name LIKE ?", "%#{params[:first_name]}%") if params[:first_name].present?
-    grid = grid.where("users.last_name LIKE ?",  "%#{params[:last_name]}%")  if params[:last_name].present?
-    grid = grid.where("users.email LIKE ?",      "%#{params[:email]}%")      if params[:email].present?
+    grid = grid.where("users.first_name iLIKE ?", "%#{params[:first_name]}%") if params[:first_name].present?
+    grid = grid.where("users.last_name iLIKE ?",  "%#{params[:last_name]}%")  if params[:last_name].present?
+    grid = grid.where("users.email iLIKE ?",      "%#{params[:email]}%")      if params[:email].present?
     grid
   end
 
