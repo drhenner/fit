@@ -7,8 +7,13 @@ namespace :preorder do
     Order.preorders.find_each do |order|
       Order.uncached do
         if order.all_in_stock?
-          order.pay!
-          order.update_inventory
+          Order.transaction do
+            order.pay!
+            order.update_inventory
+
+            invoice_statement = Invoice.where('order_id = ?', order.id).last
+            invoice_statement.capture_stripe_customer_payment(invoice_statement.customer_token)
+          end
         end
       end
       # now we need to send the 3PL the info.  response should eventually have the shipping info.
