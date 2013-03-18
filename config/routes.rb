@@ -5,7 +5,6 @@ Hadean::Application.routes.draw do
   resource :iuwhcbphqoimcsid,       :only => :show
   match 'loaderio-79aeb8198cf6b8d1faffd0edad063326'  => 'welcome#load'
 
-  resource  :terms_of_use,      :only => [:show]
   resource  :contact_us,        :only => [:show]
   resources :shipping_returns,  :only => [:index]
   resource  :privacy_policy,    :only => [:show]
