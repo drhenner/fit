@@ -71,7 +71,7 @@ class Subscription < ActiveRecord::Base
   end
 
   def self.needs_to_be_billed
-    active.not_canceled.has_remaining_payments.where('next_bill_date >= ?', Time.zone.now.to_date)
+    active.not_canceled.has_remaining_payments.where('subscriptions.next_bill_date <= ?', Time.zone.now.to_date)
   end
   private
 
