@@ -68,6 +68,7 @@ class User < ActiveRecord::Base
                   :customer_service_comments_attributes
 
   belongs_to :account
+  belongs_to :country
 
   has_many    :users_newsletters
   has_many    :newsletters, :through => :users_newsletters

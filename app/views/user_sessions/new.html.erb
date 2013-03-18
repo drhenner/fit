@@ -1,15 +1,6 @@
 
-<% content_for :head do -%>
-  <% if @registration %>
-    <%= stylesheet_link_tag 'signup.css' %>
-  <% else %>
-    <%= stylesheet_link_tag 'login.css' %>
-  <% end %>
-  <%= stylesheet_link_tag 'cupertino/jquery-ui-1.8.12.custom' %>
-<% end %>
-
 <% content_for :bottom do -%>
-  <%= javascript_include_tag 'jquery.datePicker-2.1.2', 'datePickerInitialize' %>
+  <%#= javascript_include_tag 'jquery.datePicker-2.1.2', 'datePickerInitialize' %>
 <% end %>
 <% if @user_session.errors.any? %>
   <div id="error_explanation">
@@ -33,66 +24,114 @@
     </ul>
   </div>
 <% end %>
-<div id='login-wrapper' class='hadean-login'>
-  <div id='login' class='hadean-login four offset-by-one'>
+<h1><%= I18n.t(:login_title) %></h1>
+
+<div class='twelve large-12'>
+  <%= image_tag 'header/sign-in_header.jpg' %>
+</div>
+
+<div id='login-wrapper' class=''>
+  <div id='login' class='four large-4 columns'>
 
     <%= form_for  @user_session,
                   :url => user_sessions_path(@user_session),
-                  :html => {:class => 'span-12'} do |form| %>
-      <h3>Log in.</h3>
+                  :html => {:class => 'custom'} do |form| %>
       <fieldset>
-         <ol id='login_form'>
+         <legend>SIGN-IN</legend>
+         <ul id='login_form' class='no-bullet'>
 
               <li>
-                  <%=form.label :email, 'Email' %>
+                  <%=form.label :email, 'EMAIL ADDRESS' %>
                   <%= form.email_field :email, :autocomplete => 'off', :autocapitalize => 'off' %>
               </li>
 
               <li>
-                  <%=form.label :password, 'Password' %>
+                  <%=form.label :password, 'PASSWORD' %>
                   <%= form.password_field :password, :autocomplete => 'off', :autocapitalize => 'off' %>
               </li>
 
-         </ol>
+         </ul>
 
-        <%= form.submit "Log In", :class => 'button' %>
+        <%= form.submit "Log In", :class => 'medium button  bottom20' %>
 
       </fieldset>
     <% end %>
-    <% if false %>
-      <%= link_to 'forgot password?', new_customer_password_reset_path() %>
+    <% if !Settings.in_signup_period %>
+      <H5>FORGET YOUR PASSWORD, <%= link_to 'CLICK HERE', new_customer_password_reset_path() %>.</H5>
     <% end %>
   </div>
-  <% if false %>
-    <div id='signup' class='offset-by-one'>
-      <%= form_for @user, :url => customer_registrations_path(@user)  do |form| %>
-        <h3>New to <%= site_name %>?</h3>
-        <p>A <%= site_name %> account is required to checkout. </p>
+  <% if Settings.in_signup_period %>
+    <div id='signup' class='eight large-8 columns'>
+      <%= form_for @user, :url => customer_registrations_path(@user), :html => {:class => 'custom'} do |form| %>
         <fieldset>
-           <ol id='registration_form'>
-              <li>
-                  <%=form.label :first_name, 'First name*' %>
-                  <%= form.text_field :first_name %>
-              </li>
-              <li>
-                  <%=form.label :last_name %>
-                  <%= form.text_field :last_name %>
-              </li>
-              <li>
-                  <%=form.label :email, 'Email' %>
-                  <%= form.email_field :email, :autocomplete => 'off', :autocapitalize => 'off'  %>
-              </li>
-              <li>
-                  <%=form.label :password, 'Password' %>
-                  <%= form.password_field :password, :autocomplete => 'off', :autocapitalize => 'off'  %>
-              </li>
-              <li>
-                  <%=form.label :password_confirmation, 'Confirm' %>
-                  <%= form.password_field :password_confirmation, :autocomplete => 'off', :autocapitalize => 'off'  %>
-              </li>
-           </ol>
-          <%= form.submit "Register", :class => 'button' %>
-        </fieldset>
+          <legend>REGISTER</legend>
+
+
+
+          <div class="row">
+            <div class="twelve columns">
+              <div class="row">
+                <div class="six columns">
+                  <%=form.label :first_name, 'FIRST NAME' %>
+                  <%= form.text_field :first_name, :autocapitalize => 'off' %>
+                </div>
+                <div class="six columns">
+                  <%=form.label :last_name, 'LAST NAME' %>
+                  <%= form.text_field :last_name, :autocapitalize => 'off' %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="six columns">
+                  <%= form.label :email, 'EMAIL ADDRESS' %>
+                  <%= form.email_field :email, :autocapitalize => 'off' %>
+                </div>
+                <div class="six columns">
+                  <div class="">
+                      <%= form.label :country_id, 'COUNTRY' %>
+                      <%= form.select :country_id, countries, {:prompt => "Country"},  {:style=>"display: none;"} %>
+                      <div class='custom dropdown'>
+                        <a  class="current"><%= form.object.country.try(:name) || 'SELECT YOUR COUNTRY' %></a>
+                        <a href="#" class="selector"></a>
+                        <ul class='no-bullet'>
+                          <% countries.each do |c| %>
+                            <li value='<%= form.object.country_id %>'
+                                class="<%= 'selected' if c.last == form.object.country_id %>"><%= c.first %></li>
+                          <% end %>
+                        </ul>
+                      </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+              <div class="six columns">
+                <%=form.label :password, 'PASSWORD' %>
+                <%= form.password_field :password, :autocomplete => 'off', :autocapitalize => 'off'  %>
+              </div>
+              <div class="six columns">
+                <%=form.label :password_confirmation, 'CONFIRM PASSWORD' %>
+                <%= form.password_field :password_confirmation, :autocomplete => 'off', :autocapitalize => 'off'  %>
+              </div>
+          </div>
+
+          <h3>I AGREE TO THE
+            <%= link_to 'TERMS AND CONDITIONS', terms_path %><br />
+            I UNDERSTAND THE
+            <%= link_to 'PRIVACY POLICY', privacy_policy_path %>
+          </h3>
+          <label for="radio1">
+            <input name="radio1" id="radio1" style="display:none;" type="radio">
+            <span class="custom radio"></span> I AGREE TO THESE TERMS
+          </label>
+          <label for="radio2">
+            <input name="radio1" id="radio2" style="display:none;" type="radio">
+            <span class="custom radio checked"></span> I DO NOT AGREE TO THESE TERMS
+          </label>
+          <%= form.submit "Register", :class => 'medium button top20 bottom20' %>
+
+
+          </fieldset>
+        </div>
       <% end %>
     </div>
   <% end %>

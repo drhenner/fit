@@ -1,4 +1,5 @@
 class UserSessionsController < ApplicationController
+  helper_method :countries
   skip_before_filter :redirect_to_welcome
   def new
     @user_session = UserSession.new
@@ -42,6 +43,10 @@ end
   end
 
   private
+
+  def countries
+    @countries ||= Country.landing_page_form_selector
+  end
 
   def set_user_to_cart_items
     if session_cart.user_id != @user_session.record.id

@@ -17,6 +17,7 @@ en:
   the_order:            "the Order."
   the_order_purchased:  "The order has been purchased."
   is_not_valid:         'is not valid.'
+  login_title:          'SIGN-UP & REGISTRATION'
   login_successful:     "Login successful!"
   login_failure:        "Invalid email or password."
   logout_successful:    "Logout successful!"
