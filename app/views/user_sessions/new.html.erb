@@ -88,12 +88,12 @@
                 <div class="six columns">
                   <div class="">
                       <%= form.label :country_id, 'COUNTRY' %>
-                      <%= form.select :country_id, countries, {:prompt => "Country"},  {:style=>"display: none;"} %>
+                      <%= form.select :country_id, select_countries, {:prompt => "Country"},  {:style=>"display: none;"} %>
                       <div class='custom dropdown'>
                         <a  class="current"><%= form.object.country.try(:name) || 'SELECT YOUR COUNTRY' %></a>
                         <a href="#" class="selector"></a>
                         <ul class='no-bullet'>
-                          <% countries.each do |c| %>
+                          <% select_countries.each do |c| %>
                             <li value='<%= form.object.country_id %>'
                                 class="<%= 'selected' if c.last == form.object.country_id %>"><%= c.first %></li>
                           <% end %>

@@ -194,7 +194,7 @@ class ApplicationController < ActionController::Base
   end
 
   def select_countries
-    @select_countries ||= Country.form_selector
+    @select_countries ||= Country.landing_page_form_selector
   end
 
   def cc_params
