@@ -153,7 +153,6 @@ class Shopping::OrdersController < Shopping::BaseController
   end
 
   def form_info
-    @credit_card ||= ActiveMerchant::Billing::CreditCard.new()
     @payment_profiles = current_user.active_payment_profiles
     @order.credited_total
   end
