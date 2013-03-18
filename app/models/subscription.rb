@@ -10,6 +10,7 @@ class Subscription < ActiveRecord::Base
   has_many    :transaction_ledgers, :as => :accountable
   has_many    :batches, :as => :batchable
 
+  before_create :set_remaining_payments
   after_create :set_total_payments
 
   validates :order_item_id,         :presence => true
@@ -73,6 +74,10 @@ class Subscription < ActiveRecord::Base
     active.not_canceled.has_remaining_payments.where('next_bill_date >= ?', Time.zone.now.to_date)
   end
   private
+
+  def set_remaining_payments
+    self.remaining_payments = self.total_payments || subscription_plan.total_payments
+  end
 
   def set_total_payments
     self.total_payments ||= subscription_plan.total_payments
