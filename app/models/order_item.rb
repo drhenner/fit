@@ -120,7 +120,6 @@ class OrderItem < ActiveRecord::Base
 
   def subscription_plan_id=(val)
     if subscription_plan = SubscriptionPlan.find_by_id(val)
-      #debugger
       self.build_subscription( #:product_id           => self.variant.product_id,
                               :stripe_customer_token => nil,
                               :subscription_plan_id => subscription_plan.id,
