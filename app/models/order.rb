@@ -188,7 +188,9 @@ class Order < ActiveRecord::Base
           :order        => self,
           :variant_id   => item.variant.id,
           :price        => item.variant.price,
-          :tax_rate_id  => tax_rate_id)
+          :tax_rate_id  => tax_rate_id,
+          :subscription_plan_id => item.variant.subscription_plan_id)
+
       self.order_items.push(oi)
     end
   end
@@ -667,7 +669,7 @@ class Order < ActiveRecord::Base
   end
 
   def set_stripe_token_to_subscriptions(invoice)
-    Subscription.where('order_item_id IN (?)', order_items.map(&:id)).update_all(["stripe_customer_token = ?, active = ?",invoice.customer_token, true])
+    Subscription.where('order_item_id IN (?)', order_items.map(&:id)).update_all(["stripe_customer_token = ?, active = ?, next_bill_date = ?",invoice.customer_token, true, (Date.now + 1.month)])
     # payment_authorized!
     order_items.each do |order_item|
       if order_item.subscription
