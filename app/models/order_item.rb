@@ -124,6 +124,7 @@ class OrderItem < ActiveRecord::Base
                               :stripe_customer_token => nil,
                               :subscription_plan_id => subscription_plan.id,
                               :total_payments       => subscription_plan.total_payments,
+                              :remaining_payments   => subscription_plan.total_payments,
                               :user_id              => self.order.user_id,
                               :active               => false)
     end
