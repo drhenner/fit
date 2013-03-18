@@ -669,7 +669,7 @@ class Order < ActiveRecord::Base
   end
 
   def set_stripe_token_to_subscriptions(invoice)
-    Subscription.where('order_item_id IN (?)', order_items.map(&:id)).update_all(["stripe_customer_token = ?, active = ?, next_bill_date = ?",invoice.customer_token, true, (Date.now + 1.month)])
+    Subscription.where('order_item_id IN (?)', order_items.map(&:id)).update_all(["stripe_customer_token = ?, active = ?, next_bill_date = ?",invoice.customer_token, true, (Date.today + 1.month)])
     # payment_authorized!
     order_items.each do |order_item|
       if order_item.subscription
