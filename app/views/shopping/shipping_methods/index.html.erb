@@ -1,7 +1,9 @@
+
+<%= render :partial =>  'shopping/tabs' %>
 <h1>Pick a Shipping Method</h1>
 
 <div class='clearfix'>
-  <%= form_tag(shopping_shipping_method_path(session_order.id), :method => :put) do -%>
+  <%= form_tag(shopping_shipping_method_path(session_order.id), :method => :put, :html => {:class => 'custom'}) do -%>
     <% @order_items.group_by(&:shipping_category_id).each do |shipping_category_id, items| %>
       <div class='column float-left ten line_items_blue last'>
           <% items.each do |item| %>
@@ -15,9 +17,14 @@
                 </div>
             </div>
           <% end %>
-          <ul class='ten side-nav'>
+          <ul class='ten  vertical-list'>
           <% items.first.shipping_rate_options(session_order.sub_total).each do |rate| %>
-            <li><%= radio_button_tag "shipping_category[#{shipping_category_id}]", rate.id %> <%= rate.name_rate_min %></li>
+            <li><%= radio_button_tag "shipping_category[#{shipping_category_id}]", rate.id %>
+              <label><%= rate.name_with_rate %></label>
+              <% if rate.minimum_charge > 0.0 %>
+                <%= "(minimum order: #{number_to_currency rate.minimum_charge})" %>
+              <% end %>
+            </li>
           <% end %>
           </ul>
       </div>

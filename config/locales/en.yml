@@ -17,6 +17,7 @@ en:
   the_order:            "the Order."
   the_order_purchased:  "The order has been purchased."
   is_not_valid:         'is not valid.'
+  login_title:          'SIGN-UP & REGISTRATION'
   login_successful:     "Login successful!"
   login_failure:        "Invalid email or password."
   logout_successful:    "Logout successful!"
@@ -25,6 +26,7 @@ en:
   only_items_saved_for_later: "You only have items Saved for Later."
   add_items_saved_for_later: "Move items to the cart to checkout."
 
+  canada_ecommerce_url: 'http://www.ufcfit.ca'
   select_address_before_shipping_method:  'Select an address before you select a shipping method.'
   shipping_method_created:                'Shipping method was successfully created.'
   shipping_method_updated:                'Shipping method was successfully updated.'

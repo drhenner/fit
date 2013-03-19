@@ -17,6 +17,7 @@
   <![endif]-->
   <%= csrf_meta_tag %>
   <%= javascript_include_tag 'application' %>
+  <%#= javascript_include_tag "custom.modernizr" %>
   <%= javascript_include_tag "foundation" %>
   <%= yield :head %>
 
@@ -28,9 +29,9 @@
     <%= raw "<p class='flash_notice'> #{notice}</p>"  if notice %>
     <%= raw "<p class='flash_error'>#{alert}</p>"     if alert %>
   </div>
-
+  <% if current_user %>
     <%= render :partial => '/shared/welcome_header'%>
-
+  <% end %>
     <div id='content_wrapper' class='row <%= "myaccount" if myaccount_tab %> '>
       <%  if myaccount_tab %>
         <hr class="first_double_hr">
@@ -53,6 +54,13 @@
       jQuery('.flash_error').delay(6000).slideUp( 'slow');
     }
   );
+  </script>
+  <!-- Check for Zepto support, load jQuery if necessary -->
+  <script>
+    // document.write('<script src=/js/vendor/' + ('__proto__' in {} ? 'zepto' : 'jquery') + '.js><\/script>');
+  </script>
+  <script>
+    $(document).foundation();
   </script>
 
 </body>

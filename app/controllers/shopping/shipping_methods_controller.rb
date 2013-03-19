@@ -41,5 +41,10 @@ class Shopping::ShippingMethodsController < Shopping::BaseController
       redirect_to( shopping_shipping_methods_url, :notice => I18n.t('all_shipping_methods_must_be_selected'))
     end
   end
+  private
+
+  def selected_checkout_tab(tab)
+    tab == 'shipping-method'
+  end
 
 end

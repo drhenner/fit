@@ -1,3 +1,5 @@
+
+<%= render :partial =>  'shopping/tabs' %>
 <% if  @shopping_addresses.empty? %>
   <h2>New Address</h2>
 <% else %>
@@ -6,19 +8,29 @@
 
 <div id='shopping_addresses_selections' class='twelve last'>
   <% @shopping_addresses.each do |shopping_address| %>
-    <div class='four columns last box'>
+    <div class='three large-3 columns last box' style='margin-bottom:20px;'>
       <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => shopping_address} %>
-      <%= button_to 'Use', select_address_shopping_address_path(shopping_address), :class => 'button spade inline-block', :method => :put %>
-      <%= link_to 'Edit', edit_shopping_address_path(shopping_address) %>
-      <%= link_to 'Delete', shopping_address_path(shopping_address), :data => {:confirm => 'Are you sure?'}, :method => :delete %>
+      <%= link_to 'Use', select_address_shopping_address_path(shopping_address), :class => 'button small', :method => :put %> &nbsp; &nbsp;
+      <%= link_to 'Edit', edit_shopping_address_path(shopping_address), :class => 'button small' %>
+      <%#= link_to 'Delete', shopping_address_path(shopping_address), :data => {:confirm => 'Are you sure?'}, :method => :delete %>
     </div>
-    <hr style='color:#aac'/>
   <% end %>
+  <hr style='color:#aac;'/>
   <% if session_order.ready_to_checkout? %>
     <%= link_to 'Order Summary', shopping_orders_path, :class => 'button success' %>
   <% end %>
 </div>
-<br />
-<%= form_for @shopping_address, :url => shopping_addresses_path do |address_form| %>
-  <%= render :partial =>  'form', :locals => {:f => address_form}  %>
-<% end %>
+
+<div class='row'>
+  <div class='eight columns'>
+  <%= form_for @form_address, :url => shopping_addresses_path, :html => {:class => 'custom'} do |address_form| %>
+    <fieldset>
+      <legend>NEW SHIPPING ADDRESS</legend>
+      <%= render :partial =>  'form', :locals => {:f => address_form}  %>
+    </fieldset>
+  <% end %>
+  </div>
+  <div class='four columns'>
+    <%= render 'shipping_policy'%>
+  </div>
+</div>

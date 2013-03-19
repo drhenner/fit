@@ -18,6 +18,10 @@ class Shopping::CouponsController < Shopping::BaseController
 
   private
 
+  def selected_checkout_tab(tab)
+    tab == 'coupon'
+  end
+
   def form_info
     @coupon = Coupon.new
   end

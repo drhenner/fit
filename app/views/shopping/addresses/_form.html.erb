@@ -9,7 +9,7 @@
       </ul>
     </div>
   <% end %>
-<div class='main-address seven' >
+<div class='main-address ' >
     <div class="inline twelve ">
       <div class="field six columns">
          <%= f.label :first_name %>
@@ -21,11 +21,27 @@
         <%= f.text_field :last_name, :class => '' %>
       </div>
     </div>
+    <div class="twelve ">
+      <div class="field">
+
+        <%= f.fields_for :phones do |phone_f| %>
+          <div class=" six columns">
+            <%= phone_f.label :display_number, 'Primary Phone' %>
+            <%= phone_f.text_field :display_number %>
+          </div>
+          <div class=" six columns">
+            <%= phone_f.label :phone_type_id, 'Type' %>
+            <%= phone_f.select :phone_type_id, phone_types %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
     <div class='clear'></div>
       <div class="twelve columns">
         <div class="field">
           <%= f.label :address1 %>
-          <%= f.text_field :address1 %><br/>
+          <%= f.text_field :address1 %>
 
           <%= f.label :address2 %>
           <%= f.text_field :address2 %>
@@ -33,7 +49,7 @@
       </div>
 
     <div class='clearfix'></div>
-      <div class=" twelve clearfix">
+      <div class=" twelve ">
         <div class="field five columns">
           <%= f.label :city %>
           <%= f.text_field :city %>
@@ -47,9 +63,19 @@
       <% end %>
       <% if Settings.require_state_in_address %>
         <div class="field four columns">
-          <%= f.label    :state_id, "State/Province" %>
+          <%= f.label    :state_id, "State" %>
           <%= f.select   :state_id, @states,
-                        :include_blank => true %>
+                        {:include_blank => true}, {:style => 'display:none;'} %>
+          <div class='custom dropdown'>
+            <a  class="current"><%= f.object.state.try(:name) || 'STATE' %></a>
+            <a href="#" class="selector"></a>
+            <ul class='no-bullet'>
+              <% @states.each do |c| %>
+                <li value='<%= f.object.state_id %>'
+                    class="<%= 'selected' if c.last == f.object.state_id %>"><%= c.first %></li>
+              <% end %>
+            </ul>
+          </div>
         </div>
       <% elsif countries.size == 1 %>
         <div class="field column">
@@ -61,11 +87,21 @@
         <div class="field column">
           <%= f.label    :country_id, "Country" %>
           <%= f.select   :country_id, select_countries,
-                        :include_blank => true %>
+                        {:include_blank => true}, {:style => 'display:none;'} %>
+          <div class='custom dropdown'>
+            <a  class="current"><%= f.object.country.try(:name) || 'SELECT YOUR COUNTRY' %></a>
+            <a href="#" class="selector"></a>
+            <ul class='no-bullet'>
+              <% select_countries.each do |c| %>
+                <li value='<%= f.object.country_id %>'
+                    class="<%= 'selected' if c.last == f.object.country_id %>"><%= c.first %></li>
+              <% end %>
+            </ul>
+          </div>
         </div>
       <% end %>
 
-        <div class="field two columns">
+        <div class="field three columns">
           <%= f.label :zip_code %>
           <%= f.text_field :zip_code %>
         </div>
@@ -74,10 +110,10 @@
 </div>
   <div class="field twelve column" style='margin-bottom:10px;'>
     <%= f.check_box :default, :class => 'columns' %>
-    <%= f.label :default, "Make this my default shipping method", :class => 'ten ', :style => 'margin-top:3px;' %>
+    <%= f.label :default, "Make this my default shipping method", :class => 'ten ', :style => 'margin-top:3px;display: inline-block;' %>
   </div>
 
   <div class="actions column">
-    <%= f.submit 'Submit', :class => 'button' %>
+    <%= f.submit 'Submit', :class => 'button bottom20' %>
   </div>
 <div class='clearfix'></div>

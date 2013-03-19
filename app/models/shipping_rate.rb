@@ -68,7 +68,11 @@ class ShippingRate < ActiveRecord::Base
   # @param [none]
   # @return [ String ]
   def name_rate_min
-    [name_with_rate, "(min order => #{minimum_charge})" ].join(' ')
+    if minimum_charge > 0.0
+      [name_with_rate, "(minimum order: #{number_to_currency minimum_charge})" ].join(' ')
+    else
+      name_with_rate
+    end
   end
 
   # the shipping method name, and $$$ rate
