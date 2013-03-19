@@ -59,3 +59,20 @@
 
 .top20 {margin-top: 20px;}
 .bottom20 {margin-bottom: 20px;}
+
+ul {
+  list-style: none;
+  &.vertical-list {
+    display: block;
+    label {
+      display: inline-block;
+      width: 150px;
+    }
+    &.compact {
+      label {
+        width: 70px;
+      }
+    }
+  }
+}
+

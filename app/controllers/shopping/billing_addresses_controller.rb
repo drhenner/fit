@@ -1,5 +1,5 @@
 class Shopping::AddressesController < Shopping::BaseController
-  helper_method :countries, :phone_types
+  helper_method :countries
   # GET /shopping/addresses
   def index
     if session_cart.shopping_cart_items.empty?
@@ -7,7 +7,6 @@ class Shopping::AddressesController < Shopping::BaseController
       redirect_to products_url and return
     end
     @form_address = @shopping_address = Address.new
-    @form_address.phones.build
     if !Settings.require_state_in_address && countries.size == 1
       @shopping_address.country = countries.first
     end
@@ -34,7 +33,7 @@ class Shopping::AddressesController < Shopping::BaseController
 
       if @shopping_address.id
         update_order_address_id(@shopping_address.id)
-        redirect_to(shopping_shipping_methods_url, :notice => 'Address was successfully created.')
+        redirect_to(next_form_url(session_order), :notice => 'Address was successfully created.')
       else
         form_info
         render :action => "index"
@@ -51,7 +50,7 @@ class Shopping::AddressesController < Shopping::BaseController
 
       if @shopping_address.save
         update_order_address_id(@shopping_address.id)
-        redirect_to(shopping_shipping_methods_url, :notice => 'Address was successfully updated.')
+        redirect_to(next_form_url(session_order), :notice => 'Address was successfully updated.')
       else
         # the form needs to have an id
         @form_address = current_user.addresses.find(params[:id])
@@ -65,24 +64,20 @@ class Shopping::AddressesController < Shopping::BaseController
   def select_address
     address = current_user.addresses.find(params[:id])
     update_order_address_id(address.id)
-    redirect_to shopping_shipping_methods_url
+    redirect_to next_form_url(session_order)
   end
 
   def destroy
     @shopping_address = Address.find(params[:id])
     @shopping_address.update_attributes(:active => false)
 
-    redirect_to(shopping_addresses_url)
+    redirect_to(shopping_billing_addresses_url)
   end
 
   private
 
   def selected_checkout_tab(tab)
-    tab == 'shipping-address'
-  end
-
-  def phone_types
-    @phone_types ||= PhoneType.all.map{|p| [p.name, p.id]}
+    tab == 'billing-address'
   end
 
   def form_info
@@ -92,13 +87,8 @@ class Shopping::AddressesController < Shopping::BaseController
 
   def update_order_address_id(id)
     session_order.update_attributes(
-                          :ship_address_id => id ,
-                          :bill_address_id => (use_as_billing? ? id : session_order.bill_address_id )
+                          :bill_address_id => id
                                     )
-  end
-
-  def use_as_billing?
-    params[:use_as_billing].present? && params[:use_as_billing] == '1'
   end
 
   def countries

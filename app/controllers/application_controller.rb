@@ -11,7 +11,8 @@ class ApplicationController < ActionController::Base
                 :search_product,
                 :product_types,
                 :myaccount_tab,
-                :select_countries
+                :select_countries,
+                :in_production?
 
   before_filter :redirect_without_www
   before_filter :secure_session
@@ -44,6 +45,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def in_production?
+    Rails.env != 'production'
+  end
 
   def force_ssl
     has_subdomain? && Settings.force_ssl

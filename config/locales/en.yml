@@ -26,6 +26,7 @@ en:
   only_items_saved_for_later: "You only have items Saved for Later."
   add_items_saved_for_later: "Move items to the cart to checkout."
 
+  canada_ecommerce_url: 'http://www.ufcfit.ca'
   select_address_before_shipping_method:  'Select an address before you select a shipping method.'
   shipping_method_created:                'Shipping method was successfully created.'
   shipping_method_updated:                'Shipping method was successfully updated.'

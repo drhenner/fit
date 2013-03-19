@@ -11,6 +11,8 @@
   <% end %>
 <% end %>
 
+<%= render :partial =>  'shopping/tabs' %>
+
 <div id='order-wrapper' class='twelve'>
   <div class='seven large-7 columns'>
     <h1>Order Summary</h1>
@@ -33,6 +35,8 @@
     <div id='final-order-shipping-address' class='panel four large-4 columns radius last' >
       <h5>Billing Address</h5>
       <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => @order.bill_address} %>
+
+      <%= link_to 'Change address', shopping_billing_addresses_path, :class => 'button tiny ' %>
     </div>
   </div>
   <div class='pretty_table five large-5 columns last'>

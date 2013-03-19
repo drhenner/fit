@@ -71,6 +71,11 @@ Hadean::Application.routes.draw do
       end
     end
     resources  :shipping_methods
+    resources  :billing_addresses do
+      member do
+        put :select_address
+      end
+    end
     resources  :addresses do
       member do
         put :select_address
