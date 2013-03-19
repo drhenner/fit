@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130313182323) do
+ActiveRecord::Schema.define(:version => 20130319041659) do
 
   create_table "accounting_adjustments", :force => true do |t|
     t.integer  "adjustable_id",                                 :null => false
@@ -260,20 +260,22 @@ ActiveRecord::Schema.define(:version => 20130313182323) do
     t.integer  "bill_address_id"
     t.integer  "ship_address_id"
     t.integer  "coupon_id"
-    t.boolean  "active",                                        :default => true,  :null => false
-    t.boolean  "shipped",                                       :default => false, :null => false
-    t.integer  "shipments_count",                               :default => 0
+    t.boolean  "active",                                           :default => true,  :null => false
+    t.boolean  "shipped",                                          :default => false, :null => false
+    t.integer  "shipments_count",                                  :default => 0
     t.datetime "calculated_at"
     t.datetime "completed_at"
-    t.datetime "created_at",                                                       :null => false
-    t.datetime "updated_at",                                                       :null => false
-    t.decimal  "credited_amount", :precision => 8, :scale => 2, :default => 0.0
+    t.datetime "created_at",                                                          :null => false
+    t.datetime "updated_at",                                                          :null => false
+    t.decimal  "credited_amount",    :precision => 8, :scale => 2, :default => 0.0
+    t.integer  "payment_profile_id"
   end
 
   add_index "orders", ["bill_address_id"], :name => "index_orders_on_bill_address_id"
   add_index "orders", ["coupon_id"], :name => "index_orders_on_coupon_id"
   add_index "orders", ["email"], :name => "index_orders_on_email"
   add_index "orders", ["number"], :name => "index_orders_on_number"
+  add_index "orders", ["payment_profile_id"], :name => "index_orders_on_payment_profile_id"
   add_index "orders", ["ship_address_id"], :name => "index_orders_on_ship_address_id"
   add_index "orders", ["user_id"], :name => "index_orders_on_user_id"
 

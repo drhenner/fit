@@ -70,7 +70,12 @@ Hadean::Application.routes.draw do
         put :preorder
       end
     end
-    resources  :shipping_methods
+    resources :payments, :only => [:index, :create, :select_card] do
+      member do
+        put :select_card
+      end
+    end
+    resources   :shipping_methods
     resources  :billing_addresses do
       member do
         put :select_address
