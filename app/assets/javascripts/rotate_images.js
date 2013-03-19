@@ -26,39 +26,7 @@ if (typeof Hadean.Welcome.rotateImages == "undefined") {
         },
         next : function(){
           if (Hadean.Welcome.rotateImages.isMobile()) {
-            $('.anystretch img').hide();
-            $('#body_wrapper').css('background', '#888');
-            $('#signup_form_wrapper').css('background-color', '#888');
-            $('#signup_form_wrapper').css('top', 0);
-            $('#signup_form_wrapper').css('left', 0);
-            $('#signup_form_wrapper').css('width', '320px');
-            $('#signup_form_wrapper').css('margin', '0px auto');
-            $('.nofity-button-wrapper').css('margin-top', '10px');
-            $('#mobile-banner').show();
-            $('#mobile-banner').css('text-align', 'center');
-            $('#mobile-banner').css('background-color', '#000');
-            $('#key-to-changing').css('display', 'none');
-            $('#main-landing-signup-image').hide();
-            $('#mobile-landing-signup-image').show();
-            $('#mobile-landing-signup-image').css('width', '320px');
-            $('#ufcfit-logo').css('width', '320px');
-            $('#input-fields').css('width', '320px');
-            $('#input-fields').css('float', 'none');
-            $('#input-fields').css('padding', '0');
-            $('#input-fields').css('min-height', '320px');
-            $('#background-transparent').css('min-height', '320px');
-            $('#background-transparent').css('background-color', '#000');
-            $('#background-non-transparent').css('min-height', '320px');
-            $('#background-non-transparent').css('padding-left', 8);
-            $.each($('#input-fields li'), function(index, obj){
-              $(obj).removeClass();
-              $(obj).css('padding-right', '8px');
-              $(obj).css('width', '100%');
-            })
-            //$('#background-transparent').css('width', 353);
-            //$('#background-non-transparent').css('width', 353);
-            $('#ufcfit-logo').css('float', 'none');
-
+            //
           } else {
             $('.anystretch').show();
             $.anystretch(Hadean.Welcome.rotateImages.images[Hadean.Welcome.rotateImages.currentIndex], {speed: Hadean.Welcome.rotateImages.transitionSpeed});

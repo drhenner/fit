@@ -12,9 +12,6 @@
   <%= stylesheet_link_tag "normalize.css" %>
   <%= stylesheet_link_tag "foundation" %>
   <%= stylesheet_link_tag 'site/app.css' %>
-  <%= stylesheet_link_tag 'site/temp_signup_form.css' %>
-  <%#= stylesheet_link_tag 'site/small_welcome.css', :media => 'screen and (min-width: 10px) and (max-width: 320px)' %>
-  <%= stylesheet_link_tag 'site/small_welcome.css', :media => 'only screen and -webkit-min-device-pixel-ratio: 2' %>
 
     <!--[if lt IE 8]
   <%= stylesheet_link_tag 'ie.css', :media => 'screen, projection'%>
@@ -47,10 +44,8 @@
     <div id='prefooter_wrapper'>&nbsp;</div>
 </div>
 
-  <%#= render 'shared/main_footer' %>
   <%= yield :bottom %>
-  <%= javascript_include_tag 'rotate_images'%>
-  <%= javascript_include_tag 'temp_signup_form'%>
+
   <script>
   jQuery(window).ready(
     function() {

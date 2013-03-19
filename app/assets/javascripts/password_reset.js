@@ -5,24 +5,24 @@ if (typeof Hadean.Welcome == "undefined") {
     Hadean.Welcome = {};
 }
 debug_var = null;
-// If we already have the Appointments object don't override
-if (typeof Hadean.Welcome.tempSignup == "undefined") {
+// If we already have the passReset object don't override
+if (typeof Hadean.Welcome.passReset == "undefined") {
 
-    Hadean.Welcome.tempSignup = {
+    Hadean.Welcome.passReset = {
 
         initialize      : function( ) {
           // If the user clicks add new variant button
-          jQuery('#new_user').submit(function(event) {
-            Hadean.Welcome.tempSignup.submitForm();
+          jQuery('#reset-password').submit(function(event) {
+            Hadean.Welcome.passReset.submitForm();
 
             // prevent the form from submitting with the default action
             return false;
           });
           jQuery('#submit-notify').live('click', function() {
-            Hadean.Welcome.tempSignup.submitForm();
+            Hadean.Welcome.passReset.submitForm();
           });
-          if (Hadean.Welcome.tempSignup.isMobile()) {
-            Hadean.Welcome.tempSignup.setMobileCss();
+          if (Hadean.Welcome.passReset.isMobile()) {
+            Hadean.Welcome.passReset.setMobileCss();
           }
         },
         isMobile : function(){
@@ -65,26 +65,19 @@ if (typeof Hadean.Welcome.tempSignup == "undefined") {
         submitForm : function(){
           jQuery.ajax({
             type : "POST",
-            url: "/users",
-            data: jQuery('#new_user').serialize(),
+            url: "/customer/password_reset",
+            data: jQuery('#reset-password').serialize(),
             success: function(jsonText){
               debug_var = jsonText;
-              if (typeof( debug_var.errors) == "undefined") {
-                jQuery('#new_user').hide();
+              if (typeof( jsonText.errors) == "undefined") {
+                jQuery('#reset-password').hide();
                 jQuery('#please-subscribe').hide();
                 jQuery('#background-non-transparent h2').hide();
                 jQuery('#congrats_user').fadeIn();
               }else{
                 jQuery('#user_email').removeClass('error');
                 jQuery('#user_country_id').removeClass('error');
-                $.each(jQuery.parseJSON( debug_var.errors ), function(index, value) {
-                  if (value != null) {
-                    jQuery('#user_' + index).addClass('error');
-                    if (index == 'email') {
-                      alert("Email: " + value)
-                    }
-                  }
-                })
+                alert(jsonText.errors);
               }
             },
             dataType: 'json'
@@ -93,6 +86,6 @@ if (typeof Hadean.Welcome.tempSignup == "undefined") {
     };
 
     jQuery(function() {
-      Hadean.Welcome.tempSignup.initialize();
+      Hadean.Welcome.passReset.initialize();
     });
 };
