@@ -1,5 +1,5 @@
 class Shopping::AddressesController < Shopping::BaseController
-  helper_method :countries
+  helper_method :countries, :phone_types
   # GET /shopping/addresses
   def index
     if session_cart.shopping_cart_items.empty?
@@ -7,6 +7,7 @@ class Shopping::AddressesController < Shopping::BaseController
       redirect_to products_url and return
     end
     @form_address = @shopping_address = Address.new
+    @form_address.phones.build
     if !Settings.require_state_in_address && countries.size == 1
       @shopping_address.country = countries.first
     end
@@ -76,6 +77,14 @@ class Shopping::AddressesController < Shopping::BaseController
 
   private
 
+  def selected_checkout_tab(tab)
+    tab == 'shipping-address'
+  end
+
+  def phone_types
+    @phone_types ||= PhoneType.all.map{|p| [p.name, p.id]}
+  end
+
   def form_info
     @shopping_addresses = current_user.shipping_addresses
     @states     = State.form_selector
@@ -84,8 +93,12 @@ class Shopping::AddressesController < Shopping::BaseController
   def update_order_address_id(id)
     session_order.update_attributes(
                           :ship_address_id => id ,
-                          :bill_address_id => (session_order.bill_address_id ? session_order.bill_address_id : id)
+                          :bill_address_id => (use_as_billing? ? id : session_order.bill_address_id )
                                     )
+  end
+
+  def use_as_billing?
+    params[:use_as_billing].present? && params[:use_as_billing] == '1'
   end
 
   def countries

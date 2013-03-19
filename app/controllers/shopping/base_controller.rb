@@ -1,5 +1,5 @@
 class Shopping::BaseController < ApplicationController
-  helper_method :session_order, :session_order_id
+  helper_method :session_order, :session_order_id, :selected_checkout_tab
   skip_before_filter :redirect_to_welcome
   before_filter :redirect_unless_preorder
   # these are methods that can be used for all orders
@@ -11,6 +11,14 @@ class Shopping::BaseController < ApplicationController
   end
 
   private
+
+  def selected_checkout_tab(tab)
+    tab == ''
+  end
+
+  def next_form_url(order)
+    next_form(order) || shopping_orders_url
+  end
 
   def next_form(order)
 
@@ -26,6 +34,8 @@ class Shopping::BaseController < ApplicationController
       return shopping_addresses_url()
     elsif !session_order.all_order_items_have_a_shipping_rate?
       return shopping_shipping_methods_url()
+    elsif session_order.bill_address_id.nil?
+      return shopping_billing_addresses_url()
     end
   end
 

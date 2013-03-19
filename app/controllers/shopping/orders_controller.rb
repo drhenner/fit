@@ -103,6 +103,10 @@ class Shopping::OrdersController < Shopping::BaseController
 
   private
 
+  def selected_checkout_tab(tab)
+    tab == 'order-details'
+  end
+
   def preorder_payment_profile
     return @preorder_payment_profile if @preorder_payment_profile
     if create_a_new_profile?

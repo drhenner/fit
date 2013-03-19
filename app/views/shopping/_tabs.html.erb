@@ -1,0 +1,29 @@
+<dl class="tabs five-up"><!-- Tabs - navigation -->
+    <dd class="<%= 'active' if selected_checkout_tab('shipping-address') %>">
+      <% if session_order.ship_address_id %>
+        <%= link_to '1. SHIPPING ADDRESS', shopping_addresses_path %>
+      <% else %>
+        <span>1. SHIPPING ADDRESS</span>
+      <% end %>
+    </dd>
+    <dd class="<%= 'active' if selected_checkout_tab('shipping-method') %>">
+      <% if session_order.ship_address_id %>
+        <%= link_to '2. SHIPPING METHODS', shopping_shipping_methods_path %>
+      <% else %>
+        <span>2. SHIPPING METHODS</span>
+      <% end %>
+    </dd>
+    <dd class="<%= 'active' if selected_checkout_tab('billing-address') %>">
+      <% if session_order.ship_address_id %>
+        <%= link_to '3. BILLING ADDRESS', shopping_addresses_path %>
+      <% else %>
+        <span>3. BILLING ADDRESS</span>
+      <% end %>
+    </dd>
+    <dd class="<%= 'active' if selected_checkout_tab('payment-info') %>">
+      <span>4. PAYMENT INFO</span>
+    </dd>
+    <dd class="<%= 'active' if selected_checkout_tab('order-details') %>">
+      <span>5. ORDER DETAILS</span>
+    </dd>
+</dl>

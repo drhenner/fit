@@ -56,6 +56,8 @@ class Address < ActiveRecord::Base
   validates :zip_code,    :presence => true,       :length => { :maximum => 12 }
   before_validation :sanitize_data
 
+  accepts_nested_attributes_for :phones, :reject_if => lambda { |t| ( t['display_number'].gsub(/\D+/, '').blank?) }
+
   attr_accessor :replace_address_id # if you are updating an address set this field.
   before_save :replace_address, if: :replace_address_id
   after_save  :invalidate_old_defaults
