@@ -1,5 +1,12 @@
 <% content_for :head do -%>
-  <%= stylesheet_link_tag 'home_page.css' %>
+  <%= stylesheet_link_tag 'site/temp_signup_form.css' %>
+  <%= stylesheet_link_tag 'site/small_welcome.css', :media => 'only screen and -webkit-min-device-pixel-ratio: 2' %>
+  <%#= stylesheet_link_tag 'home_page.css' %>
+<% end %>
+
+<% content_for :bottom do -%>
+  <%= javascript_include_tag 'rotate_images'%>
+  <%= javascript_include_tag 'temp_signup_form'%>
 <% end %>
 
 
@@ -32,11 +39,11 @@
 
                <ul id='signup_form' style='padding-top: 10px;'>
                   <li class='four column' style='padding: 0 5px 0 0;'>
-                      <%= form.email_field :email, :autocomplete => 'off', :autocapitalize => 'off', :placeholder => 'Email' %>
+                      <%= form.email_field :email, :autocomplete => 'off', :autocapitalize => 'off', :placeholder => 'EMAIL' %>
                   </li>
                   <li class='four column' style='padding: 0 5px 0 0;' >
                     <div class='styled-select'>
-                      <%= form.select :country_id, Country.landing_page_form_selector,:prompt => "Country" %>
+                      <%= form.select :country_id, Country.landing_page_form_selector,:prompt => "COUNTRY" %>
                     </div>
                   </li>
                   <li class='three ' style='padding: 0;' >

@@ -71,7 +71,7 @@ img {max-width: 200%;}
     padding-top: 10px;
     font-size:10px;
     background-color:#bbb;
-    @include placeholder(#666);
+    @include placeholder(#000);
     &.error{background-color:#ebb;}
   }
   input[type="submit"] {
