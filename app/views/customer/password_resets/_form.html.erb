@@ -10,20 +10,20 @@
   </div>
 <% end %>
 
-  <div>
+  <p>
     Please enter your new password.
+  </p>
+
+  <div class="field">
+    <%= f.label :password, 'PASSWORD' %><br />
+    <%= f.password_field :password, :placeholder => 'password' %>
   </div>
 
   <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation %>
+    <%= f.label :password_confirmation, 'CONFIRM PASSWORD' %><br />
+    <%= f.password_field :password_confirmation, :placeholder => 'confirm password' %>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Change Password', :class => 'button' %>
   </div>
