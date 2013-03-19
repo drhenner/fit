@@ -1,4 +1,4 @@
-class Shopping::AddressesController < Shopping::BaseController
+class Shopping::BillingAddressesController < Shopping::BaseController
   helper_method :countries
   # GET /shopping/addresses
   def index
