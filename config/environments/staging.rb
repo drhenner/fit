@@ -58,7 +58,7 @@ Hadean::Application.configure do
 
   #if ENV['FOG_DIRECTORY'].present?
     #config.action_controller.asset_host = "https://#{ENV['FOG_DIRECTORY']}.s3.amazonaws.com"
-    config.action_controller.asset_host = "https://www.ufcfit.com"
+    config.action_controller.asset_host = "http://ufcfitstaging01.herokuapp.com"
   #end
 
   # Specifies the header that your server uses for sending files
@@ -81,8 +81,8 @@ Hadean::Application.configure do
   # In production, Apache or nginx will already do this
   config.serve_static_assets = true
 
-  config.action_mailer.default_url_options = { :host => 'www.ufcfit.com' }
-  config.action_mailer.asset_host = "https://www.ufcfit.com"
+  config.action_mailer.default_url_options = { :host => 'ufcfitstaging01.herokuapp.com' }
+  config.action_mailer.asset_host = "http://ufcfitstaging01.herokuapp.com"
   #config.action_mailer.asset_host = "//#{ENV['FOG_DIRECTORY']}.s3.amazonaws.com"
 
   # Disable delivery errors, bad email addresses will be ignored
