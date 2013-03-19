@@ -45,10 +45,10 @@ class Shopping::OrdersController < Shopping::BaseController
       session_cart.mark_items_purchased(@order)
       flash[:error] = I18n.t('the_order_purchased')
       redirect_to myaccount_order_url(@order)
-    elsif payment_profile
+    elsif @order.payment_profile
       if response = @order.create_invoice(@credit_card,
                                           @order.credited_total,
-                                          payment_profile,
+                                          @order.payment_profile,
                                           @order.amount_to_credit)
         if response.succeeded?
           ##  MARK items as purchased
@@ -77,10 +77,10 @@ class Shopping::OrdersController < Shopping::BaseController
       session_cart.mark_items_purchased(@order)
       flash[:error] = I18n.t('the_order_purchased')
       redirect_to myaccount_order_url(@order)
-    elsif preorder_payment_profile
+    elsif @order.payment_profile
       if response = @order.create_preorder_invoice(
                                           @order.credited_total,
-                                          preorder_payment_profile,
+                                          @order.payment_profile,
                                           @order.amount_to_credit)
         if response.preordered?
           ##  MARK items as purchased
@@ -107,57 +107,7 @@ class Shopping::OrdersController < Shopping::BaseController
     tab == 'order-details'
   end
 
-  def preorder_payment_profile
-    return @preorder_payment_profile if @preorder_payment_profile
-    if create_a_new_profile?
-      if Date.parse("01-#{params[:month]}-#{params[:year]}") - 3.months  < Date.today
-        @preorder_payment_profile = current_user.payment_profiles.new(cc_params)
-        @preorder_payment_profile.active = true
-        @preorder_payment_profile.save!
-        @preorder_payment_profile
-      else
-        flash[:notice] = 'Your card can not expire before the items will be shipped.'
-        false
-      end
-    elsif params[:use_credit_card_on_file].present?
-      @preorder_payment_profile = current_user.payment_profiles.find_by_id(params[:use_credit_card_on_file])
-    end
-  end
-
-  def payment_profile
-    return @payment_profile if @payment_profile
-    if create_a_new_profile?
-      @payment_profile = current_user.payment_profiles.new(cc_params)
-      @payment_profile.active = save_card?
-      @payment_profile.save!
-      @payment_profile
-    elsif params[:use_credit_card_on_file].present? #charge the profile
-      @payment_profile = current_user.payment_profiles.find_by_id(params[:use_credit_card_on_file])
-    end
-  end
-
-  def cc_params
-    {"first_name"       => params[:first_name],
-    "last_name"         => params[:last_name],
-    "card_name"         => params[:full_name],
-    "stripe_card_token" => params[:stripe_card_token],
-    "cc_type"           => params[:brand],
-    "month"             => params[:month],
-    "year"              => params[:year],
-    "active"            => save_card?,
-    :address_id         => @order.bill_address_id}
-  end
-
-  def create_a_new_profile?
-    params[:stripe_card_token].present?
-  end
-
-  def save_card?
-    params[:save_card] == '1'
-  end
-
   def form_info
-    @payment_profiles = current_user.active_payment_profiles
     @order.credited_total
   end
   def require_login

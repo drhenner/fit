@@ -30,6 +30,8 @@
     <%= raw "<p class='flash_notice'> #{notice}</p>"  if notice %>
     <%= raw "<p class='flash_error'>#{alert}</p>"     if alert %>
   </div>
+  <%= render :partial => '/shared/welcome_header'%>
+
   <div id='checkout_content_wrapper' class='row'>
     <%= yield %>
   </div>
@@ -46,6 +48,9 @@
       jQuery('.flash_error').delay(8000).slideUp( 'slow');
     }
   );
+  </script>
+  <script>
+    $(document).foundation();
   </script>
 
 </body>

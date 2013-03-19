@@ -36,6 +36,8 @@ class Shopping::BaseController < ApplicationController
       return shopping_shipping_methods_url()
     elsif session_order.bill_address_id.nil?
       return shopping_billing_addresses_url()
+    elsif session_order.payment_profile_id.nil?
+      return shopping_payments_path
     end
   end
 

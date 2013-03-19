@@ -61,6 +61,7 @@ class Order < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :coupon
+  belongs_to :payment_profile
   belongs_to   :ship_address, :class_name => 'Address'
   belongs_to   :bill_address, :class_name => 'Address'
 

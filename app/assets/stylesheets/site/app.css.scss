@@ -2,6 +2,7 @@
 @import "site/my_account";
 @import "site/cart";
 @import "site/panel";
+@import "site/checkout";
 @import "compass/layout/sticky-footer";
 @import "compass/utilities/general/clearfix";
 
@@ -76,3 +77,4 @@ ul {
   }
 }
 
+body, div, dl, dt, dd, ul, ol, li, pre, form, fieldset, p, blockquote, th, td {color: #909090;}

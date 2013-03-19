@@ -14,8 +14,8 @@
       <% end %>
     </dd>
     <dd class="<%= 'active' if selected_checkout_tab('billing-address') %>">
-      <% if session_order.ship_address_id %>
-        <%= link_to '3. BILLING ADDRESS', shopping_addresses_path %>
+      <% if session_order.bill_address_id %>
+        <%= link_to '3. BILLING ADDRESS', shopping_billing_addresses_path %>
       <% else %>
         <span>3. BILLING ADDRESS</span>
       <% end %>
