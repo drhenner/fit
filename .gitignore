@@ -22,8 +22,8 @@ solr/*
 
 .project
 *.sw*
-#public/assets/**/*
-#public/assets/*
+public/assets/**/*
+public/assets/*
 coverage/*
 ERD.pdf
 # Gemfile.lock
