@@ -1,1 +1,0 @@
-jQuery(document).ready(function(e){e("#create-shipment-button").click(function(){var t=e(this).data("url");return jQuery.ajax({type:"PUT",url:t,dataType:"script"}),!1})});
