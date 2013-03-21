@@ -18,9 +18,12 @@ describe Myaccount::OrdersController do
   end
 
   it "show action should render show template" do
+    Stripe::Customer.stubs(:retrieve).returns(stripe_retrieve_response)
+    payment_profile = FactoryGirl.create(:payment_profile)
     @order = build(:order, :user => @user )
     @order.state = 'complete'
     @order.save
+    Order.any_instance.stubs(:payment_profile).returns(payment_profile)
     get :show, :id => @order.number
     response.should render_template(:show)
   end

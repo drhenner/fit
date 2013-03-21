@@ -67,6 +67,10 @@ class Product < ActiveRecord::Base
 
   PREORDER_IDS = [1,2]
 
+  def multi_option_for_preorder?
+    ProductType.main_preorder_product_type_ids.include?(product_type_id)
+  end
+
   def hero_variant
     active_variants.detect{|v| v.master } || active_variants.first
   end

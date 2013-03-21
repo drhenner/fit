@@ -3,40 +3,46 @@
   <%= stylesheet_link_tag 'tables.css' %>
 <% end %>
 
-<div class='nine columns'>
-  <h3> Order # <%= @order.number %> </h3>
+<div class='row'>
 
-  <div class='pretty_table ten'>
-    <table style='margin: 0;'>
-      <tbody>
-        <tr>
-          <td class='left-align'> Number: </td><td> <%= @order.number %> </td>
-        </tr>
-        <tr>
-          <td class='left-align'> Completed at: </td><td> <%= @order.display_completed_at %> </td>
-        </tr>
-        <tr>
-          <td class='left-align'> Shipping Address: </td>
-          <td>
-            <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => @order.ship_address} if @order.ship_address_id%>
-          </td>
-        </tr>
-        <tr>
-          <td class='left-align'> Billing Address: </td>
-          <td>
-            <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => @order.bill_address} if @order.bill_address_id %>
-          </td>
-        </tr>
+  <div class='seven columns'>
+    <h3> Order # <%= @order.number %> </h3>
+    <div class='row'>
+      <div id='final-order-shipping-address' class=' six large-6 columns ' >
+        <h3>SHIPPING INFO</h3>
+        <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => @order.ship_address} %>
+      </div>
+      <div id='final-order-shipping-address' class=' six large-6 columns' >
+        <h3>BILLING INFO</h3>
+        <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => @order.bill_address} %>
 
-        <tr>
-          <td COLSPAN=2> Items </td>
-        </tr>
+      </div>
+    </div>
+    <div class='row'>
+      <div  class=' six columns large-6  ' >
+        <h3>PAYMENT INFO</h3>
+        <% @order.payment_profile %>
+        <ul class='vertical-list'>
+          <li><label>Card Type:       </label><%= @order.payment_profile.cc_type.try(:capitalize) %> </li>
+          <li><label>Card Number:     </label>************ <%= @order.payment_profile.last4 %>  </li>
+          <li><label>Expiration Date: </label> <%= @order.payment_profile.month %>/<%= @order.payment_profile.year %> </li>
+        </ul>
+      </div>
+    </div>
+    <div class='row'>
+      <div  class=' six columns large-6  ' >
+        <h3>ORDER INFO</h3>
         <% @order.order_items.each do |item| %>
-          <tr>
-            <td class='left-align' COLSPAN=2> <%= item.variant.product_name %> </td>
-          </tr>
+          <ul class='vertical-list'>
+            <li><b><%= item.variant.product_name %><%= ':' if item.subscription %></b> </li>
+            <% if item.subscription %>
+              <li><label> Installment Plan</label><%= item.subscription.subscription_plan_name %> </li>
+              <li><label> # of payments   </label><%= item.subscription.number_of_total_payments + 1 %> </li>
+              <li><label> Payment Amount  </label><%= integer_to_currency item.subscription.individual_cost %> </li>
+            <% end %>
+          </ul>
         <% end %>
-      </tbody>
-    </table>
+      </div>
+    </div>
   </div>
 </div>

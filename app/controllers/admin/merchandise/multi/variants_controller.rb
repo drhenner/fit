@@ -3,7 +3,7 @@ class Admin::Merchandise::Multi::VariantsController < Admin::BaseController
   def edit
     @product        = Product.includes(:properties,:product_properties, {:prototype => :properties}).find(params[:product_id])
     form_info
-    render :layout => 'admin_markup'
+    #render :layout => 'admin_markup'
   end
 
   def update

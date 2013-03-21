@@ -62,6 +62,25 @@ class Variant < ActiveRecord::Base
   OUT_OF_STOCK_QTY        = 2
   LOW_STOCK_QTY           = 6
 
+  def short_description
+    small_description? ? small_description : product.short_description
+  end
+
+  def display_title
+    title? ? title : product_name
+  end
+
+  def display_option
+    option_text? ? option_text : product_name
+  end
+
+  def has_preorder_options?
+    product.multi_option_for_preorder?
+  end
+
+  def similar_variants
+    Variant.where('variants.deleted_at IS NULL').where(:product_id => product_id).all
+  end
   # returns quantity available to purchase
   #
   # @param [none]
@@ -70,6 +89,9 @@ class Variant < ActiveRecord::Base
     admin_purchase ? (quantity_available - ADMIN_OUT_OF_STOCK_QTY) : (quantity_available - OUT_OF_STOCK_QTY)
   end
 
+  def featured_image(image_size = :small)
+    image_urls(image_size).first
+  end
   def image_urls(image_size = :small)
     image_group ? image_group.image_urls(image_size) : product.image_urls(image_size)
   end
@@ -93,6 +115,14 @@ class Variant < ActiveRecord::Base
 
   def inactivate
     deleted_at ? true : false
+  end
+
+  def self.upsells
+    active.where("products.product_type_id IN (?)", ProductType.upsell_product_type_ids)
+  end
+
+  def self.active
+    includes(:product).where("products.deleted_at IS NULL OR products.deleted_at > ?", Time.zone.now)
   end
 
   def subscription_plan_name
