@@ -39,7 +39,6 @@
               <li><label> Installment Plan</label><%= item.subscription.subscription_plan_name %> </li>
               <li><label> # of payments   </label><%= item.subscription.number_of_total_payments + 1 %> </li>
               <li><label> Payment Amount  </label><%= integer_to_currency item.subscription.individual_cost %> </li>
-              <li><label> Total Amount    </label><%= integer_to_currency item.subscription.total_cost %> </li>
             <% end %>
           </ul>
         <% end %>
