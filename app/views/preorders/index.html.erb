@@ -1,6 +1,5 @@
 
 <div id='preorder-products-page'>
-
   <h3> <span class="large-bullet alert label">1</span> Items in your cart</h3>
   <div class='row'>
     <div class='eight large-8 columns'>
@@ -17,41 +16,35 @@
           <li class='custom dropdown'>
             <%= select_tag :item, ['3 easy payments of $39.99','2','3 '].map{|i|"<option>#{i}</option>"}.join.html_safe, :class => 'medium' %>
           </li>
-          <li class='small-text'><%= link_to 'Remove', '#', :method => 'delete', :class => 'remove-item' %></li>
+          <li class='small-text'><%= link_to 'Remove', '#upsell_path(upsell)', :method => 'delete', :class => 'remove-item' %></li>
         </ul>
       </div>
     <%# end %>
     </div>
     <div class='four large-4 columns'>
       <ul class='vertical-list right-list'>
-        <%# session_cart.cart_items.each do |item| %>
+        <% session_cart.shopping_cart_items.each do |item| %>
           <li class='small-text'>
-            Complete UFC FIT Lifestyle Program: <span class=''>$39.99</span>
-            <%= link_to '#', :style => 'color:#FF0000' do %>
+            <%= number_to_currency item.variant.product_name %>:
+            <%= number_to_currency item.variant.price %>
+            <%= link_to upsell_path(item),
+                        :class        => "has-tip tip-left",
+                        'data-width'  => "210",
+                        'data-tooltip'=> '',
+                        :title        => "Click to Remove #{item.variant.product_name}",
+                        :style        => 'color:#FF0000' do %>
               <i class='icon-minus-sign'></i>
             <% end %>
-            <%# number_to_currency item.variant.product_name %>
-            <%# number_to_currency item.variant.price %>
           </li>
-          <li class='small-text'>
-            UFC FIT Octagon Mat: $39.99
-
-            <%= link_to '#', :style => 'color:#FF0000' do %>
-              <i class='icon-minus-sign'></i>
-            <% end %>
-            <%# number_to_currency item.variant.product_name %>
-            <%# number_to_currency item.variant.price %>
-          </li>
+        <% end %>
           <li class='price-tag'>
-            Sub-Total: $59.99
-            <%# number_to_currency cart.sub_total %>
+            Sub-Total: <%= number_to_currency session_cart.sub_total %>
           </li>
           <li >
             <%= link_to '#', :class => 'button large success top20' do %>
               Proceed to checkout <i class='icon-caret-right'></i>
             <% end %>
           </li>
-        <%# end %>
       </ul>
 
 
@@ -70,7 +63,7 @@
           <span class='upsell-price'><%= number_to_currency upsell.price %></span>
         </div>
 
-        <%= link_to '#', :class => 'button top20' do %>
+        <%= link_to upsell_path(upsell), :class => 'button top20', :method => 'PUT' do %>
           Add to Cart
         <% end %>
       </div>
