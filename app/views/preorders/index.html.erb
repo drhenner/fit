@@ -7,27 +7,29 @@
   <div class='row'>
     <div class='eight large-8 columns'>
     <% session_cart.shopping_cart_items.each do |item| %>
-      <h4 class='cart-item-title'><%= item.variant.product_name %><%# The Complete UFCFIT Lifestyle Program %></h4>
-      <div class='six column'>
-        <%#= image_tag 'no_image_medium.jpg'%>
-        <%= image_tag item.variant.featured_image %>
-      </div>
-      <div class='six column'>
-        <ul class='vertical-list '>
-          <li class='price-tag'><% number_to_currency item.variant.price %></li>
-          <% if item.variant.has_preorder_options? %>
-            <li class='small-text'>Select an Option</li>
-            <li class='custom dropdown'>
+      <div class='row'>
+        <h4 class='cart-item-title'><%= item.variant.product_name %><%# The Complete UFCFIT Lifestyle Program %></h4>
+        <div class='six column'>
+          <%#= image_tag 'no_image_medium.jpg'%>
+          <%= image_tag item.variant.featured_image %>
+        </div>
+        <div class='six column'>
+          <ul class='vertical-list '>
+            <li class='price-tag'><% number_to_currency item.variant.price %></li>
+            <% if item.variant.has_preorder_options? %>
+              <li class='small-text'>Select an Option</li>
+              <li class='custom dropdown'>
 
-              <%= form_tag  shopping_cart_items_path,
-                            :method => 'PUT',
-                            :id => 'new_cart_item', :class => 'custom'  do %>
-                <%= select_tag :item, options_from_collection_for_select(item.variant.similar_variants, "id", "product_name", item.variant_id), :class => 'media-purchase' %>
-              <% end %>
-            </li>
-          <% end %>
-          <li class='small-text'><%= link_to 'Remove', upsell_path(item.variant), :method => 'delete', :class => 'remove-item' %></li>
-        </ul>
+                <%= form_tag  main_sale_path,
+                              :method => 'PUT',
+                              :id => 'new_cart_item', :class => 'custom'  do %>
+                  <%= select_tag :variant_id, options_from_collection_for_select(item.variant.similar_variants, "id", "product_name", item.variant_id), :class => 'media-purchase' %>
+                <% end %>
+              </li>
+            <% end %>
+            <li class='small-text'><%= link_to 'Remove', upsell_path(item.variant), :method => 'delete', :class => 'remove-item' %></li>
+          </ul>
+        </div>
       </div>
     <% end %>
     </div>
