@@ -1,0 +1,27 @@
+#preorder-products-page {
+  font-family:"Helvetica Neue",Helvetica,Arial, san-serif;
+  text-transform:uppercase;
+
+  h2, h3, h4, h5 {
+    color:#222;
+    font-weight:bold;
+  }
+
+  .large-bullet {
+    font-size:30px;
+    padding:0 9px;
+  }
+
+  .right-list{text-align:right;}
+  .upsell-products{text-align:center;}
+
+  .cart-item-title {
+    margin-left:20px;
+    color:#CC0000;
+    font-size:18px;
+    font-weight:bold;
+  }
+  .remove-item{color:#909090;}
+  .price-tag {color:#222;font-weight:bold;font-size:17px;}
+  .small-text {font-size:9px;font-weight:bold;}
+}
