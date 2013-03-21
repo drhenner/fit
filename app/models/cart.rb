@@ -180,6 +180,14 @@ class Cart < ActiveRecord::Base
     return citems
   end
 
+  def change_main_sale(variant, customer)
+    similar_variant_ids = variant.similar_variants.map(&:id)
+    shopping_cart_items.map(&:variant_id).each do |cart_variant_id|
+      remove_variant(cart_variant_id) if similar_variant_ids.include?(cart_variant_id)
+    end
+    add_variant(variant.id, customer)
+  end
+
   # Call this method when you want to associate the cart with a user
   #
   # @param [User]
