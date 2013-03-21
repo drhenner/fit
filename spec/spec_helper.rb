@@ -93,7 +93,23 @@ def with_solr
   yield
   Product.configuration[:if] = false
 end
-
+  def stripe_retrieve_responce
+    {
+      "description" => "Customer for site@stripe.com",
+      "livemode" => false,
+      "active_card" => {
+        "type" => "Visa",
+        "exp_month" => 3,
+        "country" => "US",
+        "exp_year" => 2013,
+        "object" => "card",
+        "last4" => "4242"
+      },
+      "created" => 1331399499,
+      "object" => "customer",
+      "id" => "cus_q080Mr9Ml6JQ0T"
+    }
+  end
   def credit_card_hash(options = {})
     { :number     => '1',
       :first_name => 'Johnny',

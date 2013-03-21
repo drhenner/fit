@@ -18,6 +18,7 @@ describe Myaccount::OrdersController do
   end
 
   it "show action should render show template" do
+    Stripe::Customer.stubs(:retrieve).returns(stripe_retrieve_responce)
     @order = build(:order, :user => @user )
     @order.state = 'complete'
     @order.save
