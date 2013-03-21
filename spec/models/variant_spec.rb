@@ -287,14 +287,29 @@ describe Variant, "instance method" do
 
 end
 
-describe Variant, "#admin_grid(product, params = {})" do
-  it "should return variants for a specific product" do
-    product = create(:product)
-    variant1 = create(:variant, :product_id => product.id)
-    variant2 = create(:variant, :product_id => product.id)
-    admin_grid = Variant.admin_grid(product)
-    admin_grid.size.should == 2
-    admin_grid.include?(variant1).should be_true
-    admin_grid.include?(variant2).should be_true
+describe Variant, "class methods" do
+  context '#admin_grid(product, params = {})' do
+    it "should return variants for a specific product" do
+      product = create(:product)
+      variant1 = create(:variant, :product_id => product.id)
+      variant2 = create(:variant, :product_id => product.id)
+      admin_grid = Variant.admin_grid(product)
+      admin_grid.size.should == 2
+      admin_grid.include?(variant1).should be_true
+      admin_grid.include?(variant2).should be_true
+    end
+  end
+  context '#active' do
+    it "should return variants for a specific product" do
+      product1 = create(:product, :deleted_at => nil)
+      product2 = create(:product, :deleted_at => (Time.zone.now - 10.seconds))
+      product1.deleted_at = nil
+      product1.save
+      variant1 = create(:variant, :product => product1)
+      variant2 = create(:variant, :product => product2)
+      variants = Variant.active.all
+      variants.size.should == 1
+      expect(variants.map(&:id)).to eq [variant1.id]
+    end
   end
 end

@@ -1,3 +1,92 @@
+<% content_for :below_body do -%>
+  <%= javascript_include_tag 'preorders/products_page.js' %>
+<% end %>
 
-<h1> Pre-Order </h1>
+<div id='preorder-products-page'>
+  <h3> <span class="large-bullet alert label">1</span> Items in your cart</h3>
+  <div class='row'>
+    <div class='eight large-8 columns'>
+    <% session_cart.shopping_cart_items.each do |item| %>
+      <div class='row'>
+        <h4 class='cart-item-title'><%= item.variant.product_name %><%# The Complete UFCFIT Lifestyle Program %></h4>
+        <div class='six column'>
+          <%#= image_tag 'no_image_medium.jpg'%>
+          <%= image_tag item.variant.featured_image %>
+        </div>
+        <div class='six column'>
+          <ul class='vertical-list '>
+            <li class='price-tag'><% number_to_currency item.variant.price %></li>
+            <% if item.variant.has_preorder_options? %>
+              <li class='small-text'>Select an Option</li>
+              <li class='custom dropdown'>
+
+                <%= form_tag  main_sale_path,
+                              :method => 'PUT',
+                              :id => 'new_cart_item', :class => 'custom'  do %>
+                  <%= select_tag :variant_id, options_from_collection_for_select(item.variant.similar_variants, "id", "product_name", item.variant_id), :class => 'media-purchase' %>
+                <% end %>
+              </li>
+            <% end %>
+            <li class='small-text'><%= link_to 'Remove', upsell_path(item.variant), :method => 'delete', :class => 'remove-item' %></li>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+    </div>
+    <div class='four large-4 columns'>
+      <ul class='vertical-list right-list'>
+        <% session_cart.shopping_cart_items.each do |item| %>
+          <li class='small-text'>
+            <%= item.variant.product_name %>:
+            <%= number_to_currency item.variant.price %>
+            <%= link_to upsell_path(item),
+                        :class        => "has-tip tip-left",
+                        'data-width'  => "210",
+                        'data-tooltip'=> '',
+                        :method       => 'DELETE',
+                        :title        => "Click to Remove #{item.variant.product_name}",
+                        :style        => 'color:#FF0000' do %>
+              <i class='icon-minus-sign'></i>
+            <% end %>
+          </li>
+        <% end %>
+          <li class='price-tag'>
+            Sub-Total: <%= number_to_currency session_cart.sub_total %>
+          </li>
+          <li >
+            <%= link_to '#', :class => 'button large success top20' do %>
+              Proceed to checkout <i class='icon-caret-right'></i>
+            <% end %>
+          </li>
+      </ul>
+
+
+    </div>
+  </div>
+  <h3> <span class="large-bullet alert label">2</span> Take Advantage of these special offers for our UFC FIT community</h3>
+  <div class='row upsell-products'>
+    <% upsells.each do |upsell| %>
+      <div class='three large-3 columns'>
+
+        <div  class='small-text'>
+          <%= image_tag 'no_image_medium.jpg'%>
+          <p class='small-text'><%= upsell.short_description %>
+          </p>
+
+          <span class='upsell-price'><%= number_to_currency upsell.price %></span>
+        </div>
+
+        <%= link_to upsell_path(upsell), :class => 'button top20', :method => 'PUT' do %>
+          Add to Cart
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <h3> <span class="large-bullet alert label">3</span> Join our UFC FIT community for 90 days free!</h3>
+  <div class='row'>
+    <div class='twelve large-12 columns'>
+      #
+    </div>
+  </div>
+</div>
 

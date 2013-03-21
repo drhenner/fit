@@ -8,6 +8,7 @@
 
   <%= stylesheet_link_tag "normalize.css" %>
   <%= stylesheet_link_tag "foundation.css" %>
+  <%= stylesheet_link_tag "font-awesome.css" %>
   <%= stylesheet_link_tag 'site/app.css' %>
   <%= stylesheet_link_tag 'site/preorder.css' %>
     <!--[if lt IE 8]
@@ -18,7 +19,7 @@
   <![endif]-->
   <%= csrf_meta_tag %>
   <%= javascript_include_tag 'application' %>
-  <%= javascript_include_tag "foundation" %>
+
   <%= yield :head %>
 
 </head>
@@ -33,8 +34,7 @@
     <%= render :partial => '/shared/preorder_header'%>
 
     <div id='content_wrapper' class='row'>
-      <%= render :partial => '/layouts/placeholder'%>
-      <%#= yield %>
+      <%= yield %>
     </div>
     <div id='prefooter_wrapper'>&nbsp;</div>
 </div>
@@ -51,6 +51,7 @@
     }
   );
   </script>
+  <%= javascript_include_tag "foundation" %>
   <script>
     $(document).foundation();
   </script>
