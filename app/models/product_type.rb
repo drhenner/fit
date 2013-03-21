@@ -22,4 +22,10 @@ class ProductType < ActiveRecord::Base
     end
   end
 
+  def self.main_preorder_product_type_ids
+    Rails.cache.fetch("main_preorder-product_type_ids", :expires_in => 3.hours) do
+      ProductType.where("product_types.name iLIKE ?", 'Media').pluck(:id)
+    end
+  end
+
 end

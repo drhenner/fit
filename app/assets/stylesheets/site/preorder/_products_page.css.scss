@@ -24,4 +24,18 @@
   .remove-item{color:#909090;}
   .price-tag {color:#222;font-weight:bold;font-size:17px;}
   .small-text {font-size:9px;font-weight:bold;}
+  form.custom div.custom.dropdown a.current {
+    font-size:11px;
+  }
+  form.custom div.custom.dropdown {
+    width: 320px !important;
+  }
+}
+/* FIREFOX Specific CSS */
+@-moz-document url-prefix() {
+  #preorder-products-page {
+    .large-bullet {
+      padding:4px 9px 0px 9px;
+    }
+  }
 }

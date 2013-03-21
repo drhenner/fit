@@ -63,6 +63,14 @@ class Variant < ActiveRecord::Base
   OUT_OF_STOCK_QTY        = 2
   LOW_STOCK_QTY           = 6
 
+
+  def has_preorder_options?
+    product.multi_option_for_preorder?
+  end
+
+  def similar_variants
+    Variant.where('variants.deleted_at IS NULL').where(:product_id => product_id).all
+  end
   # returns quantity available to purchase
   #
   # @param [none]

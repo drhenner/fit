@@ -1,25 +1,35 @@
+<% content_for :below_body do -%>
+  <%= javascript_include_tag 'preorders/products_page.js' %>
+<% end %>
 
 <div id='preorder-products-page'>
   <h3> <span class="large-bullet alert label">1</span> Items in your cart</h3>
   <div class='row'>
     <div class='eight large-8 columns'>
-    <%# session_cart.cart_items.each do |item| %>
-      <h4 class='cart-item-title'>The Complete UFCFIT Lifestyle Program<%# item.variant.product_name %></h4>
+    <% session_cart.shopping_cart_items.each do |item| %>
+      <h4 class='cart-item-title'><%= item.variant.product_name %><%# The Complete UFCFIT Lifestyle Program %></h4>
       <div class='six column'>
-        <%= image_tag 'no_image_medium.jpg'%>
-        <%# number_to_currency item.variant.featured_image %>
+        <%#= image_tag 'no_image_medium.jpg'%>
+        <%= image_tag item.variant.featured_image %>
       </div>
       <div class='six column'>
         <ul class='vertical-list '>
-          <li class='price-tag'><%# number_to_currency item.variant.price %> $139.99</li>
-          <li class='small-text'>Select an Option</li>
-          <li class='custom dropdown'>
-            <%= select_tag :item, ['3 easy payments of $39.99','2','3 '].map{|i|"<option>#{i}</option>"}.join.html_safe, :class => 'medium' %>
-          </li>
-          <li class='small-text'><%= link_to 'Remove', '#upsell_path(upsell)', :method => 'delete', :class => 'remove-item' %></li>
+          <li class='price-tag'><% number_to_currency item.variant.price %></li>
+          <% if item.variant.has_preorder_options? %>
+            <li class='small-text'>Select an Option</li>
+            <li class='custom dropdown'>
+
+              <%= form_tag  shopping_cart_items_path,
+                            :method => 'PUT',
+                            :id => 'new_cart_item', :class => 'custom'  do %>
+                <%= select_tag :item, options_from_collection_for_select(item.variant.similar_variants, "id", "product_name", item.variant_id), :class => 'media-purchase' %>
+              <% end %>
+            </li>
+          <% end %>
+          <li class='small-text'><%= link_to 'Remove', upsell_path(item.variant), :method => 'delete', :class => 'remove-item' %></li>
         </ul>
       </div>
-    <%# end %>
+    <% end %>
     </div>
     <div class='four large-4 columns'>
       <ul class='vertical-list right-list'>
