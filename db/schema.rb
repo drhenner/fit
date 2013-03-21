@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130320074458) do
+ActiveRecord::Schema.define(:version => 20130321194008) do
 
   create_table "accounting_adjustments", :force => true do |t|
     t.integer  "adjustable_id",                                 :null => false
@@ -762,6 +762,9 @@ ActiveRecord::Schema.define(:version => 20130320074458) do
     t.integer  "brand_id"
     t.integer  "inventory_id"
     t.integer  "subscription_plan_id"
+    t.string   "title"
+    t.string   "small_description"
+    t.string   "option_text"
   end
 
   add_index "variants", ["brand_id"], :name => "index_variants_on_brand_id"

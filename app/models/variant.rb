@@ -57,12 +57,22 @@ class Variant < ActiveRecord::Base
             :count_on_hand=,
             :count_pending_to_customer=,
             :count_pending_from_supplier=, :to => :inventory, :allow_nil => false
-  delegate  :short_description, :to => :product
 
   ADMIN_OUT_OF_STOCK_QTY  = 0
   OUT_OF_STOCK_QTY        = 2
   LOW_STOCK_QTY           = 6
 
+  def short_description
+    small_description? ? small_description : product.short_description
+  end
+
+  def display_title
+    title? ? title : product_name
+  end
+
+  def display_option
+    option_text? ? option_text : product_name
+  end
 
   def has_preorder_options?
     product.multi_option_for_preorder?
