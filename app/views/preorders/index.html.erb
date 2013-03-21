@@ -1,3 +1,86 @@
 
-<h1> Pre-Order </h1>
+<div id='preorder-products-page'>
+
+  <h3> <span class="large-bullet alert label">1</span> Items in your cart</h3>
+  <div class='row'>
+    <div class='eight large-8 columns'>
+    <%# session_cart.cart_items.each do |item| %>
+      <h4 class='cart-item-title'>The Complete UFCFIT Lifestyle Program<%# item.variant.product_name %></h4>
+      <div class='six column'>
+        <%= image_tag 'no_image_medium.jpg'%>
+        <%# number_to_currency item.variant.featured_image %>
+      </div>
+      <div class='six column'>
+        <ul class='vertical-list '>
+          <li class='price-tag'><%# number_to_currency item.variant.price %> $139.99</li>
+          <li class='small-text'>Select an Option</li>
+          <li class='custom dropdown'>
+            <%= select_tag :item, ['3 easy payments of $39.99','2','3 '].map{|i|"<option>#{i}</option>"}.join.html_safe, :class => 'medium' %>
+          </li>
+          <li class='small-text'><%= link_to 'Remove', '#', :method => 'delete', :class => 'remove-item' %></li>
+        </ul>
+      </div>
+    <%# end %>
+    </div>
+    <div class='four large-4 columns'>
+      <ul class='vertical-list right-list'>
+        <%# session_cart.cart_items.each do |item| %>
+          <li class='small-text'>
+            Complete UFC FIT Lifestyle Program: <span class=''>$39.99</span>
+            <%= link_to '#', :style => 'color:#FF0000' do %>
+              <i class='icon-minus-sign'></i>
+            <% end %>
+            <%# number_to_currency item.variant.product_name %>
+            <%# number_to_currency item.variant.price %>
+          </li>
+          <li class='small-text'>
+            UFC FIT Octagon Mat: $39.99
+
+            <%= link_to '#', :style => 'color:#FF0000' do %>
+              <i class='icon-minus-sign'></i>
+            <% end %>
+            <%# number_to_currency item.variant.product_name %>
+            <%# number_to_currency item.variant.price %>
+          </li>
+          <li class='price-tag'>
+            Sub-Total: $59.99
+            <%# number_to_currency cart.sub_total %>
+          </li>
+          <li >
+            <%= link_to '#', :class => 'button large success top20' do %>
+              Proceed to checkout <i class='icon-caret-right'></i>
+            <% end %>
+          </li>
+        <%# end %>
+      </ul>
+
+
+    </div>
+  </div>
+  <h3> <span class="large-bullet alert label">2</span> Take Advantage of these special offers for our UFC FIT community</h3>
+  <div class='row upsell-products'>
+    <% upsells.each do |upsell| %>
+      <div class='three large-3 columns'>
+
+        <div  class='small-text'>
+          <%= image_tag 'no_image_medium.jpg'%>
+          <p class='small-text'><%= upsell.short_description %>
+          </p>
+
+          <span class='upsell-price'><%= number_to_currency upsell.price %></span>
+        </div>
+
+        <%= link_to '#', :class => 'button top20' do %>
+          Add to Cart
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <h3> <span class="large-bullet alert label">3</span> Join our UFC FIT community for 90 days free!</h3>
+  <div class='row'>
+    <div class='twelve large-12 columns'>
+      #
+    </div>
+  </div>
+</div>
 
