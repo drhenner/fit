@@ -17,6 +17,7 @@ Hadean::Application.routes.draw do
   resource  :about,             :only => [:show]
   resource  :contact_us,        :only => [:show]
   resources :faqs,              :only => [:index]
+  resource  :main_sale,         :only => [:update]
   resources :preorders,         :only => [:index, :show]
   resource  :privacy_policy,    :only => [:show]
   resources :products,          :only => [:index, :show, :create]
@@ -68,6 +69,7 @@ Hadean::Application.routes.draw do
         put :preorder
       end
     end
+
     resources :payments, :only => [:index, :create, :select_card] do
       member do
         put :select_card
