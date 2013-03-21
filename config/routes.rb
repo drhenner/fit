@@ -1,18 +1,8 @@
 Hadean::Application.routes.draw do
 
-
   resource :google12299642d5975b38, :only => :show
   resource :iuwhcbphqoimcsid,       :only => :show
   match 'loaderio-79aeb8198cf6b8d1faffd0edad063326'  => 'welcome#load'
-
-  resource  :contact_us,        :only => [:show]
-  resources :shipping_returns,  :only => [:index]
-  resource  :privacy_policy,    :only => [:show]
-  resources :faqs,              :only => [:index]
-  resource  :unsubscribe,       :only => :show
-  resources :preorders,         :only => [:index, :show]
-
-  resources :user_sessions,     :only => [:new, :create, :destroy]
 
   match 'admin'   => 'admin/users#index'
   match 'login'   => 'user_sessions#new'
@@ -23,13 +13,21 @@ Hadean::Application.routes.draw do
   match 'signout'  => 'user_sessions#destroy'
   match 'signup'  => 'customer/registrations#new'
   match 'admin/merchandise' => 'admin/merchandise/summary#index'
-  resources :products, :only => [:index, :show, :create]
 
-  resources :wish_items,  :only => [:index, :destroy]
-  resources :states,      :only => [:index]
-  resource :about,        :only => [:show]
-  resources :terms,       :only => [:index]
-  resources :users,       :only => [:create]
+  resource  :about,             :only => [:show]
+  resource  :contact_us,        :only => [:show]
+  resources :faqs,              :only => [:index]
+  resources :preorders,         :only => [:index, :show]
+  resource  :privacy_policy,    :only => [:show]
+  resources :products,          :only => [:index, :show, :create]
+  resources :shipping_returns,  :only => [:index]
+  resources :states,            :only => [:index]
+  resources :terms,             :only => [:index]
+  resource  :unsubscribe,       :only => :show
+  resources :upsells,           :only => [:updatde, :destroy]
+  resources :user_sessions,     :only => [:new, :create, :destroy]
+  resources :users,             :only => [:create]
+  resources :wish_items,        :only => [:index, :destroy]
 
   root :to => "welcome#index"
 
