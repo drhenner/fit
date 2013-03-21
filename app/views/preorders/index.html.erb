@@ -25,7 +25,7 @@
       <ul class='vertical-list right-list'>
         <% session_cart.shopping_cart_items.each do |item| %>
           <li class='small-text'>
-            <%= number_to_currency item.variant.product_name %>:
+            <%= item.variant.product_name %>:
             <%= number_to_currency item.variant.price %>
             <%= link_to upsell_path(item),
                         :class        => "has-tip tip-left",

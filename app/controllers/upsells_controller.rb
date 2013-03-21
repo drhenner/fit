@@ -10,7 +10,7 @@ class UpsellsController < ApplicationController
   # params[:id] is variant_id
   def update
     session_cart.save if session_cart.new_record?
-    qty = params[:quantity].to_i || 1
+    qty = params[:quantity] ? params[:quantity].to_i : 1
     cart_item = session_cart.add_variant(params[:id], most_likely_user, qty)
     redirect_to(preorders_url)
   end
