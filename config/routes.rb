@@ -24,7 +24,7 @@ Hadean::Application.routes.draw do
   resources :states,            :only => [:index]
   resources :terms,             :only => [:index]
   resource  :unsubscribe,       :only => :show
-  resources :upsells,           :only => [:updatde, :destroy]
+  resources :upsells,           :only => [:update, :destroy]
   resources :user_sessions,     :only => [:new, :create, :destroy]
   resources :users,             :only => [:create]
   resources :wish_items,        :only => [:index, :destroy]

@@ -5,6 +5,7 @@ describe UpsellsController do
   render_views
 
   before do
+    stub_redirect_to_welcome
     @cart      = FactoryGirl.create(:cart)
     @cart_item = FactoryGirl.create(:cart_item, :cart => @cart)
     @controller.stubs(:session_cart).returns(@cart)
