@@ -93,7 +93,7 @@ def with_solr
   yield
   Product.configuration[:if] = false
 end
-  def stripe_retrieve_responce
+  def stripe_retrieve_response
     {
       "description" => "Customer for site@stripe.com",
       "livemode" => false,
