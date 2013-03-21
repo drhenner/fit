@@ -15,6 +15,7 @@ describe UpsellsController do
     variant = FactoryGirl.create(:variant)
     put :update, :id => variant.id
     expect(response).to redirect_to(preorders_url)
+    @controller.session_cart.shopping_cart_items.size.should eq 2
   end
 
   it "destroy action should destroy model and redirect to index action" do
