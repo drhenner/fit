@@ -19,7 +19,7 @@
   <![endif]-->
   <%= csrf_meta_tag %>
   <%= javascript_include_tag 'application' %>
-  <%= javascript_include_tag "foundation" %>
+
   <%= yield :head %>
 
 </head>
@@ -51,6 +51,7 @@
     }
   );
   </script>
+  <%= javascript_include_tag "foundation" %>
   <script>
     $(document).foundation();
   </script>
