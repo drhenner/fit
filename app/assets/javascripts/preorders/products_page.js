@@ -4,7 +4,6 @@ var UfcFit = window.UfcFit || { };
 if (typeof UfcFit.ProductPage == "undefined") {
     UfcFit.ProductPage = {};
 }
-var ddd = null;
 if (typeof UfcFit.ProductPage.mediaPurchase == "undefined") {
 
     UfcFit.ProductPage.mediaPurchase = {
@@ -15,19 +14,31 @@ if (typeof UfcFit.ProductPage.mediaPurchase == "undefined") {
 
           $('div.media-purchase ul').on('mouseup', 'li', function(event) {
             UfcFit.ProductPage.mediaPurchase.changeSelection(this);
-            //alert($(this).text());
           });
+          $('.has-tip.tip-left .icon-minus-sign ').hover( function() {
+            //UfcFit.ProductPage.mediaPurchase.removeNub();
+            setTimeout("UfcFit.ProductPage.mediaPurchase.removeNub()", 10);
+          });
+          //setTimeout("UfcFit.ProductPage.mediaPurchase.removeNub()", 250);
         },
         changeSelection : function(thisObj) {
-          ddd = $('select.media-purchase');
-          //alert(ddd.val());
           needToFind = true;
           jQuery.each($("select.media-purchase option"), function(index, obj) {
             if ($(obj).text() == $(thisObj).text() && needToFind) {
               needToFind = false;
-              alert($(obj).val());
+              //alert($(obj).val());
+              $("select.media-purchase option").val($(obj).val());
+              form = $(obj).parents('form');
+              form.get(0).submit();
+              // time to make a form submission with the new value
+
             }
           })
+        },
+        removeNub : function() {
+          $.each($('.tooltip.tip-left > .nub'), function(i, obj) {
+            $(obj).hide();
+          });
         }
 
     };
