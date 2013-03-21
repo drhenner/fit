@@ -57,6 +57,7 @@ class Variant < ActiveRecord::Base
             :count_on_hand=,
             :count_pending_to_customer=,
             :count_pending_from_supplier=, :to => :inventory, :allow_nil => false
+  delegate  :short_description, :to => :product
 
   ADMIN_OUT_OF_STOCK_QTY  = 0
   OUT_OF_STOCK_QTY        = 2
@@ -70,6 +71,9 @@ class Variant < ActiveRecord::Base
     admin_purchase ? (quantity_available - ADMIN_OUT_OF_STOCK_QTY) : (quantity_available - OUT_OF_STOCK_QTY)
   end
 
+  def featured_image(image_size = :small)
+    image_urls(image_size).first
+  end
   def image_urls(image_size = :small)
     image_group ? image_group.image_urls(image_size) : product.image_urls(image_size)
   end
@@ -93,6 +97,14 @@ class Variant < ActiveRecord::Base
 
   def inactivate
     deleted_at ? true : false
+  end
+
+  def self.upsells
+    active.where("products.product_type_id IN (?)", ProductType.upsell_product_type_ids)
+  end
+
+  def self.active
+    includes(:product).where("products.deleted_at IS NULL OR products.deleted_at > ?", Time.zone.now)
   end
 
   def subscription_plan_name
