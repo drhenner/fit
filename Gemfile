@@ -31,6 +31,7 @@ gem 'json', '~>1.7.7'
 
 gem 'mandrill-api'#, :git => 'git@github.com:drhenner/mandrill-api-ruby.git'
 gem 'nested_set', '~> 1.7.0'
+gem 'newrelic_rpm'
 gem "nifty-generators", :git => 'git://github.com/drhenner/nifty-generators.git'
 gem 'nokogiri', '~> 1.5.6'
 gem 'paperclip', '~> 3.0'
