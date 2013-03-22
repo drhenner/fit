@@ -10,7 +10,6 @@
       <div class='row'>
         <h4 class='cart-item-title'><%= item.variant.product_name %><%# The Complete UFCFIT Lifestyle Program %></h4>
         <div class='six column'>
-          <%#= image_tag 'no_image_medium.jpg'%>
           <%= image_tag item.variant.featured_image %>
         </div>
         <div class='six column'>
@@ -37,6 +36,9 @@
       <ul class='vertical-list right-list'>
         <% session_cart.shopping_cart_items.each do |item| %>
           <li class='small-text'>
+            <% if item.quantity > 1 %>
+              <%= item.quantity %> -
+            <% end %>
             <%= item.variant.product_name %>:
             <%= number_to_currency item.variant.price %>
             <%= link_to upsell_path(item),
@@ -54,7 +56,7 @@
             Sub-Total: <%= number_to_currency session_cart.sub_total %>
           </li>
           <li >
-            <%= link_to '#', :class => 'button large success top20' do %>
+            <%= link_to checkout_shopping_order_path('checkout'), :class => 'button large success top20' do %>
               Proceed to checkout <i class='icon-caret-right'></i>
             <% end %>
           </li>
