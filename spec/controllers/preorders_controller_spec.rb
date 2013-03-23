@@ -19,9 +19,17 @@ describe PreordersController do
     get :index
     expect(response).to redirect_to(root_url)
   end
-#  it "show action should render show template" do
+
+  it "create action should add the default item to the cart" do
+    stub_redirect_to_welcome
+    Cart.any_instance.stubs(:add_default_presale_sale)
+    post :create
+    expect(response).to redirect_to(preorders_url)
+  end
+  it "show action should redirect" do
+    stub_redirect_to_welcome
 #    preorder = FactoryGirl.create(:product)
-#    get :show, :id => preorder.id
-#    expect(response).to render_template(:show)
-#  end
+    get :show, :id => 'preorder'
+    expect(response).to redirect_to(preorders_url)
+  end
 end
