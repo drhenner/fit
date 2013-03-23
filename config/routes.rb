@@ -18,7 +18,7 @@ Hadean::Application.routes.draw do
   resource  :contact_us,        :only => [:show]
   resources :faqs,              :only => [:index]
   resource  :main_sale,         :only => [:update]
-  resources :preorders,         :only => [:index, :show]
+  resources :preorders,         :only => [:index, :show, :create]
   resource  :privacy_policy,    :only => [:show]
   resources :products,          :only => [:index, :show, :create]
   resources :shipping_returns,  :only => [:index]

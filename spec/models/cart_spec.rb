@@ -45,6 +45,25 @@ describe Cart, " instance methods" do
     end
   end
 
+  context '.has_main_sale_already?' do
+    it 'should be true' do
+      variant1 = FactoryGirl.create(:variant)
+      variant2 = FactoryGirl.create(:variant)
+      cart_item = FactoryGirl.create(:cart_item, :variant => variant2)
+      Variant.stubs(:default_preorder_item_ids).returns([variant2.id])
+      @cart.stubs(:shopping_cart_items).returns([cart_item])
+      @cart.has_main_sale_already?.should be_true
+    end
+    it 'should be false' do
+      variant1 = FactoryGirl.create(:variant)
+      variant2 = FactoryGirl.create(:variant)
+      cart_item = FactoryGirl.create(:cart_item, :variant => variant1)
+      Variant.stubs(:default_preorder_item_ids).returns([variant2.id])
+      @cart.stubs(:shopping_cart_items).returns([cart_item])
+      @cart.has_main_sale_already?.should be_false
+    end
+  end
+
   context " add_items_to_checkout" do
 
     before(:each) do

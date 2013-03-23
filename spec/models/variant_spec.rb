@@ -21,6 +21,26 @@ describe Variant, " instance methods" do
 
   end
 
+  context "Variant.default_preorder_item" do
+    it 'should return the first active varinat if DB is wrong (DEVELOPER)' do
+      # need to have one active product
+      product = create(:product)
+      create(:variant,   :product => product)
+      product.deleted_at = nil
+      product.save
+
+      Variant.default_preorder_item.should_not be_nil
+    end
+    it 'should return the Media variant' do
+      product = create(:product)
+      product.deleted_at = nil
+      product.save
+      ProductType.stubs(:main_preorder_product_type_ids).returns([product.product_type_id])
+      default_variant = create(:variant, :product => product)
+      expect(Variant.default_preorder_item).to eq  default_variant
+    end
+  end
+
 
   context ".low_stock?" do
       it 'should be low stock' do

@@ -125,6 +125,14 @@ class Variant < ActiveRecord::Base
     includes(:product).where("products.deleted_at IS NULL OR products.deleted_at > ?", Time.zone.now)
   end
 
+  def self.default_preorder_item_ids
+    joins(:product).where("products.product_type_id IN (?)", ProductType.main_preorder_product_type_ids).pluck("variants.id")
+  end
+
+  def self.default_preorder_item
+    includes(:product).where("products.product_type_id IN (?)", ProductType.main_preorder_product_type_ids).first || active.first
+  end
+
   def subscription_plan_name
     subscription_plan ? subscription_plan.name : '---'
   end
