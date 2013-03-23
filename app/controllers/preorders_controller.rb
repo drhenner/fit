@@ -5,11 +5,21 @@ class PreordersController < ApplicationController
   layout 'preorder'
 
   def index
-    @products = Product.preorders.all
+    @products = Product.preorders
+    if session_cart.shopping_cart_items.empty?
+      redirect_to root_url
+    end
   end
 
   def show
-    @product = Product.preorders.find(params[:id])
+    #@product = Product.preorders.find(params[:id])
+    redirect_to preorders_url
+  end
+
+  # this adds the default preorder to the cart
+  def create
+    session_cart.add_default_presale_sale(most_likely_user)
+    redirect_to preorders_url
   end
 
   private

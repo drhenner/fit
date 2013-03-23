@@ -1,201 +1,254 @@
-<div class="container region5wrap">
-
-    <div class="row maincontent">
-
-    <div class="twelve columns">
-
-          <div class="row">
-
-              <!-- Portfolio Item Media -->
-            <div class="twelve columns">
-
-              <section class="slider">
-              <div class="gallery-slider flexslider">
-
-                <div class="flex-viewport" style="overflow: hidden; position: relative;">
-                  <ul class="slides" >
-
-                      <li>
-                        <%= image_tag 'preorder/gallery/1.jpg' %>
-                    </li>
-                    <!--
-                    <li>
-                        <%#= image_tag 'preorder/gallery/2.jpg' %>
-                    </li>
-                    <li>
-                        <%#= image_tag 'preorder/gallery/3.jpg' %>
-                    </li>
-                    <li>
-                        <%#= image_tag 'preorder/gallery/4.jpg' %>
-                    </li>
-                    -->
-                  </ul>
-                </div>
-
-              </div>
-
-              </section>
-
-            </div>
-                <!-- End Portfolio Item Media -->
-
-                <div class="twelve columns text-center">
-
-              <h2>We deliver precise strategic thinking and <a href="#">marketing direction</a> that can turn your concept from vision to reality. The main core of our strategy is achieving targeted and measurable results.<a href="#"> We can help you</a> plan all your marketing efforts!</h2>
-
-              </div>
+<% content_for :head do -%>
+  <!-- Google Fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,200italic,300,300italic,400italic,600,700,600italic,700italic,900' rel='stylesheet' type='text/css'/>
 
 
-                <div class="twelve columns text-center">
+  <%= stylesheet_link_tag 'jquery.titanlighbox.css' %>
 
-              <%= image_tag 'preorder/package.jpg', :width=>"1000", :height=>"428"%>
-              <h1>THE COMPLETE UFC FIT LIFECYCLE PROGRAM</h1>
-                </div>
+  <%= javascript_include_tag 'jquery.themepunch.plugins.min' %>
+  <%= javascript_include_tag 'jquery.themepunch.revolution.min' %>
 
-              <!-- Portfolio Item Description -->
-                <div class="seven columns">
+  <%= javascript_include_tag 'jquery.tipsy' %>
+  <%= javascript_include_tag 'prettify' %>
+  <%= javascript_include_tag 'jquery.titanlighbox' %>
+  <%= javascript_include_tag 'jquery.isotope.min' %>
+  <%= javascript_include_tag 'jquery.jtweetsanywhere' %>
 
-                     <div class="row">
-                      <div class="twelve columns">
+  <script>
+  $(window).load(function(){
+
+      var $container = $('#container');
+
+      $container.isotope({
+        itemSelector : '.element',
+        // disable resizing
+        resizable: false,
+        // set columnWidth to a percentage of container width
+        masonry: {
+          columnWidth: $container.width() / 12
+        },
+       });
+
+      // update columnWidth on window resize
+      $(window).smartresize(function(){
+        $container.isotope({
+          // set columnWidth to a percentage of container width
+          masonry: {
+            columnWidth: $container.width() / 12
+          }
+        });
+      });
 
 
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        var $optionSets = $('#options .option-set'),
+            $optionLinks = $optionSets.find('a');
 
-              <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        $optionLinks.click(function(){
+          var $this = $(this);
+          // don't proceed if already selected
+          if ( $this.hasClass('selected') ) {
+            return false;
+          }
+          var $optionSet = $this.parents('.option-set');
+          $optionSet.find('.selected').removeClass('selected');
+          $this.addClass('selected');
 
+          // make option object dynamically, i.e. { filter: '.my-filter-class' }
+          var options = {},
+              key = $optionSet.attr('data-option-key'),
+              value = $this.attr('data-option-value');
+          // parse 'false' as false boolean
+          value = value === 'false' ? false : value;
+          options[ key ] = value;
+          if ( key === 'layoutMode' && typeof changeLayoutMode === 'function' ) {
+            // changes in layout modes need extra logic
+            changeLayoutMode( $this, options )
+          } else {
+            // otherwise, apply new options
+            $container.isotope( options );
+          }
 
+          return false;
+        });
 
-                          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo, nemo enim ipsam voluptatem quia voluptas sit asperna.</p>
+    });
+  </script>
+<% end %>
 
-                        </div>
-                      </div>
-                </div>
-                <div class="five columns">
+<% content_for :bottom do -%>
+  <!-- FlexSlider -->
+  <%= javascript_include_tag 'jquery.flexslider' %>
 
-                      <div class="row">
+  <!-- Initialize JS Plugins -->
+  <%#= javascript_include_tag 'preorders/app' %>
 
-                      <div class="twelve columns">
-              <ul class="type3">
-                  <li><i class="icon-caret-right"></i>12 WORKOUT DVDs</li>
-                  <li><i class="icon-caret-right"></i>WORKOUT TRACKER</li>
-                  <li><i class="icon-caret-right"></i>LIFESTYLE &amp; NUTRITION MANUAL
-                      <ul>
-                      COMPLETE WITH GROCERY LISTS, MEAL PLANS AND RECIPES
-                      </ul>
-                  </li>
-                  <li><i class="icon-caret-right"></i>3-DAY SHRED</li>
-              </ul>
-                      </div>
-                    </div>
-
-                </div>
-                <!-- End Portfolio Item Description -->
-                <!--div class="twelve columns">
-
-                  <hr class="bottom10"/>
-
-                </div-->
-                <!-- Portfolio Item - Similar Works -->
-                <div class="twelve columns bottom20" style="background-color:#c30615;">
-
-                  <h1><span style="color:#fff;">UFC FIT SNEAK PEAK</span></h1>
-
-                    <div class="row">
+<% end %>
 
 
 
-                        <div class="nine columns">
-                        <div class="flex-video widescreen">
-                            <iframe width="560" height="315" src="http://www.youtube.com/embed/eRsGyueVLvQ?rel=0" frameborder="0" allowfullscreen=""></iframe>
-                              </div>
-                        </div>
+<div id="preorder-landing-wrapper"><!-- Begin Main Wrapper -->
 
-                        <div class="three columns">
+<!-- Region 5 Wrap -->
 
-                        <p style="color:#fff;">Etiam auctor tincidunt augue at pharetra. Nam posuere tristique sem, eu ultricies tortor imperdiet vitae.</p>
-
-                        </div>
-
-
-                    </div>
-                <br><br>
-                </div>
-
-
-                <!-- Portfolio Content -->
-                <div class="twelve columns">
-
-                  <div class="row">
-
-                      <div id="container" class="clickable variable-sizes clearfix isotope" style="position: relative; overflow: hidden; height: 554px;">
-
-                <!-- Portfolio Item -->
-                            <div class="six columns element logo print isotope-item" style="position: absolute; left: 0px; top: 0px; -webkit-transform: translate3d(0px, 0px, 0px);">
-
-                              <div class="portfolio-item bottom-shadow">
-
-                                  <div class="portfolio-item-image image-overlay">
-                          <%= image_tag 'preorder/works/1.jpg' %>
-                                        <div class="overlay-icon" style="overflow: hidden; display: none;">
-                                              <div class="overlay-links">
-                                                  <a class="titan-lb" data-titan-group="gallery" href="images/works/1.jpg" title="Etiam ultrices mi vel libero hendrerit ultricies.Pellentesque lacinia ultrices ac imperdiet."><span class="icon-search"></span></a>
-                                                    <a href="single-project.html"><span class="icon-link"></span></a>
-                                                </div>
-                                              <div class="overlay-title">
-                                                  <h3>OFFER #1</h3>
-                                                </div>
-                                         </div>
-                                    </div>
-
-                                    <div class="portfolio-item-content">
-                                      <h4 class="title"><a href="single-project.html">STANDARD OFFER</a></h4>
-                                        <p>STANDARD OFFER </p>
-                                        <a href="" class="button">PRE-ORDER NOW &gt;</a>
-                                    </div>
-
-                              </div>
-
-                </div>
-                            <!-- End Portfolio Item -->
-
-                            <!-- Portfolio Item -->
-                            <div class="six columns element ill print isotope-item" style="position: absolute; left: 0px; top: 0px; -webkit-transform: translate3d(540px, 0px, 0px);">
-
-                              <div class="portfolio-item bottom-shadow">
-
-                                  <div class="portfolio-item-image image-overlay">
-                          <%= image_tag 'preorder/works/2.jpg' %>
-                                    <div class="overlay-icon">
-                                              <div class="overlay-links">
-                                                </div>
-                                              <div class="overlay-title">
-                                                  <a href="" class="button">PRE-ORDER NOW &gt;</a>
-                                                </div>
-                                         </div>
-                                    </div>
-
-                                    <div class="portfolio-item-content">
-                                      <h4 class="title"><a href="single-project.html">DELUXE OFFER</a></h4>
-                                        <p>DELUXE OFFER INFO</p>
-                                        <a href="" class="button">PRE-ORDER NOW &gt;</a>
-                                    </div>
-
-                              </div>
-
-                </div>
-                            <!-- End Portfolio Item -->
-
-
-                </div>
-                </div>
-                </div>
-                <!-- End Portfolio Item - Similar Works -->
-
+  <div class="container region5wrap top20 bottom20">
+    <div class="row maincontent ">
+      <div class="twelve columns">
+        <div class="row">
+          <div class="twelve columns text-center">
+            <%= image_tag 'preorder/team.jpg', :width => 1080, :height => 450  %>
           </div>
 
+          <div class="twelve columns text-center">
+            <h1 class=" top20 bottom20">For 12 weeks, they gave UFC FIT their best effort. When it ended, these ordinary people" showed extraordinary results that far exceeded even their own wildest expectations.</h1>
+          </div>
+          <div class="twelve columns">
+            <hr class="top10"/>
+          </div>
+
+          <!--success stories 3 start-->
+          <div class="row">
+
+            <div class="four columns">
+              <div class="member-info">
+              <%= image_tag 'preorder/durrell.jpg'%>
+                <h2 class="member-name">Durrell M.</h2>
+                  <p class="member-possition"><b>Security</p>
+                <p class="member-description"><b>Weight:</b> -42.6<br /><b>Inches Overall:</b> -47.5<br /><b>Stomach Inches:</b> -7.8<br /><b>Body Fat %:</b> -8.7%</p>
+
+              </div>
+            </div>
+
+            <div class="four columns">
+              <div class="member-info">
+                <%= image_tag 'preorder/vanessa.jpg'%>
+                <h2 class="member-name">Vanessa L.</h2>
+                <p class="member-possition"><b>Speech Therapist</b></p>
+                <p class="member-description">
+                  <b>Weight:</b> -21.2<br /><b>Inches Overall:</b> -30.75<br /><b>Stomach Inches:</b> -6<br /><b>Body Fat %:</b> -7.6%
+                </p>
+
+              </div>
+            </div>
+
+            <div class="four columns">
+              <div class="member-info">
+                <%= image_tag 'preorder/nelson.jpg'%>
+                <h2 class="member-name">Nelson M.</h2>
+                <p class="member-possition"><b>U.S. Marine</p>
+                  <p class="member-description"><b>Weight:</b> -30.8<br /><b>Inches Overall:</b> -37.25<br /><b>Stomach Inches:</b> -6.5<br /><b>Body Fat %:</b> -5.5%</p>
+
+              </div>
+            </div>
+
+            </div>
+
+        <!--success stories 3 end -->
+        <!--video start-->
+            <div class="twelve columns bottom20" style="background-color:#c30615;">
+
+              <h1><span style="color:#fff;">UFC FIT SNEAK PEAK</span></h1>
+
+              <div class="row">
+
+                <div class="nine columns">
+                  <div class="flex-video widescreen">
+                    <iframe width="560"
+                            height="315"
+                            src="http://www.youtube.com/embed/eRsGyueVLvQ?rel=0"
+                            frameborder="0" allowfullscreen="">
+                    </iframe>
+                  </div>
+                </div>
+
+                <div class="three columns">
+
+                  <p style="color:#fff;">Etiam auctor tincidunt augue at pharetra. Nam posuere tristique sem, eu ultricies tortor imperdiet vitae.</p>
+
+                </div>
+
+              </div>
+              <br />
+              <br />
+            </div>
+
+          <!--video end-->
+
+              <div class="twelve columns text-center">
+
+
+                <h2 class=' top20 bottom20'>You will have the opportunity to change your life and to be the person you deserve to be. Our goal is to provide all the tools necessary for you to lose weight, gain strength, increase flexibility, extend endurance and achieve boundless energy.
+                </h2>
+              </div>
+              <div class="twelve columns text-center">
+                <%= link_to preorders_path, :method => 'post' do %>
+                  <%= image_tag 'preorder/PreOrder_package.jpg', :width => "1000", :height => "428" %>
+                <% end %>
+                <h1>THE COMPLETE UFC FIT LIFECYCLE PROGRAM</h1>
+              </div>
+
+                        <!-- Portfolio Item Description -->
+              <div class="seven columns">
+
+                <div class="row">
+                  <div class="twelve columns">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+
+
+                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo, nemo enim ipsam voluptatem quia voluptas sit asperna.</p>
+
+                  </div>
+                </div>
+              </div>
+              <div class="five columns">
+
+                <div class="row">
+                  <div class="twelve columns">
+                    <ul class="type3">
+                      <li><i class="icon-caret-right"></i>12 WORKOUT DVDs</li>
+                      <li><i class="icon-caret-right"></i>WORKOUT TRACKER</li>
+                      <li><i class="icon-caret-right"></i>LIFESTYLE & NUTRITION MANUAL
+                          <ul>
+                          COMPLETE WITH GROCERY LISTS, MEAL PLANS AND RECIPES
+                          </ul>
+                      </li>
+                      <li><i class="icon-caret-right"></i>3-DAY SHRED</li>
+                    </ul>
+                  </div>
+                </div>
+
+              </div>
+              <!-- End Portfolio Item Description -->
+
+              <!-- Portfolio Item - Similar Works -->
+              <div class="twelve columns">
+                <hr class="bottom10"/>
+              </div>
+
+              <div class="twelve columns text-center">
+                <%= image_tag 'preorder/Dolce_Lifestyle.jpg', :width => "1080", :height => "450"%>
+              </div>
+
+
+
+            </div>
+          </div>
         </div>
-
+                    <!-- End Portfolio Item - Similar Works -->
+      </div>
     </div>
-
   </div>
+  <!-- Back To Top -->
+    <a href="#" class="scrollup">Scroll</a>
+  <!-- End Back To Top -->
+</div>
 
+<!-- End Region 5 Wrap -->
+
+
+
+
+
+</div><!-- End Main Wrapper -->

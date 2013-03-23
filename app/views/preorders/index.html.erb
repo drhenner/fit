@@ -8,7 +8,7 @@
     <div class='eight large-8 columns'>
     <% session_cart.shopping_cart_items.each do |item| %>
       <div class='row'>
-        <h4 class='cart-item-title'><%= item.variant.product_name %><%# The Complete UFCFIT Lifestyle Program %></h4>
+        <h4 class='cart-item-title'><%= item.variant.display_title %><%# The Complete UFCFIT Lifestyle Program %></h4>
         <div class='six column'>
           <%= image_tag item.variant.featured_image %>
         </div>
@@ -22,11 +22,11 @@
                 <%= form_tag  main_sale_path,
                               :method => 'PUT',
                               :id => 'new_cart_item', :class => 'custom'  do %>
-                  <%= select_tag :variant_id, options_from_collection_for_select(item.variant.similar_variants, "id", "product_name", item.variant_id), :class => 'media-purchase' %>
+                  <%= select_tag :variant_id, options_from_collection_for_select(item.variant.similar_variants, "id", "display_option", item.variant_id), :class => 'media-purchase' %>
                 <% end %>
               </li>
             <% end %>
-            <li class='small-text'><%= link_to 'Remove', upsell_path(item.variant), :method => 'delete', :class => 'remove-item' %></li>
+            <li class='small-text'><%= link_to 'Remove', upsell_path(item), :method => 'delete', :class => 'remove-item' %></li>
           </ul>
         </div>
       </div>
@@ -39,7 +39,7 @@
             <% if item.quantity > 1 %>
               <%= item.quantity %> -
             <% end %>
-            <%= item.variant.product_name %>:
+            <%= item.variant.display_title %>:
             <%= number_to_currency item.variant.price %>
             <%= link_to upsell_path(item),
                         :class        => "has-tip tip-left",

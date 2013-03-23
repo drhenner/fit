@@ -188,6 +188,18 @@ class Cart < ActiveRecord::Base
     add_variant(variant.id, customer)
   end
 
+  def add_default_presale_sale(customer)
+    unless has_main_sale_already?
+      variant = Variant.default_preorder_item
+      add_variant(variant.id, customer)
+    end
+  end
+
+  def has_main_sale_already?
+    default_preorder_item_ids = Variant.default_preorder_item_ids
+    shopping_cart_items.map(&:variant_id).any? {|i| default_preorder_item_ids.include?(i) }
+  end
+
   # Call this method when you want to associate the cart with a user
   #
   # @param [User]
