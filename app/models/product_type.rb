@@ -17,6 +17,7 @@ class ProductType < ActiveRecord::Base
   end
 
   def self.upsell_product_type_ids
+    Rails.cache.delete("upsell_product_type_ids") if Rails.env == 'test'
     Rails.cache.fetch("upsell_product_type_ids", :expires_in => 3.hours) do
       ids = ProductType.where("product_types.name NOT iLIKE ?", 'Media').pluck(:id)
       ids.empty? ? [ProductType.first.id] : ids
@@ -24,6 +25,7 @@ class ProductType < ActiveRecord::Base
   end
 
   def self.main_preorder_product_type_ids
+    Rails.cache.delete("main_preorder-product_type_ids") if Rails.env == 'test'
     Rails.cache.fetch("main_preorder-product_type_ids", :expires_in => 3.hours) do
       ids = ProductType.where("product_types.name iLIKE ?", 'Media').pluck(:id)
       ids.empty? ? [ProductType.first.id] : ids
