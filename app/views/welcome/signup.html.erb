@@ -25,9 +25,9 @@
 
         </div>
         <div id='background-non-transparent'>
-          <h2>Get Notified About Our launch</h2>
+          <h2>Get Notified About&nbsp;Our launch</h2>
           <div id='please-subscribe' class=' white-text' style='display:none;'>
-            Enter your email below to <br/>subscribe to our newsletter and be notified <br/>when we launch our new site.
+            Enter your email below to <br/>subscribe to our newsletter and be notified <br/>when we launch our new site!
           </div>
           <div id='congrats_user' style='display:none;' class=' white-text'>
             Congrats, you will be notified <br/> when we launch!
@@ -55,7 +55,8 @@
             <% end %>
           </div>
           <span>
-            <%= link_to 'Privacy Policy', privacy_policy_path, :style => 'color:#555;'%>
+            <%= link_to 'Privacy Policy', privacy_policy_path, :id => 'link-privacy',  :style => 'color:#555;'%>
+            <%= link_to 'Sign-up &amp; Registration'.html_safe, login_path, :id => 'link-login', :style => 'display: none; color:#555;'%>
           </span>
         </div>
       </div>

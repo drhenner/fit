@@ -36,8 +36,18 @@ img {max-width: 200%;}
       font-size:22px;
       font-family: "Helvetica Neue",Helvetica,Arial,"Liberation Sans",FreeSans,sans-serif;
     }
+    h2,
+    #please-subscribe {
+      font-family: "Helvetica Neue",Helvetica,Arial,"Liberation Sans",FreeSans,sans-serif;
+    }
     #congrats_user {font-size:20px;line-height: 32px;}
+    #please-subscribe {
+      line-height: 18px;
+      font-size: 12px;
+      font-weight: bold;
+    }
   }
+
 
   div#ufcfit-logo {
     height:100%
@@ -103,6 +113,24 @@ img {max-width: 200%;}
       border-radius: 0;
       height: 26px;
       -webkit-appearance: none;
+    }
+  }
+}
+
+@media only screen and (max-width: 410px) {
+  #input-fields {
+    h2,
+    #please-subscribe {
+      text-align: left !important;
+      width: 246px;
+    }
+  }
+}
+
+@media only screen and (max-width: 766px) {
+  #input-fields {
+    input[type="email"]{
+      @include placeholder(#7f7f7f);
     }
   }
 }
