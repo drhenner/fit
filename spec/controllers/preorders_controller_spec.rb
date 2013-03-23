@@ -13,8 +13,25 @@ describe PreordersController do
     p = create(:product)
     p.activate!
     Settings.stubs(:allow_preorders).returns(true)
+    cart = create(:cart)
+    cart_item = create(:cart_item)
+    cart.stubs(:shopping_cart_items).returns([cart_item])
+    @controller.stubs(:session_cart).returns(cart)
     get :index
     expect(response).to render_template(:index)
+  end
+
+  it "index action should render index template" do
+    Product.stubs(:preorders)
+    p = create(:product)
+    p.activate!
+    Settings.stubs(:allow_preorders).returns(true)
+    cart = create(:cart)
+    cart_item = create(:cart_item)
+    cart.stubs(:shopping_cart_items).returns([])
+    @controller.stubs(:session_cart).returns(cart)
+    get :index
+    expect(response).to redirect_to(root_url)
   end
 
   it "index action should render index template" do

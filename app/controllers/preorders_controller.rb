@@ -6,6 +6,9 @@ class PreordersController < ApplicationController
 
   def index
     @products = Product.preorders
+    if session_cart.shopping_cart_items.empty?
+      redirect_to root_url
+    end
   end
 
   def show
