@@ -201,7 +201,7 @@ class Product < ActiveRecord::Base
   end
 
   def self.preorders
-    where(:id => PREORDER_IDS)
+    active
   end
   # paginated results from the admin products grid
   #

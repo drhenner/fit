@@ -168,8 +168,15 @@ describe Product, "class methods" do
     end
   end
 
-  context "#featured" do
-    pending "test for featured"
+  context "#preorders" do
+    it "should find preorders" do
+      product_type = create(:product_type )
+      product_typem = create(:product_type, :name => 'Media')
+      product   = create(:product, :product_type => product_type)
+      product_m = create(:product, :product_type => product_typem)
+      product_m.activate!
+      Product.preorders.all.should eq [product_m]
+    end
   end
 
   context "#admin_grid(params = {}, active_state = nil)" do
