@@ -18,13 +18,15 @@ class ProductType < ActiveRecord::Base
 
   def self.upsell_product_type_ids
     Rails.cache.fetch("upsell_product_type_ids", :expires_in => 3.hours) do
-      ProductType.where("product_types.name NOT iLIKE ?", 'Media').pluck(:id)
+      ids = ProductType.where("product_types.name NOT iLIKE ?", 'Media').pluck(:id)
+      ids.empty? ? [ProductType.first.id] : ids
     end
   end
 
   def self.main_preorder_product_type_ids
     Rails.cache.fetch("main_preorder-product_type_ids", :expires_in => 3.hours) do
-      ProductType.where("product_types.name iLIKE ?", 'Media').pluck(:id)
+      ids = ProductType.where("product_types.name iLIKE ?", 'Media').pluck(:id)
+      ids.empty? ? [ProductType.first.id] : ids
     end
   end
 
