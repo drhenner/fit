@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
   private
 
   def in_production?
-    Rails.env == 'production'
+    Rails.env.production?
   end
 
   def force_ssl
