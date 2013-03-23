@@ -9,6 +9,9 @@ describe PreordersController do
   end
 
   it "index action should render index template" do
+    Product.stubs(:preorders)
+    p = create(:product)
+    p.activate!
     Settings.stubs(:allow_preorders).returns(true)
     get :index
     expect(response).to render_template(:index)

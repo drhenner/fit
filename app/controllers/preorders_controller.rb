@@ -5,7 +5,7 @@ class PreordersController < ApplicationController
   layout 'preorder'
 
   def index
-    @products = Product.preorders.all
+    @products = Product.preorders
   end
 
   def show
