@@ -32,6 +32,8 @@ Hadean::Application.configure do
                                 'home_page.css',
                                 'ie.css',
                                 'ie6.css',
+                                'jquery.titanlighbox.css',# in vendor
+                                'jquery.jtweetsanywhere.css',# in vendor
                                 'login.css',
                                 'markdown.css',
                                 'markitup/skins/markitup/style.css',
