@@ -30,7 +30,6 @@ describe User do
   end
 end
 
-
 describe User, ".form_birth_date(val)" do
   it "should return the correct b-day" do
     user = create(:user, :form_birth_date => '05/18/1975')
@@ -46,6 +45,32 @@ describe User, ".form_birth_date(val)" do
     user.birth_date.should be_blank
     user.form_birth_date.should == nil
     #ActiveSupport::TimeZone.us_zones.map(&:to_s).include?(user.time_zone).should be_true
+  end
+end
+
+describe User, '#get_new_user(args)' do
+  it 'should grab the current signedin user if they have never had a password' do
+    user = create(:user, :password => nil, :password_confirmation => nil)
+    args = {:email => user.email, :password => 'GoodPass1!', :password_confirmation => 'GoodPass1!', :country_id =>1, :first_name => 'dav',:last_name => 'H'}
+
+    new_user = User.get_new_user(args)
+    new_user.new_record?.should be_false
+  end
+  it 'should be invalid user if the user has a password' do
+    user = create(:user)
+    args = {:email => user.email, :password => 'GoodPass1!', :password_confirmation => 'GoodPass1!', :country_id =>1, :first_name => 'dav',:last_name => 'H'}
+
+    new_user = User.get_new_user(args)
+    new_user.new_record?.should be_true
+    new_user.valid?.should be_false # duplicate email
+    new_user.errors.has_key?(:email).should be_true # duplicate email
+  end
+  it 'should not grab current signedin user if they have never had a password' do
+    user = create(:user)
+    args = {:email => 'different@email.com'}
+
+    new_user = User.get_new_user(args)
+    new_user.new_record?.should be_true
   end
 end
 

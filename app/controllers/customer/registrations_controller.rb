@@ -9,7 +9,7 @@ class Customer::RegistrationsController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user])
+    @user = User.get_new_user(params[:user])
     @user.format_birth_date(params[:user][:birth_date]) if params[:user][:birth_date].present?
     # Saving without session maintenance to skip
     # auto-login which can't happen here because
