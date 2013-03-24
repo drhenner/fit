@@ -3,81 +3,22 @@
   <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,200italic,300,300italic,400italic,600,700,600italic,700italic,900' rel='stylesheet' type='text/css'/>
 
 
-  <%= stylesheet_link_tag 'jquery.titanlighbox.css' %>
+  <%#= stylesheet_link_tag 'jquery.titanlighbox.css' %>
 
-  <%= javascript_include_tag 'jquery.themepunch.plugins.min' %>
-  <%= javascript_include_tag 'jquery.themepunch.revolution.min' %>
+  <%#= javascript_include_tag 'jquery.themepunch.plugins.min' %>
+  <%#= javascript_include_tag 'jquery.themepunch.revolution.min' %>
 
-  <%= javascript_include_tag 'jquery.tipsy' %>
-  <%= javascript_include_tag 'prettify' %>
-  <%= javascript_include_tag 'jquery.titanlighbox' %>
-  <%= javascript_include_tag 'jquery.isotope.min' %>
-  <%= javascript_include_tag 'jquery.jtweetsanywhere' %>
+  <%#= javascript_include_tag 'jquery.tipsy' %>
+  <%#= javascript_include_tag 'prettify' %>
+  <%#= javascript_include_tag 'jquery.titanlighbox' %>
+  <%#= javascript_include_tag 'jquery.isotope.min' %>
+  <%#= javascript_include_tag 'jquery.jtweetsanywhere' %>
 
-  <script>
-  $(window).load(function(){
-
-      var $container = $('#container');
-
-      $container.isotope({
-        itemSelector : '.element',
-        // disable resizing
-        resizable: false,
-        // set columnWidth to a percentage of container width
-        masonry: {
-          columnWidth: $container.width() / 12
-        },
-       });
-
-      // update columnWidth on window resize
-      $(window).smartresize(function(){
-        $container.isotope({
-          // set columnWidth to a percentage of container width
-          masonry: {
-            columnWidth: $container.width() / 12
-          }
-        });
-      });
-
-
-        var $optionSets = $('#options .option-set'),
-            $optionLinks = $optionSets.find('a');
-
-        $optionLinks.click(function(){
-          var $this = $(this);
-          // don't proceed if already selected
-          if ( $this.hasClass('selected') ) {
-            return false;
-          }
-          var $optionSet = $this.parents('.option-set');
-          $optionSet.find('.selected').removeClass('selected');
-          $this.addClass('selected');
-
-          // make option object dynamically, i.e. { filter: '.my-filter-class' }
-          var options = {},
-              key = $optionSet.attr('data-option-key'),
-              value = $this.attr('data-option-value');
-          // parse 'false' as false boolean
-          value = value === 'false' ? false : value;
-          options[ key ] = value;
-          if ( key === 'layoutMode' && typeof changeLayoutMode === 'function' ) {
-            // changes in layout modes need extra logic
-            changeLayoutMode( $this, options )
-          } else {
-            // otherwise, apply new options
-            $container.isotope( options );
-          }
-
-          return false;
-        });
-
-    });
-  </script>
 <% end %>
 
 <% content_for :bottom do -%>
   <!-- FlexSlider -->
-  <%= javascript_include_tag 'jquery.flexslider' %>
+  <%#= javascript_include_tag 'jquery.flexslider' %>
 
   <!-- Initialize JS Plugins -->
   <%#= javascript_include_tag 'preorders/app' %>
