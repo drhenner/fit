@@ -1,10 +1,6 @@
 <% content_for :below_body do -%>
   <%= javascript_include_tag 'validators.js' %>
-  <% if Settings.allow_preorders %>
-    <%= javascript_include_tag 'shopping/preorder_checkout.js' %>
-  <% else %>
-    <%= javascript_include_tag 'shopping/checkout.js' %>
-  <% end %>
+  <%= javascript_include_tag 'shopping/checkout.js' %>
 <% end %>
 
 
@@ -24,11 +20,17 @@
       <% payment_profiles.each do |payment_method| %>
         <div id='card_on_file' class="field column ar-use-saved-card  last" style='width:425px'>
           <h5> Use Credit Card on file? </h5>
-          <%= radio_button_tag(:use_credit_card_on_file, payment_method.id, false) %>
-          <%= payment_method.cc_type %> - <%= payment_method.last4 %>
-          (<%= payment_method.month %>/<%= payment_method.year %>)
-          <div style='margin-top:10px;'>
-          <%= link_to 'Use Card', select_card_shopping_payment_path(payment_method) %>
+          <label for="use_credit_card_on_file_<%= payment_method.id %>">
+              <%#= radio_button_tag(:use_credit_card_on_file, payment_method.id, false) %>
+              <%= payment_method.cc_type %> - <%= payment_method.last4 %>
+              (<%= payment_method.month %>/<%= payment_method.year %>)
+              <%= link_to 'Use Card', select_card_shopping_payment_path(payment_method), :method => 'PUT' %>
+          </label>
+
+
+
+          <div style='top10'>
+
           </div>
         </div>
       <% end %>
@@ -86,10 +88,10 @@
       </label>
       </div>
     </div>
-    <div class='twelve column top20'>
-      <%= submit_tag 'Continue', :class => 'button success cart-submit-button' %>
+    <div class='twelve column top20 bottom20'>
+      <%= submit_tag 'Save & Continue', :class => 'button success cart-submit-button' %>
     </div>
   </div>
-  <fieldset>
+  </fieldset>
   <% end %>
 </div>

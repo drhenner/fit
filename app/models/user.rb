@@ -363,6 +363,12 @@ class User < ActiveRecord::Base
     where('account_id NOT IN (?)', Account::FREE_ACCOUNT_IDS )
   end
 
+  def self.get_new_user(args)
+    # If the user has signed up without a password then they can register
+    user = User.where(:email => args[:email]).where(:crypted_password => nil).first
+    user || User.new(args)
+  end
+
   # include addresses in Find
   #
   # @params [ none ]

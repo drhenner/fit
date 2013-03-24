@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
   before_filter :redirect_without_www
   before_filter :secure_session
   before_filter :redirect_to_welcome
+  before_filter :authenticate_if_staging
 
   APP_DOMAIN = 'www.ufcfit.com'
 
@@ -45,6 +46,14 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def authenticate_if_staging
+    if Rails.env.staging?
+      authenticate_or_request_with_http_basic 'Staging' do |name, password|
+        name == 'ror-e' && password == 'ufcfit'
+      end
+    end
+  end
 
   def in_production?
     Rails.env.production?
