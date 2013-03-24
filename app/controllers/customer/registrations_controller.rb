@@ -14,11 +14,13 @@ class Customer::RegistrationsController < ApplicationController
     # Saving without session maintenance to skip
     # auto-login which can't happen here because
     # the User has not yet been activated
-    if @user.save_without_session_maintenance
-      @user.deliver_activation_instructions!
-      UserSession.new(@user.attributes)
-      flash[:notice] = "Your account has been created. Please check your e-mail for your account activation instructions!"
-      redirect_to root_url
+    if @user.save#_without_session_maintenance
+      #@user.deliver_activation_instructions!
+      @user.active? || @user.activate!
+      #@user_session = UserSession.new(@user.attributes)
+      #@user_session.save
+      flash[:notice] = "Your account has been created. "
+      redirect_back_or_default root_url
     else
       @registration = true
       @user_session = UserSession.new
