@@ -3,6 +3,6 @@
 FactoryGirl.define do
   factory :image_group do
     name "MyString"
-    product_id 1
+    product { |c| c.association(:product) }
   end
 end
