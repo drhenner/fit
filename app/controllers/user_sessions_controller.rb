@@ -14,23 +14,16 @@ class UserSessionsController < ApplicationController
       ## if there is a cart make sure the user_id is correct
       set_user_to_cart_items
       flash[:notice] = I18n.t('login_successful')
-@user = User.new
-#render :template => '/welcome/index', :layout => 'welcome'
-if @user_session.record.admin?
-  redirect_to admin_users_url
-else
-  redirect_to root_url
-end
-      #respond_to do |format|
-      #  format.json { render :json => @user_session.to_json }
-      #  format.html { redirect_to root_url }
-      #end
-    else
       @user = User.new
-      respond_to do |format|
-        format.json { render :json => @user_session.errors.to_json }
-        format.html { redirect_to login_url, :alert => I18n.t('login_failure') }
+      #render :template => '/welcome/index', :layout => 'welcome'
+      if @user_session.record.admin?
+        redirect_to admin_users_url
+      else
+        redirect_to root_url
       end
+    else
+      flash[:session_alert] =  I18n.t('login_failure')
+      redirect_to login_url
     end
   end
 

@@ -66,6 +66,7 @@ class User < ActiveRecord::Base
                   :address_attributes,
                   :phones_attributes,
                   :customer_service_comments_attributes
+  attr_accessor :name_required
 
   belongs_to :account
   belongs_to :country
@@ -146,10 +147,10 @@ class User < ActiveRecord::Base
 
 
   validates :country_id,  :presence => true
-  validates :first_name,  :presence => true, :if => :registered_user?,
+  validates :first_name,  :presence => true, :if => :name_required?,
                           :format   => { :with => CustomValidators::Names.name_validator },
                           :length => { :maximum => 30 }
-  validates :last_name,   :presence => true, :if => :registered_user?,
+  validates :last_name,   :presence => true, :if => :name_required?,
                           :format   => { :with => CustomValidators::Names.name_validator },
                           :length   => { :maximum => 35 }
   validates :email,       :presence => true,
@@ -404,6 +405,10 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def name_required?
+    name_required || registered_user?
+  end
 
   def validate_age
     if birth_date && birth_date_changed?

@@ -2,28 +2,7 @@
 <% content_for :bottom do -%>
   <%#= javascript_include_tag 'jquery.datePicker-2.1.2', 'datePickerInitialize' %>
 <% end %>
-<% if @user_session.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@user_session.errors.count, "error") %> prohibited you from logging in:</h2>
 
-    <ul>
-    <% @user_session.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-<% end %>
-
-<% if @user.errors.any? %>
-  <div id="error_explanation" class='error'>
-
-    <ul>
-    <% @user.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-<% end %>
 <h1><%= I18n.t(:login_title) %></h1>
 
 <div class='twelve large-12'>
@@ -38,6 +17,14 @@
                   :html => {:class => 'custom'} do |form| %>
       <fieldset>
          <legend>SIGN-IN</legend>
+
+         <% if flash[:session_alert] -%>
+           <div class="flash_messages">
+             <%= raw "<div data-alert class='alert-box warning'> #{flash[:session_alert]} <a href='' class='close'>&times;</a>"  if flash[:session_alert].present? %>
+           </div>
+         <% end %>
+
+
          <ul id='login_form' class='no-bullet'>
 
               <li>
@@ -73,32 +60,35 @@
               <div class="row">
                 <div class="six columns">
                   <%=form.label :first_name, 'FIRST NAME' %>
+                  <% if @user.errors[:first_name].first %>
+                    <span class='error-text'><%= @user.errors[:first_name].first %></span>
+                  <% end %>
                   <%= form.text_field :first_name, :autocapitalize => 'off' %>
                 </div>
                 <div class="six columns">
                   <%=form.label :last_name, 'LAST NAME' %>
+                  <% if @user.errors[:last_name].first %>
+                    <span class='error-text'><%= @user.errors[:last_name].first %></span>
+                  <% end %>
                   <%= form.text_field :last_name, :autocapitalize => 'off' %>
                 </div>
               </div>
               <div class="row">
                 <div class="six columns">
                   <%= form.label :email, 'EMAIL ADDRESS' %>
+                  <% if @user.errors[:email].first %>
+                    <span class='error-text'><%= @user.errors[:email].first %></span>
+                  <% end %>
                   <%= form.email_field :email, :autocapitalize => 'off' %>
                 </div>
                 <div class="six columns">
                   <div class="">
                       <%= form.label :country_id, 'COUNTRY' %>
+                      <% if @user.errors[:country_id].first %>
+                        <span class='error-text'><%= @user.errors[:country_id].first %></span>
+                      <% end %>
                       <%= form.select :country_id, select_countries, {:prompt => "Country"},  {:style=>"display: none;"} %>
-                      <div class='custom dropdown'>
-                        <a  class="current"><%= form.object.country.try(:name) || 'SELECT YOUR COUNTRY' %></a>
-                        <a href="#" class="selector"></a>
-                        <ul class='no-bullet'>
-                          <% select_countries.each do |c| %>
-                            <li value='<%= form.object.country_id %>'
-                                class="<%= 'selected' if c.last == form.object.country_id %>"><%= c.first %></li>
-                          <% end %>
-                        </ul>
-                      </div>
+
                   </div>
 
                 </div>
@@ -106,10 +96,16 @@
             </div>
               <div class="six columns">
                 <%=form.label :password, 'PASSWORD' %>
+                <% if @user.errors[:password].first %>
+                  <span class='error-text'><%= @user.errors[:password].first %></span>
+                <% end %>
                 <%= form.password_field :password, :autocomplete => 'off', :autocapitalize => 'off'  %>
               </div>
               <div class="six columns">
                 <%=form.label :password_confirmation, 'CONFIRM PASSWORD' %>
+                <% if @user.errors[:password_confirmation].first %>
+                  <span class='error-text'><%= @user.errors[:password_confirmation].first %></span>
+                <% end %>
                 <%= form.password_field :password_confirmation, :autocomplete => 'off', :autocapitalize => 'off'  %>
               </div>
           </div>
@@ -119,11 +115,17 @@
             I UNDERSTAND THE
             <%= link_to 'PRIVACY POLICY', privacy_policy_path %>
           </h3>
-          <label>
+          <% if flash[:terms_alert] -%>
+            <div class="flash_messages">
+              <%= raw "<div data-alert class='alert-box warning'> #{flash[:terms_alert]} <a href='' class='close'>&times;</a>"  if flash[:terms_alert].present? %>
+            </div>
+          <% end %>
+
+          <label for='terms_true'>
             <%= radio_button_tag "terms", true, false %>
             I AGREE TO THESE TERMS
           </label>
-          <label>
+          <label for='terms_false'>
             <%= radio_button_tag "terms", false, true %>
             I DO NOT AGREE TO THESE TERMS
           </label>

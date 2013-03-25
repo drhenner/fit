@@ -18,12 +18,34 @@
 .flash_messages {
   margin-top: 20px;
 }
-
+div.alert-box.warning {
+  background-color: #F6E6E6;
+  border: 1px solid #c60f13;
+  color: #D61f23;
+  text-shadow: 0 0px rgba(0, 0, 0, 0.1);
+}
 .field_with_errors {
   input {
     border: 1px #C66 solid;
   }
+
+  .dropdown {
+    a.current {border: solid 1px #C66;}
+  }
 }
+.error-text {
+  color: #f6c0c0;
+}
+
+form.custom {
+  .field_with_errors {
+    div.custom.dropdown {
+      a.current {border: solid 1px #C66;}
+      a.selector {border: solid 1px #C66;}
+    }
+  }
+}
+
 .footer-buffer-wrapper {
   background: image-url('preorder/bg9.png' ) repeat;
   margin-top:20px;
