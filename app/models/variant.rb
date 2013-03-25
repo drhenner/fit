@@ -59,8 +59,8 @@ class Variant < ActiveRecord::Base
             :count_pending_from_supplier=, :to => :inventory, :allow_nil => false
 
   ADMIN_OUT_OF_STOCK_QTY  = 0
-  OUT_OF_STOCK_QTY        = 2
-  LOW_STOCK_QTY           = 6
+  OUT_OF_STOCK_QTY        = 5
+  LOW_STOCK_QTY           = 25
 
   def short_description
     small_description? ? small_description : product.short_description
