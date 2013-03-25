@@ -19,8 +19,11 @@
           <% end %>
           <ul class='ten  vertical-list'>
           <% items.first.shipping_rate_options(session_order.sub_total).each do |rate| %>
-            <li><%= radio_button_tag "shipping_category[#{shipping_category_id}]", rate.id %>
-              <label><%= rate.name_with_rate %></label>
+            <li>
+              <label for='<%= "shipping_category[#{shipping_category_id}]" %>' class='long'>
+                <%= radio_button_tag "shipping_category[#{shipping_category_id}]", rate.id %>
+                <%= rate.name_with_rate %>
+              </label>
               <% if rate.minimum_charge > 0.0 %>
                 <%= "(minimum order: #{number_to_currency rate.minimum_charge})" %>
               <% end %>
