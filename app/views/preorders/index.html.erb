@@ -10,7 +10,7 @@
       <div class='row'>
         <h4 class='cart-item-title'><%= item.variant.display_title %><%# The Complete UFCFIT Lifestyle Program %></h4>
         <div class='six column'>
-          <%= image_tag item.variant.featured_image(:medium) %>
+          <%= image_tag item.variant.featured_image(:product) %>
         </div>
         <div class='six column'>
           <ul class='vertical-list '>
@@ -43,7 +43,7 @@
             <%= number_to_currency item.variant.price %>
             <%= link_to upsell_path(item),
                         :class        => "has-tip tip-left",
-                        'data-width'  => "210",
+                        'data-width'  => "260",
                         'data-tooltip'=> '',
                         :method       => 'DELETE',
                         :title        => "Click to Remove #{item.variant.product_name}",
@@ -68,10 +68,10 @@
   <h3> <span class="large-bullet alert label">2</span> Take Advantage of these special offers for our UFC FIT community</h3>
   <div class='row upsell-products'>
     <% upsells.each do |upsell| %>
-      <div class='three large-3 columns'>
+      <div class='four large-4 columns'>
 
         <div  class='small-text'>
-          <%= image_tag upsell.featured_image(:medium) %>
+          <%= image_tag upsell.featured_image(:product) %>
           <p class='small-text'><%= upsell.short_description %>
           </p>
 
