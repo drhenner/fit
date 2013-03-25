@@ -362,10 +362,6 @@ describe User, 'private methods' do
     end
   end
 
-  context ".create_cim_profile" do
-    pending "test for create_cim_profile"
-  end
-
   context ".before_validation_on_create" do
     #Notifier.expects(:signup_notification).once.returns(sign_up_mock)
     it 'should assign the access_token' do
