@@ -10,7 +10,7 @@
       <div class='row'>
         <h4 class='cart-item-title'><%= item.variant.display_title %><%# The Complete UFCFIT Lifestyle Program %></h4>
         <div class='six column'>
-          <%= image_tag item.variant.featured_image %>
+          <%= image_tag item.variant.featured_image(:medium) %>
         </div>
         <div class='six column'>
           <ul class='vertical-list '>
@@ -71,7 +71,7 @@
       <div class='three large-3 columns'>
 
         <div  class='small-text'>
-          <%= image_tag 'no_image_medium.jpg'%>
+          <%= image_tag upsell.featured_image(:medium) %>
           <p class='small-text'><%= upsell.short_description %>
           </p>
 
