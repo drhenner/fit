@@ -1,9 +1,8 @@
 class Admin::Merchandise::Multi::VariantsController < Admin::BaseController
-  helper_method :subscription_plans
+  helper_method :subscription_plans, :image_groups
   def edit
     @product        = Product.includes(:properties,:product_properties, {:prototype => :properties}).find(params[:product_id])
     form_info
-    #render :layout => 'admin_markup'
   end
 
   def update
@@ -21,6 +20,10 @@ class Admin::Merchandise::Multi::VariantsController < Admin::BaseController
 
   def form_info
     @brands = Brand.all.collect{|b| [b.name, b.id] }
+  end
+
+  def image_groups
+    @image_groups ||= ImageGroup.where(:product_id => @product).all.map{|i| [i.name, i.id]}
   end
 
   def subscription_plans

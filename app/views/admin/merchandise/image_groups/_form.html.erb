@@ -1,8 +1,9 @@
-<% if @product.errors.any? %>
+
+<% if @image_group.errors.any? %>
   <div id="error_explanation">
-    <h2><%= pluralize(@product.errors.count, "error") %> prohibited this purchase_order from being saved:</h2>
+    <h2><%= pluralize(@image_group.errors.count, "error") %> prohibited this purchase_order from being saved:</h2>
     <ul>
-    <% @product.errors.full_messages.each do |msg| %>
+    <% @image_group.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>
     <% end %>
     </ul>
@@ -14,8 +15,8 @@
 
   <%= new_child_fields_template form, :images, :form_builder_local => :image_form %>
 
-  <div id="product_images" class='span-16'>
-    <% @product.images.each do |image| %>
+  <div id="image_group_images" class='span-16'>
+    <% @image_group.images.each do |image| %>
       <div id='image_<%= image.id %>' class="variant_form left span-16 last">
         <%= form.fields_for :images, image do |image_form|%>
           <%= render :partial => 'image', :locals => {:image_form => image_form } %>
