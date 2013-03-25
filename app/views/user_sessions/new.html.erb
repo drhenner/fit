@@ -119,14 +119,15 @@
             I UNDERSTAND THE
             <%= link_to 'PRIVACY POLICY', privacy_policy_path %>
           </h3>
-          <label for="radio1">
-            <input name="radio1" id="radio1" style="display:none;" type="radio">
-            <span class="custom radio"></span> I AGREE TO THESE TERMS
+          <label>
+            <%= radio_button_tag "terms", true, false %>
+            I AGREE TO THESE TERMS
           </label>
-          <label for="radio2">
-            <input name="radio1" id="radio2" style="display:none;" type="radio">
-            <span class="custom radio checked"></span> I DO NOT AGREE TO THESE TERMS
+          <label>
+            <%= radio_button_tag "terms", false, true %>
+            I DO NOT AGREE TO THESE TERMS
           </label>
+
           <%= form.submit "Register", :class => 'medium button top20 bottom20' %>
 
 

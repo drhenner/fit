@@ -14,7 +14,7 @@ class Customer::RegistrationsController < ApplicationController
     # Saving without session maintenance to skip
     # auto-login which can't happen here because
     # the User has not yet been activated
-    if @user.save#_without_session_maintenance
+    if agreed_to_terms? && @user.save#_without_session_maintenance
       #@user.deliver_activation_instructions!
       @user.active? || @user.activate!
       #@user_session = UserSession.new(@user.attributes)
@@ -27,5 +27,11 @@ class Customer::RegistrationsController < ApplicationController
       render :template => 'user_sessions/new'
     end
   end
+
+  private
+
+    def agreed_to_terms?
+      params[:terms] && params[:terms] == 'true'
+    end
 
 end
