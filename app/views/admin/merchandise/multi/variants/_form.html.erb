@@ -21,9 +21,12 @@
         </tr><tr>
           <td>Option Text  </td><td> <%= ff.text_field :option_text, :placeholder => 'Default is Variant.name' %> </td>
         </tr><tr>
-          <td>Subscription  </td><td> <%= ff.select :subscription_plan_id, subscription_plans,{ :include_blank => true }, :class => 'span-3' %> </td>
+          <td>Images  </td><td> <%= ff.select :image_group_id, image_groups,{ :include_blank => true, :prompt => "Defaults to product's images" } %> </td>
         </tr><tr>
-          <td>Brand </td><td> <%= ff.select :brand_id, @brands, { :include_blank => true }, :class => 'span-3' %> </td>
+
+          <td>Subscription  </td><td> <%= ff.select :subscription_plan_id, subscription_plans,{ :include_blank => true } %> </td>
+        </tr><tr>
+          <td>Brand </td><td> <%= ff.select :brand_id, @brands, { :include_blank => true } %> </td>
         </tr><tr>
             <td>&nbsp; </td><td> &nbsp; </td>
           </tr>
@@ -78,6 +81,8 @@
           <td>Short description  </td><td> <%= ff.text_area :small_description, :placeholder => 'Default is Product.short_description' %> </td>
         </tr><tr>
           <td>Option Text  </td><td> <%= ff.text_field :option_text, :placeholder => 'Default is Variant.name' %> </td>
+        </tr><tr>
+          <td>Images  </td><td> <%= ff.select :image_group_id, image_groups,{ :include_blank => true, :prompt => "Defaults to product's images" } %> </td>
         </tr><tr>
           <td>Subscription  </td><td> <%= ff.select :subscription_plan_id, subscription_plans,{ :include_blank => true }, :class => 'span-3' %> </td>
         </tr><tr>
