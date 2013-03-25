@@ -9,8 +9,10 @@
           <% items.each do |item| %>
             <div class='nine clearfix panel'>
                 <div class='six columns'>
-                  <%= image_tag(item.variant.product.featured_image(:mini)) %>
-                  <%= item.variant.product.name %> Quantity: <%= item.quantity %>
+                  <ul>
+                    <li><%= image_tag(item.variant.product.featured_image(:mini)) %></li>
+                    <li><%= item.variant.product.name %> Quantity: <%= item.quantity %></li>
+                  </ul>
                 </div>
                 <div class='five columns last' style='text-align:left;'>
                   <%= raw item.variant.display_property_details %>
