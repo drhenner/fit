@@ -109,8 +109,10 @@
 
 </div>
   <div class="field twelve column" style='margin-bottom:10px;'>
-    <%= f.check_box :default, :class => 'columns' %>
-    <%= f.label :default, "Make this my default shipping method", :class => 'ten ', :style => 'margin-top:3px;display: inline-block;' %>
+    <label for='billing_default' class='ten' style='margin-top:3px;display: inline-block;'>
+      <%= f.check_box :billing_default, :class => 'columns' %>
+      Make this my default Billing Address
+    </label>
   </div>
 
   <div class="actions column">
