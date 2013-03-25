@@ -306,10 +306,6 @@ describe User, "instance methods" do
     end
   end
 
-  context ".get_cim_profile" do
-    pending "test for get_cim_profile"
-  end
-
   context ".merchant_description" do
     # [name, default_shipping_address.try(:address_lines)].compact.join(', ')
     it 'should show the name and address lines' do
