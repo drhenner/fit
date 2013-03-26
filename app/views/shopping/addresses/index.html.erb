@@ -12,7 +12,6 @@
       <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => shopping_address} %>
       <%= link_to 'Use', select_address_shopping_address_path(shopping_address), :class => 'button small', :method => :put %> &nbsp; &nbsp;
       <%= link_to 'Edit', edit_shopping_address_path(shopping_address), :class => 'button small' %>
-      <%#= link_to 'Delete', shopping_address_path(shopping_address), :data => {:confirm => 'Are you sure?'}, :method => :delete %>
     </div>
   <% end %>
   <hr style='color:#aac;'/>
