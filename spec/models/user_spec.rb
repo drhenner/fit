@@ -306,10 +306,6 @@ describe User, "instance methods" do
     end
   end
 
-  context ".get_cim_profile" do
-    pending "test for get_cim_profile"
-  end
-
   context ".merchant_description" do
     # [name, default_shipping_address.try(:address_lines)].compact.join(', ')
     it 'should show the name and address lines' do
@@ -360,10 +356,6 @@ describe User, 'private methods' do
       @user.crypted_password = 'blah'
       @user.send(:password_required?).should be_false
     end
-  end
-
-  context ".create_cim_profile" do
-    pending "test for create_cim_profile"
   end
 
   context ".before_validation_on_create" do
