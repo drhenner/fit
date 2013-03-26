@@ -2,32 +2,35 @@
   <h3> Add Credit Card </h3>
 
     <%= form_tag( myaccount_credit_cards_path(),
-                                  :method => :post,
+                                  :method => :post, :class => 'custom ',
                                   :id   => 'purchase_cart_order') do  %>
 
 
       <div class='payment-errors' style='display:none;color:#d06050;font-weight:bold;'></div>
 
 <div class='clear'></div>
+    <div class='row '>
       <div class="field twelve column">
         <%= label_tag :name %>
          <%= text_field_tag(:full_name, '') %>
       </div>
-
-      <div class='clear'></div>
+    </div>
+    <div class='row'>
       <div class="field twelve column">
         <%= label_tag 'Number'%> <%= '4242424242424242' if Rails.env != 'production' %>
          <%= text_field_tag(:number, '' ,:class => ' disableAutoComplete', :autocomplete => "off", name: nil) %>
          <%= hidden_field_tag('stripe_card_token', nil) %>
          <%= hidden_field_tag('token_amount', nil) %>
       </div>
-      <div class='twelve clearfix'>
+    </div>
+    <div class='row'>
+      <div class='twelve '>
         <div class="field three column">
           <%= label_tag :verification_value, 'VCC'%>
            <%= text_field_tag(:verification_value, '' ,:class => 'disableAutoComplete', :autocomplete => "off", name: nil) %>
         </div>
 
-        <div class="field column ">
+        <div class="field three column ">
           <%= label_tag :brand, 'Type'%>
            <%= select_tag(:brand, options_for_select(['visa', 'mastercard', 'discover', 'American Express'])) %>
         </div>
@@ -42,14 +45,22 @@
            <%= select_tag(:year, options_for_select((Time.zone.now.year..(Time.zone.now.year + 12)))) %>
         </div>
       </div>
-
-      <div class="field column float-left">
-        <%= label_tag :save_card %>
-         <%= check_box_tag(:save_card, 1) %>
+    </div>
+    <div class='row '>
+      <div class="field twelve column">
+      <label for="save_card">
+        <input type="checkbox" id="save_card" name='save_card' style="display: none;">
+        <span class="custom checkbox"></span>
+        Save Card
+      </label>
       </div>
-
-
-      <%= submit_tag 'Add Credit Card Order', :class => 'button cart-submit-button' %> <%= link_to 'Back to List', myaccount_credit_cards_path, :class => 'button' %>
+    </div>
+      <div class='row '>
+        <div class='twelve top20 bottom20'>
+          <%= submit_tag 'Save Credit Card', :class => 'button cart-submit-button' %>  &nbsp; &nbsp;
+          <%= link_to 'Back', myaccount_credit_cards_path, :class => 'secondary button' %>
+        </div>
+      </div>
     <% end %>
 
 

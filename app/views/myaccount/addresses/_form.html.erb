@@ -33,7 +33,7 @@
       </div>
 
     <div class='clearfix'></div>
-      <div class=" twelve clearfix">
+      <div class=" twelve ">
         <div class="field five columns">
           <%= f.label :city %>
           <%= f.text_field :city %>
@@ -78,6 +78,7 @@
   </div>
 
   <div class="actions column">
-    <%= f.submit 'Submit', :class => 'button' %>
+    <%= f.submit 'Submit', :class => 'button' %> &nbsp; &nbsp;
+    <%= link_to 'Back', myaccount_addresses_path, :class => 'secondary button  ' %>
   </div>
 <div class='clearfix'></div>
