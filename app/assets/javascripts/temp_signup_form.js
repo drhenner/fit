@@ -18,7 +18,7 @@ if (typeof Hadean.Welcome.tempSignup == "undefined") {
             // prevent the form from submitting with the default action
             return false;
           });
-          jQuery('#submit-notify').live('click', function() {
+          jQuery(document).on('click', ' #submit-notify', function() {
             Hadean.Welcome.tempSignup.submitForm();
           });
           if (Hadean.Welcome.tempSignup.isMobile()) {
