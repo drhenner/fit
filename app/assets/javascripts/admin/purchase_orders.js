@@ -24,8 +24,7 @@ if (typeof Hadean.Admin.purchaseOrder == "undefined") {
             return false;
           });
 
-          jQuery('.select_variants').live('change', function(){
-            //alert($(this).val());
+          jQuery(document).on('change', '.select_variants', function(){
             Hadean.Admin.purchaseOrder.prefillCost(this);
             return false;
           });
