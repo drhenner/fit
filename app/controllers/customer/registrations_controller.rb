@@ -27,6 +27,7 @@ class Customer::RegistrationsController < ApplicationController
       flash[:notice] = "Your account has been created. "
       redirect_back_or_default root_url
     else
+      @user.valid?
       flash[:terms_alert] = "Please agree to the term of service to proceed." unless agreed_to_terms?
       @registration = true
       @user_session = UserSession.new
