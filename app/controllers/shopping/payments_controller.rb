@@ -32,6 +32,7 @@ class Shopping::PaymentsController < Shopping::BaseController
     "cc_type"           => params[:brand],
     "month"             => params[:month],
     "year"              => params[:year],
+    #'last_4_digits'     => params[:last4],
     "active"            => save_card?,
     :address_id         => session_order.bill_address_id}
   end

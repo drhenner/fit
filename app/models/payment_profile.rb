@@ -27,6 +27,7 @@
 # http://cookingandcoding.com/2010/01/14/using-activemerchant-with-authorize-net-and-authorize-cim/
 #
 class PaymentProfile < ActiveRecord::Base
+  include EncryptionHelper::AES256CBC
   belongs_to :user
   belongs_to :address
 
@@ -44,10 +45,15 @@ class PaymentProfile < ActiveRecord::Base
   end
 
   def last4
-    stripe_card['active_card'] && stripe_card['active_card'][:last4]
+    @last4 ||= last_digits.present? ? unencrypted_last_digits : set_last_digits
   end
+
+  def last_4_digits=(digits)
+    encrypt_last_digits(digits)
+  end
+
   def name
-    stripe_card['active_card'] && stripe_card['active_card'][:name]
+    card_name || (stripe_card['active_card'] && stripe_card['active_card'][:name])
   end
   def stripe_card
     @stripe_card ||= Stripe::Customer.retrieve(customer_token)
@@ -59,6 +65,26 @@ class PaymentProfile < ActiveRecord::Base
   end
 
   private
+    def unencrypted_last_digits
+      decrypt(Base64.decode64(salt), Base64.decode64(last_digits))
+    end
+
+    def encrypt_last_digits(digits)
+      iv, ciphertext    = encrypt(digits)
+      self.salt         = Base64.encode64(iv)
+      self.last_digits  = Base64.encode64(ciphertext)
+    end
+    def encrypt_last_digits!(digits)
+      encrypt_last_digits(digits)
+      save
+    end
+
+    def set_last_digits
+      digits = stripe_card['active_card'] && stripe_card['active_card'][:last4]
+      digits.present? ? encrypt_last_digits!(digits) : ''
+      digits
+    end
+
     def save_stripe_customer
       customer = Stripe::Customer.create(
         :description  => "Card for #{user.name}",

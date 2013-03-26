@@ -8,7 +8,7 @@ FactoryGirl.define do
     cc_type         'visa'
     month           '05'
     year            '2013'
-    last_digits     '3955'
+    #last_digits     '3955'
     customer_token  'fakeCCtoken'
   end
 end
