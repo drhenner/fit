@@ -174,7 +174,7 @@ class Order < ActiveRecord::Base
   end
 
   def self.finished
-    where({:orders => { :state => ['complete', 'paid']}})
+    where({:orders => { :state => ['complete', 'paid', 'preordered']}})
   end
 
   def self.find_myaccount_details
