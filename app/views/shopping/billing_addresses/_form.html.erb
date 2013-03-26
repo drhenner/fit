@@ -117,6 +117,8 @@
 
   <div class="actions column">
     <%= f.submit 'Save & Continue', :class => 'button bottom20' %>
-    <%= link_to 'Back', shopping_billing_addresses_path, :class => 'button' %>
+    <% unless current_page?(shopping_billing_addresses_path) %>
+      <%= link_to 'Back', shopping_billing_addresses_path, :class => 'button' %>
+    <% end %>
   </div>
 <div class='clearfix'></div>
