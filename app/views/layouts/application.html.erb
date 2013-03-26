@@ -35,6 +35,8 @@
   <% if current_user %>
     <%= render :partial => '/shared/welcome_header'%>
   <% end %>
+  <%= render :partial => '/layouts/shipping_warning'%>
+
     <div id='content_wrapper' class='row <%= "myaccount" if myaccount_tab %> '>
       <%  if myaccount_tab %>
         <hr class="first_double_hr">

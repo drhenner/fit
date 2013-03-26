@@ -12,6 +12,10 @@ class Shopping::BaseController < ApplicationController
 
   private
 
+  def display_shipping_warning?
+    true
+  end
+
   def selected_checkout_tab(tab)
     tab == ''
   end

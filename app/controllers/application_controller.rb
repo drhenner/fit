@@ -12,7 +12,8 @@ class ApplicationController < ActionController::Base
                 :product_types,
                 :myaccount_tab,
                 :select_countries,
-                :in_production?
+                :in_production?,
+                :display_shipping_warning?
 
   before_filter :redirect_without_www
   before_filter :secure_session
@@ -46,6 +47,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def display_shipping_warning?
+    false
+  end
 
   def authenticate_if_staging
     if Rails.env.staging?
