@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130325014929) do
+ActiveRecord::Schema.define(:version => 20130326185449) do
 
   create_table "accounting_adjustments", :force => true do |t|
     t.integer  "adjustable_id",                                 :null => false
@@ -295,6 +295,7 @@ ActiveRecord::Schema.define(:version => 20130325014929) do
     t.string   "last_name"
     t.string   "card_name"
     t.string   "customer_token", :limit => 100
+    t.string   "salt"
   end
 
   add_index "payment_profiles", ["address_id"], :name => "index_payment_profiles_on_address_id"
