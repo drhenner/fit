@@ -6,7 +6,6 @@ describe UserSessionsController do
       it "should display a message with login failure and render the login template" do
         stub_redirect_to_welcome
         post :create, :user_session => {}
-#        flash[:alert].should == I18n.t('login_failure')
         response.should redirect_to login_url
       end
     end

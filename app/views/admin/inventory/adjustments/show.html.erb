@@ -5,6 +5,9 @@
     <thead>
       <tr>
         <th>SKU</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>ID</th>
         <th>count on hand</th>
         <th>pending to customer</th>
         <th>count pending from supplier</th>
@@ -14,6 +17,9 @@
     <% @product.variants.each do |variant| %>
       <tr>
         <td><%= variant.sku %></td>
+        <td><%= variant.display_title %></td>
+        <td><%= number_to_currency variant.price %></td>
+        <td><%= variant.inventory.id %></td>
         <td><%= variant.inventory.count_on_hand %></td>
         <td><%= variant.inventory.count_pending_to_customer %></td>
         <td><%= variant.inventory.count_pending_from_supplier %></td>

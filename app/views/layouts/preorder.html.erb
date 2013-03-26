@@ -26,14 +26,15 @@
 
 <body >
 <div id='body_wrapper'>
-  <div class="row">
+
     <% if notice || alert %>
-      <div class="flash_messages">
-        <%= raw "<div data-alert class='alert-box warning'> #{notice} <a href='' class='close'>&times;</a></div>"  if notice %>
-        <%= raw "<div data-alert class='alert-box alert'>#{alert} <a href='' class='close'>&times;</a></div>"     if alert %>
+      <div class="row">
+        <div class="flash_messages">
+          <%= raw "<div data-alert class='alert-box warning'> #{notice} <a href='' class='close'>&times;</a></div>"  if notice %>
+          <%= raw "<div data-alert class='alert-box alert'>#{alert} <a href='' class='close'>&times;</a></div>"     if alert %>
+        </div>
       </div>
     <% end %>
-  </div>
 
     <%= render :partial => '/shared/preorder_header'%>
 
