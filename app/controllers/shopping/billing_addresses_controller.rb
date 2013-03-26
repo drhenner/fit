@@ -33,7 +33,7 @@ class Shopping::BillingAddressesController < Shopping::BaseController
 
       if @shopping_address.id
         update_order_address_id(@shopping_address.id)
-        redirect_to(next_form_url(session_order), :notice => 'Address was successfully created.')
+        redirect_to(next_form_url(session_order))
       else
         form_info
         render :action => "index"
@@ -50,7 +50,7 @@ class Shopping::BillingAddressesController < Shopping::BaseController
 
       if @shopping_address.save
         update_order_address_id(@shopping_address.id)
-        redirect_to(next_form_url(session_order), :notice => 'Address was successfully updated.')
+        redirect_to(next_form_url(session_order))
       else
         # the form needs to have an id
         @form_address = current_user.addresses.find(params[:id])

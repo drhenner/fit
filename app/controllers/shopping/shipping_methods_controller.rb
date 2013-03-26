@@ -36,7 +36,7 @@ class Shopping::ShippingMethodsController < Shopping::BaseController
       end
     end
     if all_selected
-      redirect_to(shopping_orders_url, :notice => I18n.t('shipping_method_updated'))
+      redirect_to(shopping_orders_url)
     else
       redirect_to( shopping_shipping_methods_url, :notice => I18n.t('all_shipping_methods_must_be_selected'))
     end
