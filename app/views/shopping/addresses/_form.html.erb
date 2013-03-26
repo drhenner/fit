@@ -65,17 +65,8 @@
         <div class="field four columns">
           <%= f.label    :state_id, "State" %>
           <%= f.select   :state_id, @states,
-                        {:include_blank => true}, {:style => 'display:none;'} %>
-          <div class='custom dropdown'>
-            <a  class="current"><%= f.object.state.try(:name) || 'STATE' %></a>
-            <a href="#" class="selector"></a>
-            <ul class='no-bullet'>
-              <% @states.each do |c| %>
-                <li value='<%= f.object.state_id %>'
-                    class="<%= 'selected' if c.last == f.object.state_id %>"><%= c.first %></li>
-              <% end %>
-            </ul>
-          </div>
+                        {:include_blank => true, :prompt => "STATE"} %>
+
         </div>
       <% elsif countries.size == 1 %>
         <div class="field column">
