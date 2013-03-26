@@ -32,6 +32,10 @@ class Subscription < ActiveRecord::Base
     self.save!
   end
 
+  def total_cost_in_cents # in cents
+    (total_cost.to_f / 100.0).round_at(2)
+  end
+
   def total_cost
     (number_of_total_payments * subscription_plan.amount) + total_tax_amount
   end
