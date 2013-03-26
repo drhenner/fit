@@ -77,6 +77,10 @@ class Admin::Shopping::Checkout::OrdersController < Admin::Shopping::Checkout::B
 
   private
 
+  def show_right_panel_summary
+    true
+  end
+
   def form_info
     @payment_profiles = customer.active_payment_profiles
     @order.credited_total

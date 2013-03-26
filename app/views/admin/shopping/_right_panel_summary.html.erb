@@ -1,4 +1,4 @@
-<% if @session_admin_order %>
+<% if show_right_panel_summary && @session_admin_order %>
   <%= render :partial => '/admin/shopping/checkout/right_panel_summary'%>
 <% else %>
 <h3>
