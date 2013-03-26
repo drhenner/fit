@@ -40,8 +40,8 @@ describe Order, "instance methods" do
       subscription.reload
       expect(subscription.transaction_ledgers.blank?).to be_false
       expect(subscription.transaction_ledgers.detect{|t| t.transaction_account_id == TransactionAccount::ACCOUNTS_RECEIVABLE_ID }.credit).to eq 0
-      expect(subscription.transaction_ledgers.detect{|t| t.transaction_account_id == TransactionAccount::ACCOUNTS_RECEIVABLE_ID }.debit).to eq 1474
-      expect(subscription.transaction_ledgers.detect{|t| t.transaction_account_id == TransactionAccount::REVENUE_ID }.credit).to eq 1474
+      expect(subscription.transaction_ledgers.detect{|t| t.transaction_account_id == TransactionAccount::ACCOUNTS_RECEIVABLE_ID }.debit).to eq 14.74
+      expect(subscription.transaction_ledgers.detect{|t| t.transaction_account_id == TransactionAccount::REVENUE_ID }.credit).to eq 14.74
       expect(subscription.transaction_ledgers.detect{|t| t.transaction_account_id == TransactionAccount::REVENUE_ID }.debit).to eq 0
     end
   end

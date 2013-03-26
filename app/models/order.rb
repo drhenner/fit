@@ -675,7 +675,7 @@ class Order < ActiveRecord::Base
     order_items.each do |order_item|
       if order_item.subscription
         batch = order_item.subscription.batches.create()
-        batch.transactions.push(SubscriptionTransaction.new_authorized_payment(order_item.subscription, order_item.subscription.total_cost, order_item.subscription.total_tax_amount))
+        batch.transactions.push(SubscriptionTransaction.new_authorized_payment(order_item.subscription, order_item.subscription.total_cost_in_cents, order_item.subscription.total_tax_amount))
         batch.save
       end
     end
