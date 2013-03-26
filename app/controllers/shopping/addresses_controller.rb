@@ -1,5 +1,6 @@
 class Shopping::AddressesController < Shopping::BaseController
   helper_method :countries, :phone_types
+  before_filter :ensure_in_united_states
   # GET /shopping/addresses
   def index
     if session_cart.shopping_cart_items.empty?

@@ -1,5 +1,6 @@
 class Shopping::ShippingMethodsController < Shopping::BaseController
   # GET /shopping/shipping_methods
+  before_filter :ensure_in_united_states
   def index
     if session_cart.shopping_cart_items.empty?
       flash[:notice] = I18n.t('do_not_have_anything_in_your_cart')

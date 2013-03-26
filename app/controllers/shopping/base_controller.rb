@@ -12,6 +12,13 @@ class Shopping::BaseController < ApplicationController
 
   private
 
+  def ensure_in_united_states
+    if current_user.country_id != Country::USA_ID
+      flash[:alert] = 'Sorry, UFCFIT is only processing orders for customers in the United States.'
+      redirect_to preorders_url
+    end
+  end
+
   def display_shipping_warning?
     true
   end
