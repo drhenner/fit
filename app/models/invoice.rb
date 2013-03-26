@@ -80,20 +80,25 @@ class Invoice < ActiveRecord::Base
     event :payment_captured do
       transition :from => :authorized,
                   :to   => :paid
+      transition :from => :preordered,
+                  :to   => :paid
     end
     event :payment_charge do
       transition :from => :payment_declined,
                   :to   => :paid
       transition :from => :pending,
                   :to   => :paid
+      transition :from => :preordered, :to   => :paid
     end
     event :transaction_declined do
       transition :from => :pending,
                   :to   => :payment_declined
       transition :from => :payment_declined,
                   :to   => :payment_declined
+      transition :from => :preordered,
+                  :to   => :payment_declined
       transition :from => :authorized,
-                  :to   => :authorized
+                  :to   => :payment_declined
     end
 
     event :cancel do

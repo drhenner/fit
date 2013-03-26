@@ -124,6 +124,7 @@ Hadean::Application.routes.draw do
       resources  :orders do
         member do
           put :create_shipment
+          put :collect
         end
         resources  :comments
       end

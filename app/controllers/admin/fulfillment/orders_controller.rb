@@ -27,6 +27,27 @@ class Admin::Fulfillment::OrdersController < Admin::Fulfillment::BaseController
     end
   end
 
+  def collect
+    # Collect payment for preorders
+    @order = Order.includes(:order_items).find(params[:id])
+    unless @order.paid?
+      if @order.all_in_stock?
+        Order.transaction do
+          @order.pay!
+          @order.update_inventory
+
+          invoice_statement = Invoice.where('order_id = ?', @order.id).last
+          invoice_statement.capture_stripe_customer_payment(invoice_statement.customer_token)
+        end
+      else
+        flash[:alert] = 'This order is not ready.  Some items are not in stock!'
+      end
+    else
+      flash[:alert] = 'This order has already been paid!'
+    end
+    redirect_to edit_admin_fulfillment_order_url(@order)
+  end
+
   # PUT /admin/fulfillment/orders/1
   def update
     @order    = Order.find_by_id(params[:id])
