@@ -46,7 +46,7 @@ class OrderItem < ActiveRecord::Base
     state 'unpaid'
 
     event :pay do
-      transition :to => 'paid', :from => ['unpaid', 'preorder']
+      transition :to => 'paid', :from => ['unpaid', 'preordered']
     end
 
     event :preorder do
@@ -54,7 +54,7 @@ class OrderItem < ActiveRecord::Base
     end
 
     event :cancel do
-      transition :to => 'canceled', :from => ['unpaid', 'preorder', 'paid']
+      transition :to => 'canceled', :from => ['unpaid', 'preordered', 'paid']
     end
 
     event :return do
