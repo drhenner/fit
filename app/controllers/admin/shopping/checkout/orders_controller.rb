@@ -54,6 +54,8 @@ class Admin::Shopping::Checkout::OrdersController < Admin::Shopping::Checkout::B
       flash[:alert] = I18n.t('the_order_purchased')
       redirect_to admin_history_order_url(@order)
     elsif payment_profile
+      @order.payment_profile = @payment_profile
+      @order.save
       if invoice = @order.create_invoice(@credit_card,
                                           @order.credited_total,
                                           payment_profile,
