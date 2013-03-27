@@ -1,5 +1,5 @@
 class Shopping::BillingAddressesController < Shopping::BaseController
-  helper_method :countries
+  helper_method :countries, :phone_types
   # GET /shopping/addresses
   def index
     if session_cart.shopping_cart_items.empty?
@@ -7,6 +7,7 @@ class Shopping::BillingAddressesController < Shopping::BaseController
       redirect_to products_url and return
     end
     @form_address = @shopping_address = Address.new
+    @form_address.phones.build
     if !Settings.require_state_in_address && countries.size == 1
       @shopping_address.country = countries.first
     end
@@ -78,6 +79,10 @@ class Shopping::BillingAddressesController < Shopping::BaseController
 
   def selected_checkout_tab(tab)
     tab == 'billing-address'
+  end
+
+  def phone_types
+    @phone_types ||= PhoneType.all.map{|p| [p.name, p.id]}
   end
 
   def form_info
