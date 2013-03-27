@@ -1,6 +1,11 @@
 <li class="active"><%#=  link_to site_name, :root %></li>
-<li><%= link_to 'History', admin_history_orders_path %></li>
-<li><%= link_to 'Orders', admin_shopping_carts_path %></li>
+<li class="has-dropdown">
+  <%= link_to 'Orders', admin_history_orders_path %>
+  <ul class="dropdown">
+    <li><%= link_to 'New Order', admin_shopping_carts_path %></li>
+    <li><%= link_to 'Old Orders', admin_history_orders_path %></li>
+  </ul>
+</li>
 <li class="has-dropdown">
   <%= link_to 'Merchandise', admin_merchandise_products_path %>
   <ul class="dropdown">
