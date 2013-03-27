@@ -20,11 +20,7 @@
       </ul>
 
       <b><%= item.state.upcase %></b>
-      <% if item.paid? && !item.shipped? %>
-        <%= link_to 'Ship Item Individually!',
-                    admin_fulfillment_partial_order_shipments_path( @order, :order_item_ids => [item.id]),
-                    :method => 'POST', :class => 'small button' %>
-      <% end %>
+
     <% end %>
 <hr/>
     <% if @order.paid? && @order.order_items.any?(&:unshipped?) %>
@@ -88,9 +84,11 @@
          <%= link_to 'View RMAs', admin_rma_order_return_authorizations_path(@order),
                                   :class => 'button ' %>
          <br/><br/>
-      <% else %>
+      <% elsif @order.shipped? %>
         <%= link_to 'Create RMA', new_admin_rma_order_return_authorization_path(@order),
                                   :class => 'button ' %>
+      <% else %>
+        <p>This order has not shipped yet.</p>
       <% end %>
     </div>
   </div>
