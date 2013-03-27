@@ -3,7 +3,7 @@
   <%#= javascript_include_tag "admin/index_grid" %>
 <% end %>
 
-<% content_for :sidemenu do %>
+<% content_for :right_side_bar do %>
   <div class='admin_filters'>
     <%= form_tag admin_shopping_users_path, :method => 'get', :id => "shopping_users_search" do %>
       <p>
