@@ -14,7 +14,7 @@ class Admin::Inventory::PurchaseOrdersController < Admin::BaseController
 
   # GET /purchase_orders/new
   def new
-    @purchase_order = PurchaseOrder.new
+    @purchase_order = PurchaseOrder.new(:total_cost => 0.0)
     form_info
     if @select_suppliers.empty?
       flash[:notice] = 'You need to have a supplier before you can create a purchase order.'
