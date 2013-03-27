@@ -49,8 +49,7 @@ gem 'stripe'
 gem 'will_paginate', '~> 3.0.4'
 
 #gem 'memcache-client', '~> 1.8.5'
-group :production do
-  #gem 'mysql2', '~> 0.3.10'
+group :production, :staging do
   gem 'pg'
   gem "airbrake"
 end
