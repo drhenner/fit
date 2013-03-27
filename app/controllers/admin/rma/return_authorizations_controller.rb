@@ -42,6 +42,7 @@ class Admin::Rma::ReturnAuthorizationsController < Admin::Rma::BaseController
       if @return_authorization.save
         redirect_to(admin_rma_order_return_authorization_url(@order, @return_authorization), :notice => 'Return authorization was successfully created.')
       else
+        @stripe_charge = Stripe::Charge.retrieve(@order.completed_invoices.last.charge_token) if @order.completed_invoices.last.try(:charge_token)
         form_info
         render :action => "new"
       end
