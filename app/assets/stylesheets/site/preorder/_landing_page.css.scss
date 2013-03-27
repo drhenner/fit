@@ -17,6 +17,9 @@
 
   .member-info {
     text-align: center;
+    h3 {
+      font-size: 22px;
+    }
     .member-name {
       font-size: 18px;
       font-weight: 500;
@@ -30,6 +33,7 @@
       margin-bottom: 15px;
     }
     .member-description {
+      color:#FF0000;
       border-top:1px solid #e5e5e5;
       border-bottom:1px solid #e5e5e5;
       padding: 20px 5px;
