@@ -16,7 +16,9 @@
       <div class="twelve columns">
         <div class="row">
           <div class="twelve columns text-center">
-            <%= image_tag 'preorder/team.jpg', :width => 1080, :height => 450  %>
+            <%= link_to preorders_path, :method => 'post' do %>
+              <%= image_tag 'preorder/team.jpg', :width => 1080, :height => 450  %>
+            <% end %>
           </div>
 
           <div class="twelve columns text-center">
