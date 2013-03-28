@@ -24,9 +24,29 @@ module ROReReports
          end
       end
 
-         #send_data csv_string,
-         #:type => 'text/csv; charset=iso-8859-1; header=present',
-         #:disposition => "attachment; filename=users.csv"
+      puts "'##########################{Rails.env}###########################'"
+
+      time_now = Time.zone.now
+      file = Tempfile.new("accounting_#{time_now.year}_#{time_now.month}_#{time_now.day}_#{time_now.hour}_#{time_now.minute}.csv")
+      file.write(csv_string)
+
+      file.close
+      file.unlink    # deletes the temp file
+      puts "'######################### THATS ALL FOLKS ###########################'"
+    end
+
+    def save_file(file, file_type = ExportType::MONTHLY_ACCOUNTING)
+      new_doc = ExportDocument.new(
+                        :export_type_id => file_type,
+                        :doc            => file)
+      new_doc.save
+      if new_doc.errors.present?
+        puts '-----------------------------------'
+        puts ' new_doc.errors.full_messages'
+        puts new_doc.errors.full_messages
+        puts '-----------------------------------'
+      end
+      new_doc
     end
 
     def revenue
