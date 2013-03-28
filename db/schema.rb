@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130326185449) do
+ActiveRecord::Schema.define(:version => 20130328190048) do
 
   create_table "accounting_adjustments", :force => true do |t|
     t.integer  "adjustable_id",                                 :null => false
@@ -171,6 +171,23 @@ ActiveRecord::Schema.define(:version => 20130326185449) do
   add_index "deals", ["buy_quantity"], :name => "index_deals_on_buy_quantity"
   add_index "deals", ["deal_type_id"], :name => "index_deals_on_deal_type_id"
   add_index "deals", ["product_type_id"], :name => "index_deals_on_product_type_id"
+
+  create_table "export_documents", :force => true do |t|
+    t.integer  "export_type_id"
+    t.text     "info"
+    t.string   "doc_file_name"
+    t.string   "doc_content_type"
+    t.integer  "doc_file_size"
+    t.datetime "doc_updated_at"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "export_documents", ["export_type_id"], :name => "index_export_documents_on_export_type_id"
+
+  create_table "export_types", :force => true do |t|
+    t.string "name"
+  end
 
   create_table "image_groups", :force => true do |t|
     t.string   "name"
