@@ -52,6 +52,7 @@ gem 'will_paginate', '~> 3.0.4'
 group :production, :staging do
   gem 'pg'
   gem "airbrake"
+  # gem 'rails3_serve_static_assets', github: 'heroku/rails3_serve_static_assets'
 end
 
 group :development do
