@@ -27,15 +27,16 @@ module ROReReports
       puts "'##########################{Rails.env}###########################'"
 
       time_now = Time.zone.now
-      file = Tempfile.new("accounting_#{time_now.year}_#{time_now.month}_#{time_now.day}_#{time_now.hour}_#{time_now.minute}.csv")
+      file = Tempfile.new("accounting_#{time_now.year}_#{time_now.month}_#{time_now.day}_#{time_now.hour}_#{time_now.strftime("%M_%S")}.csv")
       file.write(csv_string)
+      save_file(file)
 
       file.close
       file.unlink    # deletes the temp file
       puts "'######################### THATS ALL FOLKS ###########################'"
     end
 
-    def save_file(file, file_type = ExportType::MONTHLY_ACCOUNTING)
+    def self.save_file(file, file_type = ExportType::MONTHLY_ACCOUNTING_ID)
       new_doc = ExportDocument.new(
                         :export_type_id => file_type,
                         :doc            => file)
