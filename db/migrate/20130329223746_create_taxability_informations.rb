@@ -3,8 +3,6 @@ class CreateTaxabilityInformations < ActiveRecord::Migration
     create_table :taxability_informations do |t|
       t.string :name
       t.string :code
-
-      t.timestamps
     end
   end
 end
