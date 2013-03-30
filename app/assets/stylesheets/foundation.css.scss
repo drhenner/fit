@@ -24,7 +24,7 @@ $tab-fill:#CC0000; /* #2ba6cb */
 
 html { font-size: 62.5%; }
 
-body { background: white; font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; font-weight: normal; font-style: normal; font-size: 14px; line-height: 1; color: #222222; position: relative; -webkit-font-smoothing: antialiased; }
+body { background: white; font-family: "Helvetica", Helvetica, Arial, sans-serif; font-weight: normal; font-style: normal; font-size: 14px; line-height: 1; color: #222222; position: relative; -webkit-font-smoothing: antialiased; }
 
 /* Links ---------------------- */
 a { color: $a-link; text-decoration: none; line-height: inherit; }
@@ -388,7 +388,7 @@ that IE7/8 do not support :nth-child.
 .block-grid.twelve-up > li:nth-child(12n+1) { clear: both; }
 
 /* Normal Buttons box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset; ---------------------- */
-.button { @include box-shadow(#666 3px 3px 0px rgba(0, 0, 0, .1)); width: auto; background: $a-button-link; border: 1px solid $a-button-border; color: white; cursor: pointer; display: inline-block; text-transform:uppercase; font-family: helvetica, sans-serif; font-weight: 500; font-size: 14px;  line-height: 1; margin: 0; outline: none; padding: 10px 20px 11px; position: relative; text-align: center; text-decoration: none; -webkit-transition: background-color 0.15s ease-in-out; -moz-transition: background-color 0.15s ease-in-out; -o-transition: background-color 0.15s ease-in-out; transition: background-color 0.15s ease-in-out; /* Hovers */ /* Sizes */ /* Colors */ /* Radii */ /* Layout */ /* Disabled ---------- */ }
+.button { @include box-shadow(#666 3px 3px 0px rgba(0, 0, 0, .1)); width: auto; background: $a-button-link; border: 1px solid $a-button-border; color: white; cursor: pointer; display: inline-block; text-transform:uppercase; font-family: "Helvetica", Helvetica, Arial, sans-serif; font-weight: 500; font-size: 14px;  line-height: 1; margin: 0; outline: none; padding: 10px 20px 11px; position: relative; text-align: center; text-decoration: none; -webkit-transition: background-color 0.15s ease-in-out; -moz-transition: background-color 0.15s ease-in-out; -o-transition: background-color 0.15s ease-in-out; transition: background-color 0.15s ease-in-out; /* Hovers */ /* Sizes */ /* Colors */ /* Radii */ /* Layout */ /* Disabled ---------- */ }
 .button:hover { color: white; background-color: $a-button-hover-link; border: 1px solid $a-button-hover-border; }
 .button:active { -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2) inset; -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2) inset; box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2) inset; }
 .button:focus { -webkit-box-shadow: 0 0 4px $a-button-link, 0 1px 0 rgba(255, 255, 255, 0.5) inset; -moz-box-shadow: 0 0 4px $a-button-link, 0 1px 0 rgba(255, 255, 255, 0.5) inset; box-shadow: 0 0 4px $a-button-link, 0 1px 0 rgba(255, 255, 255, 0.5) inset; color: white; }
