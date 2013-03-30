@@ -40,6 +40,7 @@ class Variant < ActiveRecord::Base
   belongs_to :subscription_plan
   belongs_to :image_group
   belongs_to :variant
+  belongs_to :taxability_information
 
   before_validation :create_inventory, :on => :create
 

@@ -62,9 +62,9 @@ ExportType::NAMES.each do |name|
 end
 
 TaxabilityInformation::CODES.each_pair do |name, code|
-  et = ExportType.where(:name => name).first
+  et = TaxabilityInformation.where(:name => name).first
   unless et
-    ExportType.create(:name => name, :code => code)
+    TaxabilityInformation.create(:name => name, :code => code)
   end
 end
 
