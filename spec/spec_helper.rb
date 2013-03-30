@@ -5,7 +5,7 @@ require 'rspec/rails'
 #require 'shoulda/integrations/rspec2' # Add this line
 require "authlogic/test_case"
 #require 'shoulda'
-require 'mocha'
+require 'mocha/setup'
 require "email_spec"
 #require 'capybara/rspec'
 
