@@ -1,143 +1,121 @@
 <% content_for :head do -%>
-
 <% end %>
 
 <% content_for :bottom do -%>
 <% end %>
 
-
-
 <div id="preorder-landing-wrapper"><!-- Begin Main Wrapper -->
 
-<!-- Region 5 Wrap -->
-
+  <!-- Region 5 Wrap -->
   <div class="container region5wrap top20 bottom20">
-    <div class="row maincontent ">
-      <div class="twelve columns">
-        <div class="row">
-          <div class="twelve columns text-center">
-            <%= link_to preorders_path, :method => 'post' do %>
-              <%= image_tag 'preorder/team.jpg', :width => 1080, :height => 450  %>
-            <% end %>
-          </div>
-
-          <div class="twelve columns">
-            <hr class="top10"/>
-          </div>
-
-          <!--success stories 3 start-->
-          <div class="row">
-
-            <div class="four columns">
-              <div class="member-info">
-                <h3>"The program catapulted me into<br />the lifestyle I’ve always wanted." </h3>
-                  <%= image_tag "preorder/durrell.jpg" %>
-                  <h2 class="member-name ">Durrell M.</h2>
-                  <div class='top20 bottom20'> &nbsp; </div>
-                  <h4><span class="member-description"><b>Weight Loss: 42.6 pounds</b></span></h4>
-
-                </div>
-            </div>
-
-            <div class="four columns"><div class="member-info"><h3>"I lost 21 pounds, which I never<br />thought would happen."</h3>
-                <%= image_tag "preorder/vanessa.jpg" %>
-
-                  <h2 class="member-name bottom20">Vanessa L.</h2>
-                  <div class='top20 bottom20'> &nbsp; </div>
-                  <h4><span class="member-description"><b>Weight Loss: 21 pounds</b></span></h4>
-
-                </div></div>
-
-                <div class="four columns"><div class="member-info"><h3>"I've reversed the clock<br />with UFC FIT."</h3>
-                <%= image_tag "preorder/nelson.jpg" %>
-                <h2 class="member-name bottom20">Nelson M.</h2>
-                <div class='top20 bottom20'> &nbsp; </div>
-                <h4><span class="member-description"><b>Weight Loss: 30.8 pounds</b></span></h4>
-
-              </div></div>
-
-            </div>
-
-          <!--success stories 3 end -->
-          <div class=' bottom20'> &nbsp; </div>
-        <div class="twelve columns text-center">
-          <h2 class=" top20 bottom20">For 12 weeks, they gave the UFC FIT program their best effort. <br />When it ended, these "ordinary people" showed extraordinary results that<br />far exceeded even their own wildest expectations.</h2>
-        </div>
-
-        <!--video start-->
-            <div class="twelve columns top20 bottom20" style="background-color:#c30615;">
-
-              <h1><span style="color:#fff;">UFC FIT SNEAK PEAK</span></h1>
-
-              <div class="row">
-
-                <div class="nine columns">
-                  <div class="flex-video widescreen">
-                    <iframe width="560"
-                            height="315"
-                            src="https://www.youtube-nocookie.com/embed/7j6WC3pGQeY?rel=0"
-                            frameborder="0" allowfullscreen="">
-                    </iframe>
-                  </div>
-                </div>
-
-                <div class="three columns">
-
-                  <p style="color:#fff;">
-                    <h3 style="color:white;text-transform:uppercase;">Are you motivated to do better? To look better? To perform better? Do you want to wake up each day proud of your own efforts? <br /><br />Today is the day! You made the choice. You made that first step.<br /><br /><b>YOU COMMITTED!</b></h3>
-                  </p>
-
-                </div>
-
-              </div>
-              <br />
-              <br />
-            </div>
-
-          <!--video end-->
-
-              <div class="twelve columns text-center">
-
-
-                <h2 class=' top20 bottom20'>You have the opportunity to change your life and be the person you deserve to be. Our goal is to provide all the tools necessary for you to lose weight, gain strength, increase flexibility, extend endurance and achieve boundless energy.</h2>
-              </div>
-              <div class="twelve columns text-center">
-                <%= link_to preorders_path, :method => 'post' do %>
-                  <%= image_tag 'preorder/PreOrder_package.jpg', :width => "1000", :height => "428" %>
-                <% end %>
-              </div>
-
-                        <!-- Portfolio Item Description -->
-              <%= image_tag 'after_pre-order.png', :width => "1080", :height => "450", :style => 'margin-left:30px;' %>
-              <!-- End Portfolio Item Description -->
-
-              <!-- Portfolio Item - Similar Works -->
-              <div class="twelve columns">
-                <hr class="bottom10"/>
-              </div>
-
-              <div class="twelve columns text-center">
-                <%= image_tag 'preorder/Dolce_Lifestyle.png'%>
-              </div>
-
-
-
-            </div>
-          </div>
-        </div>
-                    <!-- End Portfolio Item - Similar Works -->
+    <div class="maincontent ">
+      <div class="text-center">
+        <%= link_to preorders_path, :method => 'post' do %>
+          <%= image_tag 'preorder/team.jpg', :width => 1000, :height => 450  %>
+        <% end %>
       </div>
+
+      <div class="twelve columns">
+        <hr class="top10"/>
+      </div>
+
+      <!--success stories 3 start-->
+      <div class="twelve columns" style="overflow: hidden; padding: 0;">
+        <div class="row">
+
+          <div class="four columns">
+            <div class="member-info">
+              <h3>"The program catapulted me into<br />the lifestyle I’ve always wanted." </h3>
+              <%= image_tag "preorder/durrell.jpg" %>
+              <h2 class="member-name ">Durrell M.</h2>
+              <div class='top20 bottom20'> &nbsp; </div>
+              <h4><span class="member-description"><b>Weight Loss: 42.6 pounds</b></span></h4>
+            </div>
+          </div>
+
+          <div class="four columns">
+            <div class="member-info"><h3>"I lost 21 pounds, which I never<br />thought would happen."</h3>
+              <%= image_tag "preorder/vanessa.jpg" %>
+              <h2 class="member-name bottom20">Vanessa L.</h2>
+              <div class='top20 bottom20'> &nbsp; </div>
+              <h4><span class="member-description"><b>Weight Loss: 21 pounds</b></span></h4>
+            </div>
+          </div>
+
+          <div class="four columns">
+            <div class="member-info"><h3>"I've reversed the clock<br />with UFC FIT."</h3>
+              <%= image_tag "preorder/nelson.jpg" %>
+              <h2 class="member-name bottom20">Nelson M.</h2>
+              <div class='top20 bottom20'> &nbsp; </div>
+              <h4><span class="member-description"><b>Weight Loss: 30.8 pounds</b></span></h4>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!--success stories 3 end -->
+
+      <div class=' bottom20'> &nbsp; </div>
+
+      <div class="twelve columns text-center">
+        <h2 class=" top20 bottom20">For 12 weeks, they gave the UFC FIT program their best effort. <br />When it ended, these "ordinary people" showed extraordinary results that<br />far exceeded even their own wildest expectations.</h2>
+      </div>
+
+      <!--video start-->
+      <div class="twelve columns top20 bottom20" style="background-color:#c30615;">
+        <h1><span style="color:#fff;">UFC FIT SNEAK PEAK</span></h1>
+
+        <div class="row">
+          <div class="nine columns">
+            <div class="flex-video widescreen">
+              <iframe width="560"
+                height="315"
+                src="https://www.youtube-nocookie.com/embed/7j6WC3pGQeY?rel=0"
+                frameborder="0" allowfullscreen="">
+              </iframe>
+            </div>
+          </div>
+
+          <div class="three columns">
+            <p style="color:#fff;">
+              <h3 style="color:white;text-transform:uppercase;">Are you motivated to do better? To look better? To perform better? Do you want to wake up each day proud of your own efforts? <br /><br />Today is the day! You made the choice. You made that first step.<br /><br /><b>YOU COMMITTED!</b></h3>
+            </p>
+          </div>
+
+        </div>
+        <br />
+        <br />
+      </div>
+      <!--video end-->
+
+      <div class="twelve columns text-center">
+        <h2 class=' top20 bottom20'>You have the opportunity to change your life and be the person you deserve to be. Our goal is to provide all the tools necessary for you to lose weight, gain strength, increase flexibility, extend endurance and achieve boundless energy.</h2>
+      </div>
+
+      <div class="twelve columns text-center">
+        <%= link_to preorders_path, :method => 'post' do %>
+          <%= image_tag 'preorder/PreOrder_package.jpg', :width => "1000", :height => "428" %>
+        <% end %>
+      </div>
+
+      <!-- Portfolio Item Description -->
+      <%= image_tag 'after_pre-order.png', :width => "1000", :height => "450" %>
+      <!-- End Portfolio Item Description -->
+
+      <!-- Portfolio Item - Similar Works -->
+      <div class="twelve columns">
+        <hr class="bottom10"/>
+      </div>
+
+      <div class="twelve columns text-center">
+        <%= image_tag 'preorder/Dolce_Lifestyle.png'%>
+      </div>
+      <!-- End Portfolio Item - Similar Works -->
     </div>
-  </div>
-  <!-- Back To Top -->
+
+    <!-- Back To Top -->
     <a href="#" class="scrollup">Scroll</a>
-  <!-- End Back To Top -->
-</div>
+    <!-- End Back To Top -->
 
-<!-- End Region 5 Wrap -->
-
-
-
-
-
+  </div><!-- End Region 5 Wrap -->
 </div><!-- End Main Wrapper -->
