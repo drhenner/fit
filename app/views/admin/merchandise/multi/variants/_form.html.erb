@@ -23,7 +23,8 @@
         </tr><tr>
           <td>Images  </td><td> <%= ff.select :image_group_id, image_groups,{ :include_blank => true, :prompt => "Defaults to product's images" } %> </td>
         </tr><tr>
-
+          <td>Tax Code  </td><td> <%= ff.select :taxability_information_id, taxability_informations,{ :include_blank => true } %> </td>
+        </tr><tr>
           <td>Subscription  </td><td> <%= ff.select :subscription_plan_id, subscription_plans,{ :include_blank => true } %> </td>
         </tr><tr>
           <td>Brand </td><td> <%= ff.select :brand_id, @brands, { :include_blank => true } %> </td>
@@ -84,7 +85,9 @@
         </tr><tr>
           <td>Images  </td><td> <%= ff.select :image_group_id, image_groups,{ :include_blank => true, :prompt => "Defaults to product's images" } %> </td>
         </tr><tr>
-          <td>Subscription  </td><td> <%= ff.select :subscription_plan_id, subscription_plans,{ :include_blank => true }, :class => 'span-3' %> </td>
+          <td>Tax Code  </td><td> <%= ff.select :taxability_information_id, taxability_informations,{ :include_blank => true } %> </td>
+        </tr><tr>
+          <td>Subscription  </td><td> <%= ff.select :subscription_plan_id, subscription_plans,{ :include_blank => true } %> </td>
         </tr><tr>
           <td>Brand </td><td> <%= ff.select :brand_id, @brands, { :include_blank => true }, :class => 'span-3' %> </td>
         </tr>

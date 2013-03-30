@@ -39,11 +39,13 @@ class Variant < ActiveRecord::Base
   belongs_to :inventory
   belongs_to :subscription_plan
   belongs_to :image_group
+  belongs_to :variant
 
   before_validation :create_inventory, :on => :create
 
   #validates :name,        :presence => true
 
+  validates :taxability_information_id,  :presence => true
   validates :inventory_id, :presence => true
   validates :price,       :presence => true
   validates :product_id,  :presence => true
