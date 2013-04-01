@@ -129,7 +129,7 @@ class Variant < ActiveRecord::Base
   end
 
   def self.default_preorder_item_ids
-    joins(:product).where("products.product_type_id IN (?)", ProductType.main_preorder_product_type_ids).pluck("variants.id")
+    joins(:product).active.where("products.product_type_id IN (?)", ProductType.main_preorder_product_type_ids).pluck("variants.id")
   end
 
   def self.default_preorder_item
