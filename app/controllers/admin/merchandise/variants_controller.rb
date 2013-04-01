@@ -1,5 +1,5 @@
 class Admin::Merchandise::VariantsController < Admin::BaseController
-  helper_method :sort_column, :sort_direction
+  helper_method :sort_column, :sort_direction, :taxability_informations, :subscription_plans
   respond_to :html, :json
   def index
     @product = Product.find(params[:product_id])
@@ -74,6 +74,14 @@ class Admin::Merchandise::VariantsController < Admin::BaseController
 
     def sort_direction
       %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    end
+
+    def subscription_plans
+      @subscription_plans ||= SubscriptionPlan.all.collect{|b| [b.name, b.id] }
+    end
+
+    def taxability_informations
+      @taxability_informations ||= TaxabilityInformation.all.collect{|b| ["#{b.name}(#{b.code})", b.id] }
     end
 
 end

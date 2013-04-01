@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 ## Bundle rails:
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.13'
 #gem 'heroku-api'
 #gem 'heroku'
 #gem 'taps'
@@ -15,7 +15,7 @@ end
 gem "american_date", '~> 1.0'
 gem 'authlogic'#, "3.2.0"
 #gem "asset_sync"
-gem 'aws-sdk'
+gem 'aws-sdk', '~> 1.8.5'
 gem 'bluecloth',     '~> 2.1.0'
 gem 'cancan', '~> 1.6.8'
 gem 'compass', '~> 0.12.2'
@@ -23,7 +23,7 @@ gem 'compass-rails'
 gem 'chronic'
 gem 'dalli'#, '~> 1.0.2'
 
-gem 'dynamic_form'
+gem 'dynamic_form', '~> 1.1.4'
 gem "friendly_id", "~> 3.3"
 gem 'haml',  ">= 3.0.13"#, ">= 3.0.4"#, "2.2.21"#,
 gem "jquery-rails"
@@ -52,6 +52,7 @@ gem 'will_paginate', '~> 3.0.4'
 group :production, :staging do
   gem 'pg'
   gem "airbrake"
+  # gem 'rails3_serve_static_assets', github: 'heroku/rails3_serve_static_assets'
 end
 
 group :development do
@@ -75,7 +76,7 @@ end
 group :test do
   gem 'factory_girl', "~> 3.3.0"
   gem 'factory_girl_rails', "~> 3.3.0"
-  gem 'mocha', '~> 0.10.0', :require => false
+  gem 'mocha', '~> 0.13.3', :require => false
   gem 'rspec-rails-mocha'
   gem 'rspec-rails', '~> 2.12.2'
 

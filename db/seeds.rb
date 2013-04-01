@@ -61,6 +61,13 @@ ExportType::NAMES.each do |name|
   ExportType.find_or_create_by_name(name)
 end
 
+TaxabilityInformation::CODES.each_pair do |name, code|
+  et = TaxabilityInformation.where(:name => name).first
+  unless et
+    TaxabilityInformation.create(:name => name, :code => code)
+  end
+end
+
 ShippingRateType::TYPES.each do |rate_type|
   ShippingRateType.find_or_create_by_name(rate_type)
 end

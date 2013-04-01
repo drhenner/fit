@@ -8,6 +8,7 @@ FactoryGirl.define do
     deleted_at    nil
     master        false
     inventory   { |c| c.association(:inventory) }
+    taxability_information   { TaxabilityInformation.first }
     #count_on_hand             10000
     #count_pending_to_customer 1000
     #count_pending_from_supplier 900
@@ -23,6 +24,7 @@ FactoryGirl.define do
     deleted_at    nil
     master        false
     inventory     { |c| c.association(:inventory) }
+    taxability_information   { TaxabilityInformation.first }
     #count_on_hand             10000
     #count_pending_to_customer 1000
     #count_pending_from_supplier 900

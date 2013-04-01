@@ -18,6 +18,7 @@ describe Myaccount::OrdersController do
   end
 
   it "show action should render show template" do
+    Stripe::Customer.stubs(:create).returns({'id' => 'testTOKEN'})
     Stripe::Customer.stubs(:retrieve).returns(stripe_retrieve_response)
     payment_profile = FactoryGirl.create(:payment_profile)
     @order = build(:order, :user => @user )

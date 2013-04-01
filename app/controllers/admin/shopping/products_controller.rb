@@ -10,11 +10,11 @@ class Admin::Shopping::ProductsController < Admin::Shopping::BaseController
   # GET /admin/order/products/1
   # GET /admin/order/products/1.xml
   def show
-    @product = Product.includes({:variants => {:variant_properties => :property} }).find(params[:id])
+    @product = Product.includes({:active_variants => {:variant_properties => :property} }).find(params[:id])
   end
 
   def edit
-    @product = Product.includes({:variants => {:variant_properties => :property} }).find(params[:id])
+    @product = Product.includes({:active_variants => {:variant_properties => :property} }).find(params[:id])
   end
 
   # PUT /admin/order/products/1

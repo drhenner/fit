@@ -61,6 +61,7 @@
           <th>Cost</th>
           <th>Brand</th>
           <th>Subscription Plan</th>
+          <th>Active</th>
           <th></th>
         </tr>
       </thead>
@@ -71,6 +72,7 @@
           <td><%= variant.cost %></td>
           <td><%= variant.brand.try(:name) %></td>
           <td><%= variant.subscription_plan_name %></td>
+          <td><%= variant.active.to_s %></td>
           <td><%= link_to '2', admin_merchandise_product_variant_path(@product, variant) %></td>
         </tr >
       <% end %>
