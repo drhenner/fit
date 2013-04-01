@@ -5,7 +5,7 @@
   Sorry This product has no variants
 <% else %>
   <%= form_tag admin_shopping_product_path(@product), :method => 'put' do %>
-    <% @product.variants.each_with_index do |variant, i| %>
+    <% @product.active_variants.each_with_index do |variant, i| %>
       <div class='panel product_admin_panel'>
         <ul  id='variant-<%= i %>'
               class='<%= cycle("odd", "even") %> clear  clearfix panel radius' style='margin-bottom:20px;'>
@@ -14,7 +14,7 @@
             <% variant.variant_properties.each do |vp| %>
               <label><%= vp.property.display_name %></label> <%= vp.description %><br/>
             <% end %>
-            <b><%= number_to_currency( variant.price ) %></b>
+            <b><label>Price: </label> <%= number_to_currency( variant.price ) %></b>
           </li>
           <li class='four large-4 columns'>
             Qty in Stock: <%= variant.display_stock_status %>(<%= variant.quantity_available %>)

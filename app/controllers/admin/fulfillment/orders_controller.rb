@@ -46,6 +46,8 @@ class Admin::Fulfillment::OrdersController < Admin::Fulfillment::BaseController
       flash[:alert] = 'This order has already been paid!'
     end
     redirect_to edit_admin_fulfillment_order_url(@order)
+  rescue Stripe::CardError => e
+    flash[:alert] = e.message
   end
 
   # PUT /admin/fulfillment/orders/1

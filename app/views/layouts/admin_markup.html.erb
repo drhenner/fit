@@ -38,7 +38,7 @@
 
   </div>
 
-  <div class="container" style='width:1080px;<%= "background: #ffd;" unless Rails.env == "production" %>'>
+  <div class="container" style='width:1080px;<%= "background: #f6f6ff;" unless Rails.env == "production" %>'>
     <div class=" content last" style='width:1080px;'>
       <div class=" column" style='<%= 'width:530px;' if  content_for? :sidebar %>'>
         <%= yield %>

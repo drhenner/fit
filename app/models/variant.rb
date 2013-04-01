@@ -39,11 +39,14 @@ class Variant < ActiveRecord::Base
   belongs_to :inventory
   belongs_to :subscription_plan
   belongs_to :image_group
+  belongs_to :variant
+  belongs_to :taxability_information
 
   before_validation :create_inventory, :on => :create
 
   #validates :name,        :presence => true
 
+  validates :taxability_information_id,  :presence => true
   validates :inventory_id, :presence => true
   validates :price,       :presence => true
   validates :product_id,  :presence => true
@@ -130,7 +133,7 @@ class Variant < ActiveRecord::Base
   end
 
   def self.default_preorder_item
-    includes(:product).where("products.product_type_id IN (?)", ProductType.main_preorder_product_type_ids).first || active.first
+    includes(:product).active.where("products.product_type_id IN (?)", ProductType.main_preorder_product_type_ids).first || active.first
   end
 
   def subscription_plan_name
