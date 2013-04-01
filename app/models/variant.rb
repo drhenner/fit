@@ -125,7 +125,7 @@ class Variant < ActiveRecord::Base
   end
 
   def self.active
-    includes(:product).where("products.deleted_at IS NULL OR products.deleted_at > ?", Time.zone.now)
+    includes(:product).where("products.deleted_at IS NULL OR products.deleted_at > ?", Time.zone.now).where("variants.deleted_at IS NULL")
   end
 
   def self.default_preorder_item_ids
