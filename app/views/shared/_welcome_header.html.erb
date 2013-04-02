@@ -4,8 +4,9 @@
       <!-- Title Area -->
       <li class="name">
         <h1>
-          <%= image_tag 'header/ufcfit_banner.png', :alt => 'UFCFIT', :style => 'width: 125px;' %>
-          <%#= link_to site_name, root_path %>
+          <%= link_to  root_path do %>
+            <%= image_tag 'header/ufcfit_banner.png', :alt => 'UFCFIT', :style => 'width: 125px;' %>
+          <% end %>
         </h1>
       </li>
       <li class="toggle-topbar"><a href="#"></a></li>
