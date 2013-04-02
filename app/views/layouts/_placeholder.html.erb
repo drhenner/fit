@@ -9,20 +9,17 @@
   <!-- Region 5 Wrap -->
   <div class="container region5wrap top20 bottom20">
     <div class="maincontent ">
-      <div class="preorder-banner text-center">
+      <div class="preorder-banner">
 
         <%= link_to preorders_path, :method => 'post' do %>
           <%= image_tag 'preorder/UFCfit_HomeBanner_bad.jpg', :width => 1000, :height => 349 %>
 
-          <h4><b>Mike Dolce</b>UFC FIT Creator &amp; Coach</h4>
-          <div>
-            <p><q>This is the key to changing your life. This is the chance you've always hoped for.</q>&mdash;Dana White</p>
-            <span>Pre-order now</span>
-          </div>
-
+          <h4 class="four"><b>Mike Dolce</b>UFC FIT Creator &amp; Coach</h4>
+          <blockquote class="four">"This is the key to changing your life. This is the chance you've always hoped for."<cite>Dana White</cite></blockquote>
+          <span  class="text-center four">Pre-order now</span>
         <% end %>
 
-        <h2 class="column">Fast-paced, high-intensity, action-packed workouts mimic the pace of a UFC competition with familiar movements used in the Octagon.</h2>
+        <h2 class="column text-center">Fast-paced, high-intensity, action-packed workouts mimic the pace of a UFC competition with familiar movements used in the Octagon.</h2>
       </div>
 
       <div class="twelve columns">
@@ -103,17 +100,51 @@
       </div>
 
       <!-- Portfolio Item Description -->
-      <%= image_tag 'after_pre-order.png', :width => "1000", :height => "450" %>
+      <div class="twelve columns after-preorder">
+        <div class="row">
+          <div class="six columns">
+            <p>The UFC FIT lifestyle program is based on the same methods the world's greatest athletes use to prepare for battle in the Octagon.</p>
+            <p>We understand your daily battle might be in the office, at home or in the classroom. Though the opponent may change, the plan of attack remains the same. The exercises you perform in your home will be many of the same exercises your favorite fighters perform in the gym to ensure their own peak physical conditions.</p>
+            <p>The only UFC-endorsed training program, UFC FIT™ guides you through the training regimen followed by elite UFC athletes. UFC FIT creator and coach Mike Dolce will help you lose weight, gain strength and increase your energy. See amazing results in 12 weeks, all in your home.</p>
+          </div>
+          <div class="six columns lifestyle-program">
+            <h2>The complete UFC FIT lifestyle program</h2>
+            <ul class="square">
+              <li>12 workout DVDs</li>
+              <li>12-week Workout Tracker</li>
+              <li>132-page Lifestyle &amp;&nbsp;Nutrition Manual<span>Complete with training tips, a grocery list, meal plans and healthy, delicious recipes</span></li>
+              <li>Plus, get a jump start on weight loss with 3-Day Shred</li>
+            </ul>
+          </div>
+        </div>
+      </div>
       <!-- End Portfolio Item Description -->
 
       <!-- Portfolio Item - Similar Works -->
       <div class="twelve columns">
-        <hr class="bottom10"/>
+        <hr class="bottom20"/>
       </div>
 
-      <div class="twelve columns text-center">
-        <%= image_tag 'preorder/Dolce_Lifestyle.png'%>
-      </div>
+      <div class="twelve columns dolce-lifestyle">
+        <div class="row">
+          <div class="seven columns">
+            <h2>So why UFC FIT?</h2>
+            <p>Simply put, the principles you'll see in this program are designed by me, a world-class coach. These principles are used with great success at a world-class level by world class athletes. No other workout program meets these standards. It is my goal to help every person live the life they deserve:</br>
+              <strong><em>to be lean, to feel confident, to be healthy</em></strong>.</p>
+
+            <h2>How bad do you want it?</h2>
+            <p>Are you willing to actually take the steps necessary to get there? I have proven results with UFC fighters.</br >
+              <strong><em>This program gives you the tools for a new lifestyle.</em></strong></p>
+          </div>
+
+          <div class="five mobile-two columns">
+            <%= image_tag 'preorder/mike.png', :width => '292', :class => 'coach' %>
+            <%= image_tag 'preorder/mike_sign.png', :width => '164', :class => 'coach-sign' %>
+          </div>
+            <%= image_tag 'preorder/btm_lines.png', :width => '1000', :class => 'bottom-line' %>
+        </div>
+        </div>
+
       <!-- End Portfolio Item - Similar Works -->
     </div>
 

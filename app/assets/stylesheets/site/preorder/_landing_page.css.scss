@@ -65,73 +65,64 @@
     margin-bottom: 1px;
   }
 }
-
+blockquote {border-left: none;}
 .preorder-banner {
   a,
+  b,
   img,
   span {
     display: block;
+  }
+  a,
+  img,
+  span {
     position: relative;
   }
   h4,
-  p,
-  q,
+  blockquote,
+  cite,
   span {
     color: #fff;
-  }
-  h4,
-  p {
-    text-align: right;
   }
   h4,
   span {
     text-transform: uppercase;
   }
-  p {
+  blockquote {
     font-size: 16px;
     font-style: italic;
-    font-weight: 400;
-    margin-bottom: 40px;
-    position: absolute;
-    width: 32%;
-    padding-right: 0;
-    padding-left: 15px;
-    margin-top: -30%;
-    line-height: 1;
-  }
-  q {
-    display: block;
-    font-size: 20px;
-    font-weight: 600;
     line-height: 1.15;
-    padding-bottom: 14px;
+    text-align: right;
+    top: 20%;
+    width: 32%;
+  }
+  cite {
+    padding-top: 8px;
+  }
+  h4,
+  blockquote,
+  span {
+    position: absolute;
+  }
+  blockquote,
+  span {
+    font-weight: 700;
   }
   span {
     background-color: rgba(0, 0, 0, 0.7);
     font-size: 20px;
-    font-weight: 400;
-    position: absolute;
-    width: 27%;
-    left: 5%;
-    margin-top: -15.4%;
     line-height: 54px;
+    top: 50%;
+    width: 27%;
   }
   h4 {
     font-weight: 400;
     text-align: right;
     margin-bottom: 0;
-    position: absolute;
     line-height: 1;
-    padding-bottom: 0;
-    width: 32%;
-    margin-top: -5%;
+    top: 84%;
     font-weight: 400;
-    padding-top: 14px;
-    font-size: 14px;
-  }
-  b {
-    display: block;
-    padding-bottom: 1px;
+    padding: 0 15px;
     font-size: 14px;
   }
   div {
@@ -156,6 +147,88 @@
     text-transform: uppercase;
   }
 }
+
+.dolce-lifestyle {
+  text-align: right;
+  overflow: hidden;
+  position: relative;
+  h2 {
+    margin-bottom: 2px;
+    padding-top: 25px;
+    font-weight: 700;
+  }
+  h2,
+  p {
+    color: #636363;
+    text-transform: uppercase;
+  }
+  p {
+    font-size: 17px;
+    margin-bottom: 22px;
+  }
+  div {
+    position: relative;
+  }
+  .coach {
+    float: left;
+    margin-left: -15px;
+    margin-top: 30px;
+  }
+  .coach-sign {
+    position: absolute;
+    float: left;
+    bottom: 70px;
+    right: 9px;
+  }
+  .bottom-line {
+    margin-top: -5%;
+    float: left;
+    display: block;
+  }
+}
+
+.after-preorder {
+  overflow: hidden;
+  h2 {
+    color: #ee1c24;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 9px;
+  }
+  p {
+    text-align: right;
+    font-size: 16px;
+    color: #636363;
+    line-height: 1.3;
+    padding-top: 5px;
+    margin-bottom: 11px;
+  }
+  span {
+    display: block;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.3;
+    padding-bottom: 4px;
+  }
+  li {
+    color: #636363;
+    font-size: 21px;
+    font-style: italic;
+    font-weight: 700;
+    line-height: 1.7;
+  }
+  ul {
+    color: #ee1c24;
+    margin-left: 35px;
+  }
+}
+
+.lifestyle-program {
+  border-left: 1px solid red;
+  margin-right: -15px;
+}
+
 
 .region10wrap {
   .footer_bottom {margin-top: -5px;}
@@ -206,55 +279,95 @@
   #preorder-landing-wrapper {
     .region5wrap {
       margin-top: 2px;
+      margin-bottom: 0;
+      padding-bottom: 0;
     }
     h2 {
       font-size: 22px;
     }
     .preorder-banner {
       h2 {
-        font-size: 20px;
+        font-size: 18px;
+        letter-spacing: 0;
       }
     }
   }
   .preorder-banner {
+    div {
+      background: #000;
+    }
     span {
       background-color: #000;
-      border-top: 1px solid #fff;
-      left: 0;
-      line-height: 44px;
-      margin-top: 0;
+      // left: 0;
+      line-height: 50px;
       position: relative;
-      width: auto;
+      width: auto !important;
+      margin: 25px 15px 0;
+    }
+    blockquote {
+      display: none;
+    }
+  }
+  .after-preorder {
+    p {
+      font-size: 14px;
+      text-align: left;
+    }
+    li {
+      font-size: 18px;
+    }
+    span {
+      font-size: 16px;
+      padding-bottom: 8px;
+    }
+    ul {
+      margin-left: 20px;
+      padding-right: 15px;
+    }
+    li {
+      font-size: 18px;
+    }
+  }
+  .lifestyle-program {
+    border: none;
+    margin-right: 0;
+    padding-top: 15px;
+  }
+
+  .after-preorder h2,
+  .dolce-lifestyle h2 {
+    letter-spacing: -1px;
+  }
+  .dolce-lifestyle {
+    h2,
+    p {
+      text-align: left;
+    }
+    p {
+      font-size: 14px;
+      padding-top: 5px;
+    }
+    .coach {
+      margin-left: 10%;
+      margin-top: 0;
+      width: 80%;
+    }
+    .coach-sign {
+      right: -36%;
+      bottom: 17%;
+      width: 50%;
     }
   }
 }
 
 @media only screen and (min-width: 320px) and (max-width: 639px) {
   .preorder-banner {
-    p {
-      background-color: #fff;
-      color: #000;
-      font-size: 12px;
-      margin-bottom: 0;
-      margin-top: 0;
-      padding: 0 15px 7px;
-      position: relative;
-      font-weight: 400;
-      width: auto;
-    }
-    q {
-      color: #000;
-      font-size: 13px;
-      padding-bottom: 0;
-      padding-top: 9px;
-      text-align: left;
-    }
     h4 {
       font-size: 12px;
       font-weight: 600;
       line-height: 1;
       margin-bottom: 0;
-      margin-top: -17%;
+      top: 45%;
       padding: 0 0 0 15px;
       position: absolute;
       text-align: left;
@@ -268,25 +381,14 @@
       position: relative;
       margin-top: 1px;
     }
+    img {
+      max-width: 150%;
+      margin-left: -50%;
+    }
   }
   .video-box {
     h3 {
       font-size: 18px;
-    }
-  }
-}
-
-
-@media only screen and (min-width: 480px) and (max-width: 639px) {
-  .preorder-banner {
-    p {
-      padding: 0 60px 7px;
-      position: relative;
-      font-weight: 600;
-    }
-    q {
-      font-size: 14px;
-      line-height: 1.4;
     }
   }
 }
@@ -302,25 +404,13 @@
     h4 {
       font-size: 11px;
       font-weight: 400;
-      margin-top: -5%;
+      top: 45%;
       padding-top: 4px;
-      font-weight: 600;
-    }
-    p {
-      margin-top: -22%;
-      position: absolute;
       font-weight: 600;
     }
     b {
       padding-bottom: 1px;
-    }
-    b,
-    p {
       font-size: 13px;
-    }
-    q {
-      font-size: 15px;
-      padding-bottom: 8px;
     }
     span {
       line-height: 50px;
@@ -376,4 +466,43 @@
       font-size: 16px;
     }
   }
+  .after-preorder {
+    p {
+      font-size: 14px;
+      letter-spacing: 0;
+    }
+    li {
+      font-size: 18px;
+    }
+    span {
+      font-size: 16px;
+      padding-bottom: 12px;
+    }
+  }
 }
+
+@media only screen and (min-width: 767px) and (max-width: 1000px) {
+  .dolce-lifestyle p {
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: 1.5;
+    padding-top: 5px;
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  .dolce-lifestyle {
+    .coach {
+      margin-left: 10%;
+      width: 100%;
+    }
+    .coach-sign {
+      right: -70px;
+      bottom: 35px;
+    }
+    h2 {
+      letter-spacing: -1px;
+    }
+  }
+}
+
