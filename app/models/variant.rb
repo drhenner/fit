@@ -50,7 +50,8 @@ class Variant < ActiveRecord::Base
   validates :inventory_id, :presence => true
   validates :price,       :presence => true
   validates :product_id,  :presence => true
-  validates :sku,         :presence => true,       :length => { :maximum => 255 }
+  validates :sku,         :presence => true,      :length => { :maximum => 255 }
+  validates :small_description,                   :length => { :maximum => 255 }
 
   accepts_nested_attributes_for :variant_properties#, :inventory
 
