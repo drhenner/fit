@@ -109,7 +109,7 @@ describe Order, "instance methods" do
       @order.stubs(:calculate_totals).returns( true )
       @order.stubs(:calculated_at).returns(nil)
       tax_rate = create(:tax_rate, :percentage => 10.0 )
-      order_item = create(:order_item, :total => 5.52, :tax_rate => tax_rate )
+      order_item = create(:order_item, :price => 5.52, :total => nil, :tax_rate => tax_rate )
 
       @order.stubs(:order_items).returns([order_item, order_item])
       @order.stubs(:shipping_charges).returns(100.00)
@@ -121,7 +121,8 @@ describe Order, "instance methods" do
       # total     == 112.14 - 10.02 = 102.12
       @order.user.store_credit.amount = 10.02
       @order.user.store_credit.save
-
+@order.reload
+OrderItem.any_instance.stubs(:tax_rate=)
       @order.credited_total.should == 102.12
     end
 
@@ -129,9 +130,7 @@ describe Order, "instance methods" do
     it 'should calculate credited_total with a coupon' do
       user = create(:user)
       coupon = create(:coupon, :amount => 15.00, :expires_at => (Time.zone.now + 1.days), :starts_at => (Time.zone.now - 1.days) )
-      order = create(:order, :user => user, :coupon => coupon)
-
-      order.stubs(:calculate_totals).returns( true )
+      order = create(:order, :user => user, :coupon => coupon, :calculated_at => nil)
       order.stubs(:calculated_at).returns(nil)
 
       tax_rate = create(:tax_rate, :percentage => 10.0 )
@@ -152,7 +151,41 @@ describe Order, "instance methods" do
       order.user.store_credit.amount = 10.02
       order.user.store_credit.save
 order.reload
+OrderItem.any_instance.stubs(:tax_rate=)
       order.credited_total.should == 117.48
+    end
+
+
+    it 'should calculate credited_total with a coupon AND more than one tax rate' do
+
+      tax_rate1 = create(:tax_rate, :percentage => 10.0 )
+      tax_rate2 = create(:tax_rate, :percentage => 5.0 )
+
+      user = create(:user)
+      coupon = create(:coupon, :amount => 15.00, :expires_at => (Time.zone.now + 1.days), :starts_at => (Time.zone.now - 1.days) )
+      order = create(:order, :user => user, :coupon => coupon, :calculated_at => nil)
+      order.stubs(:calculated_at).returns(nil)
+
+      order_item2 = create(:order_item, :price => 20.00, :total => 20.00, :tax_rate_id => tax_rate2.id, :order => order )
+      order_item1 = create(:order_item, :price => 20.00, :total => 20.00, :tax_rate_id => tax_rate1.id, :order => order )
+
+      #@order.stubs(:order_items).returns([order_item1, order_item2])
+      order.stubs(:coupon).returns(coupon)
+      order.stubs(:shipping_charges).returns(100.00)
+
+
+      # shippping == 100
+      # items     == 40.00
+      # taxes     == (40.00 - 15.00) * .10 == 1.25 + 0.63 = 1.88 #
+      # credits   == 10.02
+      # total     == 141.88 - 10.02 = 131.86
+      # total - coupon     == 131.86 - 15.00 = 116.86
+      order.user.store_credit.amount = 10.02
+      order.user.store_credit.save
+order.reload
+OrderItem.any_instance.stubs(:tax_rate=)
+credited_total = order.credited_total
+credited_total.should == 116.86
     end
 
     it 'should calculate credited_total' do
@@ -191,7 +224,7 @@ order.reload
       @order.stubs(:calculate_totals).returns( true )
       @order.stubs(:calculated_at).returns(nil)
       tax_rate = create(:tax_rate, :percentage => 10.0 )
-      order_item = create(:order_item, :total => 5.52, :tax_rate => tax_rate )
+      order_item = create(:order_item, :price => 5.52, :total => nil, :tax_rate => tax_rate )
       @order.stubs(:order_items).returns([order_item, order_item])
       @order.stubs(:shipping_charges).returns(5.00)
       # shippping ==                5.00
@@ -200,7 +233,7 @@ order.reload
       # total     ==               17.14
       # @order.find_total.should == 17.14
 
-
+OrderItem.any_instance.stubs(:tax_rate=)
       @order.user.store_credit.amount = 116.05
       @order.user.store_credit.save
       @order.remove_user_store_credits
@@ -318,9 +351,10 @@ order.reload
       @order.stubs(:calculate_totals).returns( true )
       @order.stubs(:calculated_at).returns(nil)
       tax_rate = create(:tax_rate, :percentage => 10.0 )
-      order_item = create(:order_item, :total => 5.52, :tax_rate => tax_rate )
+      order_item = create(:order_item, :price => 5.52, :total => nil, :tax_rate => tax_rate )
       @order.stubs(:order_items).returns([order_item, order_item])
       @order.stubs(:shipping_charges).returns(100.00)
+      OrderItem.any_instance.stubs(:tax_rate=)
       # shippping == 100
       # items     == 11.04
       # taxes     == 11.04 * .10 == 1.10

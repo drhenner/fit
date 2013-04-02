@@ -32,6 +32,8 @@ class OrderItem < ActiveRecord::Base
   validates :variant_id,  :presence => true
   validates :order_id,    :presence => true
 
+  delegate  :coupon, :coupon_id,  :to => :order, :allow_nil => true
+
   def set_beginning_values
     @beginning_tax_rate_id      = self.tax_rate_id      rescue @beginning_tax_rate_id = nil # this stores the initial value of the tax_rate
     @beginning_shipping_rate_id = self.shipping_rate_id rescue @beginning_shipping_rate_id = nil # this stores the initial value of the tax_rate
@@ -191,11 +193,23 @@ class OrderItem < ActiveRecord::Base
   # @param [none]
   # @return [Float] this is the price that the tax will be applied to.
 
-  def adjusted_price(coupon = nil)
+  def adjusted_price(coupon_ = nil)
     ## coupon credit is calculated at the order level but because taxes we need to apply it now
     #coupon_credit = coupon ? coupon.value([sale_price(order.transaction_time)], order) : 0.0
 
-    self.price# - coupon_credit
+    self.price - adjusted_coupon_for_item(order_unadjusted_price)
+  end
+
+  def adjusted_coupon_for_item(order_unadjusted_price)
+    ((price / order_unadjusted_price) * total_coupon_value).round_at(2)
+  end
+
+  def total_coupon_value
+    @total_coupon_value ||= coupon ? coupon.value([sale_price(order.transaction_time)], order) : 0.0
+  end
+
+  def order_unadjusted_price
+    @order_unadjusted_price ||= order.order_items.sum{|oi| oi.price }
   end
 
   def sale_price(at)
@@ -215,7 +229,8 @@ class OrderItem < ActiveRecord::Base
   def item_total(coupon = nil)
     # shipping charges are calculated in order.rb
 
-    self.total ||= calculate_total(coupon)
+    #self.total ||= calculate_total(coupon)
+    (calculate_total(coupon) * tax_multiple).round_at(2)
   end
 
   # this is the price after coupons, deals and sales
@@ -236,6 +251,10 @@ class OrderItem < ActiveRecord::Base
   # @return [Float] tax charge on the item.
   def tax_charge
     adjusted_price * tax_percentage / 100.0
+  end
+
+  def tax_multiple
+    1.0 + (tax_percentage / 100.0)
   end
 
   def tax_percentage

@@ -242,6 +242,7 @@ class Order < ActiveRecord::Base
   def calculate_totals
     # if calculated at is nil then this order hasn't been calculated yet
     # also if any single item in the order has been updated, the order needs to be re-calculated
+
     if any_order_item_needs_to_be_calculated? && all_order_items_are_ready_to_calculate?
       calculate_each_order_items_total
       sub_total = total
@@ -311,16 +312,19 @@ class Order < ActiveRecord::Base
   # @param [none] the param is not used right now
   # @return [none]  Sets sub_total and total for the object
   def find_total(force = false)
-    calculate_totals if self.calculated_at.nil? || order_items.any? {|item| (item.updated_at > self.calculated_at) }
+    if self.calculated_at.nil? || order_items.any? {|item| (item.updated_at > self.calculated_at) }
+      calculate_totals
+    end
     self.deal_amount = Deal.best_qualifing_deal(self)
     self.find_sub_total
-    taxable_money     = (self.sub_total - deal_amount - coupon_amount) * ((100.0 + order_tax_percentage) / 100.0)
-    self.total        = (self.sub_total + shipping_charges - deal_amount - coupon_amount ).round_at( 2 )
+    taxable_money     = (self.sub_total - deal_amount) #* ((100.0 + order_tax_percentage) / 100.0) #
+    self.total        = (self.sub_total + shipping_charges - deal_amount  ).round_at( 2 )
     self.taxed_total  = (taxable_money + shipping_charges).round_at( 2 )
   end
 
   def find_sub_total
     self.total = 0.0
+
     order_items.each do |item|
       self.total = self.total + item.item_total
     end
@@ -567,7 +571,7 @@ class Order < ActiveRecord::Base
         item.calculate_total
         item.save
       end
-      self.total = total + item.total
+      self.total = total + item.item_total
     end
   end
 
@@ -576,7 +580,7 @@ class Order < ActiveRecord::Base
   # @param none
   # @return [Array] Array of prices to charge of all items before
   def item_prices
-    order_items.collect{|item| item.adjusted_price }
+    order_items.collect{|item| item.price }
   end
 
   # Called before validation.  sets the email address of the user to the order's email address
