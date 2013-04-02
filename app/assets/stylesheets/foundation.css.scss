@@ -2,8 +2,9 @@
 /* Global Reset & Standards ---------------------- */
 @import "compass/css3";
 
-$nav-bar-color:       #6B1412;
+/* $nav-bar-color:       #6B1412; */
 $nav-sub-bar-color:   #222;
+$nav-bar-color:       #000000;
 $top-bar-js-breakpoint-width:   1090px;
 $top-bar-js-breakpoint_media-width:   450px;
 $breakpoint-width-767:   500px;
@@ -853,7 +854,7 @@ div.progress.round .meter { -webkit-border-radius: 1000px; -moz-border-radius: 1
 .fixed { width: 100%; left: 0; position: fixed; top: 0; z-index: 99; }
 
 /* <nav> */
-.top-bar { background: #222222; height: 45px; line-height: 45px; margin: 0 0 30px; padding: 0; width: 100%; /* Contain width to .row width */ /* First <ul> for branding, title, name, etc */ /* topbar global <ul> styles */ }
+.top-bar { background: $nav-bar-color; height: 45px; line-height: 45px; margin: 0 0 30px; padding: 0; width: 100%; /* Contain width to .row width */ /* First <ul> for branding, title, name, etc */ /* topbar global <ul> styles */ }
 .contain-to-grid .top-bar { max-width: 960px; margin: 0 auto; }
 .top-bar > ul .name h1 { line-height: 45px; margin: 0; }
 .top-bar > ul .name h1 a { font-weight: bold; padding: 0 22.5px; font-size: 17px !important; }
@@ -866,21 +867,21 @@ div.progress.round .meter { -webkit-border-radius: 1000px; -moz-border-radius: 1
 .top-bar ul > li:hover a, .top-bar ul > li.active a { color: #d9d9d9; }
 .top-bar ul > li.divider { background: black; -webkit-box-shadow: 1px 0 0 rgba(255, 255, 255, 0.1); -moz-box-shadow: 1px 0 0 rgba(255, 255, 255, 0.1); box-shadow: 1px 0 0 rgba(255, 255, 255, 0.1); height: 100%; margin-right: 1px; width: 1px; }
 .top-bar ul > li.has-button a.button { margin: 0 11.25px; }
-.top-bar ul > li.has-button:hover { background: #222222; }
+.top-bar ul > li.has-button:hover { background: $nav-bar-color; }
 .top-bar ul > li.has-button:hover a { color: #fff; }
 .top-bar ul > li.search { padding: 0 15px; }
 .top-bar ul > li.search form { display: inline-block; margin-bottom: 0; vertical-align: middle; width: 200px; }
 .top-bar ul > li.search form input[type=text] { -moz-border-radius-topright: 0; -webkit-border-top-right-radius: 0; border-top-right-radius: 0; -moz-border-radius-bottomright: 0; -webkit-border-bottom-right-radius: 0; border-bottom-right-radius: 0; float: left; font-size: 13px; margin-top: -1px; height: 22.5px; }
 .top-bar ul > li.search form input[type=text] + .button { border-left: none; -moz-border-radius-topleft: 0; -webkit-border-top-left-radius: 0; border-top-left-radius: 0; -moz-border-radius-bottomleft: 0; -webkit-border-bottom-left-radius: 0; border-bottom-left-radius: 0; float: left; font-size: 12px; margin-top: -1px; padding: 5px 12px 4px; }
 .top-bar ul > li.search form input[type=search] { font-size: 16px; margin-bottom: 0; }
-.top-bar ul > li.search:hover { background: #222222; }
+.top-bar ul > li.search:hover { background: $nav-bar-color; }
 .top-bar ul > li.toggle-topbar { display: none; }
 .top-bar ul > li.has-dropdown { position: relative; /* Dropdown Level 2+ */ }
 .top-bar ul > li.has-dropdown:hover > .dropdown { display: block; visibility: visible; }
 .top-bar ul > li.has-dropdown a { padding-right: 33.75px; }
 .top-bar ul > li.has-dropdown a:after { content: ""; display: block; width: 0; height: 0; border: solid 5px; border-color: white transparent transparent transparent; margin-right: 15px; margin-top: -2.5px; position: absolute; right: 0; top: 50%; }
-.top-bar ul > li.has-dropdown .dropdown { background: #222222; left: 0; margin: 0; padding: 9px 0 0 0; position: absolute; visibility: hidden; z-index: 99; }
-.top-bar ul > li.has-dropdown .dropdown li { background: #222222; line-height: 1; min-width: 100%; padding-bottom: 5px; }
+.top-bar ul > li.has-dropdown .dropdown { background: $nav-bar-color; left: 0; margin: 0; padding: 9px 0 0 0; position: absolute; visibility: hidden; z-index: 99; }
+.top-bar ul > li.has-dropdown .dropdown li { background: $nav-bar-color; line-height: 1; min-width: 100%; padding-bottom: 5px; }
 .top-bar ul > li.has-dropdown .dropdown li a { color: white; font-weight: normal; height: 100%; line-height: 1; padding: 5px 17px 5px 15px; white-space: nowrap; }
 .top-bar ul > li.has-dropdown .dropdown li a:after { border: none; }
 .top-bar ul > li.has-dropdown .dropdown li a:hover { background: #3c3c3c; }
@@ -1177,7 +1178,7 @@ table.show-for-xlarge, table.show-for-large, table.hide-for-small, table.hide-fo
   .tooltip { font-size: 14; line-height: 1.4; padding: 7px 10px 9px 10px; left: 50% !important; max-width: 80% !important; margin-left: -40%; font-size: 110%; }
   .tooltip > .nub, .tooltip.top > .nub, .tooltip.left > .nub, .tooltip.right > .nub { border-color: transparent transparent black transparent; border-color: transparent transparent rgba(0, 0, 0, 0.85) transparent; top: -12px; left: 10px; } }
 /* Topbar Specific Breakpoint that you can customize */
-@media only screen and (max-width: 940px) { .top-bar { margin-bottom: 0; overflow: hidden; height: 45px; background: #222222; /* Override contain to grid stuff for breakpoint */ /* Setting up the sliding area */ /* When the Small Nav is Showing */ }
+@media only screen and (max-width: 940px) { .top-bar { margin-bottom: 0; overflow: hidden; height: 45px; background: $nav-bar-color; /* Override contain to grid stuff for breakpoint */ /* Setting up the sliding area */ /* When the Small Nav is Showing */ }
   .top-bar .js-generated { display: block; }
   .contain-to-grid .top-bar { width: auto; }
   .top-bar section { left: 0; position: relative; width: auto; -webkit-transition: left 300ms; -moz-transition: left 300ms; -o-transition: left 300ms; transition: left 300ms; }
