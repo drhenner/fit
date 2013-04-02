@@ -27,6 +27,8 @@
 
 <body >
 <div id='checkout_body_wrapper'>
+
+  <%= render :partial => '/shared/welcome_header'%>
   <div class="row">
     <% if notice || alert %>
       <div class="flash_messages">
@@ -35,7 +37,7 @@
       </div>
     <% end %>
   </div>
-  <%= render :partial => '/shared/welcome_header'%>
+
   <%= render :partial => '/layouts/shipping_warning'%>
 
   <div id='checkout_content_wrapper' class='row'>

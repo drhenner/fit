@@ -25,6 +25,8 @@
 
 <body >
 <div id='body_wrapper'>
+
+  <%= render :partial => '/shared/welcome_header'%>
   <div class="row">
     <% if notice || alert %>
       <div class="flash_messages">
@@ -33,7 +35,7 @@
       </div>
     <% end %>
   </div>
-  <%= render :partial => '/shared/welcome_header'%>
+
   <%= render :partial => '/layouts/shipping_warning'%>
 
     <div id='content_wrapper' class='row <%= "myaccount" if myaccount_tab %> '>
