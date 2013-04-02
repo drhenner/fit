@@ -9,7 +9,7 @@ class Myaccount::CreditCardsController < Myaccount::BaseController
   def create
     if payment_profile
       flash[:notice] = "Successfully created credit card."
-      redirect_to myaccount_credit_card_url(@credit_card)
+      redirect_to myaccount_credit_cards_url()
     else
       render :action => 'new'
     end

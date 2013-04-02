@@ -1,9 +1,19 @@
+<% content_for :below_body do -%>
+  <%= javascript_include_tag 'validators.js' %>
+  <%= javascript_include_tag 'myaccount/save_card.js' %>
+  <%= javascript_include_tag "https://js.stripe.com/v1/" %>
+<% end %>
+<% content_for :head do -%>
+  <%= tag :meta, :name => "stripe-key", :content => Settings.stripe.publishable_key %>
+<% end %>
+
+
 <div class='nine columns'>
   <h3> Add Credit Card </h3>
 
     <%= form_tag( myaccount_credit_cards_path(),
                                   :method => :post, :class => 'custom ',
-                                  :id   => 'purchase_cart_order') do  %>
+                                  :id   => 'myaccount_credit_cards') do  %>
 
 
       <div class='payment-errors' style='display:none;color:#d06050;font-weight:bold;'></div>
