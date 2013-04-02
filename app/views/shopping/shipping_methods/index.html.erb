@@ -1,42 +1,47 @@
+<div class="row">
+  <div class='four columns'>
+    <%= render :partial =>  'shopping/tabs' %>
+  </div>
+  <div class='eight columns'>
+    <h1>Pick a Shipping Method</h1>
 
-<%= render :partial =>  'shopping/tabs' %>
-<h1>Pick a Shipping Method</h1>
-
-<div class='clearfix'>
-  <%= form_tag(shopping_shipping_method_path(session_order.id), :method => :put, :html => {:class => 'custom'}) do -%>
-    <% @order_items.group_by(&:shipping_category_id).each do |shipping_category_id, items| %>
-      <div class='column float-left ten line_items_blue last'>
-          <% items.each do |item| %>
-            <div class='nine clearfix panel'>
-                <div class='six columns'>
-                  <ul>
-                    <li><b><%= image_tag(item.variant.product.featured_image(:mini)) %></b></li>
-                    <li><%= item.variant.product.name %> Quantity: <%= item.quantity %></li>
-                  </ul>
+    <div class='clearfix'>
+      <%= form_tag(shopping_shipping_method_path(session_order.id), :method => :put, :html => {:class => 'custom'}) do -%>
+        <% @order_items.group_by(&:shipping_category_id).each do |shipping_category_id, items| %>
+          <div class='column float-left ten line_items_blue last'>
+              <% items.each do |item| %>
+                <div class='nine clearfix panel'>
+                    <div class='six columns'>
+                      <ul>
+                        <li><b><%= image_tag(item.variant.product.featured_image(:mini)) %></b></li>
+                        <li><%= item.variant.product.name %> Quantity: <%= item.quantity %></li>
+                      </ul>
+                    </div>
+                    <div class='five columns last' style='text-align:left;'>
+                      <%= raw item.variant.display_property_details %>
+                    </div>
                 </div>
-                <div class='five columns last' style='text-align:left;'>
-                  <%= raw item.variant.display_property_details %>
-                </div>
-            </div>
-          <% end %>
-          <ul class='ten  vertical-list'>
-          <% items.first.shipping_rate_options(session_order.sub_total).each do |rate| %>
-            <li>
-              <label for='<%= "shipping_category_#{shipping_category_id}_#{rate.id}" %>' class='long'>
-                <%= radio_button_tag "shipping_category[#{shipping_category_id}]", rate.id %>
-                <%= rate.name_with_rate %>
-              </label>
-              <% if rate.minimum_charge > 0.0 %>
-                <%= "(Qualified because you have more than #{number_to_currency rate.minimum_charge} of items)" %>
               <% end %>
-            </li>
-          <% end %>
-          </ul>
-      </div>
-    <% end %>
-    <div class='ten clearfix offset-by-two'>
-      <%= submit_tag 'continue', :class => 'button' %>
-    </div>
+              <ul class='ten  vertical-list'>
+              <% items.first.shipping_rate_options(session_order.sub_total).each do |rate| %>
+                <li>
+                  <label for='<%= "shipping_category_#{shipping_category_id}_#{rate.id}" %>' class='long'>
+                    <%= radio_button_tag "shipping_category[#{shipping_category_id}]", rate.id %>
+                    <%= rate.name_with_rate %>
+                  </label>
+                  <% if rate.minimum_charge > 0.0 %>
+                    <%= "(Qualified because you have more than #{number_to_currency rate.minimum_charge} of items)" %>
+                  <% end %>
+                </li>
+              <% end %>
+              </ul>
+          </div>
+        <% end %>
+        <div class='ten clearfix offset-by-two'>
+          <%= submit_tag 'continue', :class => 'button' %>
+        </div>
 
-  <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>
