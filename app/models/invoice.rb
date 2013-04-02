@@ -339,6 +339,8 @@ class Invoice < ActiveRecord::Base
   def self.admin_grid(args)
     if args[:order_number].present?
       where("orders.number = ?", args[:order_number])
+    elsif args[:email].present?
+      where("orders.email = ?", args[:email])
     else
       scoped
     end
