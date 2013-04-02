@@ -42,6 +42,6 @@
 </p>
 
 <p>
-  <%= link_to "Edit", edit_admin_generic_coupon_path(@coupon), :class => 'button' %> |
+  <%= link_to "Edit", edit_admin_generic_coupon_path(@coupon), :class => 'button' if @coupon.created_at > Time.zone.now - 1.day  %> |
   <%= link_to "View All", admin_generic_coupons_path, :class => 'button' %>
 </p>

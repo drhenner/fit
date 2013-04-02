@@ -21,7 +21,7 @@
         <td><%= coupon.type %></td>
         <td><%= coupon.display_start_time %></td>
         <td><%= coupon.display_expires_time %></td>
-        <td><%= link_to "Edit", edit_admin_generic_coupon_path(coupon) %></td>
+        <td><%= link_to "Edit", edit_admin_generic_coupon_path(coupon) if coupon.created_at > Time.zone.now - 1.day %></td>
       </tr>
     <% end %>
   </table>
