@@ -33,9 +33,7 @@
       </div>
     <% end %>
   </div>
-  <% if current_user %>
-    <%= render :partial => '/shared/welcome_header'%>
-  <% end %>
+  <%= render :partial => '/shared/welcome_header'%>
   <%= render :partial => '/layouts/shipping_warning'%>
 
     <div id='content_wrapper' class='row <%= "myaccount" if myaccount_tab %> '>

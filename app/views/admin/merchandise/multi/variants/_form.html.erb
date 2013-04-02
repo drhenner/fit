@@ -17,7 +17,11 @@
         </tr><tr>
           <td>title  </td><td> <%= ff.text_field :title, :placeholder => 'Default is Product.name' %> </td>
         </tr><tr>
-          <td>Short description  </td><td> <%= ff.text_area :small_description, :placeholder => 'Default is Product.short_description' %> </td>
+          <td>Short description  </td>
+          <td>
+            <label>255 chars max</label>
+            <%= ff.text_area :small_description, :placeholder => 'Default is Product.short_description' %>
+          </td>
         </tr><tr>
           <td>Option Text  </td><td> <%= ff.text_field :option_text, :placeholder => 'Default is Variant.name' %> </td>
         </tr><tr>
