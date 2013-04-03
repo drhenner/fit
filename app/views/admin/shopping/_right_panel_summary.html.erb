@@ -16,9 +16,14 @@
     </thead>
     <% session_admin_cart.shopping_cart_items.each do |item| %>
       <tr class='<%= cycle("odd", "")%> '>
-        <td><%= item.variant.product_name %></td>
+        <td>
+          <%= item.variant.product_name %>
+          <%= link_to 'remove', admin_shopping_product_path(item.variant.product_id, :variant_id => item.variant_id), :method => 'DELETE' %>
+        </td>
         <td><%= item.variant.price %></td>
-        <td><%= item.quantity %></td>
+        <td>
+          <%= link_to item.quantity, edit_admin_shopping_product_path(item.variant.product) %>
+        </td>
         <td><%= item.quantity.to_f * item.variant.price %></td>
       </tr>
     <% end %>
