@@ -57,30 +57,33 @@
       margin: 0;
       padding: 23px 15px 0;
       text-transform: uppercase;
-      font-size: 24px;
     }
   }
   hr {
-    margin-top: 16px;
     margin-bottom: 1px;
+    margin-top: 16px;
   }
 }
+
 blockquote {border-left: none;}
-.preorder-banner {
-  a,
-  b,
-  img,
-  span {
+
+a,
+img,
+span {
+  .preorder-banner &,
+  .preorder & {
+    position: relative;
     display: block;
   }
-  a,
-  img,
-  span {
-    position: relative;
+}
+
+.preorder-banner {
+  b {
+    display: block;
   }
-  h4,
   blockquote,
   cite,
+  h4,
   span {
     color: #fff;
   }
@@ -99,8 +102,8 @@ blockquote {border-left: none;}
   cite {
     padding-top: 8px;
   }
-  h4,
   blockquote,
+  h4,
   span {
     position: absolute;
   }
@@ -109,26 +112,25 @@ blockquote {border-left: none;}
     font-weight: 700;
   }
   span {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, .7);
     font-size: 20px;
     line-height: 54px;
     top: 50%;
     width: 27%;
   }
   h4 {
-    font-weight: 400;
-    text-align: right;
-    margin-bottom: 0;
-    line-height: 1;
-    top: 84%;
-    font-weight: 400;
-    padding: 0 15px;
     font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: 0;
+    padding: 0 15px;
+    text-align: right;
+    top: 84%;
   }
   div {
     background: #000;
-    position: relative;
     margin-top: 0;
+    position: relative;
   }
 }
 
@@ -141,68 +143,44 @@ blockquote {border-left: none;}
     font-size: 30px;
   }
   h3 {
-    color: #fff;
     font-size: 22px;
     font-weight: 400;
     text-transform: uppercase;
   }
 }
 
-.dolce-lifestyle {
-  text-align: right;
-  overflow: hidden;
-  position: relative;
-  h2 {
-    margin-bottom: 2px;
-    padding-top: 25px;
+.preorder {
+  margin-bottom: 24px;
+  span {
+    background-color: #ff0000;
+    color: #fff;
+    float: none;
+    font-size: 30px;
     font-weight: 700;
-  }
-  h2,
-  p {
-    color: #636363;
+    line-height: 68px;
+    margin: -68px auto 0;
+    text-align: center;
     text-transform: uppercase;
-  }
-  p {
-    font-size: 17px;
-    margin-bottom: 22px;
-  }
-  div {
-    position: relative;
-  }
-  .coach {
-    float: left;
-    margin-left: -15px;
-    margin-top: 30px;
-  }
-  .coach-sign {
-    position: absolute;
-    float: left;
-    bottom: 70px;
-    right: 9px;
-  }
-  .bottom-line {
-    margin-top: -5%;
-    float: left;
-    display: block;
   }
 }
 
 .after-preorder {
   overflow: hidden;
+  padding-top: 10px;
   h2 {
     color: #ee1c24;
-    text-transform: uppercase;
     font-weight: 700;
-    margin-top: 0;
     margin-bottom: 9px;
+    margin-top: -6px;
+    text-transform: uppercase;
   }
   p {
-    text-align: right;
     font-size: 16px;
     color: #636363;
     line-height: 1.3;
     padding-top: 5px;
     margin-bottom: 11px;
+    text-align: right;
   }
   span {
     display: block;
@@ -229,6 +207,46 @@ blockquote {border-left: none;}
   margin-right: -15px;
 }
 
+.dolce-lifestyle {
+  position: relative;
+  overflow: hidden;
+  text-align: right;
+  h2 {
+    font-weight: 700;
+    margin-bottom: 2px;
+    padding-top: 25px;
+  }
+  h2,
+  p {
+    color: #636363;
+    text-transform: uppercase;
+  }
+  p {
+    font-size: 17px;
+    margin-bottom: 22px;
+  }
+  div {
+    position: relative;
+  }
+  .bottom-line,
+  .coach,
+  .coach-sign {
+    float: left;
+  }
+  .coach {
+    margin-left: -15px;
+    margin-top: 30px;
+  }
+  .coach-sign {
+    bottom: 70px;
+    position: absolute;
+    right: 9px;
+  }
+  .bottom-line {
+    display: block;
+    margin-top: -5%;
+  }
+}
 
 .region10wrap {
   .footer_bottom {margin-top: -5px;}
@@ -292,22 +310,39 @@ blockquote {border-left: none;}
       }
     }
   }
+
+  span {
+    .preorder-banner &,
+    .preorder & {
+      line-height: 50px;
+      position: relative;
+    }
+  }
+
   .preorder-banner {
-    div {
+    div,
+    span {
       background: #000;
     }
     span {
-      background-color: #000;
-      // left: 0;
       line-height: 50px;
       position: relative;
+      margin: 15px 15px 0;
       width: auto !important;
-      margin: 25px 15px 0;
     }
     blockquote {
       display: none;
     }
   }
+
+  .preorder {
+    margin-bottom: 15px;
+    span {
+      font-size: 20px;
+      margin-top: 0;
+    }
+  }
+
   .after-preorder {
     p {
       font-size: 14px;
@@ -328,16 +363,20 @@ blockquote {border-left: none;}
       font-size: 18px;
     }
   }
+
   .lifestyle-program {
     border: none;
     margin-right: 0;
     padding-top: 15px;
   }
 
-  .after-preorder h2,
-  .dolce-lifestyle h2 {
-    letter-spacing: -1px;
+  h2 {
+    .after-preorder &,
+    .dolce-lifestyle & {
+      letter-spacing: -1px;
+    }
   }
+
   .dolce-lifestyle {
     h2,
     p {
@@ -353,8 +392,8 @@ blockquote {border-left: none;}
       width: 80%;
     }
     .coach-sign {
-      right: -36%;
       bottom: 17%;
+      right: -36%;
       width: 50%;
     }
   }
@@ -367,10 +406,10 @@ blockquote {border-left: none;}
       font-weight: 600;
       line-height: 1;
       margin-bottom: 0;
-      top: 45%;
       padding: 0 0 0 15px;
       position: absolute;
       text-align: left;
+      top: 45%;
       width: auto;
     }
     b {
@@ -378,12 +417,12 @@ blockquote {border-left: none;}
     }
     div {
       background: #000;
-      position: relative;
       margin-top: 1px;
+      position: relative;
     }
     img {
-      max-width: 150%;
       margin-left: -50%;
+      max-width: 150%;
     }
   }
   .video-box {
@@ -403,14 +442,13 @@ blockquote {border-left: none;}
     }
     h4 {
       font-size: 11px;
-      font-weight: 400;
-      top: 45%;
-      padding-top: 4px;
       font-weight: 600;
+      padding-top: 4px;
+      top: 45%;
     }
     b {
-      padding-bottom: 1px;
       font-size: 13px;
+      padding-bottom: 1px;
     }
     span {
       line-height: 50px;
@@ -441,8 +479,8 @@ blockquote {border-left: none;}
     }
     span {
       line-height: 44px;
-      width: 29%;
       left: 5%;
+      width: 29%;
     }
     b {
       font-size: 13px;
@@ -464,6 +502,13 @@ blockquote {border-left: none;}
   .video-box {
     h3 {
       font-size: 16px;
+    }
+  }
+  .preorder {
+    span {
+      font-size: 22px;
+      line-height: 50px;
+      margin-top: -50px;
     }
   }
   .after-preorder {
@@ -497,8 +542,8 @@ blockquote {border-left: none;}
       width: 100%;
     }
     .coach-sign {
-      right: -70px;
       bottom: 35px;
+      right: -70px;
     }
     h2 {
       letter-spacing: -1px;
