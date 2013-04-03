@@ -246,7 +246,7 @@ order.reload
       invoice                   = @order.create_invoice(credit_card, 12.45,payment_profile, {})
       invoice.class.to_s.should == 'Invoice'
       invoice.state.should      == 'paid'
-      Jobs::SendOrderConfirmation.should have_queued(@order, invoice).in(:order_confirmation_emails)
+      Jobs::SendOrderConfirmation.should have_queued(@order.id, invoice.id).in(:order_confirmation_emails)
     end
     it 'should return an create_invoice on failure' do
       cc_params = {

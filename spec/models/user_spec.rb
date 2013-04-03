@@ -289,7 +289,7 @@ describe User, "instance methods" do
     #pending "test for deliver_activation_instructions!"
     it 'should call signup_notification and deliver' do
       @user.deliver_activation_instructions!
-      Jobs::SendSignUpNotification.should have_queued(@user).in(:signup_notification_emails)
+      Jobs::SendSignUpNotification.should have_queued(@user.id).in(:signup_notification_emails)
     end
   end
 
@@ -300,7 +300,7 @@ describe User, "instance methods" do
     #pending "test for deliver_password_reset_instructions!"
     it 'should call deliver_password_reset_instructions and deliver' do
       @user.deliver_password_reset_instructions!
-      Jobs::SendPasswordResetInstructions.should have_queued(@user).in(:password_reset_emails)
+      Jobs::SendPasswordResetInstructions.should have_queued(@user.id).in(:password_reset_emails)
     end
   end
 
