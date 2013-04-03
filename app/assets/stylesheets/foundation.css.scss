@@ -774,7 +774,7 @@ ul.breadcrumbs li.unavailable a { color: #999; }
 ul.breadcrumbs li.unavailable:hover a, ul.breadcrumbs li.unavailable a:focus { text-decoration: none; color: #999; cursor: default; }
 
 /* Inline Link List */
-ul.inline-list, ul.link-list { margin: 0 0 17px -22px; padding: 0; list-style: none; overflow: hidden; }
+ul.inline-list, ul.link-list { margin: 0 0 17px; padding: 0; list-style: none; overflow: hidden; }
 ul.inline-list li, ul.link-list li { list-style: none; float: left; margin-left: 22px; display: block; }
 ul.inline-list li a, ul.link-list li a { display: block; }
 

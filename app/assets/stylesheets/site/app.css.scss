@@ -55,39 +55,41 @@ form.custom {
     padding:20px 0;
   }
 }
+
 #footer_wrapper {
   //color:#333;
   background: image-url('preorder/bg9.png' ) repeat;
   color: #999;
+  min-height: 54px;
+  height: auto;
   .background_wrapper {background-color: rgba(0,0,0,0.7);}
   .inner-footer_wrapper {border-top: 1px solid #666;}
   ul {
     font-family: Helvetica, Helvetica, Arial, sans-serif;
     text-align:left;
-    &#main-footer-tabs {
-      margin-top:18px;
-      float:right;
-      margin:10px 0;
-      padding: 5px 0;
-    }
-    li {
-      color: #ccc;
-      border-left:1px solid #999;
-      margin-left:12px;
-      padding:0 0 0 12px;
-      font-size: 12px;
-      &:first-child{ border-left:none;}
-      &#main-footer-tabs {
-        &:hover{color:#CC0000;}
-      }
-      a {
-        color: #ccc;
-        &:hover {color:#CC0000;}
-      }
-    }
+  }
+  li {
+    color: #ccc;
+    margin-left:12px;
+    padding:0 0 5px;
+    font-size: 12px;
+    &:first-child{ margin-left: 0;}
+  }
+  a {
+    border-left:1px solid #999;
+    color: #ccc;
+    padding-left: 12px;
+    &:hover {color:#CC0000;}
   }
   .inline-list {margin-top:18px;}
+}
 
+#main-footer-tabs {
+  float:right;
+  margin:10px 0;
+  li{
+    &:hover {color: #cc0000;}
+  }
 }
 
 
@@ -146,3 +148,15 @@ ul {
 }
 
 body, div, dl, dt, dd, ul, ol, li, pre, form, fieldset, p, blockquote, th, td {color: #909090;}
+
+@media only screen and (max-width: 790px) {
+  #main-footer-tabs {
+    float: left;
+  }
+}
+
+@media only screen and (max-width: 676px) {
+  #footer_wrapper #main-footer-tabs {
+    margin-top: 0;
+  }
+}
