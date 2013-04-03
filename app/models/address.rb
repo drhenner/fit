@@ -53,7 +53,7 @@ class Address < ActiveRecord::Base
   validates :state_id,      :presence => true,  :if => Proc.new { |address| Settings.require_state_in_address}
   validates :country_id,    :presence => true,  :if => Proc.new { |address| !Settings.require_state_in_address}
   #validates :state_name,  :presence => true,  :if => Proc.new { |address| address.state_id.blank?   }
-  validates :zip_code,    :presence => true,       :length => { :maximum => 12 }
+  validates :zip_code,    :presence => true,    :length => { :minimum => 5, :maximum => 12 }
   before_validation :sanitize_data
 
   accepts_nested_attributes_for :phones, :reject_if => lambda { |t| ( t['display_number'].gsub(/\D+/, '').blank?) }

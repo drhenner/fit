@@ -110,6 +110,10 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def can_collect_payment?
+    !paid? && !canceled?
+  end
+
   def mark_items_paid
     order_items.map(&:pay!)
   end

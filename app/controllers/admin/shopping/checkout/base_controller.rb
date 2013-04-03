@@ -4,6 +4,10 @@ class Admin::Shopping::Checkout::BaseController < Admin::Shopping::BaseControlle
 
   private
 
+  def in_checkout_flow
+    true
+  end
+
   def ensure_customer
     redirect_to admin_shopping_users_url and return unless checkout_user
   end
