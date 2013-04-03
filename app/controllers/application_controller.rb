@@ -19,6 +19,7 @@ class ApplicationController < ActionController::Base
   before_filter :secure_session
   before_filter :redirect_to_welcome
   before_filter :authenticate_if_staging
+  before_filter :notify_browser_incompatibility
 
   APP_DOMAIN = 'www.ufcfit.com'
 
@@ -47,6 +48,35 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  VERSIONS = {
+    :default => /(?:Version|MSIE|Firefox|Chrome|CriOS|QuickTime|BlackBerry[^\/]+|CoreMedia v)[\/ ]?([a-z0-9.]+)/i,
+    :opera => /Opera\/.*? Version\/([\d.]+)/
+  }
+
+  def notify_browser_incompatibility
+    if browser_incompatible?
+      flash[:alert] = 'Please upgrade your browser.'
+    end
+  end
+
+  def browser_incompatible?
+    ua = request.headers["User-Agent"]
+    (ie?(ua) && version(ua) <= "7")
+  end
+
+  def version(ua)
+    full_version(ua).to_s.split(".").first
+  end
+
+  def full_version
+    _, v = *ua.match(VERSIONS.fetch(id, VERSIONS[:default]))
+    v || "0.0"
+  end
+
+  def ie?(ua)
+    !!(ua =~ /MSIE/ && ua !~ /Opera/)
+  end
 
   def display_shipping_warning?
     false
