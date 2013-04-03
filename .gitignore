@@ -6,6 +6,7 @@ nbproject
 #Procfile
 .env
 
+dump.rdb
 .idea
 .vimrc
 .powrc

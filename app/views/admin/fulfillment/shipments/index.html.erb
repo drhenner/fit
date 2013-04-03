@@ -31,13 +31,12 @@
 <table style='width:770px;font-size: 15px;'>
   <thead>
   <tr class='odd'>
-    <th class='column1_header'>Number</th>
+    <th class='column1_header'>Ship #</th>
     <th>Order #</th>
     <th>Shipped at</th>
     <th>Tracking</th>
-    <th>State</th>
+    <th>Status</th>
     <th>Items</th>
-    <th></th>
     <th></th>
     <th></th>
   </tr>
@@ -46,21 +45,16 @@
 <% @shipments.each do |shipment| %>
   <% if shipment.has_items? %>
       <tr class='<%= cycle("odd", "")%>'>
-        <td><%= shipment.number %></td>
+        <td><%= link_to shipment.number, admin_fulfillment_shipment_path(shipment) %></td>
         <td><%= link_to shipment.order.number, edit_admin_fulfillment_order_path(shipment.order) %></td>
         <td><%= I18n.localize(shipment.shipped_at, :format => :us_time) if shipment.shipped_at %></td>
         <td><%= shipment.tracking %></td>
         <td><%= shipment.state %></td>
-        <td>
+        <td style='font-size:10px;'>
           <%= raw shipment.order_items.collect {|item| item.variant.product_name }.join('<br/>')  %>
-
-        </td>
-        <td><%= link_to  admin_fulfillment_shipment_path(shipment) do %>
-          <i class="icon-file-alt"></i>
-          <% end %>
         </td>
         <td><%= link_to  edit_admin_fulfillment_shipment_path(shipment) do %>
-          <i class="icon-edit"></i>
+          <i data-tooltip class="icon-edit" title='Edit Shipment'></i>
           <% end %>
         </td>
         <td>
