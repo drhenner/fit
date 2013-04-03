@@ -13,13 +13,14 @@
 
 <div id='shipment-details' class=' last  line_item_yellow'>
   <ul  class='vertical-list width-list space-list-40'>
-    <li>
-      <label >Shipped at:</label>
-      <span ><%=l @shipment.shipped_at, :format => :us_time if @shipment.shipped_at %></span>
-    </li>
+
     <li style='clear:both;'>
       <label >Tracking #:</label>
       <span ><%= f.text_field :tracking %></span>
+    </li>
+    <li>
+      <label >Shipped at:</label>
+      <span ><%=l @shipment.shipped_at, :format => :us_time if @shipment.shipped_at %></span>
     </li>
     <li>
       <label >Shipment #:</label>
@@ -32,6 +33,6 @@
   </ul>
 
   <div class="actions">
-    <%= f.submit 'Update Tracking #'%>
+    <%= f.submit 'Update Tracking #', :class => 'button alert'%>
   </div>
 </div>

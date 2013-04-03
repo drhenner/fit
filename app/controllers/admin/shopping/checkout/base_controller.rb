@@ -61,8 +61,7 @@ class Admin::Shopping::Checkout::BaseController < Admin::Shopping::BaseControlle
 
   def create_order
     @session_admin_order = checkout_user.orders.create(:number       => Time.now.to_i,
-                                                :ip_address   => request.env['REMOTE_ADDR'],
-                                                :bill_address => checkout_user.billing_address  )
+                                                :ip_address   => request.env['REMOTE_ADDR'] )
     add_new_cart_items(session_cart.shopping_cart_items)
     session[:order_admin_id] = @session_admin_order.id
   end

@@ -169,6 +169,10 @@ class Cart < ActiveRecord::Base
     cart_item
   end
 
+  def number_of_variants(variant_id)
+    shopping_cart_items.find_all_by_variant_id(variant_id).count
+  end
+
 
   # Call this method when you want to remove an item from the shopping cart
   #   The CartItem will not delete.  Instead it is just inactivated
