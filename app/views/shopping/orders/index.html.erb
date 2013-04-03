@@ -19,28 +19,20 @@
       <h1>REVIEW YOUR ORDER</h1>
       <div class='twelve large-12 columns'>
         <div class='row'>
-          <div id='final-order-shipping-address' class=' six large-6 columns ' >
-            <h3>SHIPPING INFORMATION</h3>
-            <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => @order.ship_address} %>
-            <%= link_to 'Change address', shopping_addresses_path, :class => '' %>
-          </div>
-          <div id='final-order-shipping-address' class=' six large-6 columns' >
-            <h3>BILLING INFORMATION</h3>
-            <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => @order.bill_address} %>
-
-            <%= link_to 'Change address', shopping_billing_addresses_path, :class => ' ' %>
-          </div>
-        </div>
-        <div class='row'>
           <div  class=' six large-6 columns ' >
             <h3>PAYMENT INFORMATION</h3>
             <% @order.payment_profile %>
             <p>
               Card Type: <%= @order.payment_profile.cc_type %> <br/>
               Card Number: ************ <%= @order.payment_profile.last4 %>  <br/>
-              Expiration Date: <%= "@order.payment_profile.month" %>/<%= @order.payment_profile.year %> <br/>
+              Expiration Date: <%= @order.payment_profile.month %>/<%= @order.payment_profile.year %> <br/>
               <%= link_to 'Change payment info', shopping_payments_path, :class => ' ' %>
             </p>
+          </div>
+          <div id='final-order-shipping-address' class=' six large-6 columns ' >
+            <h3>SHIPPING INFORMATION</h3>
+            <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => @order.ship_address} %>
+            <%= link_to 'Change address', shopping_addresses_path, :class => '' %>
           </div>
         </div>
       </div>
@@ -91,14 +83,22 @@
             <h2>Total <span> &nbsp; <%= number_to_currency @order.credited_total %></span></h2>
           </blockquote>
           <div>
-        <div>
+            <div>
+            </div>
+            <%= form_tag( (Settings.allow_preorders ? preorder_shopping_order_path(@order) : shopping_order_path(@order)),
+                                          :method => :put,
+                                          :html => {:id   => 'purchase_cart_order', :class => 'custom'}) do  %>
+              <%= submit_tag 'PLACE YOUR ORDER', :class => 'button success large radius cart-submit-button', :disable_with => "Please wait..." %>
+            <% end %>
+          </div>
+        </div>
       </div>
 
-        <%= form_tag( (Settings.allow_preorders ? preorder_shopping_order_path(@order) : shopping_order_path(@order)),
-                                      :method => :put,
-                                      :html => {:id   => 'purchase_cart_order', :class => 'custom'}) do  %>
-          <%= submit_tag 'PLACE YOUR ORDER', :class => 'button success large radius cart-submit-button', :disable_with => "Please wait..." %>
-        <% end %>
+      <div id='final-order-shipping-address' class=' six large-6 columns' >
+            <h3>BILLING INFORMATION</h3>
+            <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => @order.bill_address} %>
+
+            <%= link_to 'Change address', shopping_billing_addresses_path, :class => ' ' %>
       </div>
     </div>
   </div>
