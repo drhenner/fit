@@ -5,22 +5,29 @@
   Sorry This product has no variants
 <% else %>
   <%= form_tag admin_shopping_product_path(@product), :method => 'put' do %>
-    <% @product.variants.each_with_index do |variant, i| %>
-      <div class='panel product_admin_panel'>
+    <% @product.active_variants.each_with_index do |variant, i| %>
+      <div class='panel radius product_admin_panel'>
         <ul  id='variant-<%= i %>'
-              class='<%= cycle("odd", "even") %> clear  clearfix panel radius' style='margin-bottom:20px;'>
-          <li id='' class='six large-6  columns'>
-            <%#= raw variant.display_property_details %>
+              class='clear row clearfix' style='margin-bottom:10px;'>
+          <li style='padding-right:5px;' class='eight large-8  columns'>
+              <span><%= variant.display_title %></span><br/>
             <% variant.variant_properties.each do |vp| %>
               <label><%= vp.property.display_name %></label> <%= vp.description %><br/>
             <% end %>
-            <b><%= number_to_currency( variant.price ) %></b>
+            <hr/>
+            <%= image_tag variant.featured_image %>
           </li>
-          <li class='four large-4 columns'>
-            Qty in Stock: <%= variant.display_stock_status %>(<%= variant.quantity_available %>)
-          </li>
-          <li id='variant-qty-<%= i %>' class='two large-2 columns' style='diplay:inline-block;'>
-            Quantity: <%= text_field_tag("variant[#{ variant.id }]", nil, :class => 'one', :style => 'width:50px;') %>
+          <li id='variant-qty-<%= i %>' class='four large-4 columns' style='diplay:inline-block;'>
+            <div>
+              <div class='six large-6 columns'>Quantity: </div>
+              <div class='six large-6 columns'><%= text_field_tag("variant[#{ variant.id }]", nil, :class => 'one column', :style => 'width:50px;') %></div>
+            </div>
+            <div class='twelve large-12 columns'>
+              Qty in Stock: <%= variant.display_stock_status %>(<%= variant.quantity_available %>)
+            </div>
+            <div class='twelve large-12 columns'>
+              <b>Price: &nbsp; <%= number_to_currency( variant.price ) %></b>
+            </div>
           </li>
 
         </ul>

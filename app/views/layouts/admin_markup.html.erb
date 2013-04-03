@@ -7,6 +7,7 @@
   <%= stylesheet_link_tag 'sprite.css' %>
   <%= stylesheet_link_tag "admin/foundation.css" %>
   <%= stylesheet_link_tag "admin/normalize.css" %>
+  <%= stylesheet_link_tag "font-awesome.css" %>
   <%= stylesheet_link_tag "admin/app.css" %>
     <!--[if lt IE 8]
   <%#= stylesheet_link_tag 'ie.css', :media => 'screen, projection'%>
@@ -38,7 +39,7 @@
 
   </div>
 
-  <div class="container" style='width:1080px;<%= "background: #ffd;" unless Rails.env == "production" %>'>
+  <div class="container" style='width:1080px;<%= "background: #f6f6ff;" unless Rails.env == "production" %>'>
     <div class=" content last" style='width:1080px;'>
       <div class=" column" style='<%= 'width:530px;' if  content_for? :sidebar %>'>
         <%= yield %>

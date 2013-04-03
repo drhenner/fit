@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130328190048) do
+ActiveRecord::Schema.define(:version => 20130330035108) do
 
   create_table "accounting_adjustments", :force => true do |t|
     t.integer  "adjustable_id",                                 :null => false
@@ -665,6 +665,13 @@ ActiveRecord::Schema.define(:version => 20130328190048) do
     t.string "name", :null => false
   end
 
+  create_table "taxability_informations", :force => true do |t|
+    t.string   "name"
+    t.string   "code"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "transaction_accounts", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -768,15 +775,15 @@ ActiveRecord::Schema.define(:version => 20130328190048) do
   add_index "variant_suppliers", ["variant_id"], :name => "index_variant_suppliers_on_variant_id"
 
   create_table "variants", :force => true do |t|
-    t.integer  "product_id",                                                            :null => false
-    t.string   "sku",                                                                   :null => false
+    t.integer  "product_id",                                                                 :null => false
+    t.string   "sku",                                                                        :null => false
     t.string   "name"
-    t.decimal  "price",                :precision => 8, :scale => 2, :default => 0.0,   :null => false
-    t.decimal  "cost",                 :precision => 8, :scale => 2, :default => 0.0,   :null => false
+    t.decimal  "price",                     :precision => 8, :scale => 2, :default => 0.0,   :null => false
+    t.decimal  "cost",                      :precision => 8, :scale => 2, :default => 0.0,   :null => false
     t.datetime "deleted_at"
-    t.boolean  "master",                                             :default => false, :null => false
-    t.datetime "created_at",                                                            :null => false
-    t.datetime "updated_at",                                                            :null => false
+    t.boolean  "master",                                                  :default => false, :null => false
+    t.datetime "created_at",                                                                 :null => false
+    t.datetime "updated_at",                                                                 :null => false
     t.integer  "brand_id"
     t.integer  "inventory_id"
     t.integer  "subscription_plan_id"
@@ -784,6 +791,7 @@ ActiveRecord::Schema.define(:version => 20130328190048) do
     t.string   "small_description"
     t.string   "option_text"
     t.integer  "image_group_id"
+    t.integer  "taxability_information_id"
   end
 
   add_index "variants", ["brand_id"], :name => "index_variants_on_brand_id"
@@ -791,5 +799,6 @@ ActiveRecord::Schema.define(:version => 20130328190048) do
   add_index "variants", ["product_id"], :name => "index_variants_on_product_id"
   add_index "variants", ["sku"], :name => "index_variants_on_sku"
   add_index "variants", ["subscription_plan_id"], :name => "index_variants_on_subscription_plan_id"
+  add_index "variants", ["taxability_information_id"], :name => "index_variants_on_taxability_information_id"
 
 end

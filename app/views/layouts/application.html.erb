@@ -12,6 +12,7 @@
 
   <%= stylesheet_link_tag "normalize.css" %>
   <%= stylesheet_link_tag "foundation.css" %>
+  <%= stylesheet_link_tag "font-awesome.css" %>
   <%= stylesheet_link_tag 'site/app.css' %>
     <!--[if lt IE 8]
   <%= stylesheet_link_tag 'ie.css', :media => 'screen, projection'%>
@@ -28,6 +29,8 @@
 
 <body >
 <div id='body_wrapper'>
+
+  <%= render :partial => '/shared/welcome_header'%>
   <div class="row">
     <% if notice || alert %>
       <div class="flash_messages">
@@ -36,9 +39,7 @@
       </div>
     <% end %>
   </div>
-  <% if current_user %>
-    <%= render :partial => '/shared/welcome_header'%>
-  <% end %>
+
   <%= render :partial => '/layouts/shipping_warning'%>
 
     <div id='content_wrapper' class='row <%= "myaccount" if myaccount_tab %> '>

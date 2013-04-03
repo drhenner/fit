@@ -2,7 +2,7 @@ class Admin::Fulfillment::ShipmentsController < Admin::Fulfillment::BaseControll
   # GET /admin/fulfillment/shipments
   # GET /admin/fulfillment/shipments.xml
   def index
-    @shipments = Shipment.includes([:order, {:order_items => {:variant => :product} }])
+    @shipments = Shipment.includes([:order, {:order_items => {:variant => :product} }]).admin_grid(params)
     if params[:order_id].present?
       @order = Order.find_by_number(params[:order_id])
       @shipments = @shipments.where(['shipments.order_id = ?', @order.id])

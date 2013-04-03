@@ -1,10 +1,34 @@
+<% content_for :sidemenu do %>
+
+  <div class='admin_filters'>
+    <%= form_tag admin_fulfillment_shipments_path, :method => 'get', :id => "invoices_search" do %>
+      <label>Order #</label>
+      <%= text_field_tag :order_number, params[:order_number] %>
+      <label>Email</label>
+      <%= text_field_tag :email, params[:email] %>
+
+      <div style="text-align:center; margin-top: 15px">
+        <%= submit_tag "Search", :name => nil, :class => 'button red-button' %>
+      </div>
+      </p>
+      <div id="order_hidden">
+        <%= hidden_field_tag :direction, params[:direction] %>
+        <%= hidden_field_tag :sort, params[:sort] %>
+      </div>
+    <% end %>
+    <div class='clearfix'></div>
+  </div>
+<% end %>
+
+
+
 <% if @order %>
   <h3>Shipments for Order # <%= @order.number %></h3>
 <% else %>
   <h3>Shipments</h3>
 <% end %>
 
-<table>
+<table style='width:770px;font-size: 15px;'>
   <thead>
   <tr class='odd'>
     <th class='column1_header'>Number</th>
@@ -31,8 +55,14 @@
           <%= raw shipment.order_items.collect {|item| item.variant.product_name }.join('<br/>')  %>
 
         </td>
-        <td><%= link_to 'Show', admin_fulfillment_shipment_path(shipment) %></td>
-        <td><%= link_to 'Edit', edit_admin_fulfillment_shipment_path(shipment) %></td>
+        <td><%= link_to  admin_fulfillment_shipment_path(shipment) do %>
+          <i class="icon-file-alt"></i>
+          <% end %>
+        </td>
+        <td><%= link_to  edit_admin_fulfillment_shipment_path(shipment) do %>
+          <i class="icon-edit"></i>
+          <% end %>
+        </td>
         <td>
           <% unless shipment.shipped? %>
             <%= button_to 'Mark Shipped',

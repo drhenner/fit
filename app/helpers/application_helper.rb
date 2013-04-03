@@ -23,6 +23,14 @@ EXAMPLE USAGE!!
     number_to_currency(val.to_f / 100.0)
   end
 
+  def display_thumbs_up(yes_or_no = true)
+    if yes_or_no
+      raw('<i class="icon-ok" style="color:green;"></i>')
+    else
+      raw('<i class="icon-remove-sign" style="color:red;"></i>')
+    end
+  end
+
   def site_name
     I18n.t(:company)
   end

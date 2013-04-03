@@ -4,6 +4,7 @@
   <title><%= site_name %></title>
   <link rel="shortcut icon" href="/assets/favicon.ico" />
 
+  <%= stylesheet_link_tag "font-awesome.css" %>
   <%= stylesheet_link_tag "admin/foundation.css" %>
   <%= stylesheet_link_tag "admin/normalize.css" %>
   <%= stylesheet_link_tag "admin/app.css" %>
@@ -19,7 +20,7 @@
 
 </head>
 <body class="bp">
-  <div class="container" style='<%= "background: #ffd;" unless Rails.env == "production" %>'>
+  <div class="container" style='<%= "background: #f6f6ff;" unless Rails.env == "production" %>'>
     <div class="row">
       <% if notice || alert %>
         <div class="flash_messages">
@@ -37,11 +38,13 @@
       <% end %>
 
       <% if content_for?(:sidemenu) %>
-        <div class="admin_main_content nine large-9 columns">
-          <%= yield %>
-        </div>
-        <div class="three large-3 columns sidebar" >
-          <%= yield :sidemenu %>
+        <div class='row'>
+          <div class="admin_main_content nine large-9 columns">
+            <%= yield %>
+          </div>
+          <div class="three large-3 columns sidebar" >
+            <%= yield :sidemenu %>
+          </div>
         </div>
       <% else %>
         <div class='admin_main_content'>

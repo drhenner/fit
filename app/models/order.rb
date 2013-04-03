@@ -110,6 +110,10 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def can_collect_payment?
+    !paid? && !canceled?
+  end
+
   def mark_items_paid
     order_items.map(&:pay!)
   end
@@ -202,7 +206,8 @@ class Order < ActiveRecord::Base
       new_invoice = create_invoice_transaction(credit_card, charge_amount, payment_method, credited_amount)
       if new_invoice.succeeded?
         remove_user_store_credits
-        Notifier.order_confirmation(@order, new_invoice).deliver rescue puts( 'do nothing...  dont blow up over an email')
+        #Notifier.order_confirmation(@order, new_invoice).deliver rescue puts( 'do nothing...  dont blow up over an email')
+        Resque.enqueue(Jobs::SendOrderConfirmation, self.id, new_invoice.id)
       end
       new_invoice
     end
@@ -213,7 +218,8 @@ class Order < ActiveRecord::Base
       new_invoice = create_preorder_invoice_transaction(charge_amount, payment_profile, credited_amount)
       if new_invoice.succeeded?
         remove_user_store_credits
-        Notifier.order_confirmation(@order, new_invoice).deliver rescue puts( 'do nothing...  dont blow up over an email')
+        #Notifier.order_confirmation(@order, new_invoice).deliver rescue puts( 'do nothing...  dont blow up over an email')
+        Resque.enqueue(Jobs::SendOrderConfirmation, self.id, new_invoice.id)
       end
       new_invoice
     end

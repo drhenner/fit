@@ -125,6 +125,36 @@ describe Order, "instance methods" do
       @order.credited_total.should == 102.12
     end
 
+
+    it 'should calculate credited_total with a coupon' do
+      user = create(:user)
+      coupon = create(:coupon, :amount => 15.00, :expires_at => (Time.zone.now + 1.days), :starts_at => (Time.zone.now - 1.days) )
+      order = create(:order, :user => user, :coupon => coupon)
+
+      order.stubs(:calculate_totals).returns( true )
+      order.stubs(:calculated_at).returns(nil)
+
+      tax_rate = create(:tax_rate, :percentage => 10.0 )
+      order_item1 = create(:order_item, :price => 20.00, :total => 20.00, :tax_rate => tax_rate, :order => order )
+      order_item2 = create(:order_item, :price => 20.00, :total => 20.00, :tax_rate => tax_rate, :order => order )
+
+      #@order.stubs(:order_items).returns([order_item1, order_item2])
+      order.stubs(:coupon).returns(coupon)
+      order.stubs(:shipping_charges).returns(100.00)
+
+
+      # shippping == 100
+      # items     == 40.00
+      # taxes     == (40.00 - 15.00) * .10 == 2.50
+      # credits   == 10.02
+      # total     == 142.50 - 10.02 = 131.48
+      # total - coupon     == 133.98 - 15.00 = 117.48
+      order.user.store_credit.amount = 10.02
+      order.user.store_credit.save
+order.reload
+      order.credited_total.should == 117.48
+    end
+
     it 'should calculate credited_total' do
       @order.stubs(:calculate_totals).returns( true )
       @order.stubs(:calculated_at).returns(nil)
@@ -187,10 +217,10 @@ describe Order, "instance methods" do
   #  end
   #end
   context ".create_invoice(credit_card, charge_amount, args)" do
+    before do
+      ResqueSpec.reset!
+    end
     it 'should return an create_invoice on success' do
-      notifier_mock = mock()
-      notifier_mock.stubs(:deliver)
-      Notifier.stubs(:order_confirmation).returns(notifier_mock)
       cc_params = {
         :brand               => 'visa',
         :number             => '1',
@@ -216,6 +246,7 @@ describe Order, "instance methods" do
       invoice                   = @order.create_invoice(credit_card, 12.45,payment_profile, {})
       invoice.class.to_s.should == 'Invoice'
       invoice.state.should      == 'paid'
+      Jobs::SendOrderConfirmation.should have_queued(@order.id, invoice.id).in(:order_confirmation_emails)
     end
     it 'should return an create_invoice on failure' do
       cc_params = {

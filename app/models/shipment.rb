@@ -139,6 +139,16 @@ class Shipment < ActiveRecord::Base
     find(id_from_number(num))##  now we can search by id which should be much faster
   end
 
+  def self.admin_grid(args)
+    if args[:order_number].present?
+      where("orders.number = ?", args[:order_number])
+    elsif args[:email].present?
+      where("orders.email = ?", args[:email])
+    else
+      scoped
+    end
+  end
+
   private
 
   # Called before validation.  sets the shipment number, if the id is nil the shipment number is bogus

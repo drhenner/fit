@@ -1,5 +1,5 @@
 class Admin::Merchandise::Multi::VariantsController < Admin::BaseController
-  helper_method :subscription_plans, :image_groups
+  helper_method :subscription_plans, :image_groups, :taxability_informations
   def edit
     @product        = Product.includes(:properties,:product_properties, {:prototype => :properties}).find(params[:product_id])
     form_info
@@ -28,5 +28,9 @@ class Admin::Merchandise::Multi::VariantsController < Admin::BaseController
 
   def subscription_plans
     @subscription_plans ||= SubscriptionPlan.all.collect{|b| [b.name, b.id] }
+  end
+
+  def taxability_informations
+    @taxability_informations ||= TaxabilityInformation.all.collect{|b| ["#{b.name}(#{b.code})", b.id] }
   end
 end

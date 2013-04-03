@@ -70,42 +70,69 @@ in this production environment.  Hence you should add the following ENV variable
     FOG_DIRECTORY     => your bucket on AWS
     AWS_ACCESS_KEY_ID => your access key on AWS
     AWS_ACCESS_KEY_ID => your secret key on AWS
-    AUTHNET_LOGIN     => if you use authorize.net otherwise change config/settings.yml && config/environments/*.rb
-    AUTHNET_PASSWORD  => if you use authorize.net otherwise change config/settings.yml && config/environments/*.rb
 
 On linux:
 
     export FOG_DIRECTORY=xxxxxxxxxxxxxxx
     export AWS_ACCESS_KEY_ID=xxxxxxxxxxxxxxx
     export AWS_SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    export AUTHNET_LOGIN=xxxxxxxxxxx
-    export AUTHNET_PASSWORD=xxxxxxxxxxxxxxx
 
 On Heroku:
 
     heroku config:add FOG_DIRECTORY=xxxxxxxxxxxxxxx
     heroku config:add AWS_ACCESS_KEY_ID=xxxxxxxxxxxxxxx
     heroku config:add AWS_SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    heroku config:add AUTHNET_LOGIN=xxxxxxxxxxx
-    heroku config:add AUTHNET_PASSWORD=xxxxxxxxxxxxxxx
 
     heroku labs:enable user-env-compile -a myapp
 
-This is needed for using sendgrid on heroku(config/initializers/mail.rb):
+## Redis
 
-    heroku config:add SENDGRID_USERNAME=xxxxxxxxxxx
-    heroku config:add SENDGRID_PASSWORD=xxxxxxxxxxxxxxx
+Install redis
 
+    $ wget http://redis.googlecode.com/files/redis-2.6.12.tar.gz
+    $ tar xzf redis-2.6.12.tar.gz
+    $ cd redis-2.6.12
+    $ make
 
-##Quick Evaluation
+or
 
-If you just want to see what ror_ecommerce looks like, before you enter any products into the database, run the following command:
+    $ curl -O http://redis.googlecode.com/files/redis-2.6.12.tar.gz
+    $ tar xzf redis-2.6.12.tar.gz
+    $ cd redis-2.6.12
+    $ make
 
-    rake db:seed_fake
+add redis to your PATH:
 
-You should now have a minimal dataset, and be able to see a demo of the various parts of the app.
-Note: make sure you have `config/settings.yml` set up correctly before you try to checkout.
-Also, please take a look at [The 15 minute e-commerce video](http://www.ror-e.com/info/videos/7).
+     export PATH="/Users/drhenner/redis-2.6.12/src:/usr/lib/bin:/usr/local/bin:/usr/local/mysql/bin:/usr/local/git/bin:/usr/local/heroku/bin:$PATH"
+
+##Easy UFCfit development setup
+
+First create a Procfile in the Rails route
+
+now you can start memcached, and redis and set ENV variable right in the foreman Procfile
+
+The Procfile should look like this:
+
+```ruby
+  memcached:  memcached -vv
+  rails:      rails s --debugger
+```
+
+The .env file should look like:
+
+```ruby
+  FOG_DIRECTORY=xxxxxxxxxxxxxxx
+  AWS_ACCESS_KEY_ID=xxxxxxxxxxxxxxx
+  AWS_SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+Ask the project manager for the values to fill in xxxxxxxxxxxxxxx
+
+you also need to install foreman & start foreman
+
+    bundle install
+    foreman start
+
 
 ##ImageMagick and rMagick on OS X 10.8
 ------------------------------------
@@ -129,8 +156,6 @@ If you would like to read the docs, you can generate them with the following com
 
 First, create `config/settings.yml` and change the encryption key and paypal/auth.net information.
 You can also change `config/settings.yml.example` to `config/settings.yml` until you get your real info.
-
-To change from authlogic to any other gateway go to
 
 ## Paperclip
 
@@ -168,69 +193,6 @@ If you're on a Mac, the easiest way to install Memcached is to use [homebrew](ht
     brew install memcached
 
     memcached -vv
-
-####To Turn On the Dalli Cookie Store
-
-Remove the cookie store on line one of `config/initializers/session_store.rb`.
-In your Gemfile add:
-
-```ruby
-gem 'dalli'
-```
-
-then:
-
-    bundle install
-
-Finally uncomment the next two lines in `config/initializers/session_store.rb`
-
-```ruby
-require 'action_dispatch/middleware/session/dalli_store'
-Hadean::Application.config.session_store :dalli_store, :key => '_hadean_session_ugrdr6765745ce4vy'
-```
-
-####To Turn On the Dalli Cache Store
-
-It is also recommended to change the cache store in config/environments/*.rb
-
-```ruby
-config.cache_store = :dalli_store
-```
-
-## Adding Solr Search
-
-    brew install solr
-
-Uncomment the following in your gemfile:
-
-```ruby
-#gem 'sunspot_solr'
-#gem 'sunspot_rails', '~> 1.3'
-```
-
-then:
-
-    bundle install
-
-Start Solr before starting your server:
-
-    rake sunspot:solr:start
-
-Go to the bottom of `product.rb` and uncomment:
-
-```ruby
-Product.class_eval
-```
-
-Take a look at setting up Solr - [Solr in 5 minutes](http://github.com/outoftime/sunspot/wiki/adding-sunspot-search-to-rails-in-5-minutes-or-less)
-
-If you get the error, `Errno::ECONNREFUSED (Connection refused - connect(2)):` when you try to create a product or upload an image, you have not started Solr search.
-You need to run `rake sunspot:solr:start`, or remove Solr completely.
-
-##TODO:
-
-* more documentation / videos for creating products/variants
-* create referral programs so users can earn store credits
 
 ##Author
 

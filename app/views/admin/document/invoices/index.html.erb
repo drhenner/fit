@@ -4,6 +4,8 @@
     <%= form_tag admin_document_invoices_path, :method => 'get', :id => "invoices_search" do %>
       <label>Order #</label>
       <%= text_field_tag :order_number, params[:order_number] %>
+      <label>Email</label>
+      <%= text_field_tag :email, params[:email] %>
 
       <div style="text-align:center; margin-top: 15px">
         <%= submit_tag "Search", :name => nil, :class => 'button red-button' %>
@@ -26,6 +28,7 @@
     <th class='column1_header'>Amount</th>
     <th>State</th>
     <th>Order</th>
+    <th>email</th>
     <th>Type</th>
     <th></th>
     <th></th>
@@ -36,6 +39,7 @@
       <td><%= invoice.amount %></td>
       <td><%= invoice.state %></td>
       <td><%= invoice.order.number %></td>
+      <td><%= invoice.order.email %></td>
       <td><%= invoice.invoice_type %></td>
       <td><%= link_to "Show", admin_document_invoice_path(invoice) %></td>
       <td>

@@ -7,11 +7,15 @@
 # => This will hit the DB much less and should have better performance.
 
 class Admin::Shopping::BaseController < Admin::BaseController
-  helper_method :session_admin_cart, :reset_admin_cart, :show_right_panel_summary#, :new_admin_cart#
+  helper_method :session_admin_cart, :reset_admin_cart, :show_right_panel_summary, :in_checkout_flow#, :new_admin_cart#
 
   layout 'admin_cart'
 
   private
+
+  def in_checkout_flow
+    false
+  end
 
   def show_right_panel_summary
     false

@@ -31,6 +31,7 @@
 <body >
 <div id='body_wrapper'>
 
+    <%= render :partial => '/shared/welcome_header'%>
     <% if notice || alert %>
       <div class="row">
         <div class="flash_messages">
@@ -39,8 +40,6 @@
         </div>
       </div>
     <% end %>
-
-    <%= render :partial => '/shared/preorder_header'%>
 
     <div id='content_wrapper' class='row'>
       <%= yield %>

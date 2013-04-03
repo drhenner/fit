@@ -193,9 +193,9 @@ class OrderItem < ActiveRecord::Base
 
   def adjusted_price(coupon = nil)
     ## coupon credit is calculated at the order level but because taxes we need to apply it now
-    coupon_credit = coupon ? coupon.value([sale_price(order.transaction_time)], order) : 0.0
+    #coupon_credit = coupon ? coupon.value([sale_price(order.transaction_time)], order) : 0.0
 
-    self.price - coupon_credit
+    self.price# - coupon_credit
   end
 
   def sale_price(at)
@@ -207,7 +207,7 @@ class OrderItem < ActiveRecord::Base
     Sale.for(variant.product_id, at)
   end
 
-  # this is the price after coupons and taxes
+  # this is the price after taxes
   #   * this return total if has not been calculated, otherwise calculates the total.
   #
   # @param [none]

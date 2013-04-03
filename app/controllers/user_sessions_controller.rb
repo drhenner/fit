@@ -16,9 +16,9 @@ class UserSessionsController < ApplicationController
       flash[:notice] = I18n.t('login_successful')
       @user = User.new
       if @user_session.record.admin?
-        redirect_to admin_users_url
+        redirect_back_or_default admin_users_url
       else
-        redirect_to root_url
+        redirect_back_or_default root_url
       end
     else
       flash[:session_alert] =  I18n.t('login_failure')

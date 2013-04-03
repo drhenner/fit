@@ -30,7 +30,7 @@
           <th class='column1_header'><%= sortable "number" %></th>
           <th><%= sortable "email" %></th>
           <th><%= "Name" %></th>
-          <th>Status</th>
+          <th>Completed at</th>
           <th><%= 'Shipped' %></th>
         </tr>
         </thead>
@@ -40,7 +40,9 @@
             <td><%= order.email %></td>
             <td><%= order.name %></td>
             <td><%= order.display_completed_at %></td>
-            <td><%= order.shipped.to_s %></td>
+            <td>
+              <%= display_thumbs_up( order.shipped ) %>
+            </td>
           </tr>
         <% end %>
       </table>

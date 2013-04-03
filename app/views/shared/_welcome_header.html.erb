@@ -4,7 +4,9 @@
       <!-- Title Area -->
       <li class="name">
         <h1>
-          <%= link_to site_name, root_path %>
+          <%= link_to  root_path do %>
+            <%= image_tag 'header/ufcfit_banner.png', :alt => 'UFCFIT', :style => 'width: 125px;' %>
+          <% end %>
         </h1>
       </li>
       <li class="toggle-topbar"><a href="#"></a></li>
@@ -33,37 +35,68 @@
 
       <!-- Right Nav Section -->
       <ul class="right">
+        <li>
+          <%= link_to 'Success Stories', '#' %>
+        </li>
+        <li>
+          <%= link_to 'Program', '#' %>
+        </li>
+        <li>
+          <%= link_to 'Lifestyle', '#' %>
+        </li>
+        <li>
+          <%= link_to 'Meal Plan', '#' %>
+        </li>
+        <li>
+          <%= link_to 'The Proof', '#' %>
+        </li>
+        <li>
+          <%= link_to '#', :style => 'padding: 0 5px;' do %>
+            <i class="icon-facebook"></i>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to '#', :style => 'padding: 0 5px;' do %>
+            <i class="icon-twitter"></i>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to '#', :style => 'padding: 0 5px;' do %>
+            <i class="icon-instagram"></i>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to '#', :style => 'padding: 0 5px;' do %>
+            <i class="icon-google-plus"></i>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to '#', :style => 'padding: 0 5px;' do %>
+            <i class="icon-youtube"></i>
+          <% end %>
+        </li>
         <li class="divider show-for-medium-and-up"></li>
-        <% if Settings.allow_orders %>
-          <li class="has-dropdown">
-            <%= link_to( 'Your Cart', shopping_cart_items_path) %>
-            <ul class="dropdown">
-
-              <% if session_cart.shopping_cart_items.size > 0 %>
-                <li>
-                <%= link_to(shopping_cart_items_path, :id => 'cart_items_buttons') do %>
-                   <strong> Items </strong>
-                <% end %>
-                </li>
-                <li class="divider"></li>
-                <% session_cart.shopping_cart_items.each do |item| %>
-                  <li> <%= item.name %> </li>
-                <% end %>
-              <% else %>
-                <li class="divider"></li>
-                <li>
-                  <%= link_to( 'Your cart is Empty!', shopping_cart_items_path) %>
-                </li>
-              <% end %>
-            </ul>
+        <li>
+          <%= link_to '#', :style => 'padding: 0 5px;' do %>
+            <i class="icon-question-sign"></i>
+          <% end %>
+        </li>
+        <li class="divider show-for-medium-and-up"></li>
+        <% if Settings.allow_orders && session_cart.shopping_cart_items.count > 0 %>
+          <li>
+            <%= link_to shopping_cart_items_path do %>
+              <i class="icon-shopping-cart"></i> <%= session_cart.shopping_cart_items.count %>
+            <% end %>
           </li>
         <% end %>
         <li class="has-dropdown">
-          <a href="#">Your Account</a>
-          <ul class="dropdown">
-            <% unless current_user %>
-              <li><%= link_to 'Login',  login_path %></li>
-            <% else %>
+          <% unless current_user %>
+            <li><%= link_to 'Log In',  login_path %></li>
+          <% else %>
+            <a href="#">Your Account</a>
+          <% end %>
+          <% if current_user %>
+            <ul class="dropdown">
               <% if current_user.admin? %>
                 <li><%= link_to 'Admin', admin_users_path %></li>
               <% end %>
@@ -73,14 +106,14 @@
                   <label>Account</label>
                 <% end %>
               </li>
-              <li><%= link_to raw('Orders &rarr;' ), myaccount_orders_path %></li>
+              <li><%= link_to raw('Orders' ), myaccount_orders_path %></li>
               <li><%= link_to 'Addresses', myaccount_addresses_path %></li>
               <li><%= link_to 'Credit Cards', myaccount_credit_cards_path %></li>
               <li><%= link_to 'Credits', myaccount_store_credit_path %></li>
               <li class="divider"></li>
               <li><%= link_to 'Log Out', logout_path %></li>
-            <% end %>
-          </ul>
+            </ul>
+          <% end %>
         </li>
       </ul>
     </section>
