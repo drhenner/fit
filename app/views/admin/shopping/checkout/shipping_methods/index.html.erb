@@ -17,10 +17,18 @@
                 </div>
             </div>
           <% end %>
-          <ul>
-          <% items.first.shipping_rate_options(session_admin_order.sub_total).each do |rate| %>
-            <li><%= radio_button_tag "shipping_category[#{shipping_category_id}]", rate.id %> <%= rate.name_rate_min %></li>
-          <% end %>
+          <ul class=' panel callout'>
+            <% items.first.shipping_rate_options(session_admin_order.sub_total).each do |rate| %>
+              <li>
+                <label for='<%= "shipping_category_#{shipping_category_id}_#{rate.id}" %>' class='long'>
+                  <%= radio_button_tag "shipping_category[#{shipping_category_id}]", rate.id %>
+                  <%= rate.name_with_rate %>
+                </label>
+                <% if rate.minimum_charge > 0.0 %>
+                  <%= "(Qualified because you have more than #{number_to_currency rate.minimum_charge} of items)" %>
+                <% end %>
+              </li>
+            <% end %>
           </ul>
       </div>
     <% end %>
