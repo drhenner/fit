@@ -288,11 +288,12 @@ describe User, "instance methods" do
     # @order_item.order.expects(:calculate_totals).once
     it 'should call signup_notification and deliver' do
       sign_up_mock = mock()
-      #Notifier.stubs(:signup_notification).returns(sign_up_mock)
       Notifier.expects(:signup_notification).once.returns(sign_up_mock)
       sign_up_mock.stubs(:deliver)
       sign_up_mock.expects(:deliver).once
+      ResqueSpec.reset!
       @user.deliver_activation_instructions!
+      Jobs::SendSignUpNotification.should have_queued(@user).in(:signup_notification_emails)
     end
   end
 

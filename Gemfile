@@ -83,7 +83,7 @@ group :test do
   gem 'rspec-rails', '~> 2.12.2'
 
   gem 'email_spec'
-
+  gem 'resque_spec'
   gem "faker"
   gem "autotest", '~> 4.4.6'
   gem "autotest-rails-pure"

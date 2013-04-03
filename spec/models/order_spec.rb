@@ -218,9 +218,7 @@ order.reload
   #end
   context ".create_invoice(credit_card, charge_amount, args)" do
     it 'should return an create_invoice on success' do
-      notifier_mock = mock()
-      notifier_mock.stubs(:deliver)
-      Notifier.stubs(:order_confirmation).returns(notifier_mock)
+      ResqueSpec.reset!
       cc_params = {
         :brand               => 'visa',
         :number             => '1',
@@ -246,6 +244,7 @@ order.reload
       invoice                   = @order.create_invoice(credit_card, 12.45,payment_profile, {})
       invoice.class.to_s.should == 'Invoice'
       invoice.state.should      == 'paid'
+      Jobs::SendOrderConfirmation.should have_queued(invoice, @order).in(:order_confirmation_emails)
     end
     it 'should return an create_invoice on failure' do
       cc_params = {
