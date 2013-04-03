@@ -47,6 +47,7 @@ gem 'stripe'
 #gem 'sunspot_solr'
 #gem 'sunspot_rails', '~> 1.3.0rc'
 gem 'will_paginate', '~> 3.0.4'
+gem 'resque', require: 'resque/server'
 
 #gem 'memcache-client', '~> 1.8.5'
 group :production, :staging do
@@ -59,6 +60,7 @@ group :development do
   #gem 'awesome_print'
   #gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
   gem "autotest-rails-pure"
+  gem "foreman"
 
   gem "rails-erd"
   gem "debugger"
