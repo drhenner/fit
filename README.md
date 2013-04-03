@@ -85,12 +85,31 @@ On Heroku:
 
     heroku labs:enable user-env-compile -a myapp
 
+## Redis
+
+Install redis
+
+    $ wget http://redis.googlecode.com/files/redis-2.6.12.tar.gz
+    $ tar xzf redis-2.6.12.tar.gz
+    $ cd redis-2.6.12
+    $ make
+
+or
+
+    $ curl -O http://redis.googlecode.com/files/redis-2.6.12.tar.gz
+    $ tar xzf redis-2.6.12.tar.gz
+    $ cd redis-2.6.12
+    $ make
+
+add redis to your PATH:
+
+     export PATH="/Users/drhenner/redis-2.6.12/src:/usr/lib/bin:/usr/local/bin:/usr/local/mysql/bin:/usr/local/git/bin:/usr/local/heroku/bin:$PATH"
 
 ##Easy UFCfit development setup
 
 First create a Procfile in the Rails route
 
-now you can start memcached and set ENV variable right in the foreman Procfile
+now you can start memcached, and redis and set ENV variable right in the foreman Procfile
 
 The Procfile should look like this:
 
