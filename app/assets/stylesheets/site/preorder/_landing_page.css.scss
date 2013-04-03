@@ -78,6 +78,7 @@ span {
 }
 
 .preorder-banner {
+  position: relative;
   b {
     display: block;
   }
@@ -92,15 +93,16 @@ span {
     text-transform: uppercase;
   }
   blockquote {
-    font-size: 16px;
+    font-size: 18px;
     font-style: italic;
     line-height: 1.15;
     text-align: right;
-    top: 20%;
+    top: 13%;
     width: 32%;
   }
   cite {
-    padding-top: 8px;
+    font-size: 14px;
+    padding-top: 12px;
   }
   blockquote,
   h4,
@@ -114,8 +116,9 @@ span {
   span {
     background-color: rgba(0, 0, 0, .7);
     font-size: 20px;
+    left: 6%;
     line-height: 54px;
-    top: 50%;
+    top: 55%;
     width: 27%;
   }
   h4 {
@@ -123,9 +126,10 @@ span {
     font-weight: 400;
     line-height: 1;
     margin-bottom: 0;
-    padding: 0 15px;
+    margin-top: 0;
+    padding: 10px 15px 0;
     text-align: right;
-    top: 84%;
+    top: 85.5%;
   }
   div {
     background: #000;
@@ -325,13 +329,12 @@ span {
       background: #000;
     }
     span {
+      left: 0;
       line-height: 50px;
-      position: relative;
       margin: 15px 15px 0;
+      position: relative;
+      top: 0;
       width: auto !important;
-    }
-    blockquote {
-      display: none;
     }
   }
 
@@ -443,15 +446,20 @@ span {
     h4 {
       font-size: 11px;
       font-weight: 600;
-      padding-top: 4px;
-      top: 45%;
+      margin-bottom: 0;
+      margin-top: 0;
+      padding-top: 1%;
+      top: 66.9%;
     }
     b {
-      font-size: 13px;
+      font-size: 12px;
       padding-bottom: 1px;
     }
     span {
       line-height: 50px;
+    }
+    blockquote {
+      font-size: 16px;
     }
   }
 }
@@ -462,20 +470,20 @@ span {
     h4 {
       width: 34%;
     }
-    h4 {
+    h4,
+    cite {
       font-size: 12px;
-      padding-top: 7px;
+    }
+    h4 {
+      top: 85%;
     }
     p {
       font-size: 14px;
       font-weight: 600;
     }
-    q,
+    blockquote,
     span {
       font-size: 16px;
-    }
-    q {
-      padding-bottom: 8px;
     }
     span {
       line-height: 44px;
@@ -536,6 +544,18 @@ span {
 }
 
 @media only screen and (max-width: 380px) {
+  .preorder-banner {
+    h4 {
+      padding: 0;
+      right: 15px;
+      text-align: left;
+      top: 56%;
+      width: 48% !important;
+    }
+    blockquote {
+      display: none;
+    }
+  }
   .dolce-lifestyle {
     .coach {
       margin-left: 10%;
@@ -551,3 +571,38 @@ span {
   }
 }
 
+@media only screen and (min-width: 380px) and (max-width: 639px) {
+  .preorder-banner {
+    h4,
+    blockquote {
+      padding-left: 0;
+      padding-right: 0;
+      text-align: left;
+      width: 45% !important;
+    }
+
+    h4 {
+      font-size: 11px;
+      margin-top: -35px;
+      right: 15px;
+      top: inherit;
+    }
+    blockquote {
+      display: block;
+      font-size: 14px;
+      right: 15px;
+    }
+    cite {
+      font-weight: 400;
+      padding-bottom: 4px;
+    }
+  }
+}
+
+@media only screen and (min-width: 420px) and (max-width: 639px) {
+  .preorder-banner {
+    blockquote {
+      top: 30%;
+    }
+  }
+}
