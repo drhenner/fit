@@ -41,7 +41,7 @@
     </tfoot>
   </table>
   <% unless session_admin_cart.shopping_cart_items.empty? %>
-    <% unless show_right_panel_summary %>
+    <% unless in_checkout_flow %>
       <%= link_to 'Checkout', start_checkout_process_admin_shopping_checkout_order_path, :class => 'button', :method => 'POST' %>
     <% end %>
   <% end %>
