@@ -283,16 +283,24 @@ describe User, "instance methods" do
   end
 
   context ".deliver_activation_instructions!" do
+    before do
+      ResqueSpec.reset!
+    end
     #pending "test for deliver_activation_instructions!"
-    #Notifier.signup_notification(self).deliver
-    # @order_item.order.expects(:calculate_totals).once
     it 'should call signup_notification and deliver' do
-      sign_up_mock = mock()
-      #Notifier.stubs(:signup_notification).returns(sign_up_mock)
-      Notifier.expects(:signup_notification).once.returns(sign_up_mock)
-      sign_up_mock.stubs(:deliver)
-      sign_up_mock.expects(:deliver).once
       @user.deliver_activation_instructions!
+      Jobs::SendSignUpNotification.should have_queued(@user.id).in(:signup_notification_emails)
+    end
+  end
+
+  context ".deliver_password_reset_instructions!" do
+    before do
+      ResqueSpec.reset!
+    end
+    #pending "test for deliver_password_reset_instructions!"
+    it 'should call deliver_password_reset_instructions and deliver' do
+      @user.deliver_password_reset_instructions!
+      Jobs::SendPasswordResetInstructions.should have_queued(@user.id).in(:password_reset_emails)
     end
   end
 
