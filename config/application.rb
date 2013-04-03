@@ -25,7 +25,7 @@ module Hadean
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/app/reports/*)
-    config.autoload_paths += %W(#{config.root}/lib/reports)
+    config.autoload_paths += %W(#{config.root}/lib/reports #{config.root}/lib/jobs)
     #config.autoload_paths << File.join(Rails.root, "app", "reports")
 
     # Only load the plugins named here, in the order given (default is alphabetical).
