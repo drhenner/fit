@@ -64,6 +64,7 @@ GEM
       uuidtools (~> 2.1)
     babosa (0.3.9)
     bluecloth (2.1.0)
+    browser (0.1.6)
     builder (3.0.4)
     cancan (1.6.9)
     capybara (1.1.4)
@@ -290,6 +291,7 @@ DEPENDENCIES
   autotest-rails-pure
   aws-sdk (~> 1.8.5)
   bluecloth (~> 2.1.0)
+  browser
   cancan (~> 1.6.8)
   capybara (~> 1.1)
   chronic

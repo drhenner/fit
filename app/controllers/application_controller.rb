@@ -49,33 +49,8 @@ class ApplicationController < ActionController::Base
 
   private
 
-  VERSIONS = {
-    :default => /(?:Version|MSIE|Firefox|Chrome|CriOS|QuickTime|BlackBerry[^\/]+|CoreMedia v)[\/ ]?([a-z0-9.]+)/i,
-    :opera => /Opera\/.*? Version\/([\d.]+)/
-  }
-
   def notify_browser_incompatibility
-    if browser_incompatible?
-      flash[:alert] = 'Please upgrade your browser.'
-    end
-  end
-
-  def browser_incompatible?
-    ua = request.headers["User-Agent"]
-    (ie?(ua) && version(ua) <= "7")
-  end
-
-  def version(ua)
-    full_version(ua).to_s.split(".").first
-  end
-
-  def full_version
-    _, v = *ua.match(VERSIONS.fetch(id, VERSIONS[:default]))
-    v || "0.0"
-  end
-
-  def ie?(ua)
-    !!(ua =~ /MSIE/ && ua !~ /Opera/)
+    flash[:alert] = 'Please upgrade your browser.' unless browser.capable?
   end
 
   def display_shipping_warning?
