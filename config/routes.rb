@@ -14,6 +14,12 @@ Hadean::Application.routes.draw do
   match 'signup'  => 'customer/registrations#new'
   match 'admin/merchandise' => 'admin/merchandise/summary#index'
 
+  resource  :success_stories,   :only => [:show]
+  resource  :program,           :only => [:show]
+  resource  :lifestyle,         :only => [:show]
+  resource  :meal_plan,         :only => [:show]
+  resource  :the_proof,         :only => [:show]
+
   resource  :about,             :only => [:show]
   resource  :contact_us,        :only => [:show]
   resources :faqs,              :only => [:index]
