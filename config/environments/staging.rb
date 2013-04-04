@@ -16,6 +16,12 @@ Hadean::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
+  # Add the fonts path
+  config.assets.paths << "#{Rails.root}/app/assets/fonts"
+  config.assets.paths << "#{Rails.root}/app/assets/fonts/social"
+
+  # Precompile additional assets
+  config.assets.precompile += %w( .svg .eot .woff .ttf )
   config.assets.precompile += %w( *.js )
   config.assets.precompile += [ 'admin.css',
                                 'admin/app.css',
