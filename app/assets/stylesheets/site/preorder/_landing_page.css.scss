@@ -64,7 +64,7 @@
   right: 10px;
   display: none;
   text-indent: -9999px;
-  background: image-url('preorder/icon_top.png') no-repeat center center #999;
+  /* background: image-url('preorder/icon_top.png') no-repeat center center #999; */
   z-index: 999999;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
@@ -77,7 +77,7 @@
 }
 .scrollup:hover {
   opacity: 0.9;
-  background: image-url('preorder/icon_top.png') no-repeat center center;
+  /* background: image-url('preorder/icon_top.png') no-repeat center center; */
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
   padding: 3px 5px 0;
