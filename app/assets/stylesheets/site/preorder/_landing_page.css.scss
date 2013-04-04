@@ -547,13 +547,33 @@ span {
   .preorder-banner {
     h4 {
       padding: 0;
-      right: 15px;
       text-align: left;
-      top: 56%;
+      top: 44%;
       width: 48% !important;
+      right: 13px;
+    }
+    blockquote,
+    cite {
+      color: #000;
     }
     blockquote {
-      display: none;
+      width: auto !important;
+      font-size: 13px;
+      padding: 15px 15px 0;
+      position: relative;
+      top: inherit;
+      text-align: left;
+    }
+    cite {
+      font-size: 12px;
+      padding-top: 4px;
+      text-align: right;
+    }
+    b {
+      font-size: 11px;
+      font-weight: 400;
+      padding-bottom: 4px;
+      display: block;
     }
   }
   .dolce-lifestyle {
