@@ -10,7 +10,7 @@
       <div class='row item-box'>
         <div class="row">
           <div class='four column'>
-            <%= image_tag item.variant.featured_image(:product) %>
+            <div class="cropped-150 bottom-10" style="background-image:url('<%= item.variant.featured_image(:product) %>')"></div>
           </div>
           <div class='eight column'>
             <h4 class='red bold text-10'>
@@ -37,10 +37,10 @@
         <div class="row"><div class="line"></div></div>
         <div class="row top-10">
           <% upsell = upsells.first %>
-          <div class='three column'>
-            <%= image_tag upsell.featured_image(:product) %>
+          <div class='two column'>
+            <div class="cropped-100 bottom-10 left-20" style="background-image:url('<%= upsell.featured_image(:product) %>')"></div>
           </div>
-          <div class='six column'>
+          <div class='seven column'>
             <span class="black text-10 bold"><%= upsell.product.name %></span>
           </div>
           <div class="three column"></div>
@@ -85,7 +85,7 @@
         <div  class='small-text'>
           <ul class='vertical-list '>
             <li>
-            <div class="cropped bottom-10" style="background-image:url('<%= upsell.featured_image(:product) %>')"></div>
+            <div class="cropped-250 bottom-10" style="background-image:url('<%= upsell.featured_image(:product) %>')"></div>
             </li>
             <li>
             <span class="black text-09"><%= upsell.product.name %></span>

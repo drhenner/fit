@@ -56,7 +56,19 @@
     }
   }
 
-  .cropped {
+  .cropped-100 {
+    width: 100px;
+    height: 100px;
+    background-position: center center;
+  }
+
+  .cropped-150 {
+    width: 100%;
+    height: 100px;
+    background-position: center center;
+  }
+
+  .cropped-250 {
     width: 100%;  // change to desired width.
     height: 250px; // change to desired height.*/
     background-position: center center;
@@ -96,6 +108,9 @@
   }
   .bold {
     font-weight: bold;
+  }
+  .left-20 {
+    margin-left: 20px;
   }
   .left-5 {
     margin-left: 5px;
