@@ -6,17 +6,23 @@
   <h3> <span class="large-bullet alert label">1</span> Items in your cart</h3>
   <div class='row'>
     <div class='eight large-8 columns'>
-    <% session_cart.shopping_cart_items.each do |item| %>
+    <% session_cart.media_cart_items.each do |item| %>
       <div class='row item-box'>
         <div class="row">
           <div class='four column'>
             <div class="cropped-150 bottom-10" style="background-image:url('<%= item.variant.featured_image(:product) %>')"></div>
           </div>
           <div class='eight column'>
-            <h4 class='red bold text-10'>
-              <%= item.variant.display_title %><%# The Complete UFCFIT Lifestyle Program %>
-              <%= link_to 'x', upsell_path(item), :method => 'delete', :class => 'text-10 dark-gray right-20 pull-right' %>
-            </h4>
+            <div class='row'>
+              <div class='eleven column'>
+                <h4 class='red bold text-10'>
+                  <%= item.variant.display_title %><%# The Complete UFCFIT Lifestyle Program %>
+                </h4>
+              </div>
+              <div class='one column'>
+                <%= link_to 'x', upsell_path(item), :method => 'delete', :class => 'text-10 dark-gray right-20 pull-right remove_x' %>
+              </div>
+            </div>
             <ul class='vertical-list '>
               <li class='price-tag'><% number_to_currency item.variant.price %></li>
               <% if item.variant.has_preorder_options? %>
@@ -30,21 +36,36 @@
                   <% end %>
                 </li>
               <% end %>
-              <li><span class="us-canada-text">ONLY AVAILABLE IN THE US AND CANADA</span></li>
             </ul>
+            <div class="row">
+              <div class="twelve column large-12">
+                <span class="us-canada-text pull-right">ONLY AVAILABLE IN THE US AND CANADA</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="row"><div class="line"></div></div>
-        <div class="row top-10">
-          <% upsell = upsells.first %>
-          <div class='two column'>
-            <div class="cropped-100 bottom-10 left-20" style="background-image:url('<%= upsell.featured_image(:product) %>')"></div>
+
+        <% session_cart.non_media_cart_items.each do |item| %>
+          <% upsell = item.variant %>
+          <div class="row"><div class="line"></div></div>
+          <div class="row top-10">
+            <div class='two column'>
+              <div class="cropped-100 bottom-10 left-20" style="background-image:url('<%= upsell.featured_image(:product) %>')"></div>
+            </div>
+            <div class='seven column'>
+              <div class="black text-10 bold"><%= upsell.product.name %></div>
+              <div class='upsell-price top-10'><%= number_to_currency upsell.price %></div>
+            </div>
+            <div class="three column">
+              <%= link_to 'x', upsell_path(item), :method => 'delete', :class => 'text-10 dark-gray right-20 pull-right remove_upsell_x' %>
+            </div>
           </div>
-          <div class='seven column'>
-            <span class="black text-10 bold"><%= upsell.product.name %></span>
+          <div class="row">
+            <div class="twelve column large-12">
+              <span class="us-canada-text pull-right">ONLY AVAILABLE IN THE US AND CANADA</span>
+            </div>
           </div>
-          <div class="three column"></div>
-        </div>
+        <% end %>
       </div>
     <% end %>
     </div>
@@ -110,7 +131,7 @@
           <li>
             <%= link_to upsell_path(upsell), :class => 'button top20', :method => 'PUT' do %>
               Add to Cart
-            <% end %> 
+            <% end %>
           </li>
       </div>
     <% end %>
@@ -118,7 +139,7 @@
   </div>
   <div class="row">
     <p class="small-text">
-      For continuity items, your credit card will be billed as follows: Today you will be charged plus any applicable tax and shipping and processing. 
+      For continuity items, your credit card will be billed as follows: Today you will be charged plus any applicable tax and shipping and processing.
       Then every thirty days from today on an annual basis, you will be charged.
     <p>
   </div>
