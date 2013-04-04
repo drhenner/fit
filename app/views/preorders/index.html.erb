@@ -85,7 +85,7 @@
         <div  class='small-text'>
           <ul class='vertical-list '>
             <li>
-              <%= image_tag upsell.featured_image(:product) %>
+            <div class="cropped bottom-10" style="background-image:url('<%= upsell.featured_image(:product) %>')"></div>
             </li>
             <li>
             <span class="black text-09"><%= upsell.product.name %></span>
@@ -96,7 +96,9 @@
         </div>
       </div>
     <% end %>
+    <% (4-upsells.count).times do %>
       <div class="three large-3 columns"></div>
+    <% end %>
   </div>
   <div class='row upsell-products'>
     <% upsells.each do |upsell| %>

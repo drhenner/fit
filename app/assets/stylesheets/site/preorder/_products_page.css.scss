@@ -56,6 +56,12 @@
     }
   }
 
+  .cropped {
+    width: 100%;  // change to desired width.
+    height: 250px; // change to desired height.*/
+    background-position: center center;
+  }
+
   .background-black {
     background: #000;
     h3{
@@ -105,6 +111,9 @@
   }
   .right-20 {
     margin-right: 20px;
+  }
+  .bottom-10 {
+    margin-bottom: 10px;
   }
 }
 /* FIREFOX Specific CSS */
