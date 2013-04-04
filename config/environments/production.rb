@@ -56,6 +56,8 @@ Hadean::Application.configure do
                                 'site/preorder.css',
                                 'site/small_welcome.css',
                                 'site/temp_signup_form.css',
+                                'social_foundicons.css',
+                                'social_foundicons_ie7.css',
                                 'sprite.css',
                                 'tables.css',
                                 'cupertino/jquery-ui-1.8.12.custom.css',# in vendor
