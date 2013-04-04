@@ -7,82 +7,129 @@
   <div class='row'>
     <div class='eight large-8 columns'>
     <% session_cart.shopping_cart_items.each do |item| %>
-      <div class='row'>
-        <h4 class='cart-item-title'><%= item.variant.display_title %><%# The Complete UFCFIT Lifestyle Program %></h4>
-        <div class='six column'>
-          <%= image_tag item.variant.featured_image(:product) %>
-        </div>
-        <div class='six column'>
-          <ul class='vertical-list '>
-            <li class='price-tag'><% number_to_currency item.variant.price %></li>
-            <% if item.variant.has_preorder_options? %>
-              <li class='small-text'>Select an Option</li>
-              <li class='custom dropdown'>
+      <div class='row item-box'>
+        <div class="row">
+          <div class='four column'>
+            <%= image_tag item.variant.featured_image(:product) %>
+          </div>
+          <div class='eight column'>
+            <h4 class='red bold text-10'>
+              <%= item.variant.display_title %><%# The Complete UFCFIT Lifestyle Program %>
+              <%= link_to 'x', upsell_path(item), :method => 'delete', :class => 'text-10 dark-gray right-20 pull-right' %>
+            </h4>
+            <ul class='vertical-list '>
+              <li class='price-tag'><% number_to_currency item.variant.price %></li>
+              <% if item.variant.has_preorder_options? %>
+                <li class='small-text'>PAYMENT OPTIONS - SELECT ONE</li>
+                <li class='custom dropdown'>
 
-                <%= form_tag  main_sale_path,
-                              :method => 'PUT',
-                              :id => 'new_cart_item', :class => 'custom'  do %>
-                  <%= select_tag :variant_id, options_from_collection_for_select(item.variant.similar_variants, "id", "display_option", item.variant_id), :class => 'media-purchase' %>
-                <% end %>
-              </li>
-            <% end %>
-            <li class='small-text'><%= link_to 'Remove', upsell_path(item), :method => 'delete', :class => 'remove-item' %></li>
-          </ul>
+                  <%= form_tag  main_sale_path,
+                                :method => 'PUT',
+                                :id => 'new_cart_item', :class => 'custom'  do %>
+                    <%= select_tag :variant_id, options_from_collection_for_select(item.variant.similar_variants, "id", "display_option", item.variant_id), :class => 'media-purchase' %>
+                  <% end %>
+                </li>
+              <% end %>
+              <li><span class="us-canada-text">ONLY AVAILABLE IN THE US AND CANADA</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="row"><div class="line"></div></div>
+        <div class="row top-10">
+          <% upsell = upsells.first %>
+          <div class='three column'>
+            <%= image_tag upsell.featured_image(:product) %>
+          </div>
+          <div class='six column'>
+            <span class="black text-10 bold"><%= upsell.product.name %></span>
+          </div>
+          <div class="three column"></div>
         </div>
       </div>
     <% end %>
     </div>
     <div class='four large-4 columns'>
-      <ul class='vertical-list right-list'>
-        <% session_cart.shopping_cart_items.each do |item| %>
-          <li class='small-text'>
-            <% if item.quantity > 1 %>
-              <%= item.quantity %> -
-            <% end %>
-            <%= item.variant.display_title %>:
-            <%= number_to_currency item.variant.price %>
-            <%= link_to upsell_path(item),
-                        :class        => "has-tip tip-left",
-                        'data-width'  => "260",
-                        'data-tooltip'=> '',
-                        :method       => 'DELETE',
-                        :title        => "Click to Remove #{item.variant.product_name}",
-                        :style        => 'color:#FF0000' do %>
-              <i class='icon-minus-sign'></i>
-            <% end %>
+      <div class="order-summary-box">
+        <ul class='vertical-list'>
+          <li class="">
+            <h3>ORDER SUMMARY</h3>
           </li>
-        <% end %>
           <li class='price-tag'>
             Sub-Total: <%= number_to_currency session_cart.sub_total %>
           </li>
           <li >
-            <%= link_to checkout_shopping_order_path('checkout'), :class => 'button large success top20' do %>
+            <%= link_to checkout_shopping_order_path('checkout'), :class => 'button success top20' do %>
               Proceed to checkout <i class='icon-caret-right'></i>
             <% end %>
           </li>
+        </ul>
+      </div>
+      <ul class='vertical-list'>
+        <li>
+          <div class="pull-right">
+            <span class="text-10 bold dark-gray top-10 right-5 bottom-10">FOR CANADA ORDERS <%= link_to "CLICK HERE", "#" %><span><%= image_tag "preorder/canada.png", :class => "top-5 left-5"  %>
+          </div>
+        </li>
+        <li>
+          <div class="pull-right">
+            <%= image_tag "preorder/90-day.png"  %>
+          </div>
+        </li>
       </ul>
-
-
     </div>
   </div>
   <h3> <span class="large-bullet alert label">2</span> Take Advantage of these special offers for our UFC FIT community</h3>
   <div class='row upsell-products'>
     <% upsells.each do |upsell| %>
-      <div class='four large-4 columns'>
-
+      <div class='three large-3 columns'>
         <div  class='small-text'>
-          <%= image_tag upsell.featured_image(:product) %>
-          <p class='small-text'><%= upsell.short_description %>
-          </p>
-
-          <span class='upsell-price'><%= number_to_currency upsell.price %></span>
+          <ul class='vertical-list '>
+            <li>
+              <%= image_tag upsell.featured_image(:product) %>
+            </li>
+            <li>
+            <span class="black text-09"><%= upsell.product.name %></span>
+            </li>
+            <li>
+              <p class="small-text text-08"><%= upsell.short_description %></p>
+            </li>
         </div>
-
-        <%= link_to upsell_path(upsell), :class => 'button top20', :method => 'PUT' do %>
-          Add to Cart
-        <% end %>
       </div>
     <% end %>
+      <div class="three large-3 columns"></div>
+  </div>
+  <div class='row upsell-products'>
+    <% upsells.each do |upsell| %>
+      <div class='three large-3 columns'>
+        <ul class='vertical-list'>
+          <li>
+            <span class='upsell-price'><%= number_to_currency upsell.price %></span>
+          </li>
+          <li>
+            <%= link_to upsell_path(upsell), :class => 'button top20', :method => 'PUT' do %>
+              Add to Cart
+            <% end %> 
+          </li>
+      </div>
+    <% end %>
+    <div class="three large-3 columns"></div>
+  </div>
+  <div class="row">
+    <p class="small-text">
+      For continuity items, your credit card will be billed as follows: Today you will be charged plus any applicable tax and shipping and processing. 
+      Then every thirty days from today on an annual basis, you will be charged.
+    <p>
+  </div>
+  <div class="row panel background-black">
+    <div class="pull-left">
+      <h3>ORDER SUMMARY</h3>
+    </div>
+    <div class="pull-right">
+      <span class="dark-gray bold">SUB-TOTAL ( <%= session_cart.shopping_cart_items.count %> items ):</span> <span class="white bold right-5"><%= number_to_currency session_cart.sub_total %></span>
+      <%= link_to checkout_shopping_order_path('checkout'), :class => 'button large success' do %>
+        Proceed to checkout <i class='icon-caret-right'></i>
+      <% end %>
+    </div>
   </div>
 </div>
 
