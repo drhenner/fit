@@ -36,19 +36,21 @@
       <!-- Right Nav Section -->
       <ul class="right">
         <li>
-          <%= link_to 'Success Stories', '#' %>
+          <%= link_to 'Success Stories', success_stories_path %>
         </li>
         <li>
-          <%= link_to 'Program', '#' %>
+          <%= link_to 'Program', the_program_path %>
+        </li>
+        <% if false # remove until we have content%>
+          <li>
+            <%= link_to 'Lifestyle', lifestyle_path %>
+          </li>
+        <% end %>
+        <li>
+          <%= link_to 'Meal Plan', meal_plan_path %>
         </li>
         <li>
-          <%= link_to 'Lifestyle', '#' %>
-        </li>
-        <li>
-          <%= link_to 'Meal Plan', '#' %>
-        </li>
-        <li>
-          <%= link_to 'The Proof', '#' %>
+          <%= link_to 'The Proof', the_proof_path %>
         </li>
         <li>
           <%= link_to '#', :style => 'padding: 0 5px;' do %>

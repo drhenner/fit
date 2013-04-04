@@ -1,5 +1,11 @@
 Hadean::Application.routes.draw do
 
+  resource :the_proof
+  resource :the_program
+  resource :success_stories
+  resource :meal_plan
+  resource :lifestyle
+
   resource :google12299642d5975b38, :only => :show
   resource :iuwhcbphqoimcsid,       :only => :show
   match 'loaderio-79aeb8198cf6b8d1faffd0edad063326'  => 'welcome#load'
