@@ -16,6 +16,10 @@ if (document.getElementsByTagName) {
 
 // This allows forms to have unobtrusive JS nested forms.
 $(function() {
+  if( $.browser.msie && parseInt($.browser.version, 10) <=7 ){
+    $('.browser').show()
+  }
+
   $('form a.add_child').click(function() {
     var assoc   = $(this).attr('data-association');
     var content = $('#' + assoc + '_fields_template').html();
