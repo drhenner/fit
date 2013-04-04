@@ -33,6 +33,7 @@ Hadean::Application.configure do
                                 'application.css',
                                 'chosen.css',
                                 'foundation.css',
+                                "font-awesome-social.css",
                                 'font-awesome.css',
                                 'home_page.css',
                                 'ie.css',
