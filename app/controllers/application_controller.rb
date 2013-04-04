@@ -19,7 +19,6 @@ class ApplicationController < ActionController::Base
   before_filter :secure_session
   before_filter :redirect_to_welcome
   before_filter :authenticate_if_staging
-  before_filter :notify_browser_incompatibility
 
   APP_DOMAIN = 'www.ufcfit.com'
 
@@ -48,10 +47,6 @@ class ApplicationController < ActionController::Base
   end
 
   private
-
-  def notify_browser_incompatibility
-    flash[:alert] = 'Please upgrade your browser.' unless browser.capable?
-  end
 
   def display_shipping_warning?
     false
