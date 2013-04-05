@@ -2,7 +2,7 @@ class Admin::Config::StatesController < Admin::Config::BaseController
   helper_method :sort_column, :sort_direction, :shipping_zones, :countries
   def index
     params[:page] ||= 1
-    params[:rows] ||= 20
+    params[:rows] ||= 25
     @states = State.order(sort_column + " " + sort_direction).
                                               paginate(:page => params[:page].to_i, :per_page => params[:rows].to_i)
   end
