@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130330035108) do
+ActiveRecord::Schema.define(:version => 20130405190313) do
 
   create_table "accounting_adjustments", :force => true do |t|
     t.integer  "adjustable_id",                                 :null => false
@@ -651,7 +651,7 @@ ActiveRecord::Schema.define(:version => 20130330035108) do
   end
 
   create_table "tax_rates", :force => true do |t|
-    t.decimal "percentage", :precision => 8, :scale => 2, :default => 0.0,  :null => false
+    t.decimal "percentage", :precision => 8, :scale => 3, :default => 0.0,  :null => false
     t.integer "state_id"
     t.integer "country_id"
     t.date    "start_date",                                                 :null => false
@@ -666,10 +666,8 @@ ActiveRecord::Schema.define(:version => 20130330035108) do
   end
 
   create_table "taxability_informations", :force => true do |t|
-    t.string   "name"
-    t.string   "code"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string "name"
+    t.string "code"
   end
 
   create_table "transaction_accounts", :force => true do |t|
@@ -791,7 +789,7 @@ ActiveRecord::Schema.define(:version => 20130330035108) do
     t.string   "small_description"
     t.string   "option_text"
     t.integer  "image_group_id"
-    t.integer  "taxability_information_id"
+    t.integer  "taxability_information_id",                               :default => 1,     :null => false
   end
 
   add_index "variants", ["brand_id"], :name => "index_variants_on_brand_id"
