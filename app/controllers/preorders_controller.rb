@@ -9,6 +9,7 @@ class PreordersController < ApplicationController
     if session_cart.shopping_cart_items.empty?
       redirect_to root_url
     end
+    fresh_when :last_modified => session_cart.updated_at.utc, :etag => [session_cart, @upsells]
   end
 
   def show

@@ -18,7 +18,7 @@
 class CartItem < ActiveRecord::Base
   belongs_to :item_type
   belongs_to :user
-  belongs_to :cart
+  belongs_to :cart, :touch => true
   belongs_to :variant
 
   QUANTITIES = [1,2,3,4]
