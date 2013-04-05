@@ -53,7 +53,8 @@ class Shopping::OrdersController < Shopping::BaseController
         if response.succeeded?
           ##  MARK items as purchased
           session_cart.mark_items_purchased(@order)
-          redirect_to( myaccount_order_path(@order) ) and return
+          flash[:last_order] = @order.id
+          redirect_to( confirmation_shopping_order_url(@order) ) and return
         else
           flash[:alert] =  [I18n.t('could_not_process'), I18n.t('the_order')].join(' ')
         end
@@ -85,7 +86,8 @@ class Shopping::OrdersController < Shopping::BaseController
         if response.preordered?
           ##  MARK items as purchased
           session_cart.mark_items_purchased(@order)
-          redirect_to( myaccount_order_path(@order) ) and return
+          flash[:last_order] = @order.id
+          redirect_to( confirmation_shopping_order_url(@order) ) and return
         else
           flash[:alert] =  [I18n.t('could_not_process'), I18n.t('the_order')].join(' ')
         end
@@ -98,6 +100,20 @@ class Shopping::OrdersController < Shopping::BaseController
       form_info
       flash[:alert] = [I18n.t('form not filled out correctly')].join(' ')
       render :action => 'index'
+    end
+  end
+
+  def confirmation
+    if flash[:last_order].present?
+      @order = Order.where(:id => flash[:last_order]).includes({:order_items => :variant}).first
+      flash[:last_order] = nil
+      render :layout => 'application'
+    else
+      if current_user.finished_orders.present?
+        redirect_to myaccount_order_url( current_user.finished_orders.last )
+      elsif current_user
+        redirect_to myaccount_orders_url
+      end
     end
   end
 

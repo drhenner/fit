@@ -17,7 +17,8 @@ $a-button-border: #AC1010;/* #1e728c */
 $text-color: #909090; /* #4d4d4d */
 $label-size: 12px;
 
-$tab-border:#CC0000; /* #2ba6cb */
+$tab-border-top:#9d9d9d;
+$tab-border:#7d7d7d; /* #2ba6cb */
 $tab-fill:#CC0000; /* #2ba6cb */
 /* Requires: normalize.css */
 /* Global Reset & Standards ---------------------- */
@@ -633,8 +634,8 @@ div.orbit, div.orbit-wrapper { width: 100% !important; }
 .tabs.vertical dt, .tabs.vertical dd, .tabs.vertical li { float: none; height: auto; }
 .tabs.vertical dd, .tabs.vertical li { border-left: 3px solid #cccccc; }
 .tabs.vertical dd a, .tabs.vertical li a { background: #f2f2f2; border: none; border: 1px solid #e6e6e6; border-width: 1px 1px 0 0; color: #555; display: block; font-size: 14px; height: auto; line-height: 1; padding: 15px 20px; -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset; -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset; box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset; }
-.tabs.vertical dd.active, .tabs.vertical li.active { margin-top: 0; border-top: 1px solid #4d4d4d; border-left: 4px solid #1a1a1a; }
-.tabs.vertical dd.active a, .tabs.vertical li.active a { background: #4d4d4d; border: none; color: #fff; height: auto; margin: 0; position: static; top: 0; -webkit-box-shadow: 0 0 0; -moz-box-shadow: 0 0 0; box-shadow: 0 0 0; }
+.tabs.vertical dd.active, .tabs.vertical li.active { margin-top: 0; border-top: 1px solid $tab-border-top; border-left: 4px solid $tab-border; }
+.tabs.vertical dd.active a, .tabs.vertical li.active a { background: $tab-fill; border: none; color: #fff; height: auto; margin: 0; position: static; top: 0; -webkit-box-shadow: 0 0 0; -moz-box-shadow: 0 0 0; box-shadow: 0 0 0; }
 .tabs.vertical dd:first-child a.active, .tabs.vertical li:first-child a.active { margin: 0; }
 .tabs.pill { border-bottom: none; margin-bottom: 10px; }
 .tabs.pill dd, .tabs.pill li { margin-right: 10px; }

@@ -75,6 +75,7 @@ Hadean::Application.routes.draw do
       member do
         get :checkout
         put :preorder
+        get :confirmation
       end
     end
 

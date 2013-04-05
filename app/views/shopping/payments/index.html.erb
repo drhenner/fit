@@ -20,9 +20,10 @@
 
       <% if payment_profiles.present? %>
         <div class='panel clearfix'>
+          <h5> Use Credit Card on file? </h5>
           <% payment_profiles.each do |payment_method| %>
-            <div id='card_on_file' class="field column ar-use-saved-card  last" style='width:425px'>
-              <h5> Use Credit Card on file? </h5>
+            <div id='card_on_file' class="field ar-use-saved-card  last" style='width:425px'>
+
               <label for="use_credit_card_on_file_<%= payment_method.id %>">
                   <%#= radio_button_tag(:use_credit_card_on_file, payment_method.id, false) %>
                   <%= payment_method.cc_type %> - <%= payment_method.last4 %>
@@ -30,10 +31,8 @@
                   <%= link_to 'Use Card', select_card_shopping_payment_path(payment_method), :method => 'PUT' %>
               </label>
 
-
-
               <div style='top10'>
-
+&nbsp;
               </div>
             </div>
           <% end %>

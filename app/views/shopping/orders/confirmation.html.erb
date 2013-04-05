@@ -1,0 +1,26 @@
+<h1>ORDER CONFIRMATION....ORDER CONFIRMATION...</h1>
+
+<div class="twelve columns">
+  <div class="row">
+
+    <h2>THANK YOU, YOUR ORDER HAS BEEN PLACED.</h2>
+    <p>An email confirmation has been sent to you.</p>
+    <h4>ORDER NUMBER: <%= @order.number %></h4>
+    <% @order.order_items.each_with_index do |item, i| %>
+      <blockquote class='finished-order-item'>
+        <div class="row">
+          <div class='four large-4 columns'>
+            <h2>Item #<%= i + 1 %>: </h2>
+          </div>
+          <div class='eight large-8 columns'>
+            <ul>
+              <li><%= item.variant.product_name %></li>
+              <li><%= image_tag item.variant.featured_image %></li>
+            </ul>
+          </div>
+        </div>
+      </blockquote>
+    <% end %>
+
+  </div>
+</div>

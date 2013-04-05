@@ -48,7 +48,7 @@ class Shopping::BaseController < ApplicationController
     elsif session_order.bill_address_id.nil?
       return shopping_billing_addresses_url()
     elsif session_order.payment_profile_id.nil?
-      return shopping_payments_path
+      return shopping_payments_url
     end
   end
 
