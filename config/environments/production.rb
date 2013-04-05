@@ -75,10 +75,10 @@ Hadean::Application.configure do
   #end
 
   # Specifies the header that your server uses for sending files
-  config.action_dispatch.x_sendfile_header = "X-Sendfile"
+  # config.action_dispatch.x_sendfile_header = "X-Sendfile"
 
   # For nginx:
-  # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
+  config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
 
   # See everything in the log (default is :info)
   # config.log_level = :debug
