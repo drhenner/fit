@@ -194,6 +194,14 @@ If you're on a Mac, the easiest way to install Memcached is to use [homebrew](ht
 
     memcached -vv
 
+
+##Resque admin
+
+Resque admin is accessible at /resque.
+
+To run ensure that resque jobs run locally use forman to start the
+server.
+
 ##Author
 
 RoR Ecommerce was created by David Henner. [Contributors](https://github.com/drhenner/ror_ecommerce/blob/master/Contributors.md).

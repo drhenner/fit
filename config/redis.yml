@@ -2,3 +2,4 @@ defaults: &defaults <%= ENV['REDIS_URL'] || ENV['REDISTOGO_URL'] || 'redis://127
 development: *defaults
 test: *defaults
 production: *defaults
+staging: *defaults
