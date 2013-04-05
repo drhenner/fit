@@ -48,7 +48,6 @@ gem 'stripe'
 #gem 'sunspot_rails', '~> 1.3.0rc'
 gem 'will_paginate', '~> 3.0.4'
 gem 'resque', require: 'resque/server'
-
 #gem 'memcache-client', '~> 1.8.5'
 group :production, :staging do
   gem 'pg'
