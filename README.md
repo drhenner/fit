@@ -199,7 +199,7 @@ If you're on a Mac, the easiest way to install Memcached is to use [homebrew](ht
 
 Resque admin is accessible at /resque.
 
-To run ensure that resque jobs run locally use forman to start the
+To run ensure that resque jobs run locally use foreman to start the
 server.
 
 ##Author
