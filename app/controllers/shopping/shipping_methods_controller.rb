@@ -37,6 +37,7 @@ class Shopping::ShippingMethodsController < Shopping::BaseController
         all_selected = false
       end
     end
+
     if all_selected
       redirect_to(next_form_url(session_order))
     else
