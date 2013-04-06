@@ -53,7 +53,7 @@ class Admin::Fulfillment::ShipmentsController < Admin::Fulfillment::BaseControll
 
     respond_to do |format|
       if @shipment.update_attributes(params[:shipment])
-        format.html { redirect_to(admin_fulfillment_shipment_path(@shipment, :order_id => @shipment.order.number), :notice => 'Shipment was successfully updated.') }
+        format.html { redirect_to(edit_admin_fulfillment_shipment_path(@shipment.id, :order_id => @shipment.order.number), :notice => 'Shipment was successfully updated.') }
       else
         form_info
         format.html { render :action => "edit" }

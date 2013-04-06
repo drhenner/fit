@@ -107,17 +107,17 @@ describe User, "instance methods" do
   end
 
   context ".admin?" do
-    it 'ahould be an admin' do
+    it 'should be an admin' do
       user = create_admin_user
       user.admin?.should be_true
     end
 
-    it 'ahould be an admin' do
+    it 'should be an admin' do
       user = create_super_admin_user
       user.admin?.should be_true
     end
 
-    it 'ahould not be an admin' do
+    it 'should not be an admin' do
       user = create(:user)
       user.admin?.should be_false
     end

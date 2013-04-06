@@ -16,6 +16,11 @@ Hadean::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
+  # Add the fonts path
+  config.assets.paths << "#{Rails.root}/app/assets/fonts"
+
+  # Precompile additional assets
+  config.assets.precompile += %w( .svg .eot .woff .ttf )
   config.assets.precompile += %w( *.js )
   config.assets.precompile += [ 'admin.css',
                                 'admin/app.css',
@@ -28,6 +33,8 @@ Hadean::Application.configure do
                                 'application.css',
                                 'chosen.css',
                                 'foundation.css',
+                                "font-awesome-social.css",
+                                'font-awesome.css',
                                 'home_page.css',
                                 'ie.css',
                                 'ie6.css',
@@ -64,10 +71,10 @@ Hadean::Application.configure do
   #end
 
   # Specifies the header that your server uses for sending files
-  config.action_dispatch.x_sendfile_header = "X-Sendfile"
+  # config.action_dispatch.x_sendfile_header = "X-Sendfile"
 
   # For nginx:
-  # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
+  config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
 
   # See everything in the log (default is :info)
   # config.log_level = :debug

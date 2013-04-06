@@ -137,7 +137,7 @@ describe Variant, " instance methods" do
         @variant.name = nil
         @variant.product.name = 'product says hello'
         @variant.stubs(:primary_property).returns  create(:variant_property, :description => 'pp_name')
-        @variant.product_name.should == 'product says hello - pp_name'
+        @variant.product_name.should == 'product says hello'
     end
   end
 

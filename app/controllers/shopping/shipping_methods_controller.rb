@@ -37,8 +37,9 @@ class Shopping::ShippingMethodsController < Shopping::BaseController
         all_selected = false
       end
     end
+
     if all_selected
-      redirect_to(shopping_orders_url)
+      redirect_to(next_form_url(session_order))
     else
       redirect_to( shopping_shipping_methods_url, :notice => I18n.t('all_shipping_methods_must_be_selected'))
     end

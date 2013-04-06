@@ -32,6 +32,11 @@ class Admin::Shopping::ProductsController < Admin::Shopping::BaseController
     end
   end
 
+  def destroy
+    session_admin_cart.remove_variant(params[:variant_id])
+    redirect_to admin_shopping_products_url
+  end
+
   private
 
   def product_types

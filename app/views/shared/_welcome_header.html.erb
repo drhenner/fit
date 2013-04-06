@@ -36,56 +36,62 @@
       <!-- Right Nav Section -->
       <ul class="right">
         <li>
-          <%= link_to 'Success Stories', '#' %>
+          <%= link_to 'Success Stories', success_stories_path %>
         </li>
         <li>
-          <%= link_to 'Program', '#' %>
+          <%= link_to 'Program', the_program_path %>
+        </li>
+        <% if false # remove until we have content%>
+          <li>
+            <%= link_to 'Lifestyle', lifestyle_path %>
+          </li>
+        <% end %>
+        <li>
+          <%= link_to 'Meal Plan', meal_plan_path %>
         </li>
         <li>
-          <%= link_to 'Lifestyle', '#' %>
+          <%= link_to 'The Proof', the_proof_path %>
         </li>
         <li>
-          <%= link_to 'Meal Plan', '#' %>
+          <%= link_to I18n.t(:facebook_url), :style => 'padding: 0 5px;' do %>
+            <i class="foundicon-facebook"></i>
+          <% end %>
         </li>
         <li>
-          <%= link_to 'The Proof', '#' %>
-        </li>
-        <li>
-          <%= link_to '#', :style => 'padding: 0 5px;' do %>
-            <i class="icon-facebook"></i>
+          <%= link_to I18n.t(:twitter_url), :style => 'padding: 0 5px;' do %>
+            <i class="foundicon-twitter"></i>
           <% end %>
         </li>
         <li>
           <%= link_to '#', :style => 'padding: 0 5px;' do %>
-            <i class="icon-twitter"></i>
+            <i class="foundicon-instagram"></i>
           <% end %>
         </li>
-        <li>
-          <%= link_to '#', :style => 'padding: 0 5px;' do %>
-            <i class="icon-instagram"></i>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to '#', :style => 'padding: 0 5px;' do %>
-            <i class="icon-google-plus"></i>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to '#', :style => 'padding: 0 5px;' do %>
-            <i class="icon-youtube"></i>
-          <% end %>
-        </li>
+        <% if I18n.t(:google_plus_url).present? && I18n.t(:google_plus_url).length > 4 %>
+          <li>
+            <%= link_to I18n.t(:google_plus_url), :style => 'padding: 0 5px;' do %>
+              <i class="foundicon-google-plus"></i>
+            <% end %>
+          </li>
+        <% end %>
+        <% if I18n.t(:youtube_url).present? && I18n.t(:youtube_url).length > 4 %>
+          <li>
+            <%= link_to I18n.t(:youtube_url), :style => 'padding: 0 5px;' do %>
+              <i class="foundicon-youtube"></i>
+            <% end %>
+          </li>
+        <% end %>
         <li class="divider show-for-medium-and-up"></li>
         <li>
-          <%= link_to '#', :style => 'padding: 0 5px;' do %>
+          <%= link_to I18n.t(:desk_dot_com_url), :style => 'padding: 0 5px;' do %>
             <i class="icon-question-sign"></i>
           <% end %>
         </li>
         <li class="divider show-for-medium-and-up"></li>
-        <% if Settings.allow_orders && session_cart.shopping_cart_items.count > 0 %>
+        <% if Settings.allow_orders && session_cart.shopping_cart_items.size > 0 %>
           <li>
             <%= link_to shopping_cart_items_path do %>
-              <i class="icon-shopping-cart"></i> <%= session_cart.shopping_cart_items.count %>
+              <i class="icon-shopping-cart"></i> <%= session_cart.shopping_cart_items.size %>
             <% end %>
           </li>
         <% end %>
@@ -109,7 +115,6 @@
               <li><%= link_to raw('Orders' ), myaccount_orders_path %></li>
               <li><%= link_to 'Addresses', myaccount_addresses_path %></li>
               <li><%= link_to 'Credit Cards', myaccount_credit_cards_path %></li>
-              <li><%= link_to 'Credits', myaccount_store_credit_path %></li>
               <li class="divider"></li>
               <li><%= link_to 'Log Out', logout_path %></li>
             </ul>
@@ -118,4 +123,8 @@
       </ul>
     </section>
   </nav>
+</div>
+<div data-alert class='alert-box alert browser' style="display:none">
+  Your browser needs to be upgraded. Try <a href='https://www.google.com/intl/en/chrome/browser/' style="color:#000;">Chrome</a> or <a href='http://www.mozilla.org/en-US/firefox/new/' style="color:#000;">Firefox</a>.
+  <a href='#' class='close'>&times;</a>
 </div>

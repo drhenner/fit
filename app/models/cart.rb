@@ -119,6 +119,13 @@ class Cart < ActiveRecord::Base
     shopping_cart_items.map(&:total).sum
   end
 
+  def media_cart_items
+    shopping_cart_items.select{|i| Variant.default_preorder_item_ids.include?( i.variant_id )}
+  end
+
+  def non_media_cart_items
+    shopping_cart_items.select{|i| !Variant.default_preorder_item_ids.include?( i.variant_id )}
+  end
   # Adds the quantity of items that are currently in the shopping cart
   #
   # @param [none]
@@ -167,6 +174,10 @@ class Cart < ActiveRecord::Base
       cart_item = add_cart_items(items, quantity_to_purchase, customer, cart_item_type_id, variant_id)
     end
     cart_item
+  end
+
+  def number_of_variants(variant_id)
+    shopping_cart_items.find_all_by_variant_id(variant_id).count
   end
 
 

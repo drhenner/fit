@@ -29,7 +29,7 @@ div.alert-box.warning {
   input {
     border: 1px #C66 solid;
   }
-
+  label {color:#A33;}
   .dropdown {
     a.current {border: solid 1px #C66;}
   }
@@ -59,7 +59,7 @@ form.custom {
 
 #footer_wrapper {
   //color:#333;
-  background: image-url('preorder/bg9.png' ) repeat;
+  /* background: image-url('preorder/bg9.png' ) repeat; */
   color: #999;
   min-height: 54px;
   height: auto;

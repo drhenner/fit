@@ -21,9 +21,17 @@
       <% end %>
     </dd>
     <dd class="<%= 'active' if selected_checkout_tab('payment-info') %>">
-      <span>4. PAYMENT INFO</span>
+      <% if session_order.bill_address_id && session_order.ship_address_id && session_order.all_order_items_have_a_shipping_rate? %>
+        <%= link_to '4. PAYMENT INFO', shopping_payments_path %>
+      <% else %>
+        <span>4. PAYMENT INFO</span>
+      <% end %>
     </dd>
     <dd class="<%= 'active' if selected_checkout_tab('order-details') %>">
-      <span>5. ORDER DETAILS</span>
+      <% if session_order.bill_address_id && session_order.ship_address_id && session_order.all_order_items_have_a_shipping_rate? %>
+        <%= link_to '5. ORDER DETAILS', shopping_orders_path %>
+      <% else %>
+        <span>5. ORDER DETAILS</span>
+      <% end %>
     </dd>
 </dl>

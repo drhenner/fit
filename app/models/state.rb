@@ -17,6 +17,8 @@ class State < ActiveRecord::Base
   validates :country_id,        :presence => true
   validates :shipping_zone_id,  :presence => true
 
+  after_save :expire_cache
+
   # the abbreviation and name of the state separated by '-' and optionally appended by characters
   #
   # @param [none]
@@ -49,7 +51,9 @@ class State < ActiveRecord::Base
   # @param [none]
   # @return [ Array[Array] ]
   def self.form_selector
-    active.order('country_id ASC, abbreviation ASC').all.collect { |state| [state.abbrev_and_name, state.id] }
+    Rails.cache.fetch("states-form_selector", :expires_in => 24.hours) do
+      active.order('country_id ASC, abbreviation ASC').all.collect { |state| [state.abbrev_and_name, state.id] }
+    end
   end
 
   def self.active
@@ -63,4 +67,10 @@ class State < ActiveRecord::Base
   def self.all_with_country_id(c_id)
     where(["country_id = ?", c_id])
   end
+
+  private
+
+    def expire_cache
+      Rails.cache.delete("states-form_selector")
+    end
 end

@@ -6,6 +6,7 @@
     </p>
   <% else %>
     <table>
+      <thead>
       <tr>
         <th>Name</th>
         <th>Type</th>
@@ -14,6 +15,8 @@
         <th>Year</th>
         <th></th>
       </tr>
+      </thead>
+      <tbody>
       <% for credit_card in @credit_cards %>
         <tr>
           <td><%= credit_card.name %></td>
@@ -25,6 +28,7 @@
           <td><%= link_to "Remove", myaccount_credit_card_path(credit_card), :confirm => 'Are you sure?', :method => :delete %></td>
         </tr>
       <% end %>
+      </tbody>
     </table>
   <% end %>
   <p><%= link_to "New Credit Card", new_myaccount_credit_card_path, :class => 'button' %></p>

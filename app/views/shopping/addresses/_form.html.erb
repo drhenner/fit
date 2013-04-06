@@ -26,8 +26,10 @@
 
         <%= f.fields_for :phones do |phone_f| %>
           <div class=" six columns">
-            <%= phone_f.label :display_number, 'Primary Phone' %>
-            <%= phone_f.text_field :display_number %>
+            <div class="<%='field_with_errors' if phone_f.object.errors[:number].present? %>">
+              <%= phone_f.label :display_number, 'Primary Phone' %>
+              <%= phone_f.text_field :display_number %>
+            </div>
           </div>
           <div class=" six columns">
             <%= phone_f.label :phone_type_id, 'Type' %>
@@ -107,7 +109,7 @@
   </div>
 
   <div class="actions column">
-    <%= f.submit 'Save & Continue', :class => 'button bottom20' %>
+    <%= f.submit 'Save & Continue', :class => 'button  bottom20' %>
     <% unless current_page?(shopping_addresses_path) %>
       <%= link_to 'Back', shopping_addresses_path, :class => 'secondary button' %>
     <% end %>

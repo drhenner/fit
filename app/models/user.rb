@@ -221,7 +221,10 @@ class User < ActiveRecord::Base
   # @param [none]
   # @return [ Boolean ]
   def admin?
-    role?(:administrator) || role?(:super_administrator)
+    has_admin_role = Rails.cache.fetch("ROLE-ADMIN?-#{cached_role_ids.join('-')}", :expires_in => 12.hours) do
+      role?(:administrator) || role?(:super_administrator)
+    end
+    has_admin_role || super_admin?
   end
 
   # returns true or false if the user is a super admin or not
@@ -230,7 +233,9 @@ class User < ActiveRecord::Base
   # @param [none]
   # @return [ Boolean ]
   def super_admin?
-    role?(:super_administrator)
+    Rails.cache.fetch("SUPER_ADMIN?-=#{cached_role_ids.join('-')}", :expires_in => 12.hours) do
+      role?(:super_administrator)
+    end
   end
 
   # returns your last cart or nil
@@ -471,5 +476,12 @@ class User < ActiveRecord::Base
   def subscribe_to_newsletters
     self.newsletter_ids = Newsletter.where(:autosubscribe => true).pluck(:id)
     self.save(:validate => false)
+  end
+
+  def cached_role_ids
+    Rails.cache.delete("cached_role_ids--#{id}") if Rails.env.test?
+    Rails.cache.fetch("cached_role_ids--#{id}", :expires_in => 3.hours) do
+      role_ids
+    end
   end
 end

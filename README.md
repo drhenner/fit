@@ -107,16 +107,10 @@ add redis to your PATH:
 
 ##Easy UFCfit development setup
 
-First create a Procfile in the Rails route
+start memcached, and redis
 
-now you can start memcached, and redis and set ENV variable right in the foreman Procfile
-
-The Procfile should look like this:
-
-```ruby
-  memcached:  memcached -vv
-  rails:      rails s --debugger
-```
+    redis: redis-server
+    memcached:  memcached -vv
 
 The .env file should look like:
 
@@ -193,6 +187,14 @@ If you're on a Mac, the easiest way to install Memcached is to use [homebrew](ht
     brew install memcached
 
     memcached -vv
+
+
+##Resque admin
+
+Resque admin is accessible at /resque.
+
+To run ensure that resque jobs run locally use foreman to start the
+server.
 
 ##Author
 
