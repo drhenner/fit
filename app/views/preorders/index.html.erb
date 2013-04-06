@@ -106,7 +106,7 @@
   <div class='row upsell-products'>
     <% upsells.each do |upsell| %>
       <div class='three large-3 columns'>
-        <div  class='small-text'>
+        <div  class='small-text' style='height: 430px;'>
           <ul class='vertical-list '>
             <li>
             <div class="cropped-250 bottom-10" style="background-image:url('<%= upsell.featured_image(:product) %>')"></div>
@@ -117,6 +117,19 @@
             <li>
               <p class="small-text text-08"><%= upsell.short_description %></p>
             </li>
+          </ul>
+        </div>
+        <div>
+          <ul class='vertical-list'>
+            <li>
+              <span class='upsell-price'><%= number_to_currency upsell.price %></span>
+            </li>
+            <li>
+              <%= link_to upsell_path(upsell), :class => 'button top20', :method => 'PUT' do %>
+                Add to Cart
+              <% end %>
+            </li>
+          </ul>
         </div>
       </div>
     <% end %>
@@ -124,22 +137,7 @@
       <div class="three large-3 columns"></div>
     <% end %>
   </div>
-  <div class='row upsell-products'>
-    <% upsells.each do |upsell| %>
-      <div class='three large-3 columns'>
-        <ul class='vertical-list'>
-          <li>
-            <span class='upsell-price'><%= number_to_currency upsell.price %></span>
-          </li>
-          <li>
-            <%= link_to upsell_path(upsell), :class => 'button top20', :method => 'PUT' do %>
-              Add to Cart
-            <% end %>
-          </li>
-      </div>
-    <% end %>
-    <div class="three large-3 columns"></div>
-  </div>
+
   <div class="row">
     <p class="small-text">
       For continuity items, your credit card will be billed as follows: Today you will be charged plus any applicable tax and shipping and processing.
