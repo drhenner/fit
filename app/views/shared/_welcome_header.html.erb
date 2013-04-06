@@ -88,10 +88,10 @@
           <% end %>
         </li>
         <li class="divider show-for-medium-and-up"></li>
-        <% if Settings.allow_orders && session_cart.shopping_cart_items.count > 0 %>
+        <% if Settings.allow_orders && session_cart.shopping_cart_items.size > 0 %>
           <li>
             <%= link_to shopping_cart_items_path do %>
-              <i class="icon-shopping-cart"></i> <%= session_cart.shopping_cart_items.count %>
+              <i class="icon-shopping-cart"></i> <%= session_cart.shopping_cart_items.size %>
             <% end %>
           </li>
         <% end %>
