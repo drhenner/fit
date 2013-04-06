@@ -8,7 +8,7 @@
     <div class='clearfix'>
       <%= form_tag(shopping_shipping_method_path(session_order.id), :method => :put, :html => {:class => 'custom'}) do -%>
         <% @order_items.group_by(&:shipping_category_id).each do |shipping_category_id, items| %>
-          <div class='column float-left ten  last'>
+          <div class=''>
               <div class='row  '>
                 <% items.each do |item| %>
                   <div class=' clearfix panel'>
@@ -25,7 +25,7 @@
                 <% end %>
               </div>
               <div class='row top20 bottom20'>
-                <div class=' clearfix panel callout '>
+                <div class=' clearfix panel graceful '>
                   <ul class='  vertical-list '>
                   <% items.first.shipping_rate_options(session_order.sub_total).each do |rate| %>
                     <li class='row'>
@@ -46,7 +46,7 @@
           </div>
         <% end %>
         <div class='twelve clearfix '>
-          <%= submit_tag 'continue', :class => 'button' %>
+          <%= submit_tag 'continue', :class => 'button ' %>
         </div>
 
       <% end %>
