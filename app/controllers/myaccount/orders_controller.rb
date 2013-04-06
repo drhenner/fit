@@ -8,7 +8,9 @@ class Myaccount::OrdersController < Myaccount::BaseController
   # GET /myaccount/orders/1
   # GET /myaccount/orders/1.xml
   def show
-    @order = current_user.viewable_orders.includes([:invoices]).find_by_number(params[:id])
+    @order = current_user.viewable_orders.
+                          includes([:invoices, :ship_address, :bill_address, {:order_items => {:variant => :product}}]).
+                          find_by_number(params[:id])
   end
   private
 
