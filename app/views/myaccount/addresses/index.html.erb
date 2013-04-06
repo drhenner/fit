@@ -9,6 +9,7 @@
       <% for address in @addresses %>
         <div class='four columns'><br/>
           <%= render :partial => '/shared/compact_address', :locals => { :shopping_address => address } %>
+          <%= address.phone_number %><br/>
           <%= link_to "Edit", edit_myaccount_address_path(address) %> |
           <%= link_to "Remove", myaccount_address_path(address), :confirm => 'Are you sure?', :method => :delete %>
         </div>
