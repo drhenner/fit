@@ -60,7 +60,7 @@ class Address < ActiveRecord::Base
 
   attr_accessor :replace_address_id # if you are updating an address set this field.
   before_save :replace_address, if: :replace_address_id
-  after_save  :invalidate_old_defaults
+  after_save  :invalidate_old_defaults, :expire_cache
 
   #accepts_nested_attributes_for :phones
 
@@ -72,6 +72,12 @@ class Address < ActiveRecord::Base
   # @ return [String] first and last name on the address with a space between
   def name
     [first_name, last_name].compact.join(' ')
+  end
+
+  def phone_number
+    Rails.cache.fetch("address-phone_number-#{id}", :expires_in => 12.hours) do
+      phones.last.try(:display_number)
+    end
   end
 
   # Will inactivate and save the address
@@ -191,6 +197,10 @@ class Address < ActiveRecord::Base
       sanitize_city
       sanitize_zip_code
       sanitize_address
+    end
+
+    def expire_cache
+      Rails.cache.delete("address-phone_number-#{id}")
     end
 
     def sanitize_zip_code

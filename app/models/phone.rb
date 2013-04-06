@@ -16,7 +16,7 @@ class Phone < ActiveRecord::Base
   include ActionView::Helpers::NumberHelper
   belongs_to :phone_type
   #belongs_to :phone_priority
-  belongs_to :phoneable, :polymorphic => true
+  belongs_to :phoneable, :polymorphic => true, :touch => true
 
   validates :phone_type_id,  :presence => true
   validates :number,  :presence => true, :numericality => true,
