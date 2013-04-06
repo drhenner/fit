@@ -52,6 +52,7 @@ class Product < ActiveRecord::Base
   before_validation :sanitize_data
   before_validation :not_active_on_create!, :on => :create
   before_save :create_content
+  after_save :expire_cache
 
   accepts_nested_attributes_for :variants,            :reject_if => proc { |attributes| attributes['sku'].blank? }
   accepts_nested_attributes_for :product_properties,  :reject_if => proc { |attributes| attributes['description'].blank? }, :allow_destroy => true
@@ -90,11 +91,15 @@ class Product < ActiveRecord::Base
   # @param [Optional Symbol] the size of the image expected back
   # @return [String] name of the file to show from the public folder
   def featured_image(image_size = :small)
-    images.first ? images.first.photo.url(image_size) : "no_image_#{image_size.to_s}.jpg"
+    Rails.cache.fetch("Product-featured_image-#{id}-#{image_size}", :expires_in => 3.hours) do
+      images.first ? images.first.photo.url(image_size) : "no_image_#{image_size.to_s}.jpg"
+    end
   end
 
   def image_urls(image_size = :small)
-    images.empty? ? ["no_image_#{image_size.to_s}.jpg"] : images.map{|i| i.photo.url(image_size) }
+    Rails.cache.fetch("Product-image_urls-#{id}-#{image_size}", :expires_in => 3.hours) do
+      images.empty? ? ["no_image_#{image_size.to_s}.jpg"] : images.map{|i| i.photo.url(image_size) }
+    end
   end
 
   # Price of cheapest variant
@@ -302,6 +307,13 @@ class Product < ActiveRecord::Base
                             remove_words_less_than_x_characters. # remove words less than 2 characters
                             first(197)                       # limit to 197 characters
                             ].join(': ')
+    end
+
+    def expire_cache
+      PAPERCLIP_STORAGE_OPTS[:styles].each_pair do |image_size, value|
+        Rails.cache.delete("Product-featured_image-#{id}-#{image_size}")
+        Rails.cache.delete("Product-image_urls-#{id}-#{image_size}")
+      end
     end
 end
 
