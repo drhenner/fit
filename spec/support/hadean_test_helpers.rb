@@ -5,7 +5,10 @@ module Hadean
     def create_admin_user(args = {})
       @uusseerr = FactoryGirl.create(:user, args)
       #@uusseerr.stubs(:super_admin?).returns(false)
-      @uusseerr.stubs(:roles).returns([Role.find_by_name(Role::ADMIN)])
+      roles_mock = mock()
+      roles_mock.stubs(:name).returns(Role::ADMIN)
+      @uusseerr.stubs(:cached_role_ids).returns([Role::ADMIN_ID])
+      @uusseerr.stubs(:roles).returns([roles_mock])
       @uusseerr
     end
 
@@ -17,7 +20,10 @@ module Hadean
     end
     def create_super_admin_user(args = {})
       @uusseerr = FactoryGirl.create(:user, args)
-      @uusseerr.stubs(:roles).returns([Role.find_by_name(Role::SUPER_ADMIN)])
+      roles_mock = mock()
+      roles_mock.stubs(:name).returns(Role::SUPER_ADMIN)
+      @uusseerr.stubs(:cached_role_ids).returns([Role::SUPER_ADMIN_ID])
+      @uusseerr.stubs(:roles).returns([roles_mock])
       @uusseerr
     end
 

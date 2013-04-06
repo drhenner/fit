@@ -221,9 +221,10 @@ class User < ActiveRecord::Base
   # @param [none]
   # @return [ Boolean ]
   def admin?
-    Rails.cache.fetch("admin?-#{cached_role_ids.join('-')}", :expires_in => 12.hours) do
+    has_admin_role = Rails.cache.fetch("ROLE-ADMIN?-#{cached_role_ids.join('-')}", :expires_in => 12.hours) do
       role?(:administrator) || role?(:super_administrator)
     end
+    has_admin_role || super_admin?
   end
 
   # returns true or false if the user is a super admin or not
@@ -232,7 +233,7 @@ class User < ActiveRecord::Base
   # @param [none]
   # @return [ Boolean ]
   def super_admin?
-    Rails.cache.fetch("super_admin?-#{cached_role_ids.join('-')}", :expires_in => 12.hours) do
+    Rails.cache.fetch("SUPER_ADMIN?-=#{cached_role_ids.join('-')}", :expires_in => 12.hours) do
       role?(:super_administrator)
     end
   end
@@ -478,7 +479,8 @@ class User < ActiveRecord::Base
   end
 
   def cached_role_ids
-    Rails.cache.fetch("cached_role_ids-#{id}", :expires_in => 3.hours) do
+    Rails.cache.delete("cached_role_ids--#{id}") if Rails.env.test?
+    Rails.cache.fetch("cached_role_ids--#{id}", :expires_in => 3.hours) do
       role_ids
     end
   end
