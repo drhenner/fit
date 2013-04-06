@@ -53,17 +53,17 @@ class Shopping::BaseController < ApplicationController
   end
 
   def not_secure?
-    #!current_user || has_not_logged_in_recently? || user_visited_a_non_ssl_page_since_login?
-    false
+    !current_user || has_not_logged_in_recently? #|| user_visited_a_non_ssl_page_since_login?
   end
 
-  def has_not_logged_in_recently?(minutes = 20)
+  def has_not_logged_in_recently?(minutes = 45)
     session[:authenticated_at].nil? || Time.now - session[:authenticated_at] > (60 * minutes)
   end
 
   ## this should happen every time the user goes to a non-SSL page
   def user_visited_a_non_ssl_page_since_login?
-    cookies[:insecure].nil? || cookies[:insecure] == true
+    false
+    # cookies[:insecure].nil? || cookies[:insecure] == true
   end
 
   def session_order
@@ -87,8 +87,7 @@ class Shopping::BaseController < ApplicationController
 
   def create_order
     @session_order = current_user.orders.create(:number       => Time.now.to_i,
-                                                :ip_address   => request.env['REMOTE_ADDR'],
-                                                :bill_address => current_user.billing_address  )
+                                                :ip_address   => request.env['REMOTE_ADDR']  )
     add_new_cart_items(session_cart.shopping_cart_items)
     session[:order_id] = @session_order.id
   end
