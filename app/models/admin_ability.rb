@@ -18,7 +18,7 @@ class AdminAbility
       end
       #authorize! :view_users, @user
       can :create_users, User do
-        user.super_admin?
+        user.super_admin? || user.csrep?
       end
       #authorize! :create_users, @user
       can :create_orders, User

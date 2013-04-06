@@ -238,6 +238,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def csrep?
+    Rails.cache.fetch("csrep?-#{cached_role_ids.join('-')}", :expires_in => 12.hours) do
+      role?(:customer_service)
+    end
+  end
+
   # returns your last cart or nil
   #
   # @param [none]
