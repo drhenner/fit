@@ -197,7 +197,7 @@ class User < ActiveRecord::Base
   # @param [none]
   # @return [ Boolean ]
   def active?
-    !['canceled', 'inactive'].any? {|s| self.state == s }
+    !['canceled', 'inactive', 'signed_up'].any? {|s| self.state == s }
   end
 
   # in plain english returns 'true' or 'false' if the user is active or not
@@ -379,6 +379,7 @@ class User < ActiveRecord::Base
   def self.get_new_user(args)
     # If the user has signed up without a password then they can register
     user = User.where(:email => args[:email]).where(:crypted_password => nil).first
+    user.assign_attributes(args) if user
     user || User.new(args)
   end
 
