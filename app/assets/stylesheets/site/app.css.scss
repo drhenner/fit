@@ -66,7 +66,7 @@ form.custom {
   .background_wrapper {background-color: rgba(0,0,0,0.7);}
   .inner-footer_wrapper {border-top: 1px solid #666;}
   ul {
-    font-family: Helvetica, Helvetica, Arial, sans-serif;
+    font-family: 'Helvetica', Helvetica, Arial, sans-serif;
     text-align:left;
   }
   li {
@@ -159,5 +159,23 @@ body, div, dl, dt, dd, ul, ol, li, pre, form, fieldset, p, blockquote, th, td {c
 @media only screen and (max-width: 676px) {
   #footer_wrapper #main-footer-tabs {
     margin-top: 0;
+  }
+}
+
+@media only screen and (max-width: 410px) {
+  #input-fields {
+    h2,
+    #please-subscribe {
+      text-align: left !important;
+      width: 246px;
+    }
+  }
+}
+
+@media only screen and (max-width: 766px) {
+  #input-fields {
+    input[type="email"]{
+      @include placeholder(#7f7f7f);
+    }
   }
 }
