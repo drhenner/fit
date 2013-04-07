@@ -7,6 +7,9 @@ class Subscription < ActiveRecord::Base
   belongs_to  :user
   belongs_to  :order_item
   belongs_to  :subscription_plan
+  belongs_to  :shipping_address, :class_name => 'Address'
+  belongs_to  :billing_address,  :class_name => 'Address'
+
   has_many    :transaction_ledgers, :as => :accountable
   has_many    :batches, :as => :batchable
 
@@ -18,6 +21,13 @@ class Subscription < ActiveRecord::Base
   validates :next_bill_date,        :presence => true, :if => :active?
   validates :subscription_plan_id,  :presence => true
   validates :user_id,               :presence => true
+  #validates :shipping_address_id,               :presence => true
+  #:ship_address_id, :ship_address,
+  delegate  :variant, :to => :order_item, :allow_nil => false
+
+  def cheapest_shipping_rate(ship_address)
+    #
+  end
 
   def purchased!
     self.active = true
