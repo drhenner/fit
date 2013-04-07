@@ -4,7 +4,5 @@
   <%= form_for(@form_address, :url => myaccount_address_path(@form_address), :html => {:class => 'edit_address custom'}) do |f| %>
     <%= render :partial => 'form', :locals => {:f => f} %>
   <% end %>
-  <div class=''>
-    <%= link_to 'Show', myaccount_address_path( @form_address ), :class => 'secondary small ' %>
-  </div>
+
 </div>

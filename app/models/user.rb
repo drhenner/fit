@@ -197,7 +197,7 @@ class User < ActiveRecord::Base
   # @param [none]
   # @return [ Boolean ]
   def active?
-    !['canceled', 'inactive'].any? {|s| self.state == s }
+    !['canceled', 'inactive', 'signed_up'].any? {|s| self.state == s }
   end
 
   # in plain english returns 'true' or 'false' if the user is active or not
@@ -233,8 +233,14 @@ class User < ActiveRecord::Base
   # @param [none]
   # @return [ Boolean ]
   def super_admin?
-    Rails.cache.fetch("SUPER_ADMIN?-=#{cached_role_ids.join('-')}", :expires_in => 12.hours) do
+    Rails.cache.fetch("SUPER_ADMIN?-#{cached_role_ids.join('-')}", :expires_in => 12.hours) do
       role?(:super_administrator)
+    end
+  end
+
+  def csrep?
+    Rails.cache.fetch("csrep?-#{cached_role_ids.join('-')}", :expires_in => 12.hours) do
+      role?(:customer_service)
     end
   end
 
@@ -373,6 +379,7 @@ class User < ActiveRecord::Base
   def self.get_new_user(args)
     # If the user has signed up without a password then they can register
     user = User.where(:email => args[:email]).where(:crypted_password => nil).first
+    user.assign_attributes(args) if user
     user || User.new(args)
   end
 
@@ -479,8 +486,8 @@ class User < ActiveRecord::Base
   end
 
   def cached_role_ids
-    Rails.cache.delete("cached_role_ids--#{id}") if Rails.env.test?
-    Rails.cache.fetch("cached_role_ids--#{id}", :expires_in => 3.hours) do
+    Rails.cache.delete("cached_role_ids-#{id}") if Rails.env.test?
+    Rails.cache.fetch("cached_role_ids-#{id}", :expires_in => 3.hours) do
       role_ids
     end
   end

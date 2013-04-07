@@ -6,7 +6,7 @@ class PreordersController < ApplicationController
 
   def index
     @products = Product.preorders
-    if session_cart.shopping_cart_items.empty?
+    if session_cart.media_cart_items.empty?
       redirect_to root_url
     end
   end
@@ -24,7 +24,7 @@ class PreordersController < ApplicationController
 
   private
     def upsells
-      @upsells ||= Variant.includes([:product,{:image_group => :images}]).upsells.limit(4).all
+      @upsells ||= Variant.includes([:product,{:image_group => :images}]).upsells.limit(3).all
     end
 
 end

@@ -13,14 +13,15 @@ class AdminAbility
     elsif user.admin?
       #can :manage, :all
       can :read, :all
+      #authorize! :view_users, @user
       can :view_users, User do
         user.admin?
       end
-      #authorize! :view_users, @user
-      can :create_users, User do
-        user.super_admin?
-      end
       #authorize! :create_users, @user
+      can :create_users, User do
+        user.super_admin? || user.csrep?
+      end
+      #authorize! :create_orders, @user
       can :create_orders, User
     else
 
