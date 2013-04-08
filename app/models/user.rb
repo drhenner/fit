@@ -65,7 +65,8 @@ class User < ActiveRecord::Base
                   :country_id,
                   :address_attributes,
                   :phones_attributes,
-                  :customer_service_comments_attributes
+                  :customer_service_comments_attributes,
+                  :newsletter_ids
   attr_accessor :name_required
 
   belongs_to :account

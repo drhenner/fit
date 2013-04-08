@@ -10,7 +10,8 @@ class Admin::Rma::ReturnAuthorizationsController < Admin::Rma::BaseController
   # GET /return_authorizations/1
   def show
     load_info
-    @return_authorization = ReturnAuthorization.find(params[:id])
+    @return_authorization = ReturnAuthorization.includes(:user,:comments).find(params[:id])
+    add_to_recent_user(@return_authorization.user)
   end
 
   # GET /return_authorizations/new
@@ -27,7 +28,8 @@ class Admin::Rma::ReturnAuthorizationsController < Admin::Rma::BaseController
   # GET /return_authorizations/1/edit
   def edit
     load_info
-    @return_authorization = ReturnAuthorization.includes(:comments).find(params[:id])
+    @return_authorization = ReturnAuthorization.includes(:user,:comments).find(params[:id])
+    add_to_recent_user(@return_authorization.user)
     form_info
     redirect_to(admin_rma_order_return_authorization_url(@order, @return_authorization), :notice => 'Return authorization can not be changed.') if !@return_authorization.authorized?
   end

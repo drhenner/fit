@@ -65,7 +65,6 @@
                   <%= link_to 'x', upsell_path(item), :method => 'delete', :class => 'text-10 dark-gray pull-right remove_upsell_x' %>
                 </div>
               </div>
-
               <div class="row">
                 <div class="twelve column large-12">
                   <span class="us-canada-text pull-right">ONLY AVAILABLE IN THE US AND CANADA</span>
@@ -116,7 +115,7 @@
         <div  class='small-text' style='height: 400px;'>
           <ul class='vertical-list '>
             <li>
-              <div class="cropped-250 bottom-10" style="background-image:url('<%= upsell.featured_image(:product) %>')"></div>
+              <div class="cropped-250 bottom-10" style="background-image:url('<%= upsell.featured_image(:product) %>');background-repeat: no-repeat;"></div>
             </li>
             <li>
               <span class="black text-09"><%= upsell.product_name %></span>

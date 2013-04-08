@@ -105,7 +105,9 @@ Hadean::Application.routes.draw do
       end
     end
     resources :signups
-    resources :users
+    resources :users do
+      resources :newsletters
+    end
     resources :overviews, :only => [:index]
 
     match "help" => "help#index"
@@ -150,6 +152,7 @@ Hadean::Application.routes.draw do
         end
         resources  :addresses , :only => [:edit, :update]# This is for editing the shipment address
       end
+      resources :subscriptions
     end
     namespace :shopping do
       resources :carts
@@ -248,6 +251,7 @@ Hadean::Application.routes.draw do
     end
     namespace :document do
       resources :invoices
+      resources :newsletters
     end
   end
 

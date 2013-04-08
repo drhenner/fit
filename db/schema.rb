@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130405190313) do
+ActiveRecord::Schema.define(:version => 20130407214049) do
 
   create_table "accounting_adjustments", :force => true do |t|
     t.integer  "adjustable_id",                                 :null => false
@@ -636,10 +636,14 @@ ActiveRecord::Schema.define(:version => 20130405190313) do
     t.integer  "failed_attempts",       :default => 0
     t.boolean  "canceled",              :default => false
     t.integer  "remaining_payments",    :default => 1,     :null => false
+    t.integer  "shipping_address_id"
+    t.integer  "billing_address_id"
   end
 
+  add_index "subscriptions", ["billing_address_id"], :name => "index_subscriptions_on_billing_address_id"
   add_index "subscriptions", ["next_bill_date"], :name => "index_subscriptions_on_next_bill_date"
   add_index "subscriptions", ["order_item_id"], :name => "index_subscriptions_on_order_item_id"
+  add_index "subscriptions", ["shipping_address_id"], :name => "index_subscriptions_on_shipping_address_id"
   add_index "subscriptions", ["subscription_plan_id"], :name => "index_subscriptions_on_subscription_plan_id"
   add_index "subscriptions", ["user_id"], :name => "index_subscriptions_on_user_id"
 
