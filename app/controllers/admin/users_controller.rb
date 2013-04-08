@@ -37,6 +37,7 @@ class Admin::UsersController < Admin::BaseController
     authorize! :create_users, current_user
     if @user.save
       @user.deliver_activation_instructions!
+      @user.active? || @user.activate! if @user.send(:password_changed?)
       add_to_recent_user(@user)
       flash[:notice] = "Your account has been created. Please check your e-mail for your account activation instructions!"
       redirect_to admin_users_url
