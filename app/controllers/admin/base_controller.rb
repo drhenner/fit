@@ -20,7 +20,7 @@ class Admin::BaseController < ApplicationController
     session[:recent_users] ||= []
     if session[:recent_users].any?{|email, id| id == user.id }
       session[:recent_users].delete_if {|email, id| id == user.id}
-    elsif session[:recent_users].size > 10
+    elsif session[:recent_users].size > 12
       session[:recent_users].pop
     end
     session[:recent_users].unshift( [user.email, user.id] )
