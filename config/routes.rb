@@ -249,6 +249,7 @@ Hadean::Application.routes.draw do
     end
     namespace :document do
       resources :invoices
+      resources :newsletters
     end
   end
 
