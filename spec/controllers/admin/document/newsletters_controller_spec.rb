@@ -3,6 +3,11 @@ require  'spec_helper'
 describe Admin::Document::NewslettersController do
   # fixtures :all
   render_views
+  before(:each) do
+    activate_authlogic
+    @user = create_admin_user
+    login_as(@user)
+  end
 
   it "index action should render index template" do
     newsletter = FactoryGirl.create(:newsletter)
@@ -60,6 +65,5 @@ describe Admin::Document::NewslettersController do
     delete :destroy, :id => newsletter.id
     expect(response).to redirect_to(admin_document_newsletters_url)
     Newsletter.exists?(newsletter.id).should be_false
-    Newsletter.find(newsletter.id).active.should be_false
   end
 end
