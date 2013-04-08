@@ -150,6 +150,7 @@ Hadean::Application.routes.draw do
         end
         resources  :addresses , :only => [:edit, :update]# This is for editing the shipment address
       end
+      resources :subscriptions
     end
     namespace :shopping do
       resources :carts

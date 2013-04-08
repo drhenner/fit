@@ -1,12 +1,18 @@
 class Subscription < ActiveRecord::Base
   include TransactionAccountable
 
-  attr_accessible :order_item_id, :stripe_customer_token, :subscription_plan_id, :total_payments, :user_id, :active, :remaining_payments
+  attr_accessible :order_item_id, :stripe_customer_token, :subscription_plan_id, :total_payments, :user_id, :active, :remaining_payments, :shipping_address_id, :billing_address_id
   #, :product_id
-
+  attr_accessible :next_bill_date,
+                  :remaining_payments,
+                  :shipping_address_id,
+                  :billing_address_id, :as => :admin
   belongs_to  :user
   belongs_to  :order_item
   belongs_to  :subscription_plan
+  belongs_to  :shipping_address, :class_name => 'Address'
+  belongs_to  :billing_address,  :class_name => 'Address'
+
   has_many    :transaction_ledgers, :as => :accountable
   has_many    :batches, :as => :batchable
 
@@ -18,6 +24,24 @@ class Subscription < ActiveRecord::Base
   validates :next_bill_date,        :presence => true, :if => :active?
   validates :subscription_plan_id,  :presence => true
   validates :user_id,               :presence => true
+  #validates :shipping_address_id,               :presence => true
+  #:ship_address_id, :ship_address,
+  delegate  :variant, :to => :order_item, :allow_nil => false
+
+  def cheapest_shipping_rate(ship_address)
+    #
+  end
+
+  def cancel!
+    self.remaining_payments = 0
+    self.active             = false
+    self.canceled           = true
+    self.save
+  end
+
+  def is_active?
+    active && !canceled
+  end
 
   def purchased!
     self.active = true
@@ -59,6 +83,14 @@ class Subscription < ActiveRecord::Base
   def subscription_plan_name
     Rails.cache.fetch("subscription_plan_name-#{subscription_plan_id}", :expires_in => 3.hours) do
       subscription_plan.name
+    end
+  end
+
+  def self.with_email(email)
+    if email.present?
+      where("users.email = ?", email )
+    else
+      scoped
     end
   end
 
