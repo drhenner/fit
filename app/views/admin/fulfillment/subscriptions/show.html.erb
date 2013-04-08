@@ -23,8 +23,8 @@
     <%= @subscription.failed_attempts %>
   </li>
   <li>
-    <label>Canceled:</label>
-    <%= @subscription.canceled.to_s %>
+    <label>Active:</label>
+    <%= @subscription.is_active?.to_s %>
   </li>
   <li>
     <label>Remaining Payments:</label>
@@ -42,5 +42,5 @@
   <% unless @subscription.canceled %>
   <%= link_to "Cancel", [:admin, :fulfillment, @subscription], :data => { :confirm => 'Are you sure?' }, :method => :delete, :class => 'button' %> |
   <% end %>
-  <%= link_to "View All Subscriptions", admin_fulfillment_subscriptions_path, :class => 'button' %>
+  <%= link_to "#{@subscription.user.name.possessive} Subscriptions", admin_fulfillment_subscriptions_path(:email => @subscription.user.email ), :class => 'button' %>
 </p>

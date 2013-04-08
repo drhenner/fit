@@ -32,14 +32,14 @@ describe Admin::Fulfillment::SubscriptionsController do
   it "update action should render edit template when model is invalid" do
     subscription = FactoryGirl.create(:subscription)
     Subscription.any_instance.stubs(:valid?).returns(false)
-    put :update, :id => subscription.id, :subscription => subscription.attributes.reject {|k,v| ['id', 'created_at', 'updated_at', 'next_bill_date', 'failed_attempts', 'canceled'].include?(k)}
+    put :update, :id => subscription.id, :subscription => subscription.attributes.reject {|k,v| ['id', 'created_at', 'updated_at', 'next_bill_date', 'failed_attempts', 'canceled', 'subscription_plan_id', 'user_id', 'order_item_id', 'stripe_customer_token', 'total_payments', 'active'].include?(k)}
     expect(response).to render_template(:edit)
   end
 
   it "update action should redirect when model is valid" do
     subscription = FactoryGirl.create(:subscription)
     Subscription.any_instance.stubs(:valid?).returns(true)
-    put :update, :id => subscription.id, :subscription => subscription.attributes.reject {|k,v| ['id', 'created_at', 'updated_at', 'next_bill_date', 'failed_attempts', 'canceled'].include?(k)}
+    put :update, :id => subscription.id, :subscription => subscription.attributes.reject {|k,v| ['id', 'created_at', 'updated_at', 'next_bill_date', 'failed_attempts', 'canceled', 'subscription_plan_id', 'user_id', 'order_item_id', 'stripe_customer_token', 'total_payments', 'active'].include?(k)}
     expect(response).to redirect_to(admin_fulfillment_subscription_url(assigns[:subscription]))
   end
 

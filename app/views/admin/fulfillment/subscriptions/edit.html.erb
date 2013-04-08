@@ -2,7 +2,7 @@
 
 <%= form_for @subscription, :url => [:admin, :fulfillment, @subscription] do |f| %>
   <%=  render :partial => 'form', :locals => {:f => f} %>
-  <div class="actions"><%= f.submit 'Update' , :class => 'button' %></div>
+  <div class="actions"><%= f.submit 'Update' , :class => 'button alert' %></div>
 <% end %>
 
 <p>

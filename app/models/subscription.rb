@@ -3,7 +3,10 @@ class Subscription < ActiveRecord::Base
 
   attr_accessible :order_item_id, :stripe_customer_token, :subscription_plan_id, :total_payments, :user_id, :active, :remaining_payments, :shipping_address_id, :billing_address_id
   #, :product_id
-
+  attr_accessible :next_bill_date,
+                  :remaining_payments,
+                  :shipping_address_id,
+                  :billing_address_id, :as => :admin
   belongs_to  :user
   belongs_to  :order_item
   belongs_to  :subscription_plan
@@ -34,6 +37,10 @@ class Subscription < ActiveRecord::Base
     self.active             = false
     self.canceled           = true
     self.save
+  end
+
+  def is_active?
+    active && !canceled
   end
 
   def purchased!
