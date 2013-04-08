@@ -8,15 +8,17 @@ class Admin::Fulfillment::SubscriptionsController < Admin::Fulfillment::BaseCont
 
   def show
     @subscription = Subscription.includes([{:user => :shipping_addresses}, {:order_item => :order}]).find(params[:id])
+    add_to_recent_user(@subscription.user)
   end
 
   def edit
     @subscription = Subscription.find(params[:id])
+    add_to_recent_user(@subscription.user)
   end
 
   def update
     @subscription = Subscription.find(params[:id])
-    if @subscription.update_attributes(params[:subscription])
+    if @subscription.update_attributes(params[:subscription], :as => :admin)
       redirect_to [:admin, :fulfillment, @subscription], :notice  => "Successfully updated subscription."
     else
       render :edit
@@ -35,7 +37,7 @@ class Admin::Fulfillment::SubscriptionsController < Admin::Fulfillment::BaseCont
     end
 
     def sort_column
-      Subscription.column_names.include?(params[:sort]) ? params[:sort] : "user_id"
+      Subscription.column_names.include?(params[:sort]) ? params[:sort] : "subscriptions.user_id"
     end
 
     def sort_direction
