@@ -31,36 +31,41 @@ if (typeof Hadean.Welcome.passReset == "undefined") {
         setMobileCss : function() {
           $('.anystretch img').hide();
           $('#body_wrapper').css('background', '#888');
-          $('#signup_form_wrapper').css('background-color', '#888');
-          $('#signup_form_wrapper').css('top', 0);
-          $('#signup_form_wrapper').css('left', 0);
-          $('#signup_form_wrapper').css('width', '320px');
-          $('#signup_form_wrapper').css('margin', '0px auto');
-          $('.nofity-button-wrapper').css('margin-top', '10px');
+          $('#password_reset_form_wrapper').css('background-color', '#888');
+          $('#password_reset_form_wrapper').css('top', 0);
+          $('#password_reset_form_wrapper').css('left', 0);
+          $('#password_reset_form_wrapper').css('width', '100%');
+          $('#password_reset_form_wrapper').css('margin', '0px auto');
+          $('#password_reset_form_wrapper input').css({'background-color': '#fff', 'font-size': '12px', 'height': '41px', 'margin-bottom': '15px'});
+          $('.nofity-button-wrapper').css({'margin-top': '14', 'padding-left': '0'});
           $('#mobile-banner').show();
-          $('#mobile-banner').css('text-align', 'center');
-          $('#mobile-banner').css('background-color', '#000');
+          $('#mobile-banner').css({'background-color': '#000', 'text-align': 'center', 'width': '100%'});
           $('#key-to-changing').css('display', 'none');
           $('#main-landing-signup-image').hide();
           $('#mobile-landing-signup-image').show();
-          $('#mobile-landing-signup-image').css('width', '320px');
-          $('#ufcfit-logo').css('width', '320px');
-          $('#input-fields').css('width', '320px');
+          $('#mobile-landing-signup-image').css({'display': 'block', 'margin': '0 auto'});
+          $('#input-fields').css('width', '100%');
           $('#input-fields').css('float', 'none');
           $('#input-fields').css('padding', '0');
           $('#input-fields').css('min-height', '320px');
-          $('#background-transparent').css('min-height', '320px');
-          $('#background-transparent').css('background-color', '#000');
+          $('#background-transparent').hide();
           $('#background-non-transparent').css('min-height', '320px');
-          $('#background-non-transparent').css('padding-left', 8);
+          $('#background-non-transparent').css({'background-color': '#fff', 'padding': '12px 35px 10px', 'margin': '0 auto', 'position': 'relative', 'width': '100%'});
+          $('#background-non-transparent h2').css({'color': '#7f7f7f', 'font-size': '20px', 'font-weight': '700', 'line-height': '24px', 'margin-top': '0', 'text-align': 'center'});
           $.each($('#input-fields li'), function(index, obj){
             $(obj).removeClass();
-            $(obj).css('padding-right', '8px');
+            $(obj).css('padding-right', '0');
             $(obj).css('width', '100%');
+            $(obj).css('display', 'block');
+            $(obj).css('float', 'none');
           })
-          //$('#background-transparent').css('width', 353);
-          //$('#background-non-transparent').css('width', 353);
           $('#ufcfit-logo').css('float', 'none');
+          $('#ufcfit-logo').css({'background-color': '#aca3a8', 'text-align': 'center', 'width': '100%'});
+          $('#please-subscribe').show().css({'color': '#7f7f7f', 'text-align': 'center'});
+          $('#congrats_user').css({'text-align': 'center', 'color': '#7f7f7f', 'margin-top': '40px', 'font-size': '20px', 'font-weight': '700', 'line-height': '26px'});
+          $('#submit-notify').css({'box-shadow': 'none', 'background-color': '#ff0000', 'border': 'none', 'font-size': '14px', 'font-weight': '700', 'width': 'auto'});
+          $('#prefooter_wrapper').hide();
+          $('#signup_form_wrapper ul').css('padding-top', '17px');
         },
         submitForm : function(){
           jQuery.ajax({
