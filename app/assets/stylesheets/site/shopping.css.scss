@@ -1,10 +1,5 @@
-#shipping-addresses {
-  .top-bar{
-    background: asset-url('preorder/bg-top-bar.png', image);
-  }
+#shipping-addresses, #billing-addresses {
   .background-gray { background: #f2f2f2; }
-  .bold { font-weight: bold; }
-  .padding-10 { padding: 10px; }
   .padding-left-10 { padding-left: 10px; }
   .padding-top-10 { padding-top: 10px; }
   .margin-left-10 { margin-left: 10px; }
@@ -14,12 +9,17 @@
     &.padding-10 { padding: 10px 0px 0px 0px; }
   }
 }
-.background-black { background: #000; color: #fff;}
-.margin-0 { margin: 0px;}
-.center-text { text-align: center; }
-.white { color:#fff; }
+#shipping-addresses, #shipping-methods, #billing-addresses {
+  .background-black { background: #000; color: #fff;}
+  .margin-0 { margin: 0px;}
+  .center-text { text-align: center; }
+  .white { color:#fff; }
+  .bold { font-weight: bold; }
+  .padding-10 { padding: 10px; }
+  .top-bar{
+    background: asset-url('preorder/bg-top-bar.png', image);
+  }
 
-#shipping-addresses {
   .tabs.vertical {
     dd {
       border-right: 1px solid #ccc;

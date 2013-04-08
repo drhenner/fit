@@ -1,55 +1,64 @@
-<div class="row">
-  <div class='four columns'>
-    <%= render :partial =>  'shopping/tabs' %>
+<div id="shipping-methods">
+  <div class="row">
+    <div class="twelve columns">
+      <div class="top-bar">
+        <h3 class="white bold padding-10">PRE-ORDERS WILL NOT SHIP TILL MID-MAY</h3>
+      </div>
+    </div>
   </div>
-  <div class='eight columns'>
-    <h1>Pick a Shipping Method</h1>
+  <div class="row">
+    <div class='four columns'>
+      <%= render :partial =>  'shopping/tabs' %>
+    </div>
+    <div class='eight columns'>
+      <h1>Pick a Shipping Method</h1>
 
-    <div class='clearfix'>
-      <%= form_tag(shopping_shipping_method_path(session_order.id), :method => :put, :html => {:class => 'custom'}) do -%>
-        <% @order_items.group_by(&:shipping_category_id).each do |shipping_category_id, items| %>
-          <div class=''>
-              <div class='row  '>
-                <% items.each do |item| %>
-                  <div class=' clearfix panel'>
-                      <div class='six columns'>
-                        <ul>
-                          <li><b><%= image_tag(item.variant.product.featured_image(:mini)) %></b></li>
-                          <li><%= item.variant.product.name %> Quantity: <%= item.quantity %></li>
-                        </ul>
-                      </div>
-                      <div class='five columns last' style='text-align:left;'>
-                        <%= raw item.variant.display_property_details %>
-                      </div>
-                  </div>
-                <% end %>
-              </div>
-              <div class='row top20 bottom20'>
-                <div class=' clearfix panel graceful '>
-                  <ul class='  vertical-list '>
-                  <% items.first.shipping_rate_options(session_order.sub_total).each do |rate| %>
-                    <li class='row'>
-                      <label for='<%= "shipping_category_#{shipping_category_id}_#{rate.id}" %>'  style='color:#000' class='five large-5 column'>
-                        <%= radio_button_tag "shipping_category[#{shipping_category_id}]", rate.id %>
-                        <%= rate.name_with_rate %>
-                      </label>
-                      <% if rate.minimum_charge > 0.0 %>
-                        <span  style='color:#333' class='seven large-7 column'>
-                          (Qualified because you have more than <%= "#{number_to_currency rate.minimum_charge}" %> of items)
-                        </span>
-                      <% end %>
-                    </li>
+      <div class='clearfix'>
+        <%= form_tag(shopping_shipping_method_path(session_order.id), :method => :put, :html => {:class => 'custom'}) do -%>
+          <% @order_items.group_by(&:shipping_category_id).each do |shipping_category_id, items| %>
+            <div class=''>
+                <div class='row  '>
+                  <% items.each do |item| %>
+                    <div class=' clearfix panel'>
+                        <div class='six columns'>
+                          <ul>
+                            <li><b><%= image_tag(item.variant.product.featured_image(:mini)) %></b></li>
+                            <li><%= item.variant.product.name %> Quantity: <%= item.quantity %></li>
+                          </ul>
+                        </div>
+                        <div class='five columns last' style='text-align:left;'>
+                          <%= raw item.variant.display_property_details %>
+                        </div>
+                    </div>
                   <% end %>
-                  </ul>
                 </div>
-              </div>
+                <div class='row top20 bottom20'>
+                  <div class=' clearfix panel graceful '>
+                    <ul class='  vertical-list '>
+                    <% items.first.shipping_rate_options(session_order.sub_total).each do |rate| %>
+                      <li class='row'>
+                        <label for='<%= "shipping_category_#{shipping_category_id}_#{rate.id}" %>'  style='color:#000' class='five large-5 column'>
+                          <%= radio_button_tag "shipping_category[#{shipping_category_id}]", rate.id %>
+                          <%= rate.name_with_rate %>
+                        </label>
+                        <% if rate.minimum_charge > 0.0 %>
+                          <span  style='color:#333' class='seven large-7 column'>
+                            (Qualified because you have more than <%= "#{number_to_currency rate.minimum_charge}" %> of items)
+                          </span>
+                        <% end %>
+                      </li>
+                    <% end %>
+                    </ul>
+                  </div>
+                </div>
+            </div>
+          <% end %>
+          <div class='twelve clearfix '>
+            <%= submit_tag 'continue', :class => 'button ' %>
           </div>
-        <% end %>
-        <div class='twelve clearfix '>
-          <%= submit_tag 'continue', :class => 'button ' %>
-        </div>
 
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
