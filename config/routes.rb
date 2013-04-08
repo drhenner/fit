@@ -105,7 +105,9 @@ Hadean::Application.routes.draw do
       end
     end
     resources :signups
-    resources :users
+    resources :users do
+      resources :newsletters
+    end
     resources :overviews, :only => [:index]
 
     match "help" => "help#index"

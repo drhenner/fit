@@ -104,7 +104,7 @@ end
 
 if letters == 0
   # Subscribe everyone the first time around
-  newsletter_ids = Newsletter.all.pluck(:id)
+  newsletter_ids = Newsletter.pluck(:id)
   User.find_each do |u|
     u.newsletter_ids = newsletter_ids
     u.save
