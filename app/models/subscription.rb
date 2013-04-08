@@ -1,7 +1,7 @@
 class Subscription < ActiveRecord::Base
   include TransactionAccountable
 
-  attr_accessible :order_item_id, :stripe_customer_token, :subscription_plan_id, :total_payments, :user_id, :active, :remaining_payments
+  attr_accessible :order_item_id, :stripe_customer_token, :subscription_plan_id, :total_payments, :user_id, :active, :remaining_payments, :shipping_address_id, :billing_address_id
   #, :product_id
 
   belongs_to  :user
@@ -27,6 +27,13 @@ class Subscription < ActiveRecord::Base
 
   def cheapest_shipping_rate(ship_address)
     #
+  end
+
+  def cancel!
+    self.remaining_payments = 0
+    self.active             = false
+    self.canceled           = true
+    self.save
   end
 
   def purchased!
@@ -69,6 +76,14 @@ class Subscription < ActiveRecord::Base
   def subscription_plan_name
     Rails.cache.fetch("subscription_plan_name-#{subscription_plan_id}", :expires_in => 3.hours) do
       subscription_plan.name
+    end
+  end
+
+  def self.with_email(email)
+    if email.present?
+      where("users.email = ?", email )
+    else
+      scoped
     end
   end
 

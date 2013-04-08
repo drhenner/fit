@@ -7,5 +7,7 @@ FactoryGirl.define do
     order_item { |c| c.association(:order_item) }
     stripe_customer_token "MyString"
     total_payments nil
+    shipping_address { |c| c.association(:address) }
+    billing_address  { |c| c.association(:address) }
   end
 end
