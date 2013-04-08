@@ -38,11 +38,13 @@ describe Order, "instance methods" do
       subscription      = FactoryGirl.create(:subscription, :order_item => order_item, :user => @user, :subscription_plan => subscription_plan)
       @order.send(:set_stripe_token_to_subscriptions, invoice)
       subscription.reload
-      expect(subscription.transaction_ledgers.blank?).to be_false
-      expect(subscription.transaction_ledgers.detect{|t| t.transaction_account_id == TransactionAccount::ACCOUNTS_RECEIVABLE_ID }.credit).to eq 0
-      expect(subscription.transaction_ledgers.detect{|t| t.transaction_account_id == TransactionAccount::ACCOUNTS_RECEIVABLE_ID }.debit).to eq 14.74
-      expect(subscription.transaction_ledgers.detect{|t| t.transaction_account_id == TransactionAccount::REVENUE_ID }.credit).to eq 14.74
-      expect(subscription.transaction_ledgers.detect{|t| t.transaction_account_id == TransactionAccount::REVENUE_ID }.debit).to eq 0
+      expect(subscription.transaction_ledgers.blank?).to be_true
+      if false # no longer have installments hence we realize revenue later
+        expect(subscription.transaction_ledgers.detect{|t| t.transaction_account_id == TransactionAccount::ACCOUNTS_RECEIVABLE_ID }.credit).to eq 0
+        expect(subscription.transaction_ledgers.detect{|t| t.transaction_account_id == TransactionAccount::ACCOUNTS_RECEIVABLE_ID }.debit).to eq 14.74
+        expect(subscription.transaction_ledgers.detect{|t| t.transaction_account_id == TransactionAccount::REVENUE_ID }.credit).to eq 14.74
+        expect(subscription.transaction_ledgers.detect{|t| t.transaction_account_id == TransactionAccount::REVENUE_ID }.debit).to eq 0
+      end
     end
   end
   context ".name" do
