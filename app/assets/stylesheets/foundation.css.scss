@@ -26,7 +26,7 @@ $tab-fill:#CC0000; /* #2ba6cb */
 
 html { font-size: 62.5%; }
 
-body { background: white; font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; font-weight: normal; font-style: normal; font-size: 14px; line-height: 1; color: #222222; position: relative; -webkit-font-smoothing: antialiased; }
+body { background: white; font-family: "Helvetica", Helvetica, Arial, sans-serif; font-weight: normal; font-style: normal; font-size: 14px; line-height: 1; color: #222222; position: relative; -webkit-font-smoothing: antialiased; }
 
 /* Links ---------------------- */
 a { color: $a-link; text-decoration: none; line-height: inherit; }
@@ -234,7 +234,7 @@ form.custom .custom.disabled { background-color: #dddddd; }
 .lt-ie9 form.custom div.custom.dropdown a.selector { height: 30px; }
 
 /* The Grid ---------------------- */
-.row { width: 1080px; max-width: 100%; min-width: 768px; margin: 0 auto; }
+.row { width: 1000px; max-width: 100%; min-width: 768px; margin: 0 auto; }
 .row .row { width: auto; max-width: none; min-width: 0; margin: 0 -15px; }
 .row.collapse .column, .row.collapse .columns { padding: 0; }
 .row .row { width: auto; max-width: none; min-width: 0; margin: 0 -15px; }
@@ -390,7 +390,7 @@ that IE7/8 do not support :nth-child.
 .block-grid.twelve-up > li:nth-child(12n+1) { clear: both; }
 
 /* Normal Buttons box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset; ---------------------- */
-.button { @include box-shadow(#666 3px 3px 0px rgba(0, 0, 0, .1)); width: auto; background: $a-button-link; border: 1px solid $a-button-border; color: white; cursor: pointer; display: inline-block; text-transform:uppercase; font-family: helvetica, sans-serif; font-weight: 500; font-size: 14px;  line-height: 1; margin: 0; outline: none; padding: 10px 20px 11px; position: relative; text-align: center; text-decoration: none; -webkit-transition: background-color 0.15s ease-in-out; -moz-transition: background-color 0.15s ease-in-out; -o-transition: background-color 0.15s ease-in-out; transition: background-color 0.15s ease-in-out; /* Hovers */ /* Sizes */ /* Colors */ /* Radii */ /* Layout */ /* Disabled ---------- */ }
+.button { @include box-shadow(#666 3px 3px 0px rgba(0, 0, 0, .1)); width: auto; background: $a-button-link; border: 1px solid $a-button-border; color: white; cursor: pointer; display: inline-block; text-transform:uppercase; font-family: "Helvetica", Helvetica, Arial, sans-serif; font-weight: 500; font-size: 14px;  line-height: 1; margin: 0; outline: none; padding: 10px 20px 11px; position: relative; text-align: center; text-decoration: none; -webkit-transition: background-color 0.15s ease-in-out; -moz-transition: background-color 0.15s ease-in-out; -o-transition: background-color 0.15s ease-in-out; transition: background-color 0.15s ease-in-out; /* Hovers */ /* Sizes */ /* Colors */ /* Radii */ /* Layout */ /* Disabled ---------- */ }
 .button:hover { color: white; background-color: $a-button-hover-link; border: 1px solid $a-button-hover-border; }
 .button:active { -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2) inset; -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2) inset; box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2) inset; }
 .button:focus { -webkit-box-shadow: 0 0 4px $a-button-link, 0 1px 0 rgba(255, 255, 255, 0.5) inset; -moz-box-shadow: 0 0 4px $a-button-link, 0 1px 0 rgba(255, 255, 255, 0.5) inset; box-shadow: 0 0 4px $a-button-link, 0 1px 0 rgba(255, 255, 255, 0.5) inset; color: white; }
@@ -776,7 +776,7 @@ ul.breadcrumbs li.unavailable a { color: #999; }
 ul.breadcrumbs li.unavailable:hover a, ul.breadcrumbs li.unavailable a:focus { text-decoration: none; color: #999; cursor: default; }
 
 /* Inline Link List */
-ul.inline-list, ul.link-list { margin: 0 0 17px -22px; padding: 0; list-style: none; overflow: hidden; }
+ul.inline-list, ul.link-list { margin: 0 0 17px; padding: 0; list-style: none; overflow: hidden; }
 ul.inline-list li, ul.link-list li { list-style: none; float: left; margin-left: 22px; display: block; }
 ul.inline-list li a, ul.link-list li a { display: block; }
 
