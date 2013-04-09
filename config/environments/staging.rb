@@ -46,6 +46,7 @@ Hadean::Application.configure do
                                 'markitup/skins/simple/style.css',
                                 'markitup/sets/default/style.css',
                                 'myaccount.css',
+                                'normalize.css',
                                 'pikachoose_product.css',
                                 'product_page.css',
                                 'products_page.css',
