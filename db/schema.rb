@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130407214049) do
+ActiveRecord::Schema.define(:version => 20130409200345) do
 
   create_table "accounting_adjustments", :force => true do |t|
     t.integer  "adjustable_id",                                 :null => false
@@ -393,6 +393,7 @@ ActiveRecord::Schema.define(:version => 20130407214049) do
     t.text     "description_markup"
     t.integer  "brand_id"
     t.text     "short_description"
+    t.text     "reoccurring_blurb"
   end
 
   add_index "products", ["brand_id"], :name => "index_products_on_brand_id"
@@ -794,6 +795,7 @@ ActiveRecord::Schema.define(:version => 20130407214049) do
     t.string   "option_text"
     t.integer  "image_group_id"
     t.integer  "taxability_information_id",                               :default => 1,     :null => false
+    t.text     "reoccurring_blurb"
   end
 
   add_index "variants", ["brand_id"], :name => "index_variants_on_brand_id"
