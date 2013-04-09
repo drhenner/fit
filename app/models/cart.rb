@@ -176,6 +176,27 @@ class Cart < ActiveRecord::Base
     cart_item
   end
 
+
+  # TEMPORARY METHOD FOR PRESALES (ONLY ADD one upsell to the cart)
+  def add_upsell(variant_id, customer, qty = 1, cart_item_type_id = ItemType::SHOPPING_CART_ID, admin_purchase = false)
+    items = shopping_cart_items.find_all_by_variant_id(variant_id)
+    variant = Variant.find(variant_id)
+    quantity_to_purchase = (variant.quantity_purchaseable(admin_purchase) < qty.to_i) ? variant.quantity_purchaseable(admin_purchase) : qty.to_i # if we have less than desired instock
+
+    if admin_purchase && (quantity_to_purchase > 0)
+      cart_item = add_cart_items(items, quantity_to_purchase, customer, cart_item_type_id, variant_id)
+    elsif variant.sold_out?
+      cart_item = saved_cart_items.create(:variant_id   => variant_id,
+                                    :user         => customer,
+                                    :item_type_id => ItemType::SAVE_FOR_LATER_ID,
+                                    :quantity     => qty#,#:price      => variant.price
+                                    ) if items.size < 1
+    elsif items.size == 0
+      cart_item = add_cart_items(items, quantity_to_purchase, customer, cart_item_type_id, variant_id)
+    end
+    cart_item
+  end
+
   def number_of_variants(variant_id)
     shopping_cart_items.find_all_by_variant_id(variant_id).count
   end
