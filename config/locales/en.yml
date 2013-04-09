@@ -26,8 +26,9 @@ en:
   twitter_url:  'https://twitter.com/UFCFIT'
   facebook_url: 'https://www.facebook.com/UFCFit'
   desk_dot_com_url: 'https://ufcfit.desk.com/'
-  google_plus_url:  '#'
-  youtube_url:      '#'
+  google_plus_url:  ''
+  youtube_url:      'http://www.youtube.com/ufcfit'
+  instagram_url: 'http://instagram.com/ufcfit'
 
   nothing_in_cart:       "You don't have anything in your cart."
   only_items_saved_for_later: "You only have items Saved for Later."
