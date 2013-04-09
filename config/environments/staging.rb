@@ -53,6 +53,7 @@ Hadean::Application.configure do
                                 'shopping_cart_page.css',
                                 'signup.css',
                                 'site/app.css',
+                                'site/preorder.css',
                                 'site/small_welcome.css',
                                 'site/temp_signup_form.css',
                                 'social_foundicons.css',
