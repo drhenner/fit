@@ -40,7 +40,7 @@ class Admin::Rma::ReturnAuthorizationsController < Admin::Rma::BaseController
     @return_authorization = @order.return_authorizations.new(params[:return_authorization])
     @return_authorization.created_by = current_user.id
     @return_authorization.user_id    = @order.user_id
-    if params[:return_authorization][:amount].present?
+    if params[:return_authorization] && params[:return_authorization][:amount].present?
       if @return_authorization.save
         redirect_to(admin_rma_order_return_authorization_url(@order, @return_authorization), :notice => 'Return authorization was successfully created.')
       else
@@ -59,7 +59,7 @@ class Admin::Rma::ReturnAuthorizationsController < Admin::Rma::BaseController
   def update
     load_info
     @return_authorization = ReturnAuthorization.find(params[:id])
-    if params[:return_authorization][:amount].present?
+    if params[:return_authorization] && params[:return_authorization][:amount].present?
       if @return_authorization.update_attributes(params[:return_authorization])
         redirect_to(admin_rma_order_return_authorization_url(@order, @return_authorization), :notice => 'Return authorization was successfully updated.')
       else

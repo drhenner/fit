@@ -56,7 +56,7 @@ describe Admin::Rma::ReturnAuthorizationsController do
   it "update action should redirect when model is valid" do
     @return_authorization = create(:return_authorization)
     ReturnAuthorization.any_instance.stubs(:valid?).returns(true)
-    put :update, :id => @return_authorization.id, :order_id => @order.id
+    put :update, :id => @return_authorization.id, :order_id => @order.id, :return_authorization => {:amount => '56.02'}
     response.should redirect_to(admin_rma_order_return_authorization_url(@order, assigns[:return_authorization]))
   end
 
