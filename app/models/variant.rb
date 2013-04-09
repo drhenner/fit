@@ -70,6 +70,10 @@ class Variant < ActiveRecord::Base
     small_description? ? small_description : product.short_description
   end
 
+  def reoccurring_text
+    reoccurring_blurb ? reoccurring_blurb : product.reoccurring_blurb
+  end
+
   def display_title
     title? ? title : product_name
   end

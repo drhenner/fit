@@ -136,6 +136,11 @@
                 Add to Cart
               <% end %>
             </li>
+            <% if upsell.reoccurring_text.present? %>
+              <li>
+                <%= raw upsell.reoccurring_text %>
+              </li>
+            <% end %>
           </ul>
         </div>
       </div>

@@ -2,6 +2,8 @@
 
 <h3>Product: <%= @product.name %></h3>
 
+<%= link_to "Edit Product", edit_admin_merchandise_product_path(@product), :class => 'button small alert' %>
+
 <span style='color:<%= @product.active ? "#3A3" : "#C33" %>; float:right; margin-top: -45px'>
   <% if @product.available? %>
     <%= link_to 'Active', admin_merchandise_product_path(@product),
