@@ -1,26 +1,39 @@
-<h1>ORDER CONFIRMATION....ORDER CONFIRMATION...</h1>
-
-<div class="twelve columns">
+<div id="order-confirmation">
   <div class="row">
-
-    <h2>THANK YOU, YOUR ORDER HAS BEEN PLACED.</h2>
-    <p>An email confirmation has been sent to you.</p>
-    <h4>ORDER NUMBER: <%= @order.number %></h4>
-    <% @order.order_items.each_with_index do |item, i| %>
-      <blockquote class='finished-order-item'>
-        <div class="row">
-          <div class='four large-4 columns'>
-            <h2>Item #<%= i + 1 %>: </h2>
-          </div>
-          <div class='eight large-8 columns'>
-            <ul>
-              <li><%= item.variant.product_name %></li>
-              <li><%= image_tag item.variant.featured_image %></li>
-            </ul>
-          </div>
+    <div class='four columns'>
+      <%= render :partial =>  'shopping/tabs' %>
+    </div>
+    <div class='eight columns'>
+      <div class="select-shipping-box background-gray red-border-left">
+        <h4 class="margin-0 text-10 bold black margin-left-10 padding-left-10 padding-top-10">THANK YOU, YOUR ORDER HAS BEEN PLACED</h4>
+        <div class='row padding-top-10 padding-left-30'>
+          <ul class='twelve large-12 columns'>
+            <li>
+              AN EMAIL CONFIRMATION HAS BEEN SENT TO YOU
+            </li>
+            <li>
+              ORDER NUMBER: <span class="bold black"><%= @order.number %></span>
+            </li>
+            <li>
+              <span class="bold black">JUST A REMINDER, PRE-ORDERS WILL NOT SHIP TILL MID-MAY</span>
+            </li>
+          </ul>
         </div>
-      </blockquote>
-    <% end %>
+      </div>
+      <hr style='color:#aac;'/>
+      <div class='row padding-10 border-1 margin-0'>
+        <% @order.order_items.each_with_index do |item, i| %>
+          <div class='four column'>
+            <div class="cropped-150 bottom-10" style="background-image:url('<%= item.variant.featured_image(:product) %>')"></div>
+          </div>
+          <div class='eight column'>
+            <h4 class='red bold text-10'>
+              Item #<%= i + 1 %>: <%= item.variant.product_name %><%# The Complete UFCFIT Lifestyle Program %>
+            </h4>
+          </div>
+        <% end %>
+      </div>
 
+    </div>
   </div>
 </div>

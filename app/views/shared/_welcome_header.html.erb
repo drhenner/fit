@@ -53,6 +53,11 @@
           <%= link_to 'The Proof', the_proof_path %>
         </li>
         <li>
+          <%= link_to preorders_path, :method => 'post' do %>
+            <span style="background: #c60000;padding: 2px;">PRE-ORDER</span>
+          <% end %>
+        </li>
+        <li>
           <%= link_to I18n.t(:facebook_url), :style => 'padding: 0 5px;' do %>
             <i class="foundicon-facebook"></i>
           <% end %>
@@ -63,7 +68,7 @@
           <% end %>
         </li>
         <li>
-          <%= link_to '#', :style => 'padding: 0 5px;' do %>
+          <%= link_to I18n.t(:instagram_url), :style => 'padding: 0 5px;' do %>
             <i class="foundicon-instagram"></i>
           <% end %>
         </li>

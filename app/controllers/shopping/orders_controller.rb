@@ -12,6 +12,7 @@ class Shopping::OrdersController < Shopping::BaseController
   ##### THIS METHOD IS BASICALLY A CHECKOUT ENGINE
   def index
     @order = find_or_create_order
+    @tab = 'order-details'
     if f = next_form(@order)
       redirect_to f
     else
@@ -104,6 +105,7 @@ class Shopping::OrdersController < Shopping::BaseController
   end
 
   def confirmation
+    @tab = 'confirmation'
     if flash[:last_order].present?
       @order = Order.where(:id => flash[:last_order]).includes({:order_items => :variant}).first
       flash[:last_order] = nil
@@ -120,7 +122,7 @@ class Shopping::OrdersController < Shopping::BaseController
   private
 
   def selected_checkout_tab(tab)
-    tab == 'order-details'
+    tab == @tab
   end
 
   def form_info
