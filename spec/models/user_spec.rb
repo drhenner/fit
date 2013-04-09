@@ -50,7 +50,9 @@ end
 
 describe User, '#get_new_user(args)' do
   it 'should grab the current signedin user if they have never had a password' do
-    user = create(:user, :password => nil, :password_confirmation => nil)
+    user = build(:user, :password => nil, :password_confirmation => nil)
+    user.state = 'signed_up'
+    user.save!
     args = {:email => user.email, :password => 'GoodPass1!', :password_confirmation => 'GoodPass1!', :country_id =>1, :first_name => 'dav',:last_name => 'H'}
 
     new_user = User.get_new_user(args)
