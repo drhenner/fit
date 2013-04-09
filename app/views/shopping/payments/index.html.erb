@@ -46,8 +46,11 @@
       <div class=''>
         <fieldset>
           <legend>PAYMENT INFO</legend>
+          <div id='valid-cc'  data-month='<%= (Time.zone.now + 3.months).month %>'
+                    data-year='<%= (Time.zone.now + 3.months).year %>'
+                    data-mindate='<%= (Time.zone.now + 3.months).strftime("%B - %Y") %>'
+                    style='display:none;'></div>
           <div class='payment-errors' style='display:none;color:#d06050;font-weight:bold;'></div>
-
           <div class='row'>
 
             <div class="field six large-6 column">

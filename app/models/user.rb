@@ -67,6 +67,36 @@ class User < ActiveRecord::Base
                   :phones_attributes,
                   :customer_service_comments_attributes,
                   :newsletter_ids
+  attr_accessible :email,
+                  :password,
+                  :password_confirmation,
+                  :first_name,
+                  :last_name,
+                  :openid_identifier,
+                  :birth_date,
+                  :form_birth_date,
+                  :country_id,
+                  :address_attributes,
+                  :phones_attributes,
+                  :customer_service_comments_attributes,
+                  :newsletter_ids,
+                  :state, :birth_date,
+                  :as => :admin
+  attr_accessible :email,
+                  :password,
+                  :password_confirmation,
+                  :first_name,
+                  :last_name,
+                  :openid_identifier,
+                  :birth_date,
+                  :form_birth_date,
+                  :country_id,
+                  :address_attributes,
+                  :phones_attributes,
+                  :customer_service_comments_attributes,
+                  :newsletter_ids,
+                  :role_ids, :state, :birth_date,
+                  :as => :super_admin
   attr_accessor :name_required
 
   belongs_to :account
@@ -159,7 +189,10 @@ class User < ActiveRecord::Base
                           :format   => { :with => CustomValidators::Emails.email_validator },
                           :length => { :maximum => 255 }
   validate :validate_age
-  #validates :password,    :presence => { :if => :password_required? }, :confirmation => true
+
+  validates :password,    :format => { :with => /^(?=.*\d)(?=.*[a-zA-Z]).{6,25}$/,
+                                       :message  => 'must be 6 characters and contain at least one digit and character'},
+                          :if       => :needs_password?
 
   accepts_nested_attributes_for :addresses, :user_roles
   accepts_nested_attributes_for :phones, :reject_if => lambda { |t| ( t['display_number'].gsub(/\D+/, '').blank?) }
@@ -420,6 +453,10 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def needs_password?
+    (new_record? || password_changed?) && state != 'signed_up'
+  end
 
   def name_required?
     name_required || registered_user?

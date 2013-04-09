@@ -3,8 +3,8 @@ FactoryGirl.define do
     first_name  'John'
     last_name   'Doe'
     sequence(:email)      { |n| "person#{n}@example.com" }
-    password              'pasword'
-    password_confirmation "pasword"
+    password              'pasword1'
+    password_confirmation "pasword1"
     country_id  Country::USA_ID
     after(:build) {|user| user.send(:initialize_state_machines, :dynamic => :force)}
   end

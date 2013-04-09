@@ -28,6 +28,13 @@ UfcFit.Validators = {
                 }
               );
     },
+    hasInvalidDate : function () {
+      if (Number($('#year').val()) == $('#valid-cc').data('year') && Number($('#month').val()) < $('#valid-cc').data('month')) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     validateNumber : function(creditCardInputObject) {
       number = creditCardInputObject.val();
       //does it pass the luhn calculation
