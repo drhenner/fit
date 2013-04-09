@@ -67,6 +67,36 @@ class User < ActiveRecord::Base
                   :phones_attributes,
                   :customer_service_comments_attributes,
                   :newsletter_ids
+  attr_accessible :email,
+                  :password,
+                  :password_confirmation,
+                  :first_name,
+                  :last_name,
+                  :openid_identifier,
+                  :birth_date,
+                  :form_birth_date,
+                  :country_id,
+                  :address_attributes,
+                  :phones_attributes,
+                  :customer_service_comments_attributes,
+                  :newsletter_ids,
+                  :state, :birth_date,
+                  :as => :admin
+  attr_accessible :email,
+                  :password,
+                  :password_confirmation,
+                  :first_name,
+                  :last_name,
+                  :openid_identifier,
+                  :birth_date,
+                  :form_birth_date,
+                  :country_id,
+                  :address_attributes,
+                  :phones_attributes,
+                  :customer_service_comments_attributes,
+                  :newsletter_ids,
+                  :role_ids, :state, :birth_date,
+                  :as => :super_admin
   attr_accessor :name_required
 
   belongs_to :account

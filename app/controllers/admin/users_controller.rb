@@ -22,20 +22,22 @@ class Admin::UsersController < Admin::BaseController
 
   def create
     attribs =  params[:user]
-    role_ids    = params[:user][:role_ids]
     state       = params[:user][:state]
     birth_date  = params[:user][:birth_date]
 
-    attribs.delete(:role_ids)
     attribs.delete(:state)
     attribs.delete(:birth_date)
 
-    @user = User.new(params[:user])
-    @user.role_ids  = role_ids
+    @user = User.new(params[:user], role_saving)
     @user.state     = state
     @user.format_birth_date(params[:user][:birth_date]) if params[:user][:birth_date].present?
     authorize! :create_users, current_user
     if @user.save
+      if current_user.super_admin? # NO IDEA WHY THIS WASNT WORKING
+        @user.reload
+        @user.role_ids = params[:user][:role_ids]
+        @user.save
+      end
       @user.deliver_activation_instructions!
       @user.active? || @user.activate! if @user.send(:password_changed?)
       add_to_recent_user(@user)
@@ -64,7 +66,7 @@ class Admin::UsersController < Admin::BaseController
     attribs.delete(:role_ids)
     attribs.delete(:state)
     attribs.delete(:birth_date)
-    if @user.save && @user.update_attributes(attribs)
+    if @user.save && @user.update_attributes(attribs, role_saving)
       flash[:notice] = "#{@user.name} has been updated."
       redirect_to admin_users_url
     else
@@ -74,6 +76,10 @@ class Admin::UsersController < Admin::BaseController
   end
 
   private
+
+  def role_saving
+    current_user.super_admin? ? {:as => :super_admin} : {:as => :admin}
+  end
 
   def form_info
     @all_roles = Role.all
