@@ -43,7 +43,7 @@
   <div class='large-3 column'>
     <% if @return_authorization.authorized? %>
       <%= link_to 'Cancel RMA',
-                  edit_admin_rma_order_return_authorization_path(@order, @return_authorization),
+                  admin_rma_order_return_authorization_path(@order, @return_authorization),
                   :class => 'button heart', :method => :delete, :data => {:confirm => "Are you sure, you want to Cancel?"} %>
       <%= button_to 'Receive RMA',
                   complete_admin_rma_order_return_authorization_path(@order, @return_authorization),
