@@ -46,11 +46,15 @@
 
     <div id='content_wrapper' class='row <%= "myaccount" if myaccount_tab %> '>
       <%  if myaccount_tab %>
-        <hr class="first_double_hr">
-        <hr class="second_double_hr">
-        <%= render :partial => '/shared/myaccount_subheader' %>
+        <div class="four columns">
+          <%= render :partial => '/myaccount/tabs' %>
+        </div>
+        <div class="eight columns">
+          <%= yield %>
+        </div>
+      <% else %>
+        <%= yield %>
       <% end %>
-      <%= yield %>
     </div>
     <div id='prefooter_wrapper'>&nbsp;</div>
 </div>
