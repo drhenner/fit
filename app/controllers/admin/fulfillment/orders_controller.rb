@@ -50,6 +50,8 @@ class Admin::Fulfillment::OrdersController < Admin::Fulfillment::BaseController
     redirect_to edit_admin_fulfillment_order_url(@order)
   rescue Stripe::CardError => e
     flash[:alert] = e.message
+    @order = Order.includes([:user, :shipments, {:order_items => [:shipment, :variant]}]).find(params[:id])
+    render :edit
   end
 
   # PUT /admin/fulfillment/orders/1
