@@ -12,10 +12,12 @@
       <div class="preorder-banner">
 
         <%= link_to preorders_path, :method => 'post' do %>
-          <%= image_tag 'preorder/UFCfit_HomeBanner.jpg', :width => 1000 %>
-
+          <%= image_tag 'preorder/UFCfit_HomeBanner.jpg', :width => '1000' %>
           <h4 class="four"><b>Mike Dolce</b>UFC FIT Creator &amp; Coach</h4>
-          <blockquote class="four offset-by-eight">"This is the key to changing your life. This is the chance you've always hoped for."<cite>Dana White</cite></blockquote>
+          <p class="offset-by-six columns"><em>F</em>ULL-BODY <em>I</em>NTENSITY <em>T</em>RAINING</p>
+
+          <h1 class="five columns"><%= image_tag 'preorder/UFCfit_logo.png', :width => '352', :alt => 'UFCfit' %></h1>
+          <blockquote class="four offset-by-eight">"This is the key to changing your life.<br/>This is the chance you've always hoped for."<cite>Dana White</cite></blockquote>
           <span  class="text-center three">Pre-order now</span>
         <% end %>
 
