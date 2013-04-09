@@ -39,6 +39,7 @@ class Shopping::OrdersController < Shopping::BaseController
 
   # POST /shopping/orders
   def update
+    @tab = 'order-details'
     @order = find_or_create_order
     @order.ip_address = request.remote_ip
 
@@ -122,6 +123,7 @@ class Shopping::OrdersController < Shopping::BaseController
   private
 
   def selected_checkout_tab(tab)
+    @tab = 'order-details' if @tab.nil?
     tab == @tab
   end
 
