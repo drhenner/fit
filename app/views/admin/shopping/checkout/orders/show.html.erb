@@ -41,6 +41,10 @@
       <%= radio_button_tag(:use_credit_card_on_file, 0, true) %> Use New Card.
     </div>
   <% end %>
+  <div id='valid-cc'  data-month='<%= (Time.zone.now + 2.months).month %>'
+                      data-year='<%= (Time.zone.now + 2.months).year %>'
+                      data-mindate='<%= (Time.zone.now + 2.months).strftime("%B - %Y") %>'
+                      style='display:none;'></div>
   <div class='payment-errors' style='display:none;color:#d06050;font-weight:bold;'></div>
 
   <%= form_tag( admin_shopping_checkout_order_path(),

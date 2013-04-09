@@ -51,7 +51,11 @@ if (typeof UfcFit.AdminShopping.cart == "undefined") {
         submitForm : function () {
           // don't submit if this isn't valid
           UfcFit.Validators.CreditCards.validateNumber(UfcFit.Validators.CreditCards.creditCardInput);
-          if (UfcFit.Validators.CreditCards.valid) {
+          if (UfcFit.Validators.CreditCards.hasInvalidDate()) {
+            $(".payment-errors").html("The Credit card must not expire before " +  $('#valid-cc').data('mindate'));
+            $(".payment-errors").fadeIn();
+            $('.cart-submit-button').attr("disabled", false);
+          } else if (UfcFit.Validators.CreditCards.valid) {
             $(".payment-errors").fadeOut();
             // get the amount
             jQuery.ajax({
