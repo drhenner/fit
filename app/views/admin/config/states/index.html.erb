@@ -27,9 +27,9 @@
           <td><%= state.country.try(:name) %></td>
           <td><%= state.shipping_zone.try(:name) %></td>
           <% if state.active %>
-            <td><%= link_to "activate", admin_config_state_path(state), :method => 'PUT' %></td>
-          <% else %>
             <td><%= link_to "inactivate", [:admin, :config, state], :data => { :confirm => 'Are you sure?' }, :method => :delete %></td>
+          <% else %>
+            <td><%= link_to "activate", admin_config_state_path(state), :method => 'PUT' %></td>
           <% end %>
       </tr>
     <% end %>
