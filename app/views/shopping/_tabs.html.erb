@@ -1,4 +1,7 @@
 <dl class="vertical tabs"><!-- Tabs - navigation -->
+  <dd class="background-black" style="border-left: 4px solid #000; padding: 15px 20px;">
+  <h3 class="margin-0 center-text white">CHECKOUT PROCESS</h3>
+  </dd>
     <dd class="<%= 'active' if selected_checkout_tab('shipping-address') %>">
       <% if session_order.ship_address_id %>
         <%= link_to '1. SHIPPING ADDRESS', shopping_addresses_path %>
@@ -33,5 +36,8 @@
       <% else %>
         <span>5. ORDER DETAILS</span>
       <% end %>
+    </dd>
+    <dd class="<%= 'active' if selected_checkout_tab('confirmation') %>">
+      <span>CONFIRMATION</span>
     </dd>
 </dl>

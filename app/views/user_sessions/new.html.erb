@@ -3,14 +3,14 @@
   <%#= javascript_include_tag 'jquery.datePicker-2.1.2', 'datePickerInitialize' %>
 <% end %>
 
-<h1><%= I18n.t(:login_title) %></h1>
-
 <div class='twelve large-12'>
   <%= image_tag 'header/sign-in_header.jpg' %>
 </div>
 
-<div id='login-wrapper' class=''>
-  <div id='login' class='four large-4 columns'>
+<h1><%= I18n.t(:login_title) %></h1>
+
+<div id='login-wrapper'>
+  <div id='login' class='four large-4 columns' style='padding-left: 0px; margin-bottom:20px;'>
 
     <%= form_for  @user_session,
                   :url => user_sessions_path(@user_session),
@@ -48,7 +48,7 @@
     <% end %>
   </div>
   <% if !Settings.in_signup_period && !session_cart.shopping_cart_items.empty? && session[:return_to] %>
-    <div id='signup' class='eight large-8 columns'>
+    <div id='signup' class='eight large-8 columns' style='padding-right:0px;'>
       <%= form_for @user, :url => customer_registrations_path(@user), :html => {:class => 'custom'} do |form| %>
         <fieldset>
           <legend>REGISTER</legend>

@@ -1,5 +1,9 @@
 <% if display_shipping_warning? %>
-  <div class="row">
-        <%= raw "<div data-alert class='alert-box success'> Orders will not be shipped until mid-May <a href='' class='close'>&times;</a></div>"  %>
+  <div id="shipping-warning">
+    <div class="row">
+      <div class="top-bar" style="border-bottom: 3px solid #cc0000;">
+        <h3 class="white bold padding-10">PRE-ORDERS WILL NOT SHIP TILL MID-MAY</h3>
+      </div>
+    </div>
   </div>
 <% end %>
