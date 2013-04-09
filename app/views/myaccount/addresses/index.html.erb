@@ -9,7 +9,11 @@
       <div class='twelve columns last'>
         <ul>
           <li><span class="bold black"><%= address.name %></span></li>
-          <li><%= raw address.address_lines('<br/>') %></li>
+          <li>
+            <% address.address_lines_array.each do |line| %>
+              <%= line %><br/>
+            <% end %>
+          </li>
           <li><%= address.city_state_zip %></li>
           <li><%= address.phone_number %></li>
         </ul>
