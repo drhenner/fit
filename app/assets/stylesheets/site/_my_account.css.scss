@@ -1,5 +1,17 @@
 
 .myaccount {
+
+  .background-black { background: #000; color: #fff;}
+  .margin-0 { margin: 0px;}
+  .center-text { text-align: center; }
+  .white { color:#fff; }
+
+  .tabs.vertical {
+    dd {
+      border-right: 1px solid #ccc;
+      border-bottom: 1px solid #ccc;
+    }
+  }
   font-family: MyriadPro, 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
   h1, h2, h3, h4 {
     font-family: minion-pro-1,minion-pro-2,HighTower,Georgia,serif;
