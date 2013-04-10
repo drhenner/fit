@@ -371,8 +371,8 @@ class User < ActiveRecord::Base
   # @param  [ none ]
   # @return [ none ]
   def deliver_activation_instructions!
-    Notifier.signup_notification(self).deliver
-    #Resque.enqueue(Jobs::SendSignUpNotification, self.id)
+    #Notifier.signup_notification(self).deliver
+    Resque.enqueue(Jobs::SendSignUpNotification, self.id)
   end
 
   # name and email string for the user
@@ -440,8 +440,8 @@ class User < ActiveRecord::Base
 
   def deliver_password_reset_instructions!
     self.reset_perishable_token!
-    Notifier.password_reset_instructions(self).deliver
-    #Resque.enqueue(Jobs::SendPasswordResetInstructions, self.id)
+    #Notifier.password_reset_instructions(self).deliver
+    Resque.enqueue(Jobs::SendPasswordResetInstructions, self.id)
   end
 
   def number_of_finished_orders
