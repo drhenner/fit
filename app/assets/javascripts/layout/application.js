@@ -18,7 +18,7 @@ if (document.getElementsByTagName) {
 $(function() {
   if( $.browser.msie && parseInt($.browser.version, 10) <=8 ){
     $('.browser').show()
-    $('#myIEUpgradeModal').foundation('reveal', 'open');
+    $( "#myIEUpgradeModal" ).dialog();
   }
 
   $('form a.add_child').click(function() {
