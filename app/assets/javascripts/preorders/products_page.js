@@ -11,10 +11,16 @@ if (typeof UfcFit.ProductPage.mediaPurchase == "undefined") {
         initialize      : function( ) {
           // If the user clicks add new variant button
           // UfcFit.ProductPage.mediaPurchase
+          if ($.browser.msie) {
+            $("select.media-purchase option").change(function() {
+              UfcFit.ProductPage.mediaPurchase.changeSelection(this);
+            });
+          } else {
+            $('div.media-purchase ul').on('mouseup', 'li', function(event) {
+              UfcFit.ProductPage.mediaPurchase.changeSelection(this);
+            });
+          }
 
-          $('div.media-purchase ul').on('mouseup', 'li', function(event) {
-            UfcFit.ProductPage.mediaPurchase.changeSelection(this);
-          });
           $('.has-tip.tip-left .icon-minus-sign ').hover( function() {
             //UfcFit.ProductPage.mediaPurchase.removeNub();
             setTimeout("UfcFit.ProductPage.mediaPurchase.removeNub()", 10);
@@ -26,7 +32,9 @@ if (typeof UfcFit.ProductPage.mediaPurchase == "undefined") {
           jQuery.each($("select.media-purchase option"), function(index, obj) {
             if ($(obj).text() == $(thisObj).text() && needToFind) {
               needToFind = false;
-              //alert($(obj).val());
+              if ($.browser.msie) {
+                alert($(obj).val());
+              }
               $("select.media-purchase option").val($(obj).val());
               form = $(obj).parents('form');
               form.get(0).submit();
