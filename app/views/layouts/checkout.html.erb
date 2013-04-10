@@ -16,16 +16,16 @@
   <%= stylesheet_link_tag 'social_foundicons.css' %>
   <%= stylesheet_link_tag 'site/app.css' %>
   <!--[if lt IE 9]
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/blitzer/jquery-ui.css" />
+  <%= stylesheet_link_tag 'cupertino/jquery-ui-1.8.12.custom.css' %>
   <![endif]-->
   <!--[if lt IE 8]
   <%= stylesheet_link_tag 'ie.css', :media => 'screen, projection'%>
   <%= stylesheet_link_tag 'social_foundicons_ie7.css' %>
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/blitzer/jquery-ui.css" />
+  <%= stylesheet_link_tag 'cupertino/jquery-ui-1.8.12.custom.css' %>
   <![endif]-->
   <!--[if lt IE 7]
       <%= stylesheet_link_tag 'ie6.css', :media => 'screen, projection' %>
-      <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/blitzer/jquery-ui.css" />
+      <%= stylesheet_link_tag 'cupertino/jquery-ui-1.8.12.custom.css' %>
   <![endif]-->
   <%= csrf_meta_tag %>
   <%= tag :meta, :name => "stripe-key", :content => Settings.stripe.publishable_key %>
