@@ -21,7 +21,7 @@ class Customer::RegistrationsController < ApplicationController
 
     @user.name_required = true
     if agreed_to_terms? && @user.save#_without_session_maintenance
-      #@user.deliver_activation_instructions!
+      @user.deliver_activation_instructions!
       @user.active? || @user.activate!
       @user_session = UserSession.new(:email => params[:user][:email], :password => params[:user][:password])
       @user_session.save
