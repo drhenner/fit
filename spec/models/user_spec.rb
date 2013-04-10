@@ -382,12 +382,13 @@ describe User, 'private methods' do
 
   context ".subscribe_to_newsletters" do
     before do
+      @newsletter = create(:newsletter, :autosubscribe => true, :mailchimp_list_id => "abc")
       ResqueSpec.reset!
     end
 
     it 'should enqueue a job to subscribe to mailchimp list' do
       @user.send(:subscribe_to_newsletters)
-      Jobs::SubscribeUserToMailChimpList.should have_queued(@user.id).in(:subscribe_user_to_mail_chimp_list)
+      Jobs::SubscribeUserToMailChimpList.should have_queued(@user.id, @newsletter.id).in(:subscribe_user_to_mail_chimp_list)
     end
   end
 
