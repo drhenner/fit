@@ -88,7 +88,7 @@ class Shopping::OrdersController < Shopping::BaseController
         if response.preordered?
           ##  MARK items as purchased
           session_cart.mark_items_purchased(@order)
-          flash[:last_order] = @order.id
+          session[:last_order] = @order.number
           redirect_to( confirmation_shopping_order_url(@order) ) and return
         else
           flash[:alert] =  [I18n.t('could_not_process'), I18n.t('the_order')].join(' ')
@@ -107,11 +107,12 @@ class Shopping::OrdersController < Shopping::BaseController
 
   def confirmation
     @tab = 'confirmation'
-    if flash[:last_order].present?
+    if session[:last_order].present? && session[:last_order] == params[:id]
+      session[:last_order] = nil
       @order = Order.where(:number => params[:id]).includes({:order_items => :variant}).first
-      flash[:last_order] = nil
       render :layout => 'application'
     else
+      session[:last_order] = nil
       if current_user.finished_orders.present?
         redirect_to myaccount_order_url( current_user.finished_orders.last )
       elsif current_user
