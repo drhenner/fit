@@ -26,6 +26,7 @@ gem 'dalli'#, '~> 1.0.2'
 gem 'dynamic_form', '~> 1.1.4'
 gem "friendly_id", "~> 3.3"
 gem 'haml',  ">= 3.0.13"#, ">= 3.0.4"#, "2.2.21"#,
+gem "gibbon", "~> 0.4.6"
 gem "jquery-rails"
 gem 'json', '~>1.7.7'
 
@@ -48,7 +49,7 @@ gem 'stripe'
 #gem 'sunspot_rails', '~> 1.3.0rc'
 gem 'will_paginate', '~> 3.0.4'
 gem 'resque', require: 'resque/server'
-gem "gibbon", "~> 0.4.6"
+gem 'unicorn'
 #gem 'memcache-client', '~> 1.8.5'
 group :production, :staging do
   gem 'pg'
