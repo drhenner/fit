@@ -59,3 +59,5 @@ mandrill:
   smtp_username: <%= ENV['MANDRILL_USERNAME'] %>
   smtp_password: <%= ENV['MANDRILL_APIKEY'] %>
 
+mailchimp:
+  api_key: <%= ENV['MAILCHIMP_API_KEY'] %>
