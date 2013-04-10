@@ -3,7 +3,7 @@ class Admin::Rma::ReturnAuthorizationsController < Admin::Rma::BaseController
   # GET /return_authorizations
   def index
     load_info
-    @return_authorizations = ReturnAuthorization.admin_grid(params).order(sort_column + " " + sort_direction).
+    @return_authorizations = @order.return_authorizations.admin_grid(params).order(sort_column + " " + sort_direction).
                                               paginate(:page => pagination_page, :per_page => pagination_rows)
   end
 
