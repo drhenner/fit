@@ -521,6 +521,7 @@ class User < ActiveRecord::Base
   def subscribe_to_newsletters
     self.newsletter_ids = Newsletter.where(:autosubscribe => true).pluck(:id)
     self.save(:validate => false)
+    Resque.enqueue(Jobs::SubscribeUserToMailChimpList, self.id)
   end
 
   def cached_role_ids

@@ -380,6 +380,17 @@ describe User, 'private methods' do
     end
   end
 
+  context ".subscribe_to_newsletters" do
+    before do
+      ResqueSpec.reset!
+    end
+
+    it 'should enqueue a job to subscribe to mailchimp list' do
+      @user.send(:subscribe_to_newsletters)
+      Jobs::SubscribeUserToMailChimpList.should have_queued(@user.id).in(:subscribe_user_to_mail_chimp_list)
+    end
+  end
+
   context ".user_profile" do
     #{:merchant_customer_id => self.id, :email => self.email, :description => self.merchant_description}
     it 'should return a hash of user info' do
