@@ -8,10 +8,8 @@
         <%= form_tag(shopping_shipping_method_path(session_order.id), :method => :put, :html => {:class => 'custom'}) do -%>
           <% @order_items.group_by(&:shipping_category_id).each do |shipping_category_id, items| %>
 
-
-
-            <div class='row'>
-              <% items.each do |item| %>
+            <% items.each do |item| %>
+              <div class='row'>
                 <div class='four column'>
                   <% if item.variant.product.product_type.name == 'Media'%>
                     <div class="cropped-150 bottom-10" style="background-image:url('<%= item.variant.product.featured_image(:product) %>')"></div>
@@ -26,8 +24,9 @@
                   Quantity: <%= item.quantity %>
                   <%= raw item.variant.display_property_details %>
                 </div>
-              <% end %>
-            </div>
+              </div>
+            <% end %>
+
             <%= render :partial => 'shipping_rate_selections',
                         :locals => {:shipping_category_id => shipping_category_id, :items => items} %>
             <hr style='color:#aac;'/>
