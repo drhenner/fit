@@ -371,8 +371,8 @@ class User < ActiveRecord::Base
   # @param  [ none ]
   # @return [ none ]
   def deliver_activation_instructions!
-    #Notifier.signup_notification(self).deliver
-    Resque.enqueue(Jobs::SendSignUpNotification, self.id)
+    Notifier.signup_notification(self).deliver
+    #Resque.enqueue(Jobs::SendSignUpNotification, self.id)
   end
 
   # name and email string for the user
