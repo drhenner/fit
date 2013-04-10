@@ -71,7 +71,7 @@ class Variant < ActiveRecord::Base
   end
 
   def reoccurring_text
-    reoccurring_blurb ? reoccurring_blurb : product.reoccurring_blurb
+    reoccurring_blurb? ? reoccurring_blurb : product.reoccurring_blurb
   end
 
   def display_title
