@@ -86,12 +86,15 @@ class PaymentProfile < ActiveRecord::Base
     end
 
     def save_stripe_customer
-      customer = Stripe::Customer.create(
-        :description  => "Card for #{user.name}",
-        :card         => card_token, # obtained with Stripe.js
-        :email        => user.email
-      )
-      self.customer_token = customer['id']
+      if card_token.present?
+        customer = Stripe::Customer.create(
+          :description  => "Card for #{user.name}",
+          :card         => card_token, # obtained with Stripe.js
+          :email        => user.email
+        )
+        self.customer_token = customer['id']
+      end
+      self.customer_token
     end
 
     def set_default_if_first_card
