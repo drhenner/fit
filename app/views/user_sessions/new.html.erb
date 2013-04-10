@@ -6,9 +6,9 @@
 <div class='twelve large-12'>
   <%= image_tag 'header/sign-in_header.jpg' %>
 </div>
-
+<% if Settings.want_login_header %>
 <h1><%= I18n.t(:login_title) %></h1>
-
+<% end %>
 <div id='login-wrapper'>
   <div id='login' class='four large-4 columns' style='padding-left: 0px; margin-bottom:20px;'>
 
