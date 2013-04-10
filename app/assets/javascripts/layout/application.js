@@ -16,8 +16,9 @@ if (document.getElementsByTagName) {
 
 // This allows forms to have unobtrusive JS nested forms.
 $(function() {
-  if( $.browser.msie && parseInt($.browser.version, 10) <=7 ){
+  if( $.browser.msie && parseInt($.browser.version, 10) <=8 ){
     $('.browser').show()
+    $('#myIEUpgradeModal').foundation('reveal', 'open');
   }
 
   $('form a.add_child').click(function() {
