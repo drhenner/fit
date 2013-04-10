@@ -12,7 +12,7 @@ if (typeof UfcFit.ProductPage.mediaPurchase == "undefined") {
           // If the user clicks add new variant button
           // UfcFit.ProductPage.mediaPurchase
           if ($.browser.msie) {
-            $("select.media-purchase option").change(function() {
+            $("select.media-purchase").change(function() {
               UfcFit.ProductPage.mediaPurchase.changeSelection(this);
             });
           } else {
@@ -29,6 +29,9 @@ if (typeof UfcFit.ProductPage.mediaPurchase == "undefined") {
         },
         changeSelection : function(thisObj) {
           needToFind = true;
+          if ($.browser.msie) {
+            alert('test 1');
+          }
           jQuery.each($("select.media-purchase option"), function(index, obj) {
             if ($(obj).text() == $(thisObj).text() && needToFind) {
               needToFind = false;
