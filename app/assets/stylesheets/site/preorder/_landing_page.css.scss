@@ -251,6 +251,20 @@ span {
     margin-left: 35px;
     list-style-image: image-url('preorder/sqred.png');
   }
+  .button {
+    background-color: #ff0000;
+    border-color: #ff0000;
+    box-shadow: none;
+    cursor: pointer;
+    display: block;
+    font-size: 26px;
+    font-weight: 700;
+    padding-left: 0;
+    padding-right: 0;
+    &:hover {
+      background-color: #ff0000;
+      border-color: #ff0000;
+    }
 }
 
 .lifestyle-program {
@@ -258,20 +272,6 @@ span {
   margin-right: -15px;
 }
 
-.button {
-  background-color: #ff0000;
-  border-color: #ff0000;
-  box-shadow: none;
-  cursor: pointer;
-  display: block;
-  font-size: 26px;
-  font-weight: 700;
-  padding-left: 0;
-  padding-right: 0;
-  &:hover {
-    background-color: #ff0000;
-    border-color: #ff0000;
-  }
 }
 
 .promotion {
