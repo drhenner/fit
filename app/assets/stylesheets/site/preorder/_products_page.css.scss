@@ -37,7 +37,14 @@
   }
 
   .right-list{text-align:right;}
-  .upsell-products{text-align:center;}
+  .upsell-products{
+    text-align:center;
+    .button {
+      margin-left: auto;
+      margin-right: auto;
+      width: 65%;
+    }
+  }
 
 
   .price-tag {color:#222;font-weight:bold;font-size:14px;}
@@ -112,7 +119,7 @@
   }
 
   .red {
-    color:#CC0000;
+    color:#ee1c24;
   }
 
   .white {
@@ -161,7 +168,30 @@
     margin-bottom: 10px;
   }
 
+  .button {
+    background-color: #ed1c24;
+    border-color: #ed1c24;
+    box-shadow: none;
+    font-size: 14px;
+    font-weight: 700;
+    &:hover {
+      background-color: #cc0d14;
+      border-color: #cc0d14;
+    }
+  }
+
+  .button.success {
+    background-color: #6bb11e;
+    border-color: #6bb11e;
+    font-size: 16px;
+    &:hover {
+      background-color: #4f8811;
+      border-color: #4f8811;
+    }
+  }
 }
+
+
 /* FIREFOX Specific CSS */
 @-moz-document url-prefix() {
   #preorder-products-page {

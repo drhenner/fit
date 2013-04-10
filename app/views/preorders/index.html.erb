@@ -49,29 +49,29 @@
                 </div>
               </div>
             </div>
-
-            <% session_cart.non_media_cart_items.each do |item| %>
-              <% upsell = item.variant %>
-              <div class="row"><div class="line"></div></div>
-              <div class="row top-10 bottom-10">
-                <div class='two column'>
-                  <div class="cropped-100 bottom-10" style="background-image:url('<%= upsell.featured_image(:small) %>')"></div>
-                </div>
-                <div class='seven mobile-three column'>
-                  <div class="black text-10 bold">Black text<%= upsell.product.name %></div>
-                  <div class='upsell-price top-10'><%= number_to_currency upsell.price %></div>
-                </div>
-                <div class="three mobile-one column">
-                  <%= link_to 'x', upsell_path(item), :method => 'delete', :class => 'text-10 dark-gray pull-right remove_upsell_x' %>
-                </div>
-              </div>
-              <div class="row">
-                <div class="twelve column large-12">
-                  <span class="us-canada-text pull-right">ONLY AVAILABLE IN THE US AND CANADA</span>
-                </div>
-              </div>
-            <% end %>
           </div>
+
+          <% session_cart.non_media_cart_items.each do |item| %>
+            <% upsell = item.variant %>
+            <div class="row"><div class="line"></div></div>
+            <div class="row top-10 bottom-10">
+              <div class='two column'>
+                <div class="cropped-100 bottom-10" style="background-image:url('<%= upsell.featured_image(:small) %>')"></div>
+              </div>
+              <div class='seven mobile-three column'>
+                <div class="black text-10 bold">Black text<%= upsell.product.name %></div>
+                <div class='upsell-price top-10'><%= number_to_currency upsell.price %></div>
+              </div>
+              <div class="three mobile-one column">
+                <%= link_to 'x', upsell_path(item), :method => 'delete', :class => 'text-10 dark-gray pull-right remove_upsell_x' %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="twelve column large-12">
+                <span class="us-canada-text pull-right">ONLY AVAILABLE IN THE US AND CANADA</span>
+              </div>
+            </div>
+          <% end %>
         <% end %>
       </div>
     </div>
