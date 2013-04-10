@@ -108,7 +108,7 @@ class Shopping::OrdersController < Shopping::BaseController
   def confirmation
     @tab = 'confirmation'
     if flash[:last_order].present?
-      @order = Order.where(:id => flash[:last_order]).includes({:order_items => :variant}).first
+      @order = Order.where(:number => params[:id]).includes({:order_items => :variant}).first
       flash[:last_order] = nil
       render :layout => 'application'
     else

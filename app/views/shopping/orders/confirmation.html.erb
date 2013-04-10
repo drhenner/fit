@@ -21,15 +21,21 @@
         </div>
       </div>
       <hr style='color:#aac;'/>
-      <div class='row padding-10 border-1 margin-0'>
+      <div class=' padding-10 border-1 margin-0'>
         <% @order.order_items.each_with_index do |item, i| %>
-          <div class='four column'>
-            <div class="cropped-150 bottom-10" style="background-image:url('<%= item.variant.featured_image(:product) %>')"></div>
-          </div>
-          <div class='eight column'>
-            <h4 class='red bold text-10'>
-              Item #<%= i + 1 %>: <%= item.variant.product_name %><%# The Complete UFCFIT Lifestyle Program %>
-            </h4>
+          <div class='row clearfix bottom20'>
+            <div class='four column top20'>
+              <% if item.variant.product.product_type.name == 'Media'%>
+                <div class="cropped-150 bottom-10" style="background-image:url('<%= item.variant.featured_image(:product) %>')"></div>
+              <% else %>
+                <%= image_tag item.variant.product.featured_image(:medium) %>
+              <% end %>
+            </div>
+            <div class='eight column'>
+              <h4 class='red bold text-10 top20'>
+                Item #<%= i + 1 %>: <%= item.variant.product_name %><%# The Complete UFCFIT Lifestyle Program %>
+              </h4>
+            </div>
           </div>
         <% end %>
       </div>
