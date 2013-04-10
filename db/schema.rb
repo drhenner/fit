@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130409200345) do
+ActiveRecord::Schema.define(:version => 20130410013718) do
 
   create_table "accounting_adjustments", :force => true do |t|
     t.integer  "adjustable_id",                                 :null => false
@@ -778,23 +778,23 @@ ActiveRecord::Schema.define(:version => 20130409200345) do
   add_index "variant_suppliers", ["variant_id"], :name => "index_variant_suppliers_on_variant_id"
 
   create_table "variants", :force => true do |t|
-    t.integer  "product_id",                                                                 :null => false
-    t.string   "sku",                                                                        :null => false
+    t.integer  "product_id",                                                                                :null => false
+    t.string   "sku",                                                                                       :null => false
     t.string   "name"
-    t.decimal  "price",                     :precision => 8, :scale => 2, :default => 0.0,   :null => false
-    t.decimal  "cost",                      :precision => 8, :scale => 2, :default => 0.0,   :null => false
+    t.decimal  "price",                                    :precision => 8, :scale => 2, :default => 0.0,   :null => false
+    t.decimal  "cost",                                     :precision => 8, :scale => 2, :default => 0.0,   :null => false
     t.datetime "deleted_at"
-    t.boolean  "master",                                                  :default => false, :null => false
-    t.datetime "created_at",                                                                 :null => false
-    t.datetime "updated_at",                                                                 :null => false
+    t.boolean  "master",                                                                 :default => false, :null => false
+    t.datetime "created_at",                                                                                :null => false
+    t.datetime "updated_at",                                                                                :null => false
     t.integer  "brand_id"
     t.integer  "inventory_id"
     t.integer  "subscription_plan_id"
     t.string   "title"
-    t.string   "small_description"
+    t.string   "small_description",         :limit => 500
     t.string   "option_text"
     t.integer  "image_group_id"
-    t.integer  "taxability_information_id",                               :default => 1,     :null => false
+    t.integer  "taxability_information_id",                                              :default => 1,     :null => false
     t.text     "reoccurring_blurb"
   end
 
