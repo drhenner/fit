@@ -462,6 +462,18 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def add_subscribed_item(variant, shipping_rate_id, state_id)
+    self.save! if self.new_record?
+    tax_rate_id = state_id ? variant.product.tax_rate(state_id) : nil
+    self.order_items.push(
+      OrderItem.create( :order            => self,
+                        :variant_id       => variant.id,
+                        :price            => variant.price,
+                        :tax_rate_id      => tax_rate_id,
+                        :shipping_rate_id => shipping_rate_id)
+    )
+  end
+
   # remove the variant from the order items in the order
   #   THIS METHOD IS COMPLEX FOR A REASON!!!
   #   USING slice! ALLOWS THE ORDER_ITEMS TO BE DESTROYED AND UNASSOCIATED FROM THE ORDER OBJECT
@@ -677,8 +689,9 @@ class Order < ActiveRecord::Base
 
   def set_stripe_token_to_subscriptions(invoice)
     Subscription.where('order_item_id IN (?)', order_items.map(&:id)).
-                  update_all(["stripe_customer_token = ?, active = ?, next_bill_date = ?, shipping_address_id = ?, billing_address_id = ?",
-                               invoice.customer_token, true, (Date.today + 1.month), ship_address_id, bill_address_id])
+                  update_all(["stripe_customer_token = ?, active = ?, next_bill_date = ?,
+                               shipping_address_id = ?, billing_address_id = ?, payment_profile_id = ?",
+                               invoice.customer_token, true, (Date.today + 1.month), ship_address_id, bill_address_id, payment_profile_id])
     # payment_authorized!
     order_items.each do |order_item|
       if false && order_item.subscription # false because this only occurs if this is an installment plan which we are NOT doing.

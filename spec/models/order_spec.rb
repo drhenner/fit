@@ -380,6 +380,16 @@ order.reload
     end
   end
 
+  context ".add_subscribed_item(variant, cheapest_shipping_rate_id, state_id)" do
+    it 'should add a new variant to order items ' do
+      shipping_rate = FactoryGirl.create(:shipping_rate)
+      variant = create(:variant)
+      order_items_size = @order.order_items.size
+      @order.add_subscribed_item(variant, shipping_rate.id, State.first.id)
+      @order.order_items.size.should == order_items_size + 1
+    end
+  end
+
   context ".remove_items(variant, final_quantity)" do
     it 'should remove variant from order items ' do
       variant = create(:variant)
