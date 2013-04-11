@@ -131,6 +131,8 @@ GEM
     json (1.7.7)
     launchy (2.2.0)
       addressable (~> 2.3)
+    letter_opener (1.1.0)
+      launchy (~> 2.2.0)
     mail (2.5.3)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -309,6 +311,7 @@ DEPENDENCIES
   jquery-rails
   json (~> 1.7.7)
   launchy
+  letter_opener
   mandrill-api
   mocha (~> 0.13.3)
   nested_set (~> 1.7.0)

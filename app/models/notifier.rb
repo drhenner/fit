@@ -11,6 +11,13 @@ class Notifier < ActionMailer::Base
          :subject => "Order Confirmation")
   end
 
+  def order_cancelled_notification(order)
+    @order = order
+    @user   = order.user
+    mail(:to => order.email,
+     :subject => "Order Cancelled")
+  end
+
   def password_reset_instructions(user)
     @user = user
     @url  = edit_customer_password_reset_url(:id => user.perishable_token)
