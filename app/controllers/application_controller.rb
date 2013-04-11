@@ -13,7 +13,8 @@ class ApplicationController < ActionController::Base
                 :myaccount_tab,
                 :select_countries,
                 :in_production?,
-                :display_shipping_warning?
+                :display_shipping_warning?,
+                :display_preorder_button?
 
   before_filter :redirect_without_www
   before_filter :secure_session
@@ -50,6 +51,10 @@ class ApplicationController < ActionController::Base
 
   def display_shipping_warning?
     false
+  end
+
+  def display_preorder_button?
+    true
   end
 
   def authenticate_if_staging

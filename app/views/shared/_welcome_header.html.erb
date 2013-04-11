@@ -53,11 +53,13 @@
           <li>
             <%= link_to 'The Proof', the_proof_path %>
           </li>
+          <% if display_preorder_button? %>
           <li>
             <%= link_to preorders_path, :method => 'post' do %>
               <span style="font-weight: bold;padding: 7px 14px 6px;" class='button small'>PRE-ORDER</span>
             <% end %>
           </li>
+          <% end %>
         <% end %>
         <li>
           <%= link_to I18n.t(:facebook_url), :style => 'padding: 0 5px;' do %>
