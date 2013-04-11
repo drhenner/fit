@@ -14,13 +14,13 @@ describe UpsellsController do
   it "update action should redirect when model is valid" do
     variant = FactoryGirl.create(:variant)
     put :update, :id => variant.id
-    expect(response).to redirect_to(preorders_url)
+    expect(response).to redirect_to(preorders_url(:anchor => 'your-cart-items'))
     @controller.session_cart.shopping_cart_items.size.should eq 2
   end
 
   it "destroy action should destroy model and redirect to index action" do
     delete :destroy, :id => @cart_item.id
-    expect(response).to redirect_to(preorders_url)
+    expect(response).to redirect_to(preorders_url(:anchor => 'your-cart-items'))
     CartItem.find(@cart_item.id).active.should be_false
   end
 end
