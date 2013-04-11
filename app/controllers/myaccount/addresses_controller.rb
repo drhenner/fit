@@ -46,7 +46,7 @@ class Myaccount::AddressesController < Myaccount::BaseController
   #   THE ADDRESS could point to an existing order which needs to keep the same address
   def update
     args = params[:address].clone
-    args[:phones_attributes].each_pair{|i,p| p.delete('id')}
+    args[:phones_attributes].each_pair{|i,p| p.delete('id')} if args[:phones_attributes].present?
     @address = current_user.addresses.new(args)
     @address.replace_address_id = params[:id] # This makes the address we are updating inactive if we save successfully
 
