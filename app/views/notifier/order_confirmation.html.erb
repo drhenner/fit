@@ -9,11 +9,11 @@
     <h1>Hi <%= @user.first_name %>,</h1>
     <table width="600" cellpadding="0" cellspacing="0" border="0">
       <tr>
-        <th width="300"><a href="http://www.ufcfit.com"><img src="images/email_logo.png" alt="email_logo" width="300" height="90" border="0" /></a></th>
+        <th width="300"><a href="http://www.ufcfit.com"><%= image_tag "email_logo.png", :width => "300", :height => "90" %></a></th>
         <th width="300" color="white" bgcolor="black" align="right" valign="middle" style="color:#fff; font-family:helvetica; font-size:12px" colspan="1">ORDER CONFIRMATION&nbsp;&nbsp;</th>
       </tr>
       <tr>
-        <td style="color:#000; font-family:helvetica; font-size:14px"valign="top" colspan="2"><br /><p>Hello User,
+        <td style="color:#000; font-family:helvetica; font-size:14px"valign="top" colspan="2"><br /><p>Hello <%= @user.name %>,
 
         <p><b><span style="font-size:18px">UFC FIT Order Confirmation</span></b></p>
 
