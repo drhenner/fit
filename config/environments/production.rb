@@ -93,6 +93,7 @@ Hadean::Application.configure do
   # Disable Rails's static asset server
   # In production, Apache or nginx will already do this
   config.serve_static_assets = false
+  config.static_cache_control = "public, max-age=3600"
 
   config.action_mailer.default_url_options = { :host => 'www.ufcfit.com' }
   config.action_mailer.asset_host = "https://www.ufcfit.com"
