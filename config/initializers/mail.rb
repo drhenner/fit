@@ -20,3 +20,6 @@ ActionMailer::Base.smtp_settings = {
     :authentication => :plain
 }
 ActionMailer::Base.delivery_method = :smtp
+if Rails.env == "development"
+  ActionMailer::Base.delivery_method = :letter_opener
+end

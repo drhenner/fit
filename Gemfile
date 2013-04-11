@@ -60,7 +60,7 @@ group :development do
   #gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
   gem "autotest-rails-pure"
   gem "foreman"
-
+  gem "letter_opener"
   gem "rails-erd"
   gem "debugger"
 
