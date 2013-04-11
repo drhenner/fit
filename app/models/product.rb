@@ -175,7 +175,8 @@ class Product < ActiveRecord::Base
   end
 
   def self.active
-    where("products.deleted_at IS NULL OR products.deleted_at > ?", Time.zone.now)
+    #where("products.deleted_at IS NULL OR products.deleted_at > ?", Time.zone.now)
+    where(:products => {:id => Product.cached_active_ids})
     #  Add this line if you want the available_at to function
     #where("products.available_at IS NULL OR products.available_at >= ?", Time.zone.now)
   end
@@ -223,7 +224,14 @@ class Product < ActiveRecord::Base
                 available_at_lt_filter(params[:available_at_lt])
   end
 
+  def self.cached_active_ids
+    Rails.cache.fetch("Product-cached_active_ids", :expires_in => 10.minutes) do
+      Product.where("products.deleted_at IS NULL OR products.deleted_at > ?", Time.zone.now).pluck(:id)
+    end
+  end
+
   private
+
 
     def self.available_at_lt_filter(available_at_lt)
       if available_at_lt.present?
@@ -313,6 +321,7 @@ class Product < ActiveRecord::Base
       PAPERCLIP_STORAGE_OPTS[:styles].each_pair do |image_size, value|
         Rails.cache.delete("Product-featured_image-#{id}-#{image_size}")
         Rails.cache.delete("Product-image_urls-#{id}-#{image_size}")
+        Rails.cache.delete("Product-cached_active_ids")
       end
     end
 end
