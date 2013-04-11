@@ -165,6 +165,7 @@ class Order < ActiveRecord::Base
       self.active = false
       paid? ? invoice.cancel_paid_payment : invoice.cancel_authorized_payment
       self.cancel!
+      Resque.enqueue(Jobs::SendOrderCancelledNotification, self.id)
     end
   end
 

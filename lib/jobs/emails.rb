@@ -8,6 +8,14 @@ module Jobs
     end
   end
 
+  class SendOrderCancelledNotification
+    @queue = :order_cancelled_notification_emails
+    def self.perform(order_id)
+      order = Order.find(order_id)
+      Notifier.order_cancelled_notification(order).deliver
+    end
+  end
+
   class SendPasswordResetInstructions
     @queue = :password_reset_emails
     def self.perform(user_id)
