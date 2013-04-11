@@ -11,10 +11,8 @@ group :assets do
 end
   gem 'sass-rails', "  ~> 3.2.3"
 
-#gem "activemerchant", '~> 1.29.3'#, :lib => 'active_merchant'
 gem "american_date", '~> 1.0'
 gem 'authlogic'#, "3.2.0"
-#gem "asset_sync"
 gem 'aws-sdk', '~> 1.8.5'
 gem 'bluecloth',     '~> 2.1.0'
 gem 'cancan', '~> 1.6.8'
@@ -32,7 +30,7 @@ gem 'json', '~>1.7.7'
 
 gem 'mandrill-api'#, :git => 'git@github.com:drhenner/mandrill-api-ruby.git'
 gem 'nested_set', '~> 1.7.0'
-gem 'newrelic_rpm', '~> 3.5.5.38'
+
 gem "nifty-generators", :git => 'git://github.com/drhenner/nifty-generators.git'
 gem 'nokogiri', '~> 1.5.6'
 gem 'paperclip', '~> 3.4'
@@ -50,10 +48,11 @@ gem 'stripe'
 gem 'will_paginate', '~> 3.0.4'
 gem 'resque', require: 'resque/server'
 gem 'unicorn'
-#gem 'memcache-client', '~> 1.8.5'
+
 group :production, :staging do
   gem 'pg'
   gem "airbrake"
+  gem 'newrelic_rpm', '~> 3.5.5.38'
   # gem 'rails3_serve_static_assets', github: 'heroku/rails3_serve_static_assets'
 end
 
@@ -89,11 +88,7 @@ group :test do
   gem "autotest", '~> 4.4.6'
   gem "autotest-rails-pure"
 
-  if RUBY_PLATFORM =~ /darwin/
-    #gem "autotest-fsevent", '~> 0.2.5'
-  end
   gem "autotest-growl"
-  #gem "redgreen"
   gem "ZenTest", '4.6.2'
 
 end
