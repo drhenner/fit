@@ -5,6 +5,9 @@
 <% content_for :bottom do -%>
   <%= javascript_include_tag 'rotate_images'%>
   <%= javascript_include_tag 'password_reset'%>
+  <script>
+    Hadean.Welcome.rotateImages.speed = 500000;
+  </script>
 <% end %>
 
   <div id='key-to-changing'>
@@ -44,9 +47,7 @@
                </ul>
             <% end %>
           </div>
-          <span>
-            <%= link_to 'Privacy Policy', privacy_policy_path, :style => 'color:#555;'%>
-          </span>
+
         </div>
       </div>
       <div id='ufcfit-logo' class='five column' style='padding:0;'>
