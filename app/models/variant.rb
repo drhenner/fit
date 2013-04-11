@@ -43,6 +43,7 @@ class Variant < ActiveRecord::Base
   belongs_to :taxability_information
 
   before_validation :create_inventory, :on => :create
+  after_save :expire_cache
 
   #validates :name,        :presence => true
 
@@ -134,7 +135,9 @@ class Variant < ActiveRecord::Base
   end
 
   def self.default_preorder_item_ids
-    joins(:product).active.where("products.product_type_id IN (?)", ProductType.main_preorder_product_type_ids).pluck("variants.id")
+    Rails.cache.fetch("Variant-default_preorder_item_ids", :expires_in => 10.minutes) do
+      joins(:product).active.where("products.product_type_id IN (?)", ProductType.main_preorder_product_type_ids).pluck("variants.id")
+    end
   end
 
   def self.default_preorder_item
@@ -372,6 +375,10 @@ class Variant < ActiveRecord::Base
     grid = grid.where({:products => {:name => params[:product_name]}})  if params[:product_name].present?
     grid = grid.where(['sku LIKE ? ', "#{params[:sku]}%"])  if params[:sku].present?
     grid
+  end
+
+  def expire_cache
+    Rails.cache.delete("Variant-default_preorder_item_ids")
   end
 
   private

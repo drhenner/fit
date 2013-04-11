@@ -6,6 +6,8 @@ class ProductType < ActiveRecord::Base
 
   FEATURED_TYPE_ID = 1
 
+  after_save :expire_cache
+
   # paginated results from the admin ProductType grid
   #
   # @param [Optional params]
@@ -31,5 +33,12 @@ class ProductType < ActiveRecord::Base
       ids.empty? ? [ProductType.first.id] : ids
     end
   end
+
+  private
+    def expire_cache
+      Rails.cache.delete("Variant-default_preorder_item_ids")
+      Rails.cache.delete("main_preorder-product_type_ids")
+      Rails.cache.delete("upsell_product_type_ids")
+    end
 
 end
