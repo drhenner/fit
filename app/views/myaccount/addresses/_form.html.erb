@@ -21,6 +21,24 @@
         <%= f.text_field :last_name, :class => '' %>
       </div>
     </div>
+    <div class="twelve ">
+      <div class="field">
+
+        <%= f.fields_for :phones do |phone_f| %>
+          <div class=" six columns">
+            <div class="<%='field_with_errors' if phone_f.object.errors[:number].present? %>">
+              <%= phone_f.label :display_number, 'Primary Phone' %>
+              <%= phone_f.text_field :display_number %>
+            </div>
+          </div>
+          <div class=" six columns">
+            <%= phone_f.hidden_field :phoneable_id %>
+            <%= phone_f.label :phone_type_id, 'Type' %>
+            <%= phone_f.select :phone_type_id, phone_types %>
+          </div>
+        <% end %>
+      </div>
+    </div>
     <div class='clear'></div>
       <div class="twelve columns">
         <div class="field">
