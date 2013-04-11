@@ -61,6 +61,9 @@
               <div class='seven mobile-three column'>
                 <div class="black text-10 bold">Black text<%= upsell.product.name %></div>
                 <div class='upsell-price top-10'><%= number_to_currency upsell.price %></div>
+                <% if upsell.reoccurring_text.present? %>
+                  <div  class="top-10 text-10 "><%= upsell.reoccurring_text %></div>
+                <% end %>
               </div>
               <div class="three mobile-one column">
                 <%= link_to 'x', upsell_path(item), :method => 'delete', :class => 'text-10 dark-gray pull-right remove_upsell_x' %>
