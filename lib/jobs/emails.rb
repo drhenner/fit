@@ -23,4 +23,10 @@ module Jobs
       Notifier.signup_notification(recipient).deliver
     end
   end
+  class SendRegistrationEmail
+    @queue = :registration_emails
+    def self.perform(user_id)
+      Notifier.registration_email(user_id).deliver
+    end
+  end
 end

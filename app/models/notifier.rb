@@ -31,4 +31,11 @@ class Notifier < ActionMailer::Base
          :subject => "Thank you for Subscribing!")
 
   end
+
+  def registration_email(user_id)
+    @user = User.where(:id => user_id).first
+
+    mail(:to => @user.email_address_with_name,
+         :subject => "Thank you for Registering!")
+  end
 end

@@ -53,3 +53,29 @@ describe Notifier, "#order_confirmation" do
     end
 
 end
+
+
+describe Notifier, "#registration_email" do
+    include Rails.application.routes.url_helpers
+
+    before(:each) do
+      #"jojo@yahoo.com", "Jojo Binks"
+      #[first_name.capitalize, last_name.capitalize ]
+      @user         = create(:user, :email => 'myfake@email.com', :first_name => 'Dave', :last_name => 'Commerce')
+      @email = Notifier.registration_email(@user.id)
+    end
+
+    it "should be set to be delivered to the email passed in" do
+      @email.should deliver_to('myfake@email.com')
+    end
+
+    it "should contain the user's message in the mail body" do
+      @email.should have_body_text(/myfake@email.com/)
+    end
+
+    it "should have the correct subject" do
+      @email.should have_subject(/Thank you for Registering/)
+    end
+
+end
+
