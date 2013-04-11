@@ -19,7 +19,12 @@
           </p>
 
           <p>Order Summary:</p>
-
+          <ul style='list-style-type:none;margin-left:5px;'>
+            <% @order.order_items.group_by(&:variant).each do |variant, order_items| %>
+              <li><%= order_items.size %> <%= variant.product_name %></li>
+            <% end %>
+              <li>Order Total (<%= number_to_currency @invoice.amount %>)</li>
+          </ul>
           <p>Order Number: <%= @order.number %></p>
 
           <p>
