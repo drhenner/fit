@@ -37,7 +37,7 @@
   <%= render :partial => '/shared/welcome_header'%>
   <div class="row">
     <% if notice || alert %>
-      <div class="flash_messages">
+      <div class="flash_messages twelve column">
         <%= raw "<div data-alert class='alert-box warning'> #{notice} <a href='' class='close'>&times;</a></div>"  if notice %>
         <%= raw "<div data-alert class='alert-box alert'>#{alert} <a href='' class='close'>&times;</a></div>"     if alert %>
       </div>
