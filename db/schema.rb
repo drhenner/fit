@@ -13,6 +13,7 @@
 
 ActiveRecord::Schema.define(:version => 20130411060543) do
 
+
   create_table "accounting_adjustments", :force => true do |t|
     t.integer  "adjustable_id",                                 :null => false
     t.string   "adjustable_type",                               :null => false
@@ -244,8 +245,9 @@ ActiveRecord::Schema.define(:version => 20130411060543) do
   end
 
   create_table "newsletters", :force => true do |t|
-    t.string  "name",          :null => false
-    t.boolean "autosubscribe", :null => false
+    t.string  "name",              :null => false
+    t.boolean "autosubscribe",     :null => false
+    t.string  "mailchimp_list_id"
   end
 
   create_table "order_items", :force => true do |t|

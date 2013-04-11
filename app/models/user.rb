@@ -519,7 +519,11 @@ class User < ActiveRecord::Base
   end
 
   def subscribe_to_newsletters
-    self.newsletter_ids = Newsletter.where(:autosubscribe => true).pluck(:id)
+    newsletters = Newsletter.where(:autosubscribe => true)
+    newsletters.each do |newsletter|
+      self.newsletters << newsletter
+      Resque.enqueue(Jobs::SubscribeUserToMailChimpList, self.id, newsletter.id) if newsletter.mailchimp_list_id
+    end
     self.save(:validate => false)
   end
 
