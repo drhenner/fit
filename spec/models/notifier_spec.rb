@@ -45,7 +45,7 @@ describe Notifier, "#order_confirmation" do
     end
 
     it "should contain the user's message in the mail body" do
-      @email.should have_body_text(/Dave Commerce/)
+      @email.should have_body_text(/Dave/)
     end
 
     it "should have the correct subject" do

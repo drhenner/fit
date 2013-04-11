@@ -6,19 +6,60 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    <h1>Hi <%= @user.name %>,</h1>
-    <p>
-      Thanks you for your recent purchase at <%= @site_name %>.  Below you will see your confirmation details.
-    </p>
+    <h1>Hi <%= @user.first_name %>,</h1>
+    <table width="600" cellpadding="0" cellspacing="0" border="0">
+      <tr>
+        <th width="300"><a href="http://www.ufcfit.com"><img src="images/email_logo.png" alt="email_logo" width="300" height="90" border="0" /></a></th>
+        <th width="300" color="white" bgcolor="black" align="right" valign="middle" style="color:#fff; font-family:helvetica; font-size:12px" colspan="1">ORDER CONFIRMATION&nbsp;&nbsp;</th>
+      </tr>
+      <tr>
+        <td style="color:#000; font-family:helvetica; font-size:14px"valign="top" colspan="2"><br /><p>Hello User,
 
-    <h4>Order Number: <%= @order.number %></h4>
-    <ul>
-      <% @order.order_items.group_by(&:variant).each do |variant, order_items| %>
-        <li><%= order_items.size %> <%= variant.product_name %>: <%= order_items.size %></li>
-      <% end %>
-        <li>Order Total (<%= number_to_currency @invoice.amount %>)</li>
-    </ul>
+        <p><b><span style="font-size:18px">UFC FIT Order Confirmation</span></b></p>
 
-    <p>Thank you and have a great day!</p>
+            <p>Thank you for placing your order with UFC FIT. Below are the details of your order.</p>
+            <p><label>Shipping Address:</label>
+              <br/>
+              <% if @order.ship_address %>
+                <%= render :partial => '/shared/compact_address', :locals => { :shopping_address => @order.ship_address } %>
+              <% end %>
+            </p>
+
+            <p>
+              <label>Billing Address:</label>
+              <br/>
+              <% if @order.bill_address %>
+                <%= render :partial => '/shared/compact_address', :locals => { :shopping_address => @order.bill_address } %>
+              <% end %>
+            </p>
+            <p><label>Order Number:</label> <%= @order.number %></p>
+            <p>Order Summary:</p>
+              <ul style='list-style-type:none;margin-left:5px;'>
+                <% @order.order_items.group_by(&:variant).each do |variant, order_items| %>
+                  <li><%= order_items.size %> <%= variant.product_name %>: <%= order_items.size %></li>
+                <% end %>
+                  <li>Order Total (<%= number_to_currency @invoice.amount %>)</li>
+              </ul>
+            <p>
+              Your order is currently being processed and you&lsquo;ll receive a shipping confirmation with tracking information via email. If any of the above information is incorrect or if you have any additional questions, please contact our customer service department at: <%= I18n.t(:customer_service_number) %>
+              </p>
+              <br /><br /><br/>
+        </td>
+      </tr>
+      <tr></tr><tr>
+        <td colspan="3" bgcolor="#d82125" height="10">&nbsp;</td>
+      </tr><tr>
+        <td colspan="3" bgcolor="#5d170d" height="10">&nbsp;</td>
+      </tr><tr>
+        <td colspan="3" bgcolor="#000" height="10">&nbsp;</td>
+      </tr><tr>
+        <td align="left" style="color:#000; font-family:helvetica; font-size:12px">Copyright &copy; 2013 - UFCFIT.com</th>
+        <td align="right" style="color:#000; font-family:helvetica; font-size:12px" colspan="2">&nbsp</th>
+      </tr>
+    </table>
+    <%= render :partial => 'notifier/main_footer' %>
+
   </body>
 </html>
+
+
