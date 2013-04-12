@@ -1,9 +1,7 @@
 namespace :launch do
   task :send_emails => :environment do
-    User.last(3).each do |user|
-      if !user.admin? and user.active?
-        Resque.enqueue(Jobs::SendLaunchEmail, user.id)
-      end
+    User.find_each(:conditions => "state = 'signed_up'", :batch_size => 1000) do |user|
+      Resque.enqueue(Jobs::SendLaunchEmail, user.id)
     end
   end
 end
