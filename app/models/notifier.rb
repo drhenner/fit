@@ -1,13 +1,13 @@
 class Notifier < ActionMailer::Base
   default :from => '"The UFCFIT team" <no-reply@ufcfit.com>'
 
-  def order_confirmation(order,invoice)
-    @invoice = invoice
-    @order  = order
-    @user   = order.user
+  def order_confirmation(order_id,invoice_id)
+    @invoice = Invoice.find(invoice_id)
+    @order  = Order.find(order_id)
+    @user   = @order.user
     @url    = root_url
     @site_name = 'site_name'
-    mail(:to => order.email,
+    mail(:to => @order.email,
          :subject => "Order Confirmation")
   end
 

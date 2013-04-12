@@ -37,7 +37,7 @@ describe Notifier, "#order_confirmation" do
       @order        = create(:order, :email => 'myfake@email.com', :user => @user)
       @invoice        = create(:invoice, :order => @order)
       @order.stubs(:order_items).returns([@order_item])
-      @email = Notifier.order_confirmation(@order, @invoice)
+      @email = Notifier.order_confirmation(@order.id, @invoice.id)
     end
 
     it "should be set to be delivered to the email passed in" do

@@ -2,9 +2,7 @@ module Jobs
   class SendOrderConfirmation
     @queue = :order_confirmation_emails
     def self.perform(order_id, invoice_id)
-      order = Order.find(order_id)
-      invoice = Invoice.find(invoice_id)
-      Notifier.order_confirmation(order, invoice).deliver
+      Notifier.order_confirmation(order_id, invoice_id).deliver
     end
   end
 
