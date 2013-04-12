@@ -12,6 +12,12 @@
   margin-top: 20px
   .button
     margin-bottom: 20px
+.inactive-row
+  color: #B55
+  td
+    color: #B55
+    a
+      color: #C33
 label
   cursor: default
 
@@ -91,9 +97,15 @@ ul
     label
       display: inline-block
       width: 120px
+    &.long
+      label
+        width: 250px
     &.compact
       label
         width: 70px
+  &.slight-underline
+    li
+      border-bottom: #f0f0f0 solid 1px
   &#report-filters
     li
       margin-bottom: 10px

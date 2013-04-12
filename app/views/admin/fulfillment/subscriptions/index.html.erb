@@ -39,16 +39,24 @@
     </thead>
     <tbody>
     <% for subscription in @subscriptions %>
-      <tr style='color:<%= "#DAA" unless subscription.is_active? %>' class='<%= cycle("odd", "")%>'>
+      <tr class='<%= "inactive-row" unless subscription.is_active? %>' >
 
           <td><%= link_to subscription.subscription_plan_name, [:admin, :fulfillment, subscription] %></td>
           <td><%= subscription.user.name %></td>
           <td style='font-size:10px;'><%= subscription.order_item.variant.product_name %></td>
-          <td><%= subscription.is_active? %></td>
+          <td style='text-align:center;'>
+            <span  class='round label <%= " alert " unless subscription.is_active? %>'>
+            <%= subscription.is_active? ? "Yes" : "No" %>
+            </span>
+          </td>
           <td><%= subscription.next_bill_date %></td>
           <td><%= subscription.failed_attempts %></td>
           <td><%= subscription.remaining_payments %></td>
-        <td><%= link_to "change", edit_admin_fulfillment_subscription_path(subscription) %></td>
+        <td>
+          <% if subscription.is_active? %>
+            <%= link_to "change", edit_admin_fulfillment_subscription_path(subscription) %>
+          <% end %>
+        </td>
         <td>
           <% if subscription.is_active? %>
           <%= link_to "cancel", [:admin, :fulfillment, subscription], :data => { :confirm => 'Are you sure?' }, :method => :delete, :style => 'color:red;' %>
