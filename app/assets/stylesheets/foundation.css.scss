@@ -868,7 +868,7 @@ div.progress.round .meter { -webkit-border-radius: 1000px; -moz-border-radius: 1
 .top-bar ul > li a:not(.button) { color: white; display: block; font-size: 13px; font-weight: bold; height: $top-bar-height; line-height: $top-bar-height; padding: 0 15px; }
 .top-bar ul > li:hover, .top-bar ul > li.active { background: black; }
 .top-bar ul > li:hover a, .top-bar ul > li.active a { color: #d9d9d9; }
-.top-bar ul > li.divider { background: black; -webkit-box-shadow: 1px 0 0 rgba(255, 255, 255, 0.1); -moz-box-shadow: 1px 0 0 rgba(255, 255, 255, 0.1); box-shadow: 1px 0 0 rgba(255, 255, 255, 0.1); height: 100%; margin-right: 1px; width: 1px; }
+.top-bar ul > li.divider { background: #323232; -webkit-box-shadow: 1px 0 0 rgba(255, 255, 255, 0.1); -moz-box-shadow: 1px 0 0 rgba(255, 255, 255, 0.1); box-shadow: 1px 0 0 rgba(255, 255, 255, 0.1); height: 100%; margin-right: 1px; width: 1px; }
 .top-bar ul > li.has-button a.button { margin: 0 11.25px; }
 .top-bar ul > li.has-button:hover { background: $nav-bar-color; }
 .top-bar ul > li.has-button:hover a { color: #fff; }
