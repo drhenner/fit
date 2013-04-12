@@ -62,7 +62,7 @@
       font-weight: 400;
       line-height: 1.45;
       margin-bottom: 0;
-      padding: 2px 15px 0;
+      padding: 1px 15px 0;
       text-transform: uppercase;
     }
   }
@@ -284,13 +284,28 @@ span {
 
 .promotion {
   padding-bottom: 20px;
+  padding-top: 5px;
+  ul {
+    list-style-image: image-url('preorder/sqred_small.png');
+    margin-left: 48px;
+    margin-bottom: 7px;
+  }
   li {
     font-size: 14px;
-    padding-bottom: 7px;
+    padding-bottom: 6px;
   }
   span {
     font-size: 12px;
     padding-left: 10px;
+    padding-top: 2px;
+  }
+  h2 {
+    margin-left: -5px;
+    margin-bottom: 9px;
+  }
+  img {
+    max-width: 110%;
+    margin-left: -15px;
   }
 }
 
@@ -488,12 +503,18 @@ span {
   .promotion {
     h2 {
       font-size: 22px;
+      margin-left: 0;
+      margin-top: 10px;
     }
     li {
       font-size: 14px;
     }
     span {
       font-size: 12px;
+    }
+    img {
+      max-width: 100%;
+      margin-left: 0;
     }
   }
 
