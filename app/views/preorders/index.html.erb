@@ -1,6 +1,7 @@
 <% content_for :below_body do -%>
   <%= javascript_include_tag 'preorders/products_page.js' %>
 <% end %>
+<%= render :partial => '/shared/preorder_warning_banner' %>
 
 <div id='preorder-products-page' class="twelve columns">
   <div class='row'>

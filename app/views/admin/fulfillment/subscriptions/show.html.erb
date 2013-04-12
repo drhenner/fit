@@ -1,8 +1,8 @@
 <h1> Subscription </h1>
 
-<ul>
+<ul class='vertical-list long slight-underline eight large-8' style='color:<%= "red" unless @subscription.is_active? %>;'>
   <li>
-    <label>Subscription Plan:</label>
+    <label class='long' style='color:<%= "red" unless @subscription.is_active? %>;'>Subscription Plan:</label>
     <%= @subscription.subscription_plan_name %>
   </li>
   <li>
@@ -24,7 +24,7 @@
   </li>
   <li>
     <label>Active:</label>
-    <%= @subscription.is_active?.to_s %>
+    <%= @subscription.is_active? ? "Yes" : "No" %>
   </li>
   <li>
     <label>Remaining Payments:</label>

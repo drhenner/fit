@@ -8,10 +8,7 @@
   <body>
     <h1>Hi <%= @user.first_name %>,</h1>
     <table width="600" cellpadding="0" cellspacing="0" border="0">
-      <tr>
-        <th width="300"><a href="http://www.ufcfit.com"><%= image_tag "email_logo.png", :width => "300", :height => "90" %></a></th>
-        <th width="300" color="white" bgcolor="black" align="right" valign="middle" style="color:#fff; font-family:helvetica; font-size:12px" colspan="1">ORDER CONFIRMATION&nbsp;&nbsp;</th>
-      </tr>
+      <%= render :partial => '/notifier/header_row', :locals => {:right_text => 'ORDER CONFIRMATION&nbsp;&nbsp;' } %>
       <tr>
         <td style="color:#000; font-family:helvetica; font-size:14px"valign="top" colspan="2"><br /><p>Hello <%= @user.name %>,
 
@@ -36,7 +33,7 @@
             <p>Order Summary:</p>
               <ul style='list-style-type:none;margin-left:5px;'>
                 <% @order.order_items.group_by(&:variant).each do |variant, order_items| %>
-                  <li><%= order_items.size %> <%= variant.product_name %>: <%= order_items.size %></li>
+                  <li><%= order_items.size %> <%= variant.product_name %></li>
                 <% end %>
                   <li>Order Total (<%= number_to_currency @invoice.amount %>)</li>
               </ul>
@@ -54,7 +51,7 @@
         <td colspan="3" bgcolor="#000" height="10">&nbsp;</td>
       </tr><tr>
         <td align="left" style="color:#000; font-family:helvetica; font-size:12px">Copyright &copy; 2013 - UFCFIT.com</th>
-        <td align="right" style="color:#000; font-family:helvetica; font-size:12px" colspan="2">&nbsp</th>
+        <td align="right" style="color:#000; font-family:helvetica; font-size:12px" colspan="2">&nbsp;</th>
       </tr>
     </table>
     <%= render :partial => 'notifier/main_footer' %>

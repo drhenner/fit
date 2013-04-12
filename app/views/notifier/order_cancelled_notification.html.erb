@@ -6,8 +6,8 @@
   <body>
     <table width="600" cellpadding="0" cellspacing="0" border="0">
       <tr>
-        <th width="300"><a href="http://www.ufcfit.com"><%= image_tag "email_logo.png", :width => "300", :height => "90" %></a></th>
-        <th width="300" color="white" bgcolor="black" align="right" valign="middle" style="color:#fff; font-family:helvetica; font-size:12px" colspan="1">PRE-ORDER CANCEL CONFIRMATION&nbsp;&nbsp;</th>				
+        <th width="300"><a href="http://www.ufcfit.com"><%= image_tag "logos/logo.png", :width => "300", :height => "90" %></a></th>
+        <th width="300" color="white" bgcolor="black" align="right" valign="middle" style="color:#fff; font-family:helvetica; font-size:12px" colspan="1">PRE-ORDER CANCEL CONFIRMATION&nbsp;&nbsp;</th>
       </tr>
       <tr>
 
@@ -19,7 +19,11 @@
           </p>
 
           <p>Order Summary:</p>
-
+          <ul style='list-style-type:none;margin-left:5px;'>
+            <% @order.order_items.group_by(&:variant).each do |variant, order_items| %>
+              <li><%= order_items.size %> <%= variant.product_name %></li>
+            <% end %>
+          </ul>
           <p>Order Number: <%= @order.number %></p>
 
           <p>
@@ -36,7 +40,7 @@
         <td colspan="3" bgcolor="#000" height="10">&nbsp;</td>
         </tr><tr>
         <td align="left" style="color:#000; font-family:helvetica; font-size:12px">Copyright 2013 - UFCFIT.com</th>
-        <td align="right" style="color:#000; font-family:helvetica; font-size:12px" colspan="2">&nbsp</th>				
+        <td align="right" style="color:#000; font-family:helvetica; font-size:12px" colspan="2">&nbsp;</th>
       </tr>
     </table>
   </body>

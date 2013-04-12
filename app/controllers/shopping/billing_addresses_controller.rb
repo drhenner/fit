@@ -42,7 +42,9 @@ class Shopping::BillingAddressesController < Shopping::BaseController
   end
 
   def update
-    @shopping_address = current_user.addresses.new(params[:address])
+    args = params[:address].clone
+    args[:phones_attributes].each_pair{|i,p| p.delete('id')} if args[:phones_attributes].present?
+    @shopping_address = current_user.addresses.new(args)
     @shopping_address.replace_address_id = params[:id] # This makes the address we are updating inactive if we save successfully
 
     # if we are editing the current default address then this is the default address
@@ -56,7 +58,9 @@ class Shopping::BillingAddressesController < Shopping::BaseController
         # the form needs to have an id
         @form_address = current_user.addresses.find(params[:id])
         # the form needs to reflect the attributes to customer entered
+        params[:address].delete('phones_attributes')
         @form_address.attributes = params[:address]
+        @form_address.phones.build if @form_address.phones.empty?
         @states     = State.form_selector
         render :action => "edit"
       end

@@ -1,8 +1,10 @@
 class Myaccount::AddressesController < Myaccount::BaseController
-  helper_method :countries
+  helper_method :countries, :phone_types
 
   def index
-    @addresses = current_user.shipping_addresses
+    @addresses = current_user.shipping_addresses.
+                              order( 'addresses.id DESC' ).
+                              paginate(:page => pagination_page, :per_page => 8)
   end
 
   def show
@@ -17,6 +19,7 @@ class Myaccount::AddressesController < Myaccount::BaseController
     end
     @address.default = true          if current_user.default_shipping_address.nil?
     @form_address = @address
+    @form_address.phones.build
   end
 
   def create
@@ -38,12 +41,15 @@ class Myaccount::AddressesController < Myaccount::BaseController
   def edit
     form_info
     @form_address = @address = current_user.addresses.find(params[:id])
+    @form_address.phones.build if @form_address.phones.empty?
   end
 
   # This is not normal because you should never Update an address.
   #   THE ADDRESS could point to an existing order which needs to keep the same address
   def update
-    @address = current_user.addresses.new(params[:address])
+    args = params[:address].clone
+    args[:phones_attributes].each_pair{|i,p| p.delete('id')} if args[:phones_attributes].present?
+    @address = current_user.addresses.new(args)
     @address.replace_address_id = params[:id] # This makes the address we are updating inactive if we save successfully
 
     # if we are editing the current default address then this is the default address
@@ -75,6 +81,10 @@ class Myaccount::AddressesController < Myaccount::BaseController
 
   def form_info
     @states = State.form_selector
+  end
+
+  def phone_types
+    @phone_types ||= PhoneType.all.map{|p| [p.name, p.id]}
   end
 
   def selected_myaccount_tab(tab)

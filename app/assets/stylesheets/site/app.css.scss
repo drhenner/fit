@@ -26,6 +26,20 @@ div.alert-box.warning {
   color: #D61f23;
   text-shadow: 0 0px rgba(0, 0, 0, 0.1);
 }
+
+.preorder-warning-banner {
+  background-color:black;
+  color:white;
+  text-weight:bolder;
+  font-size:40px;
+  border-bottom:3px solid #CC0000;
+  text-align:center;
+  text-transform: uppercase;
+  padding-top:7px;
+  padding-bottom:7px;
+  margin-bottom:20px;
+}
+
 .field_with_errors {
   input {
     border: 1px #C66 solid;

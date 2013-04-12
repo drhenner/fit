@@ -2,11 +2,13 @@ class Myaccount::OrdersController < Myaccount::BaseController
   # GET /myaccount/orders
   # GET /myaccount/orders.xml
   def index
-    @orders = current_user.viewable_orders.find_myaccount_details
+    @orders = current_user.viewable_orders.
+                           find_myaccount_details.
+                           order( 'orders.completed_at DESC' ).
+                           paginate(:page => pagination_page, :per_page => 8)
   end
 
   # GET /myaccount/orders/1
-  # GET /myaccount/orders/1.xml
   def show
     @order = current_user.viewable_orders.
                           includes([:invoices, :ship_address, :bill_address, {:order_items => {:variant => :product}}]).

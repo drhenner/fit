@@ -1,6 +1,8 @@
 class Myaccount::CreditCardsController < Myaccount::BaseController
   def index
-    @credit_cards = current_user.active_payment_profiles
+    @credit_cards = current_user.active_payment_profiles.
+                                 order( 'payment_profiles.id DESC' ).
+                                 paginate(:page => pagination_page, :per_page => 12)
   end
 
   def new

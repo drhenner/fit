@@ -207,7 +207,6 @@ class Order < ActiveRecord::Base
       new_invoice = create_invoice_transaction(credit_card, charge_amount, payment_method, credited_amount)
       if new_invoice.succeeded?
         remove_user_store_credits
-        #Notifier.order_confirmation(@order, new_invoice).deliver rescue puts( 'do nothing...  dont blow up over an email')
         Resque.enqueue(Jobs::SendOrderConfirmation, self.id, new_invoice.id)
       end
       new_invoice
@@ -217,9 +216,8 @@ class Order < ActiveRecord::Base
   def create_preorder_invoice(charge_amount, payment_profile, credited_amount = 0.0)
     transaction do
       new_invoice = create_preorder_invoice_transaction(charge_amount, payment_profile, credited_amount)
-      if new_invoice.succeeded?
+      if new_invoice.preordered? || new_invoice.succeeded?
         remove_user_store_credits
-        #Notifier.order_confirmation(@order, new_invoice).deliver rescue puts( 'do nothing...  dont blow up over an email')
         Resque.enqueue(Jobs::SendOrderConfirmation, self.id, new_invoice.id)
       end
       new_invoice

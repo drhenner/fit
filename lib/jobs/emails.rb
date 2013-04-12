@@ -2,33 +2,28 @@ module Jobs
   class SendOrderConfirmation
     @queue = :order_confirmation_emails
     def self.perform(order_id, invoice_id)
-      order = Order.find(order_id)
-      invoice = Invoice.find(invoice_id)
-      Notifier.order_confirmation(order, invoice).deliver
+      Notifier.order_confirmation(order_id, invoice_id).deliver
     end
   end
 
   class SendOrderCancelledNotification
     @queue = :order_cancelled_notification_emails
     def self.perform(order_id)
-      order = Order.find(order_id)
-      Notifier.order_cancelled_notification(order).deliver
+      Notifier.order_cancelled_notification(order_id).deliver
     end
   end
 
   class SendPasswordResetInstructions
     @queue = :password_reset_emails
     def self.perform(user_id)
-      user = User.find(user_id)
-      Notifier.password_reset_instructions(user).deliver
+      Notifier.password_reset_instructions(user_id).deliver
     end
   end
 
   class SendSignUpNotification
     @queue = :signup_notification_emails
     def self.perform(user_id)
-      recipient = User.find(user_id)
-      Notifier.signup_notification(recipient).deliver
+      Notifier.signup_notification(user_id).deliver
     end
   end
   class SendRegistrationEmail
