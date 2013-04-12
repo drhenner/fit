@@ -1,6 +1,6 @@
 <h1> Subscription </h1>
 
-<ul>
+<ul style='color:<%= "red" unless @subscription.is_active? %>;'>
   <li>
     <label>Subscription Plan:</label>
     <%= @subscription.subscription_plan_name %>
