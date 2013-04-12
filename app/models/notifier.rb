@@ -30,11 +30,11 @@ class Notifier < ActionMailer::Base
   #
   # @param [user] user that signed up
   # => user must respond to email_address_with_name and name
-  def signup_notification(recipient)
-    @user = recipient
+  def signup_notification(recipient_id)
+    @user = User.find(recipient_id)
     @key  = UsersNewsletter.unsubscribe_key(@user.email)
 
-    mail(:to => recipient.email_address_with_name,
+    mail(:to => @user.email_address_with_name,
          :subject => "Thank you for Subscribing!")
 
   end

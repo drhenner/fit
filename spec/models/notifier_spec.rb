@@ -5,7 +5,7 @@ describe Notifier, "Signup Email" do
 
     before(:each) do
       @user  = create(:user, :email => 'myfake@email.com', :first_name => nil, :last_name => nil)
-      @email = Notifier.signup_notification(@user)
+      @email = Notifier.signup_notification(@user.id)
     end
 
     it "should be set to be delivered to the email passed in" do

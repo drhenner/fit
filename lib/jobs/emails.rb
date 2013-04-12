@@ -23,8 +23,7 @@ module Jobs
   class SendSignUpNotification
     @queue = :signup_notification_emails
     def self.perform(user_id)
-      recipient = User.find(user_id)
-      Notifier.signup_notification(recipient).deliver
+      Notifier.signup_notification(user_id).deliver
     end
   end
   class SendRegistrationEmail
