@@ -39,6 +39,13 @@ class Notifier < ActionMailer::Base
 
   end
 
+  def launch_email(user_id)
+    @user = User.where(:id => user_id).first
+
+    mail(:to => @user.email_address_with_name,
+         :subject => "UFC FIT Newsletter")
+  end
+
   def registration_email(user_id)
     @user = User.where(:id => user_id).first
 
