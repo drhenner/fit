@@ -108,8 +108,8 @@
         <% if Settings.allow_orders && session_cart.shopping_cart_items.size > 0 %>
         <li class="divider show-for-medium-and-up"></li>
           <li>
-            <%= link_to shopping_cart_items_path do %>
-              <i class="icon-shopping-cart"></i> <%= session_cart.shopping_cart_items.size %>
+            <%= link_to shopping_cart_items_path,  :style => 'color: #f2362f;' do %>
+              <i class="icon-shopping-cart" style="color: #fff;"></i> <%= session_cart.shopping_cart_items.size %>
             <% end %>
           </li>
         <% end %>
