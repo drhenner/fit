@@ -38,7 +38,7 @@ class Admin::UsersController < Admin::BaseController
         @user.role_ids = params[:user][:role_ids]
         @user.save
       end
-      @user.deliver_activation_instructions!
+      Resque.enqueue(Jobs::SendRegistrationEmail, @user.id)
       @user.active? || @user.activate! if @user.send(:password_changed?)
       add_to_recent_user(@user)
       flash[:notice] = "Your account has been created. Please check your e-mail for your account activation instructions!"
