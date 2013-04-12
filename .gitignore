@@ -5,6 +5,7 @@ nbproject
 # FOREMAN FOR DEVELOPMENT
 #Procfile
 .env
+Procfile.dev
 
 dump.rdb
 .idea
@@ -45,3 +46,5 @@ config/settings.local.yml
 config/settings/*.local.yml
 config/environments/*.local.yml
 
+vendor/bundle
+*.tmproj
