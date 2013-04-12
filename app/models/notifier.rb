@@ -18,10 +18,10 @@ class Notifier < ActionMailer::Base
      :subject => "Order Cancelled")
   end
 
-  def password_reset_instructions(user)
-    @user = user
-    @url  = edit_customer_password_reset_url(:id => user.perishable_token)
-    mail(:to => user.email,
+  def password_reset_instructions(user_id)
+    @user = User.find(user_id)
+    @url  = edit_customer_password_reset_url(:id => @user.perishable_token)
+    mail(:to => @user.email,
          :subject => "Reset Password Instructions")
   end
 

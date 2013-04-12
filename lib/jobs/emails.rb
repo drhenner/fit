@@ -16,8 +16,7 @@ module Jobs
   class SendPasswordResetInstructions
     @queue = :password_reset_emails
     def self.perform(user_id)
-      user = User.find(user_id)
-      Notifier.password_reset_instructions(user).deliver
+      Notifier.password_reset_instructions(user_id).deliver
     end
   end
 
