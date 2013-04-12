@@ -3,7 +3,9 @@
     <th width="300"><a href="http://www.ufcfit.com"><%= image_tag "logos/logo.png", :width => "300", :height => "90" %></a></th>
     <th width="300" color="white" bgcolor="black" align="right" valign="middle" style="color:#fff; font-family:helvetica; font-size:12px" colspan="2">WELCOME TO UFCFIT.COM&nbsp;&nbsp;</th>
   </tr><tr>
-    <td rowspan="2"><img src="images/dolce.jpg" alt="dolce" width="300" height="500" /></td>
+    <td rowspan="2">
+      <%= image_tag 'emails/dolce.png', :alt => 'Dolce' %>
+    </td>
     <td width="20" rowspan="2">&nbsp;</td>
     <td style="color:#000; font-family:helvetica; font-size:14px"valign="top"><br /><br /><br /><p>Hello <%= @user.name %>,
 
