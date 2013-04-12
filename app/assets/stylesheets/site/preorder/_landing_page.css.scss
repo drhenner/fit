@@ -415,15 +415,18 @@ span {
       font-size: 10px;
     }
     b {
-      font-size: 11px;
       padding-bottom: 0;
     }
     blockquote {
       top: 36%;
-      font-size: 12px;
       width: 46% !important;
       margin-left: 52% !important;
       padding-right: 0;
+    }
+    b,
+    cite,
+    blockquote {
+      font-size: 11px;
     }
     p {
       font-size: 16px;
@@ -537,9 +540,12 @@ span {
     h1 {
       display: none;
     }
+    blockquote,
+    cite {
+      color: #000;
+    }
     blockquote {
       font-size: 14px;
-      color: #000;
       left: 0;
       margin: 0 auto !important;
       padding: 18px 15px 0;
@@ -549,7 +555,7 @@ span {
       width: auto !important;
     }
     cite {
-      color: #000;
+      font-size: 12px;
       text-align: right;
     }
     span {
