@@ -7,6 +7,7 @@ $nav-sub-bar-color:   #222;
 $nav-bar-color:       #000000;
 $top-bar-js-breakpoint-width:   1090px;
 $top-bar-js-breakpoint_media-width:   450px;
+$top-bar-height:   52px;
 $breakpoint-width-767:   500px;
 $a-hover: #666666;/* #2795b6 */
 $a-link: #CC0000;/* #2ba6cb */
@@ -855,15 +856,16 @@ div.progress.round .meter { -webkit-border-radius: 1000px; -moz-border-radius: 1
 .fixed { width: 100%; left: 0; position: fixed; top: 0; z-index: 99; }
 
 /* <nav> */
-.top-bar { background: $nav-bar-color; height: 45px; line-height: 45px; margin: 0 0 30px; padding: 0; width: 100%; /* Contain width to .row width */ /* First <ul> for branding, title, name, etc */ /* topbar global <ul> styles */ }
+
+.top-bar { background: $nav-bar-color; height: $top-bar-height; line-height: $top-bar-height; margin: 0 0 30px; padding: 0; width: 100%; /* Contain width to .row width */ /* First <ul> for branding, title, name, etc */ /* topbar global <ul> styles */ }
 .contain-to-grid .top-bar { max-width: 960px; margin: 0 auto; }
-.top-bar > ul .name h1 { line-height: 45px; margin: 0; }
+.top-bar > ul .name h1 { line-height: $top-bar-height; margin: 0; }
 .top-bar > ul .name h1 a { font-weight: bold; padding: 0 22.5px; font-size: 17px !important; }
 .top-bar > ul .name img { margin-top: -5px; vertical-align: middle; }
 .top-bar.expanded { height: inherit; }
-.top-bar ul { margin-left: 0; display: inline; height: 45px; line-height: 45px; list-style: none; /* Main Navigation links style */ /* Left Side <ul> */ /* Right Side <ul> */ }
+.top-bar ul { margin-left: 0; display: inline; height: $top-bar-height; line-height: $top-bar-height; list-style: none; /* Main Navigation links style */ /* Left Side <ul> */ /* Right Side <ul> */ }
 .top-bar ul > li { float: left; /* Dividers between navigation */ /* Put a button in an <li> but give is a class */ /* Put a search bar or text input in the bar */ /* Hide the triangle for breakpoint menu */ /* li.has-dropdown */ }
-.top-bar ul > li a:not(.button) { color: white; display: block; font-size: 13px; font-weight: bold; height: 45px; line-height: 45px; padding: 0 15px; }
+.top-bar ul > li a:not(.button) { color: white; display: block; font-size: 13px; font-weight: bold; height: $top-bar-height; line-height: $top-bar-height; padding: 0 15px; }
 .top-bar ul > li:hover, .top-bar ul > li.active { background: black; }
 .top-bar ul > li:hover a, .top-bar ul > li.active a { color: #d9d9d9; }
 .top-bar ul > li.divider { background: black; -webkit-box-shadow: 1px 0 0 rgba(255, 255, 255, 0.1); -moz-box-shadow: 1px 0 0 rgba(255, 255, 255, 0.1); box-shadow: 1px 0 0 rgba(255, 255, 255, 0.1); height: 100%; margin-right: 1px; width: 1px; }
@@ -905,7 +907,7 @@ div.progress.round .meter { -webkit-border-radius: 1000px; -moz-border-radius: 1
   .top-bar ul li.search form input[type=search] { font-size: 14px; height: 22px; padding: 3px; } }
 
 /* IE8 Fixes */
-.lt-ie9 .top-bar ul li a { color: white; display: block; font-weight: bold; font-size: 13px; height: 45px; line-height: 45px; padding: 0 15px; }
+.lt-ie9 .top-bar ul li a { color: white; display: block; font-weight: bold; font-size: 13px; height: $top-bar-height; line-height: $top-bar-height; padding: 0 15px; }
 .lt-ie9 .top-bar ul li a.button { height: auto; line-height: 30px; margin-top: 7px; }
 .lt-ie9 .top-bar ul li a:hover { color: #cccccc; }
 .lt-ie9 .top-bar ul li a img { margin-top: -5px; vertical-align: middle; }
@@ -1179,19 +1181,19 @@ table.show-for-xlarge, table.show-for-large, table.hide-for-small, table.hide-fo
   .tooltip { font-size: 14; line-height: 1.4; padding: 7px 10px 9px 10px; left: 50% !important; max-width: 80% !important; margin-left: -40%; font-size: 110%; }
   .tooltip > .nub, .tooltip.top > .nub, .tooltip.left > .nub, .tooltip.right > .nub { border-color: transparent transparent black transparent; border-color: transparent transparent rgba(0, 0, 0, 0.85) transparent; top: -12px; left: 10px; } }
 /* Topbar Specific Breakpoint that you can customize */
-@media only screen and (max-width: 940px) { .top-bar { margin-bottom: 0; overflow: hidden; height: 45px; background: $nav-bar-color; /* Override contain to grid stuff for breakpoint */ /* Setting up the sliding area */ /* When the Small Nav is Showing */ }
+@media only screen and (max-width: 940px) { .top-bar { margin-bottom: 0; overflow: hidden; height: $top-bar-height; background: $nav-bar-color; /* Override contain to grid stuff for breakpoint */ /* Setting up the sliding area */ /* When the Small Nav is Showing */ }
   .top-bar .js-generated { display: block; }
   .contain-to-grid .top-bar { width: auto; }
   .top-bar section { left: 0; position: relative; width: auto; -webkit-transition: left 300ms; -moz-transition: left 300ms; -o-transition: left 300ms; transition: left 300ms; }
   .top-bar ul { width: 100%; height: 100%; margin-bottom: 0; display: block; }
   .top-bar ul > li { float: none; /* Branding and name */ /* Dropdown Toggle */ /* Divider for breakpoint */ /* Search Overrides for breakpoint size */ /* Dropdown Level 1 */ /* Dropdown Level 2 */ }
   .top-bar ul > li.active, .top-bar ul > li:hover { background: #151515; }
-  .top-bar ul > li.name { background: black; height: 45px; }
+  .top-bar ul > li.name { background: black; height: $top-bar-height; }
   .top-bar ul > li.name h1 { line-height: 1; }
-  .top-bar ul > li.name h1 a { color: white; display: block; line-height: 45px !important; padding-left: 22.5px; height: 45px; }
+  .top-bar ul > li.name h1 a { color: white; display: block; line-height: $top-bar-height !important; padding-left: 22.5px; height: $top-bar-height; }
   .top-bar ul > li:hover a, .top-bar ul > li.active a { color: white; }
   .top-bar ul > li a:not(.button) { color: white; }
-  .top-bar ul > li.toggle-topbar { cursor: pointer; display: block; height: 45px; position: absolute; right: 0; top: 0; width: 50%; }
+  .top-bar ul > li.toggle-topbar { cursor: pointer; display: block; height: $top-bar-height; position: absolute; right: 0; top: 0; width: 50%; }
   .top-bar ul > li.toggle-topbar a { content: ""; display: block; width: 0; height: 0; border: solid 8px; border-color: white transparent transparent transparent; padding: 0; position: absolute; top: 50%; right: 22.5px; margin-top: -4px; }
   .top-bar ul > li.toggle-topbar:hover { background: inherit; }
   .top-bar ul > li.toggle-topbar a { padding: 0 !important; }
@@ -1227,7 +1229,7 @@ table.show-for-xlarge, table.show-for-large, table.hide-for-small, table.hide-fo
   .top-bar ul.left, .top-bar ul.right { float: none; width: 100%; }
   .top-bar ul.left > li, .top-bar ul.right > li { display: block; float: none; margin: 0 !important; }
   .top-bar ul.left > li.has-dropdown .dropdown, .top-bar ul.right > li.has-dropdown .dropdown { left: 100% !important; top: 0; right: auto !important; }
-  .top-bar > ul { height: 45px; }
+  .top-bar > ul { height: $top-bar-height; }
   .top-bar section > ul li a:not(.button) { padding-left: 22.5px !important; }
   .top-bar.expanded { height: 100%; }
   .top-bar.expanded ul li.toggle-topbar a { content: ""; display: block; width: 0; height: 0; border: solid 8px; border-color: transparent transparent rgba(255, 255, 255, 0.5) transparent; top: auto; bottom: 50%; margin-bottom: -4px; }
