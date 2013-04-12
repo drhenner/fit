@@ -9,8 +9,7 @@ module Jobs
   class SendOrderCancelledNotification
     @queue = :order_cancelled_notification_emails
     def self.perform(order_id)
-      order = Order.find(order_id)
-      Notifier.order_cancelled_notification(order).deliver
+      Notifier.order_cancelled_notification(order_id).deliver
     end
   end
 

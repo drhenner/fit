@@ -11,10 +11,10 @@ class Notifier < ActionMailer::Base
          :subject => "Order Confirmation")
   end
 
-  def order_cancelled_notification(order)
-    @order = order
-    @user   = order.user
-    mail(:to => order.email,
+  def order_cancelled_notification(order_id)
+    @order = Order.find(order_id)
+    @user   = @order.user
+    mail(:to => @order.email,
      :subject => "Order Cancelled")
   end
 
