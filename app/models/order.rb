@@ -306,8 +306,7 @@ class Order < ActiveRecord::Base
     includes([{:ship_address => :state},
               {:bill_address => :state},
               {:order_items =>
-                {:variant =>
-                  {:product => :images }}}])
+                {:variant => :product }}])
   end
 
   # calculates the total price of the order
