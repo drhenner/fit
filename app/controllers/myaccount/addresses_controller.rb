@@ -2,7 +2,9 @@ class Myaccount::AddressesController < Myaccount::BaseController
   helper_method :countries, :phone_types
 
   def index
-    @addresses = current_user.shipping_addresses
+    @addresses = current_user.shipping_addresses.
+                              order( 'addresses.id DESC' ).
+                              paginate(:page => pagination_page, :per_page => 8)
   end
 
   def show

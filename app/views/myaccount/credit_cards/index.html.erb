@@ -29,6 +29,7 @@
       <% end %>
       </tbody>
     </table>
+      <%= will_paginate @credit_cards %>
   <% end %>
   <p><%= link_to "New Credit Card", new_myaccount_credit_card_path, :class => 'button' %></p>
 </div>
