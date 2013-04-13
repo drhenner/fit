@@ -13,13 +13,13 @@ class UpsellsController < ApplicationController
     qty = params[:quantity] ? params[:quantity].to_i : 1
     #cart_item = session_cart.add_variant(params[:id], most_likely_user, qty)
     cart_item = session_cart.add_upsell(params[:id], most_likely_user, qty)
-    redirect_to(preorders_url(:anchor => 'your-cart-items'))
+    redirect_to(preorders_url(:anchor => 'order-summary'))
   end
 
   # params[:id] is cart_item_id
   def destroy
     session_cart.cart_items.find_by_id(params[:id]).try(:inactivate!)
-    redirect_to(preorders_url(:anchor => 'your-cart-items'))
+    redirect_to(preorders_url(:anchor => 'order-summary'))
   end
 
   private
