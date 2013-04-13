@@ -1,19 +1,34 @@
 <table width="600" cellpadding="0" cellspacing="0" border="0">
   <%= render :partial => '/notifier/header_row', :locals => {:right_text => 'WELCOME TO UFCFIT.COM&nbsp;&nbsp;' } %>
   <tr>
-    <td rowspan="2">
-      <%= image_tag 'emails/dolce.png', :alt => 'Dolce' %>
-    </td>
-    <td width="20" rowspan="2">&nbsp;</td>
-    <td style="color:#000; font-family:helvetica; font-size:14px"valign="top"><br /><br /><br /><p>Hello <%= @user.name %>,
+    <td rowspan="3">
+      <table width="300" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td>
+            <%= image_tag 'emails/dolce.png', :alt => 'Dolce' %>
+          </td>
+        </tr>
+      </table>
+      <table width="300" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td>
+            <p>Hello <%= @user.name %>,
 
-    <p><b><span style="font-size:18px">Welcome to UFC FIT!</span></b></p>
+          <p><b><span style="font-size:18px">Welcome to UFC FIT!</span></b></p>
 
-    <p>Today is the day! You made the choice. You made that first step. You committed.</p>
+          <p>Today is the day! You made the choice. You made that first step. You committed.</p>
 
-    <p>You have the opportunity to change your life and be the person you deserve to be. Our goal is to provide all the tools necessary for you to lose weight, gain strength, increase flexibility, extend endurance and achieve boundless energy.</p>
+          <p>You have the opportunity to change your life and be the person you deserve to be. Our goal is to provide all the tools necessary for you to lose weight, gain strength, increase flexibility, extend endurance and achieve boundless energy.</p>
 
-    <p>Your username is: <%= @user.email %> </p>
+          <p>Your username is: <%= @user.email %> </p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= image_tag 'emails/sign.png', :alt => 'Dolce' %>
+          </td>
+        </tr>
+      </table>
     </td>
   </tr><tr>
     <td></td>
