@@ -15,7 +15,7 @@
           <li> <label>Shipped:</label> <%= item.shipment.display_shipped_at %> </li>
           <li> <label>Shipping #:</label> <%= item.shipment.number %> </li>
         <% else %>
-          <li>Not Shipped Yet,  <%= item.shipping_rate.shipping_method.name %></li>
+          <li>Not Shipped Yet,  <%= item.shipping_rate.try(:shipping_method).try(:name) %></li>
         <% end %>
       </ul>
 
