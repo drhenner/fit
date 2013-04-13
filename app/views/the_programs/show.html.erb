@@ -1,4 +1,59 @@
-<h1> The Program </h1>
+<% content_for :head do -%>
+  <%= stylesheet_link_tag 'site/pages/program' %>
+<% end %>
+
+<h3 class="twelve column header">The UFC FIT program is broken into four, three-week segments. Picture building blocks, where each one stacks on top of the other. UFC FIT focuses on building a solid foundation in the early phases to develop strength, flexibility and conditioning that will be drawn upon in later phases. UFC FIT teaches techniques with the proper volume and intensity to force consistent progression so the with each workout, you get better. But then, boom! It changes.</h3>
+
+<div class="twelve column section-top">
+  <div class="row">
+    <div class="seven columns">
+      <p>UFC FIT constantly forces the body to adapt to<br class="hide-for-medium-down" /> new stimuli while training the specific components necessary to move forward to the next phase.</p>
+      <%= image_tag 'pages/program/1.jpg', :width => "498" %>
+    </div>
+    <div class="five columns">
+      <%= image_tag 'pages/program/2.jpg', :width => "327" %>
+    </div>
+  </div>
+</div>
+
+<div class="twelve column section-middle">
+  <%= image_tag 'pages/program/3.jpg', :width => "866" %>
+  <p>If at the beginning of Week 4, you feel exactly the same as you felt at Week 1, don’t worry. UFC FIT is consistently building you to peak at the end. By Week 12, you will be in the absolute best shape of your life, just like a UFC athlete when he or she peaks before entering the Octagon.<sup>TM</sup></p>
+</div>
+
+
+<div class="twelve column section-bottom">
+  <div class="row">
+    <div class="five columns">
+      <%= image_tag 'pages/program/4.jpg', :width => "399" %>
+      <%= image_tag 'pages/program/6.jpg', :width => "310" %>
+    </div>
+    <div class="seven columns">
+      <%= image_tag 'pages/program/5.jpg', :width => "441" %>
+      <p>UFC FIT builds strength, burns body fat and increases flexibility and endurance.</p>
+      <%= image_tag 'pages/program/7.jpg', :width => "332" %>
+    </div>
+  </div>
+</div>
+
+<div class="twelve column">
+  <div class="row preorder promotion">
+    <div class="six columns">
+      <%= image_tag 'preorder/PreOrder_package.png'%>
+    </div>
+    <div class="six columns">
+      <h2>The complete UFC FIT lifestyle program</h2>
+      <ul class="square">
+        <li>12 Workout DVDs</li>
+        <li>12-Week Workout Tracker</li>
+        <li>132-page Lifestyle &amp;&nbsp;Nutrition Manual<span>Complete with training tips, a grocery list, meal plans and healthy, delicious recipes</span></li>
+        <li>Plus, get a jump start on weight loss with 3-Day Shred</li>
+      </ul>
+      <%= link_to 'PRE-ORDER NOW', preorders_path, :class => 'button seven columns centered', :method => 'post' %>
+    </div>
+  </div>
+</div>
+
 
 <div  style='display:none;'>
   <%= link_to 'click', root_path, :id => 'qa-nav' %>
