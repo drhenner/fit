@@ -5,13 +5,21 @@ class WelcomeController < ApplicationController
   def index
     @user = User.new
     if Settings.in_signup_period
-      render :template => 'welcome/signup', :layout => 'welcome'
+      if current_user && current_user.admin?
+        render  :layout => 'preorder'
+      else
+        render :template => 'welcome/signup', :layout => 'welcome'
+      end
     elsif
       render  :layout => 'preorder'
     end
   end
 
   def load
-    render :text => 'loaderio-79aeb8198cf6b8d1faffd0edad063326', :layout => false
+    if in_production?
+      render :text => 'loaderio-79aeb8198cf6b8d1faffd0edad063326', :layout => false
+    else#staging
+      render :text => 'loaderio-93a086e0760b88038535f27e6b626d2b', :layout => false
+    end
   end
 end
