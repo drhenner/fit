@@ -1,4 +1,88 @@
-<h1> Meal Plan </h1>
+<% content_for :head do -%>
+  <%= stylesheet_link_tag 'site/pages/meal_plan' %>
+<% end %>
+
+<h2 class="twelve column">We will detail exactly what you need to build your own UFC FIT body.</h2>
+
+<div class="twelve column">
+  <div class="row">
+    <div class="six columns odd">
+      <h3>Food and health<br class="hide-for-medium-down" /> are directly related.</h3>
+      <p>If we consider for a moment our continued existence as a species, we may ask ourselves, "How have we not only survived, but thrived, for so many generations?"</p>
+    </div>
+    <div class="six columns">
+      <%= image_tag 'pages/meal_plan_1.jpg', :width => "470" %>
+    </div>
+  </div>
+</div>
+
+<div class="twelve column">
+  <div class="row">
+    <div class="six columns push-six">
+      <h3>The answer is whole foods.</h3>
+      <p>Our ancestors literally had to fight to live. They were both predator and prey, relying solely on local ingredients to feed their families. Performance meant survival.</p>
+    </div>
+    <div class="six columns pull-six">
+      <%= image_tag 'pages/meal_plan_2.jpg', :width => "470" %>
+    </div>
+  </div>
+</div>
+
+<div class="twelve column">
+  <div class="row">
+    <div class="six columns odd">
+      <h3>Today our food choices are<br class="hide-for-medium-down" /> not motivated by survival.</h3>
+      <p>Instead, they are driven by convenience. Unfortunately, this approach has led to an increasingly unhealthy population.</p>
+    </div>
+    <div class="six columns">
+      <%= image_tag 'pages/meal_plan_3.jpg', :width => "470" %>
+    </div>
+  </div>
+</div>
+
+<div class="twelve column">
+  <div class="row">
+    <div class="six columns push-six">
+      <h3>Regardless of abs or small dress sizes, people are getting sicker.</h3>
+      <p>This is exactly why our lifestyle approach to health, fitness and an ultra-lean body works so well. We will teach your body how it was meant to eat, and for the first time, allow you to perform the way nature intended.</p>
+    </div>
+    <div class="six columns pull-six">
+      <%= image_tag 'pages/meal_plan_4.jpg', :width => "470" %>
+    </div>
+
+  </div>
+</div>
+
+<div class="twelve column">
+  <div class="row">
+    <div class="six columns odd">
+      <h3>Weight loss is just a perk<br class="hide-for-medium-down" />of eating for vibrant health.</h3>
+      <p>Tighter skin, brighter eyes, thicker hair and a radiant glow are also added benefits of the UFC FIT lifestyle.</p>
+    </div>
+    <div class="six columns">
+      <%= image_tag 'pages/meal_plan_5.jpg', :width => "470" %>
+    </div>
+  </div>
+</div>
+
+<div class="twelve column">
+  <div class="row preorder promotion">
+    <div class="six columns">
+      <%= image_tag 'preorder/PreOrder_package.png'%>
+    </div>
+    <div class="six columns">
+      <h2>The complete UFC FIT lifestyle program</h2>
+      <ul class="square">
+        <li>12 Workout DVDs</li>
+        <li>12-Week Workout Tracker</li>
+        <li>132-page Lifestyle &amp;&nbsp;Nutrition Manual<span>Complete with training tips, a grocery list, meal plans and healthy, delicious recipes</span></li>
+        <li>Plus, get a jump start on weight loss with 3-Day Shred</li>
+      </ul>
+      <%= link_to 'PRE-ORDER NOW', preorders_path, :class => 'button seven columns centered', :method => 'post' %>
+    </div>
+  </div>
+</div>
+
 
 <div  style='display:none;'>
   <%= link_to 'click', root_path, :id => 'qa-nav' %>
