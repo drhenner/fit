@@ -5,7 +5,11 @@ class WelcomeController < ApplicationController
   def index
     @user = User.new
     if Settings.in_signup_period
-      render :template => 'welcome/signup', :layout => 'welcome'
+      if current_user && current_user.admin?
+        render  :layout => 'preorder'
+      else
+        render :template => 'welcome/signup', :layout => 'welcome'
+      end
     elsif
       render  :layout => 'preorder'
     end
