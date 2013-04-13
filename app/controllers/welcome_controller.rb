@@ -16,6 +16,10 @@ class WelcomeController < ApplicationController
   end
 
   def load
-    render :text => 'loaderio-79aeb8198cf6b8d1faffd0edad063326', :layout => false
+    if in_production?
+      render :text => 'loaderio-79aeb8198cf6b8d1faffd0edad063326', :layout => false
+    else#staging
+      render :text => 'loaderio-93a086e0760b88038535f27e6b626d2b', :layout => false
+    end
   end
 end
