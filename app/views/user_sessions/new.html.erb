@@ -44,7 +44,7 @@
       </fieldset>
     <% end %>
     <% if !Settings.in_signup_period %>
-      <H5>FORGET YOUR PASSWORD, <%= link_to 'CLICK HERE', new_customer_password_reset_path() %>.</H5>
+      <H5>Forgot your Password, <%= link_to 'CLICK HERE', new_customer_password_reset_path() %>.</H5>
     <% end %>
   </div>
   <% if !Settings.in_signup_period && !session_cart.shopping_cart_items.empty? && session[:return_to] %>
