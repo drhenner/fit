@@ -20,6 +20,18 @@ describe OrderItem, "instance methods" do
     end
   end
 
+  context '.cancel!' do
+    it "should mark subscription canceled" do
+      subscription = create(:subscription, :order_item => @order_item, :active => true)
+      subscription.canceled.should be_false
+      subscription.active.should be_true
+      @order_item.cancel!
+      subscription.reload
+      subscription.active.should be_false
+      subscription.canceled.should be_true
+    end
+  end
+
   context ".sale_price(at)" do
     it 'should return the price - % discount ' do
       product = FactoryGirl.create(:product)

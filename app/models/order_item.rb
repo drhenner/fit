@@ -45,6 +45,8 @@ class OrderItem < ActiveRecord::Base
     state 'canceled'
     state 'unpaid'
 
+    after_transition :to => 'canceled', :do => [:mark_subscription_canceled]
+
     event :pay do
       transition :to => 'paid', :from => ['unpaid', 'preordered']
     end
@@ -61,6 +63,10 @@ class OrderItem < ActiveRecord::Base
       transition :to => 'returned', :from => ['paid']
     end
     #after_transition :to => 'complete', :do => [:update_inventory]
+  end
+
+  def mark_subscription_canceled
+    subscription.try(:cancel!)
   end
 
   def self.preorders

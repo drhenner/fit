@@ -1,6 +1,5 @@
 <%
 loop_footer_tabs = {
-  'Home'                  => root_path,
   #'About UFC FIT'         => about_path,
   'Privacy Policy'        => privacy_policy_path,
   'FAQs'                  => faqs_path,
@@ -24,9 +23,10 @@ loop_footer_tabs = {
       </div>
       <div  class='eight large-8 columns'>
         <ul id='main-footer-tabs' class='inline-list'>
+            <li><%= link_to_unless_current 'Home', root_path %></li>
           <% if !Settings.in_signup_period || !in_production? %>
             <% loop_footer_tabs.each_pair do |tab_name, tab_path| %>
-              <li> <%= link_to_unless_current tab_name, tab_path %> </li>
+              <li> <%= link_to_unless_current tab_name, tab_path, :target => '_blank' %> </li>
             <% end %>
           <% else %>
             <li> &nbsp; </li>
