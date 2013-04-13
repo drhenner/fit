@@ -101,16 +101,20 @@ or
     $ cd redis-2.6.12
     $ make
 
-add redis to your PATH:
+or with homebrew
+    $ brew install redis
+
+add redis to your PATH (NOTE: if you installed via homebrew, it will already be in your PATH):
 
      export PATH="/Users/drhenner/redis-2.6.12/src:/usr/lib/bin:/usr/local/bin:/usr/local/mysql/bin:/usr/local/git/bin:/usr/local/heroku/bin:$PATH"
 
 ##Easy UFCfit development setup
 
-start memcached, and redis
+## Memcached
 
-    redis: redis-server
-    memcached:  memcached -vv
+Install memcached: You can install from source, or via homebrew
+
+    $ brew install memcached
 
 The .env file should look like:
 
@@ -122,10 +126,12 @@ The .env file should look like:
 
 Ask the project manager for the values to fill in xxxxxxxxxxxxxxx
 
-you also need to install foreman & start foreman
+## Foreman
+Processes are managed by the foreman gem.
 
-    bundle install
-    foreman start
+    * First, copy the Procfile.dev.example to Procfile.dev
+    * Then Make any specific local machine changes (executable paths, ports, etc) 
+    * then do $ forman start -f Procfile.dev
 
 
 ##ImageMagick and rMagick on OS X 10.8
