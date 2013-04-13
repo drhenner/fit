@@ -98,8 +98,10 @@ form.custom {
     padding-left: 12px;
     &:hover {color:#CC0000;}
   }
-  a:first {
-    border-left:0px;
+  li:first-child {
+    a {
+      border-left:0px;
+    }
   }
   .inline-list {margin-top:18px;}
 }
