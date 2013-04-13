@@ -62,10 +62,10 @@
                 <div class="cropped-100 bottom-10" style="background-image:url('<%= upsell.featured_image(:small) %>')"></div>
               </div>
               <div class='seven mobile-three column'>
-                <div class="black text-10 bold"><%= upsell.product.name %></div>
+                <div class="black text-10 bold"><%= raw upsell.product_name %></div>
                 <div class='upsell-price top-10'><%= number_to_currency upsell.price %></div>
                 <% if upsell.reoccurring_text.present? %>
-                  <div  class="top-10 text-10 sentence-case"><%= upsell.reoccurring_text %></div>
+                  <div  class="top-10 text-10 sentence-case"><%= raw upsell.reoccurring_text %></div>
                 <% end %>
               </div>
               <div class="three mobile-one column">
@@ -124,10 +124,10 @@
               <div class="cropped-250 bottom-10" style="background-image:url('<%= upsell.featured_image(:product) %>');background-repeat: no-repeat;"></div>
             </li>
             <li>
-              <span class="black text-09"><%= upsell.product_name %></span>
+              <span class="black text-09"><%= raw upsell.product_name %></span>
             </li>
             <li>
-              <p class="small-text text-08"><%= upsell.short_description %></p>
+              <p class="small-text text-08"><%= raw upsell.short_description %></p>
             </li>
           </ul>
         </div>
