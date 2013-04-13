@@ -55,7 +55,7 @@
   <div class='panel'>
     <h4>Shipping address</h4>
     <div class='well'>
-      <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => @order.ship_address} %>
+      <%= render :partial => '/shared/compact_address', :locals => {:shopping_address => @order.ship_address}, if @order.ship_address %>
     </div>
   </div>
 </div>
