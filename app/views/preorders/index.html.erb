@@ -5,7 +5,9 @@
 
 <div id='preorder-products-page' class="twelve columns">
   <div class='row'>
-    <%= image_tag 'header/cart_header.jpg', :style => 'width:1000px;' %>
+    <%= link_to '#your-cart-items' do %>
+      <%= image_tag 'header/cart_header.jpg', :style => 'width:1000px;' %>
+    <% end %>
   </div>
 
   <h3 id='your-cart-items'><span class="large-bullet alert label">1</span>Items in your cart</h3>
