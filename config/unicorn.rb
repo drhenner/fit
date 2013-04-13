@@ -1,7 +1,7 @@
 # config/unicorn.rb
 
-worker_processes Integer(ENV['WEB_CONCURRENCY'] || 3)
-timeout Integer(ENV['WEB_TIMEOUT'] || 15)
+worker_processes Integer(ENV['WEB_CONCURRENCY'] || 2)
+timeout Integer(ENV['WEB_TIMEOUT'] || 20)
 preload_app true
 
 before_fork do |server, worker|
@@ -18,7 +18,7 @@ before_fork do |server, worker|
 
   defined?(ActiveRecord::Base) and
     ActiveRecord::Base.connection.disconnect!
-end  
+end
 
 after_fork do |server, worker|
 
