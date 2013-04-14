@@ -14,7 +14,7 @@
 
   .member-info {
     text-align: center;
-    p {
+    .note {
       color: #727272;
       font-size: 9px;
       line-height: 1.3;
@@ -38,7 +38,7 @@
         color: #f5362f;
       }
     }
-    a {
+    .story-pointer {
       background-color: #d00000;
       color: #fff;
       clear: both;
@@ -107,7 +107,7 @@
 
   @media only screen and (min-width: 479px) and (max-width: 767px) {
     .member-info {
-      p {
+      .note {
         margin-left: auto;
         margin-right: auto;
         width: 50%;
@@ -117,7 +117,7 @@
 
   @media only screen and (max-width: 479px) {
     .member-info {
-      p {
+      .note {
         margin-left: auto;
         margin-right: auto;
         width: 80%;
@@ -125,4 +125,15 @@
     }
   }
 
+  @media only screen and (max-width: 796px) {
+    .member-info {
+      .story-pointer {
+        span:after {
+          border-color: #fff transparent transparent transparent;
+          left: 6px;
+          top: 11px;
+        }
+      }
+    }
+  }
 }
