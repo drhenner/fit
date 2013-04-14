@@ -44,7 +44,7 @@
       </fieldset>
     <% end %>
     <% if !Settings.in_signup_period %>
-      <h4>Forgot your Password, <%= link_to 'Click Here', new_customer_password_reset_path() %>.</h4>
+      <div class='statement'>Forgot your Password, <%= link_to 'Click Here', new_customer_password_reset_path() %>.</div>
     <% end %>
   </div>
   <% if !Settings.in_signup_period && !session_cart.shopping_cart_items.empty? && session[:return_to] %>
@@ -52,8 +52,6 @@
       <%= form_for @user, :url => customer_registrations_path(@user), :html => {:class => 'custom'} do |form| %>
         <fieldset>
           <legend>REGISTER</legend>
-
-
 
           <div class="row">
             <div class="twelve columns">
@@ -110,24 +108,24 @@
               </div>
           </div>
 
-          <h4>I AGREE TO THE
+          <div class='statement'>I AGREE TO THE
             <%= link_to 'TERMS AND CONDITIONS', terms_path %><br />
             I UNDERSTAND THE
             <%= link_to 'PRIVACY POLICY', privacy_policy_path %>
-          </h4>
+          </div>
           <% if flash[:terms_alert] -%>
             <div class="flash_messages">
               <%= raw "<div data-alert class='alert-box warning'> #{flash[:terms_alert]} <a href='' class='close'>&times;</a>"  if flash[:terms_alert].present? %>
             </div>
           <% end %>
 
-          <label for='terms_true'>
+          <label class='please-agree' for='terms_true'>
             <%= radio_button_tag "terms", true, false %>
-            I AGREE TO THESE TERMS
+            I agree to these terms
           </label>
-          <label for='terms_false'>
+          <label class='please-agree' for='terms_false'>
             <%= radio_button_tag "terms", false, true %>
-            I DO NOT AGREE TO THESE TERMS
+            I do not agree to these terms
           </label>
 
           <%= form.submit "Register", :class => 'medium button top20 bottom20' %>
