@@ -13,3 +13,10 @@
     text-transform:uppercase;
   }
 }
+
+@media only screen and (min-width: 1023px) {
+  #login-wrapper {
+    #login {padding-left: 0;}
+    #signup {padding-right: 0;}
+  }
+}
