@@ -34,9 +34,6 @@
         </div>
       </div>
       <hr style='color:#aac;'/>
-      <% if session_order.ready_to_checkout? %>
-        <%= link_to 'Order Summary', shopping_orders_path, :class => 'button success' %>
-      <% end %>
 
       <%= form_for @form_address, :url => shopping_billing_addresses_path, :html => {:class => 'custom'} do |address_form| %>
         <fieldset>
