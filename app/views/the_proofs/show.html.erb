@@ -1,4 +1,49 @@
-<h1> The Proof </h1>
+<div id="proof-wrapper">
+  <div class="twelve column">
+    <div class="row section-top">
+      <div class="nine mobile-four">
+        <blockquote>"It's not just a diet. It's a lifestyle. Once you adjust, you keep getting leaner and leaner every day."&nbsp;<cite>Thiago Alves<span>UFC Welterweight</span></cite></blockquote>
+        <div class="about">
+          <p>One of the most dynamic fighters in the UFC, Thiago Alves lives up to his calling card as a "Muay Thai wrecking machine" each time he steps into the Octagon. One of the top contenders in the 170-pound division, Alves' future is bright in the UFC.</p>
+          <%= image_tag 'pages/tiago.jpg', :width => "382" %>
+        </div>
+      </div>
+      <%= image_tag 'pages/tiago.png', :width => "232", :height => "719", :class => 'fighters' %>
+    </div>
+  </div>
+
+  <%= render :partial => 'shared/promotion_preorder' %>
+
+  <div class="twelve column">
+    <div class="row section-middle">
+      <div class="nine mobile-four">
+        <blockquote>"I finally know the best version of myself will be competing."<br /><cite>Johny Hendricks<span>UFC Welterweight</span></cite></blockquote>
+        <div class="about">
+          <p>One of the most successful college wrestlers to make the transition to the UFC, welterweight contender Johny Hendricks won two national titles for Oklahoma State University. He owns UFC victories over Carlos Condit, Jon Fitch, Josh Koscheck, Amir Sadollah, TJ Grant and Martin Kampmann.</p>
+          <%= image_tag 'pages/johnny.jpg', :width => "381" %>
+        </div>
+      </div>
+      <%= image_tag 'pages/johnny.png', :width => "216", :height => "704", :class => 'fighters' %>
+    </div>
+  </div>
+
+  <%= render :partial => 'shared/promotion_preorder' %>
+
+  <div class="twelve column">
+    <div class="row section-bottom">
+      <div class="nine mobile-four">
+        <blockquote>"I feel great and have a lot more energy."<br /><cite>Gray Maynard<span>UFC Lightweight</span></cite></blockquote>
+        <div class="about">
+          <p>Former Michigan State University wrestler and three-time All-American, Gray Maynard was a quick study in mixed martial arts. He transitioned rapidly from reality show The Ultimate Fighter season five to the UFC. A two-time title challenger who has defeated Frankie Edgar, Nate Diaz, Kenny Florian and Clay Guida, he hopes to capture UFC gold in 2013.</p>
+          <%= image_tag 'pages/gray.jpg', :width => "378" %>
+        </div>
+      </div>
+      <%= image_tag 'pages/gray.png', :width => "256", :height => "701", :class => 'fighters' %>
+    </div>
+  </div>
+
+  <%= render :partial => 'shared/promotion_preorder' %>
+</div>
 
 <div  style='display:none;'>
   <%= link_to 'click', root_path, :id => 'qa-nav' %>
