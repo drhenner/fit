@@ -66,23 +66,7 @@
     </div>
   </div>
 
-  <div class="twelve column">
-    <div class="row preorder promotion">
-      <div class="six columns">
-        <%= image_tag 'preorder/PreOrder_package.png'%>
-      </div>
-      <div class="six columns">
-        <h2>The complete UFC FIT lifestyle program</h2>
-        <ul class="square">
-          <li>12 Workout DVDs</li>
-          <li>12-Week Workout Tracker</li>
-          <li>132-page Lifestyle &amp;&nbsp;Nutrition Manual<span>Complete with training tips, a grocery list, meal plans and healthy, delicious recipes</span></li>
-          <li>Plus, get a jump start on weight loss with 3-Day Shred</li>
-        </ul>
-        <%= link_to 'PRE-ORDER NOW', preorders_path, :class => 'button seven columns centered', :method => 'post' %>
-      </div>
-    </div>
-  </div>
+  <%= render :partial => 'shared/promotion_preorder' %>
 </div>
 
 <div  style='display:none;'>
