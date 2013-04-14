@@ -4,7 +4,7 @@
     font-weight: 500;
     font-size: 21px;
     line-height: 1.55;
-    margin-top: 40px;
+    margin-top: 12px;
     padding: 0 60px;
     text-align: center;
   }
@@ -136,6 +136,14 @@
         padding: 14px 8px;
         text-align: center;
       }
+    }
+  }
+}
+
+@media only screen and (max-width: 939px) {
+  #the-program-wrapper {
+    .header {
+      margin-top: 50px;
     }
   }
 }
