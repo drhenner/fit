@@ -203,7 +203,7 @@
 }
 
 @media only screen and (min-width: 1000px) {
-  #content_wrapper {
+  #the-program-wrapper {
     &:before {
       background-color: #dbdbda;
       content: '';
@@ -214,9 +214,7 @@
       top: 52px;
       width: 100%;
     }
-  }
 
-  #the-program-wrapper {
     .section-top {
       p {
         width: 545px;
