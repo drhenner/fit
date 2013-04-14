@@ -31,6 +31,22 @@ div.alert-box.warning {
   text-shadow: 0 0px rgba(0, 0, 0, 0.1);
 }
 
+.static-banner {
+  background-color:black;
+  color:white !important;
+  text-weight:bolder;
+  font-size:22px;
+  border-bottom:3px solid #CC0000;
+  text-align:left;
+  text-transform: uppercase;
+  padding-top:12px;
+  padding-left:20px;
+  padding-bottom:11px;
+  margin-bottom:20px;
+  h2 {color:white !important;}
+  /* ADD the red on the right side */
+}
+
 .preorder-warning-banner {
   background-color:black;
   color:white;
