@@ -452,7 +452,7 @@ class User < ActiveRecord::Base
     finished_orders.select{|o| o.completed_at < at }.size
   end
 
-  
+
   def from_omniauth!(auth)
     find_with_omniauth(auth) || create_with_omniauth!(auth)
   end
@@ -461,16 +461,21 @@ class User < ActiveRecord::Base
 
   def find_with_omniauth(auth)
     user = where(auth.slice(:provider, :uid)).first
-    user.update_attributes!(email: auth.info.email, name: auth.info.name) if user
+    user.update_attributes!(
+      email: auth.info.email,
+      first_name: auth.info.first_name,
+      last_name: auth.info.last_name) if user
     user
   end
 
   def create_with_omniauth!(auth)
     # this create won't work as it is
-    create!(provider: auth.provider,
-            uid: auth.uid,
-            email: auth.info.email,
-            name: auth.info.name)
+    create!(
+      provider: auth.provider,
+      uid: auth.uid,
+      email: auth.info.email,
+      first_name: auth.info.first_name,
+      last_name: auth.info.last_name)
   end
 
   def needs_password?
