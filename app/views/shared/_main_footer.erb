@@ -1,11 +1,12 @@
 <%
 loop_footer_tabs = {
   #'About UFC FIT'         => about_path,
+  'Home'                  => root_path,
   'Privacy Policy'        => privacy_policy_path,
-  'FAQs'                  => I18n.t(:desk_dot_com_url),
-  'Exchanges and Returns' => shipping_returns_path,
-  'Terms & Conditions'    => terms_path,
-   'Contact Us'           => I18n.t(:contact_us_url)
+  #'Exchanges and Returns' => shipping_returns_path,
+  'Terms & Conditions'    => terms_path
+  #'FAQs'                  => I18n.t(:desk_dot_com_url),
+  #'Contact Us'           => I18n.t(:contact_us_url)
   #'Customer Service'    => faq_customer_service_path
 }
 %>
@@ -24,11 +25,12 @@ loop_footer_tabs = {
       </div>
       <div  class='eight large-8 columns'>
         <ul id='main-footer-tabs' class='inline-list'>
-            <li><%= link_to_unless_current 'Home', root_path %></li>
           <% if !Settings.in_signup_period || !in_production? %>
             <% loop_footer_tabs.each_pair do |tab_name, tab_path| %>
-              <li> <%= link_to_unless_current tab_name, tab_path, :target => '_blank' %> </li>
+              <li> <%= link_to_unless_current tab_name, tab_path %> </li>
             <% end %>
+            <li> <%= link_to_unless_current 'FAQs',       I18n.t(:desk_dot_com_url), :target => '_blank' %> </li>
+            <li> <%= link_to_unless_current 'Contact Us', I18n.t(:contact_us_url), :target => '_blank' %> </li>
           <% else %>
             <li> &nbsp; </li>
           <% end %>
