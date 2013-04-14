@@ -221,3 +221,21 @@ body, div, dl, dt, dd, ul, ol, li, pre, form, fieldset, p, blockquote, th, td {c
     }
   }
 }
+
+.top-grey-bar {
+  display: none;
+}
+
+@media only screen and (min-width: 1000px) {
+  .top-grey-bar {
+    background-color: #dbdbda;
+    display: block;
+    height: 49px;
+    margin: 0 0 30px;
+    padding: 0;
+    width: 100%;
+  }
+  .top-bar {
+    margin-bottom: 0;
+  }
+}

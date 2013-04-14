@@ -142,17 +142,6 @@
 
 @media only screen and (min-width: 1000px) {
   #the-program-wrapper {
-    &:before {
-      background-color: #dbdbda;
-      content: '';
-      display: block;
-      height: 49px;
-      left: 0;
-      position: absolute;
-      top: 52px;
-      width: 100%;
-    }
-
     .section-top {
       p {
         width: 545px;
