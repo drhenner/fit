@@ -21,6 +21,8 @@ Hadean::Application.routes.draw do
   match 'signup'  => 'customer/registrations#new'
   match 'admin/merchandise' => 'admin/merchandise/summary#index'
 
+  match '/auth/:provider/callback' => 'user_oauth#create', :as => :callback
+
   resource  :about,             :only => [:show]
   resource  :contact_us,        :only => [:show]
   resources :faqs,              :only => [:index]
