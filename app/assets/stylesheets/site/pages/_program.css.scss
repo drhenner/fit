@@ -19,11 +19,12 @@
   }
 
   p {
+    color: #FFF;
+    font-size: 21px;
+    font-weight: bold;
+
     .section-top &,
     .section-bottom & {
-      color: #fff;
-      font-size: 21px;
-      font-weight: bold;
       margin: 0;
     }
   }
@@ -35,6 +36,7 @@
     }
     p {
       background-color: #000;
+      color: #FFF;
       padding: 12px 8px 15px;
       line-height: 1.7;
       text-align: center;
