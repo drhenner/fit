@@ -1,10 +1,13 @@
 class Admin::Reporting::OverviewsController < Admin::Reporting::BaseController
+  helper_method :start_time, :end_time
   before_filter :set_time_range
 
   def show
     @accounting_report  = ROReReports::Accounting.new(start_time, end_time)
     @orders_report      = ROReReports::Orders.new(start_time, end_time)
     @customers_report   = ROReReports::Customers.new(start_time, end_time)
+    @final_number_of_cart_items     = CartItem.before(end_time).last.id
+    @beginning_number_of_cart_items = CartItem.before(start_time).last.id
   end
 
   private
