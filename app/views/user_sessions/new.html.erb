@@ -10,7 +10,7 @@
 <h1><%= I18n.t(:login_title) %></h1>
 <% end %>
 <div id='login-wrapper'>
-  <div id='login' class='four large-4 columns' style='padding-left: 0px; margin-bottom:20px;'>
+  <div id='login' class='four large-4 columns' style='margin-bottom:20px;'>
 
     <%= form_for  @user_session,
                   :url => user_sessions_path(@user_session),
@@ -48,7 +48,7 @@
     <% end %>
   </div>
   <% if !Settings.in_signup_period && !session_cart.shopping_cart_items.empty? && session[:return_to] %>
-    <div id='signup' class='eight large-8 columns' style='padding-right:0px;'>
+    <div id='signup' class='eight large-8 columns'>
       <%= form_for @user, :url => customer_registrations_path(@user), :html => {:class => 'custom'} do |form| %>
         <fieldset>
           <legend>REGISTER</legend>
