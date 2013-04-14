@@ -123,6 +123,10 @@ class Shopping::OrdersController < Shopping::BaseController
 
   private
 
+  def customer_confirmation_page_view
+    @tab && (@tab == 'confirmation')
+  end
+
   def selected_checkout_tab(tab)
     @tab = 'order-details' if @tab.nil?
     tab == @tab

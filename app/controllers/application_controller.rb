@@ -14,7 +14,8 @@ class ApplicationController < ActionController::Base
                 :select_countries,
                 :in_production?,
                 :display_shipping_warning?,
-                :display_preorder_button?
+                :display_preorder_button?,
+                :customer_confirmation_page_view
 
   before_filter :redirect_without_www
   before_filter :secure_session
@@ -48,6 +49,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def customer_confirmation_page_view
+    false
+  end
 
   def display_shipping_warning?
     false
