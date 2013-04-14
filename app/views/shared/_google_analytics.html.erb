@@ -23,8 +23,8 @@
     _gaq.push(['_addTrans',
       '<%= @order.try(:number) %>', //Order Number
       '', //Affiliation
-      '<%= @order.try(:total) %>', //Order total
-      '<%= @order.try(:tax_charges) %>', //Tax Amount
+      '<%= @order.try(:find_total).try(:to_f) %>', //Order total
+      '<%= @order.try(:total_tax_charges).try(:to_f) %>', //Tax Amount
       '<%= @order.try(:shipping_charges) %>', //Ship Amount
       '', //City
       '', //State
