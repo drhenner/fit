@@ -118,7 +118,7 @@
   <div class='row upsell-products'>
     <% upsells.sort{ |x,y| y.price <=> x.price }.each do |upsell| %>
       <div class='four large-4 columns'>
-        <div  class='small-text' style='height: 410px;'>
+        <div  class='small-text' style='height: 385px;'>
           <ul class='vertical-list '>
             <li>
               <div class="cropped-250 bottom-10" style="background-image:url('<%= upsell.featured_image(:product) %>');background-repeat: no-repeat;"></div>
@@ -127,7 +127,7 @@
               <span class="black text-09"><%= raw upsell.product_name %></span>
             </li>
             <li>
-              <p class="small-text text-08"><%= raw upsell.short_description %></p>
+              <p class="small-text text-08 sentence-case"><%= raw upsell.short_description %></p>
             </li>
           </ul>
         </div>
@@ -143,7 +143,7 @@
               <% end %>
             </li>
             <% if upsell.reoccurring_text.present? %>
-              <li class="small-text text-08 top20 ">
+              <li class="small-text text-08 top20 sentence-case">
                 <%= raw upsell.reoccurring_text %>
               </li>
             <% end %>
