@@ -45,5 +45,9 @@
     <td align="right" style="color:#000; font-family:helvetica; font-size:12px" colspan="3">&nbsp;</th>
   </tr>
 </table>
-
-<%= render :partial => 'notifier/main_footer' %>
+<p style='color:#666;text-transform:uppercase;'>
+If you have subscribed in error or wish to unsubscribe at any time, please <%= link_to 'click here', unsubscribe_url(:email => @user.email, :key => @key) %>
+<br/><br/>
+COPYRIGHT &copy; <%= Time.zone.now.year %> ZUFFA FIT 360, LLC.
+</p>
+<%#= render :partial => 'notifier/main_footer' %>
