@@ -57,6 +57,14 @@
       @include transition-duration(0.4s);
       @include transition-timing-function(ease-in);
     }
+    .note {
+      color: #666;
+      font-size: 9px;
+      font-weight: 400;
+      line-height: 1.2;
+      margin: 0 auto 12px;
+      padding: 5px 30px 0;
+    }
   }
   .preorder-banner {
     h2 {
@@ -639,12 +647,23 @@ sup {
     padding-top: 0;
   }
   .ordinary {font-size: 18px;}
+  .member-info {
+    .note {
+      width: 85%;
+      padding: 0 15px;
+    }
+  }
 }
 
 @media only screen and (min-width: 640px) and (max-width: 767px) {
   .preorder-banner {
     p {
       padding-top: 0;
+    }
+  }
+  .member-info {
+    .note {
+      width: 48%;
     }
   }
 }
@@ -657,6 +676,11 @@ sup {
     blockquote {
       padding-left: 50px;
       padding-right: 50px;
+    }
+  }
+  .member-info {
+    .note {
+      width: 70%;
     }
   }
 }
@@ -722,6 +746,11 @@ sup {
     .lifestyle-program {
       h2 {
         font-size: 28px;
+      }
+    }
+    .member-info {
+      .note {
+        padding: 0 15px;
       }
     }
   }
