@@ -2,7 +2,7 @@ Hadean::Application.routes.draw do
 
   resource :the_proof
   resource :the_program
-  resource :success_stories
+  resource :success_stories,             :only => [:show]
   resource :meal_plan
   resource :lifestyle
 
