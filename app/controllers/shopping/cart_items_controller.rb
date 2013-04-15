@@ -4,6 +4,7 @@ class Shopping::CartItemsController < Shopping::BaseController
   def index
     @cart_items       = session_cart.shopping_cart_items
     @saved_cart_items = session_cart.saved_cart_items
+    redirect_to preorders_url
   end
 
   # POST /shopping/cart_items
