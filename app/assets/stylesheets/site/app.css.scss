@@ -245,3 +245,37 @@ body, div, dl, dt, dd, ul, ol, li, pre, form, fieldset, p, blockquote, th, td {c
     margin-bottom: 0;
   }
 }
+
+@media only screen and (min-width: 830px) {
+  .policy {
+    .twelve {
+      float: none;
+      margin: 0 auto;
+      padding-left: 0;
+      padding-right: 0;
+      width: 800px;
+    }
+  }
+}
+@media only screen and (max-width: 999px) {
+  .policy {
+    margin-top: 30px;
+    h1 {
+      font-size: 32px;
+    }
+  }
+}
+.policy {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  padding-bottom: 15px;
+  h2 {
+    color: #909090;
+    font-size: 14px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+}
