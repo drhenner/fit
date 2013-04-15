@@ -114,14 +114,19 @@ form.custom {
     font-size: 12px;
     &:first-child{ margin-left: 0;}
   }
-  a {
+  span {
     border-left:1px solid #999;
     color: #ccc;
     padding-left: 12px;
-    &:hover {color:#CC0000;}
+    display:inline-block;
+    a {
+      color: #ccc;
+      &:hover {color:#CC0000;}
+    }
+
   }
   li:first-child {
-    a {
+    span {
       border-left:0px;
     }
   }

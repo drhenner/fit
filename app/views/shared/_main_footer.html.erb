@@ -27,10 +27,10 @@ loop_footer_tabs = {
         <ul id='main-footer-tabs' class='inline-list'>
           <% if !Settings.in_signup_period || !in_production? %>
             <% loop_footer_tabs.each_pair do |tab_name, tab_path| %>
-              <li> <%= link_to_unless_current tab_name, tab_path %> </li>
+              <li><span> <%= link_to_unless_current tab_name, tab_path %> </span></li>
             <% end %>
-            <li> <%= link_to_unless_current 'FAQs',       I18n.t(:desk_dot_com_url), :target => '_blank' %> </li>
-            <li> <%= link_to_unless_current 'Contact Us', I18n.t(:contact_us_url), :target => '_blank' %> </li>
+            <li> <span><%= link_to_unless_current 'FAQs',       I18n.t(:desk_dot_com_url), :target => '_blank' %></span> </li>
+            <li> <span><%= link_to_unless_current 'Contact Us', I18n.t(:contact_us_url), :target => '_blank' %></span> </li>
           <% else %>
             <li> &nbsp; </li>
           <% end %>
