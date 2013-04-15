@@ -262,11 +262,20 @@ body, div, dl, dt, dd, ul, ol, li, pre, form, fieldset, p, blockquote, th, td {c
     margin-top: 30px;
     h1 {
       font-size: 32px;
-      color: green;
     }
   }
 }
 .policy {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 12px;
+  padding-bottom: 15px;
+  h2 {
+    color: #909090;
+    font-size: 14px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
 }
