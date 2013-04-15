@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
 
   acts_as_authentic do |config|
     config.validate_email_field
-    config.validates_length_of_password_field_options( :minimum => 6, :on => :update, :if => :password_changed? )
+    #config.validates_length_of_password_field_options( :minimum => 6, :on => :update, :if => :password_changed? )
 
     # So that Authlogic will not use the LOWER() function when checking login, allowing for benefit of column index.
     config.validates_uniqueness_of_login_field_options :case_sensitive => true
@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
     config.validate_email_field = true;
 
     # Remove unecessary field validation given by Authlogic.
-    #config.validate_password_field = false;
+    config.validate_password_field = false;
 
   end
 
@@ -66,7 +66,9 @@ class User < ActiveRecord::Base
                   :address_attributes,
                   :phones_attributes,
                   :customer_service_comments_attributes,
-                  :newsletter_ids
+                  :newsletter_ids,
+                  :uid,
+                  :provider
   attr_accessible :email,
                   :password,
                   :password_confirmation,
@@ -190,6 +192,7 @@ class User < ActiveRecord::Base
                           :length => { :maximum => 255 }
   validate :validate_age
 
+  validates :password, :presence => { :if => :password_required? }, :confirmation => true
   validates :password,    :format => { :with => /^(?=.*\d)(?=.*[a-zA-Z]).{6,25}$/,
                                        :message  => 'must be 6 characters and contain at least one digit and character'},
                           :if       => :needs_password?
@@ -453,13 +456,13 @@ class User < ActiveRecord::Base
   end
 
 
-  def from_omniauth!(auth)
+  def self.from_omniauth!(auth)
     find_with_omniauth(auth) || create_with_omniauth!(auth)
   end
 
   private
 
-  def find_with_omniauth(auth)
+  def self.find_with_omniauth(auth)
     user = where(auth.slice(:provider, :uid)).first
     user.update_attributes!(
       email: auth.info.email,
@@ -468,18 +471,20 @@ class User < ActiveRecord::Base
     user
   end
 
-  def create_with_omniauth!(auth)
-    # this create won't work as it is
+  def self.create_with_omniauth!(auth)
     create!(
       provider: auth.provider,
       uid: auth.uid,
       email: auth.info.email,
       first_name: auth.info.first_name,
-      last_name: auth.info.last_name)
+      last_name: auth.info.last_name,
+      country_id: Country::USA_ID
+    )
+    deliver_activation_instructions!
   end
 
   def needs_password?
-    (new_record? || password_changed?) && state != 'signed_up'
+    ((new_record? || password_changed?) && state != 'signed_up')
   end
 
   def name_required?
@@ -513,7 +518,8 @@ class User < ActiveRecord::Base
   end
 
   def password_required?
-    self.crypted_password.blank?
+    uid.blank?
+    #self.crypted_password.blank?
   end
 
   #def create_cim_profile
