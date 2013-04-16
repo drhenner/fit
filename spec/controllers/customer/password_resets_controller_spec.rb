@@ -22,6 +22,7 @@ describe Customer::PasswordResetsController do
 
   it "create action should redirect when model is valid" do
     @user = create(:user)
+    User.any_instance.stubs(:signed_up?).returns(false)
     User.any_instance.stubs(:valid?).returns(true)
     User.any_instance.stubs(:find_by_email).returns(@user)
     User.any_instance.stubs(:deliver_password_reset_instructions!)
