@@ -89,7 +89,7 @@ class Variant < ActiveRecord::Base
 
   def similar_variants
     #Variant.where('variants.deleted_at IS NULL').where(:product_id => product_id).all
-    Variant.joins(:products).where('variants.deleted_at IS NULL').where(:products => {:product_type_id => product.product_type_id}).all
+    Variant.joins(:product).where('variants.deleted_at IS NULL').where(:products => {:product_type_id => product.product_type_id}).all
   end
   # returns quantity available to purchase
   #
