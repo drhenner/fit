@@ -1,12 +1,9 @@
 class UserOauthController < ApplicationController
+  before_filter :verify_auth_hash
 
   def create
     @current_user  = User.from_omniauth!(auth_hash)
     if current_user
-      unless current_user.active?
-        flash[:session_alert] =  I18n.t('login_inactive')
-        redirect_to login_url and return
-      end
       @user_session = UserSession.new(current_user, true)
       if @user_session.save
         cookies[:hadean_uid] = @user_session.record.access_token
@@ -39,5 +36,12 @@ class UserOauthController < ApplicationController
 
   def auth_hash
     request.env["omniauth.auth"]
+  end
+
+  def verify_auth_hash
+    unless auth_hash
+      flash[:session_alert] =  I18n.t('login_failure')
+      redirect_to login_url and return
+    end
   end
 end
