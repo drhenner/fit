@@ -9,7 +9,7 @@ class Customer::PasswordResetsController < ApplicationController
 
     def create
         @user = User.find_by_email(params[:user][:email])
-        if @user
+        if @user && !@user.signed_up?
           @user.deliver_password_reset_instructions!
           respond_to do |format|
             format.html do
@@ -22,10 +22,10 @@ class Customer::PasswordResetsController < ApplicationController
           respond_to do |format|
             format.html do
               @user = User.new
-              flash[:notice] = 'No user was found with that email address'
+              flash[:notice] = 'No registered user was found with that email address'
               render :action => 'new'
             end
-            format.json { render :json => {:errors => 'No user was found with that email address'} }
+            format.json { render :json => {:errors => 'No registered user was found with that email address'} }
           end
         end
     end
