@@ -15,7 +15,7 @@ force_ssl: true
 redirect: true
 redirect_www: true
 
-in_signup_period: false
+in_signup_period: true
 allow_preorders: true
 allow_orders: false
 
