@@ -12,13 +12,13 @@ Hadean::Application.routes.draw do
   match 'loaderio-93a086e0760b88038535f27e6b626d2b'  => 'welcome#load'
 
   match 'admin'   => 'admin/users#index'
-  match 'login'   => 'user_sessions#new'
-  match 'signin'  => 'user_sessions#new'
-  match 'sign-in' => 'user_sessions#new'
+  match 'login' => redirect('/auth/ufc')
+  match 'signin'  => redirect('/auth/ufc')
+  match 'sign-in' => redirect('/auth/ufc')
 
   match 'logout'  => 'user_sessions#destroy'
   match 'signout'  => 'user_sessions#destroy'
-  match 'signup'  => 'customer/registrations#new'
+  match 'signup'  => redirect('/auth/ufc')
   match 'admin/merchandise' => 'admin/merchandise/summary#index'
 
   match '/auth/:provider/callback' => 'user_oauth#create', :as => :callback
