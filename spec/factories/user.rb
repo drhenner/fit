@@ -6,6 +6,8 @@ FactoryGirl.define do
     password              'pasword1'
     password_confirmation "pasword1"
     country_id  Country::USA_ID
+    sequence(:uid) {|n| "uid-#{n}" }
+    provider 'ufc'
     after(:build) {|user| user.send(:initialize_state_machines, :dynamic => :force)}
   end
 

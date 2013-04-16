@@ -36,8 +36,6 @@ class User < ActiveRecord::Base
 
   acts_as_authentic do |config|
     config.validate_email_field
-    #config.validates_length_of_password_field_options( :minimum => 6, :on => :update, :if => :password_changed? )
-
     # So that Authlogic will not use the LOWER() function when checking login, allowing for benefit of column index.
     config.validates_uniqueness_of_login_field_options :case_sensitive => true
     config.validates_uniqueness_of_email_field_options :case_sensitive => true
@@ -47,7 +45,6 @@ class User < ActiveRecord::Base
 
     # Remove unecessary field validation given by Authlogic.
     config.validate_password_field = false;
-
   end
 
   before_validation :sanitize_data, :before_validation_on_create
@@ -192,7 +189,7 @@ class User < ActiveRecord::Base
                           :length => { :maximum => 255 }
   validate :validate_age
 
-  validates :password, :presence => { :if => :password_required? }, :confirmation => true
+  validates :password, :presence => { :if => :needs_password? }, :confirmation => true
   validates :password,    :format => { :with => /^(?=.*\d)(?=.*[a-zA-Z]).{6,25}$/,
                                        :message  => 'must be 6 characters and contain at least one digit and character'},
                           :if       => :needs_password?
@@ -201,7 +198,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :phones, :reject_if => lambda { |t| ( t['display_number'].gsub(/\D+/, '').blank?) }
   accepts_nested_attributes_for :customer_service_comments, :reject_if => proc { |attributes| attributes['note'].strip.blank? }
 
-  state_machine :state, :initial => :signed_up do
+  state_machine :state, :initial => :active do
     state :inactive
     state :active
     state :unregistered
@@ -480,11 +477,6 @@ class User < ActiveRecord::Base
       last_name: auth.info.last_name,
       country_id: Country::USA_ID
     )
-    deliver_activation_instructions!
-  end
-
-  def needs_password?
-    ((new_record? || password_changed?) && state != 'signed_up')
   end
 
   def name_required?
@@ -518,8 +510,12 @@ class User < ActiveRecord::Base
   end
 
   def password_required?
+    self.crypted_password.blank?
+  end
+
+  def needs_password?
     uid.blank?
-    #self.crypted_password.blank?
+    #((new_record? || password_changed?) && state != 'signed_up')
   end
 
   #def create_cim_profile
