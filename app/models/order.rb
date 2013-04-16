@@ -658,7 +658,7 @@ class Order < ActiveRecord::Base
     invoice_statement.log_preorder_stripe_customer_payment(payment_profile.customer_token)
     invoices.push(invoice_statement)
     if invoice_statement.preordered?
-      self.order_complete!(false) #complete!
+      self.order_complete! #complete!
       set_stripe_token_to_subscriptions(invoice_statement)
       self.preorder!
     else
