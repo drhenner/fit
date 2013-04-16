@@ -15,7 +15,7 @@
                   <% if item.variant.product.product_type.name == 'Media'%>
                     <div class="cropped-150 bottom-10" style="background-image:url('<%= item.variant.product.featured_image(:product) %>')"></div>
                   <% else %>
-                    <%= image_tag item.variant.product.featured_image(:medium) %>
+                    <%= image_tag item.variant.featured_image(:medium) %>
                   <% end %>
                 </div>
                 <div class='eight column bottom20'>
