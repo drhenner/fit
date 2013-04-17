@@ -22,8 +22,7 @@ module DailySummaryPrinter
     def print_summary_form( pdf, start_time, end_time)
       pdf.text "Daily Report: #{I18n.localize(start_time, :format => :us_time)} to #{I18n.localize(end_time, :format => :us_time)}"
       pdf.text " "
-      order_count = Order.where('orders.completed_at <= ?',   end_time).
-                          where('orders.completed_at >= ?',   start_time).count
+      order_count = Order.completed_between(start_time, end_time).count
       pdf.text "# of Orders: #{order_count}"
       pdf.text " "
       Variant.includes(:product).active.find_each do |variant|
@@ -33,7 +32,7 @@ module DailySummaryPrinter
                   where('orders.completed_at >= ?',   start_time).count
         pdf.text "#{variant.product_name}: SKU : #{variant.sku}"
         pdf.text "Number Sold: #{item_count}"
-        pdf.text "Net Revenue: #{number_to_currency(variant.price * item_count.to_f)}"
+        pdf.text "Gross Revenue: #{number_to_currency(variant.price * item_count.to_f)}"
         pdf.text " "
       end
       pdf.start_new_page()
