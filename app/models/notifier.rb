@@ -44,6 +44,12 @@ class Notifier < ActionMailer::Base
          :subject => "Thank you for Registering!")
   end
 
+  def send_file_to_list(file, file_name, list, subject)
+    attachments[file_name] = File.read(file)
+    mail(:to => [list],
+         :subject => subject)
+  end
+
   # Simple Welcome mailer
   # => CUSTOMIZE FOR YOUR OWN APP
   #
@@ -55,8 +61,6 @@ class Notifier < ActionMailer::Base
 
     mail(:to => @user.email_address_with_name,
          :subject => "Thank you for Subscribing!")
-
   end
-
 
 end
