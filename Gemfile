@@ -41,6 +41,7 @@ gem "rails_config"
 gem 'rmagick',    :require => 'RMagick'
 
 gem 'rake', '~> 0.9.2'
+gem 'simple_xlsx_writer', '~> 0.5.3'
 gem 'state_machine', '~> 1.1.2'
 gem 'stripe'
 #gem 'sunspot_solr'
