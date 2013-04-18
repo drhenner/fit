@@ -27,7 +27,7 @@
       <% if @user.subscriptions.blank? %>
         <p>N/A</p>
       <% end %>
-      <% @user.subscriptions.each do |subscription| %>
+      <% @user.subscriptions.active.each do |subscription| %>
         <ul class='vertical-list'>
           <li><label>Order #</label>
             <%= link_to subscription.order_item.try(:order_number),
