@@ -73,6 +73,10 @@ class OrderItem < ActiveRecord::Base
     where(:state => :preordered)
   end
 
+  def self.purchased
+    where(:order_items => {:state => ['paid', 'preordered']})
+  end
+
   def order_number
     order.number
   end

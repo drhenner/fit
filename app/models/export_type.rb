@@ -12,7 +12,9 @@ class ExportType < ActiveRecord::Base
   validates :name,        :presence => true, :uniqueness => true, :length => {:maximum => 200}
 
   MONTHLY_ACCOUNTING = 'Monthly Accounting'
+  DAILY_SUMMARY_REPORT = 'Daily Summary'
 
   MONTHLY_ACCOUNTING_ID = 1
-  NAMES = [MONTHLY_ACCOUNTING]
+  DAILY_SUMMARY_REPORT_ID = 2
+  NAMES = [MONTHLY_ACCOUNTING, DAILY_SUMMARY_REPORT]
 end

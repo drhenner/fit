@@ -56,10 +56,13 @@ en:
       short: "%b %d"
       long: "%B %d, %Y"
       us_date: "%m/%d/%Y"
+      file_date: "%Y-%d-%m"
       moulton_date: "%Y%m%d"
   time:
     formats:
       us_date: "%m/%d/%Y"
       us_time: "%m/%d/%Y @ %I:%M %p"
       long_date: "%B %d, %Y"
+      file_date: "%Y-%d-%m"
+      file_time: "%Y-%d-%m-%I-%M-%S"
       moulton_date: "%Y%m%d"
