@@ -33,7 +33,7 @@ gem 'nested_set', '~> 1.7.0'
 
 gem "nifty-generators", :git => 'git://github.com/drhenner/nifty-generators.git'
 gem 'nokogiri', '~> 1.5.6'
-gem 'paperclip', '~> 3.4'
+gem 'paperclip', '~> 3.4.1'
 gem 'prawn', '~> 0.12.0'
 
 gem "rails3-generators", :git => "https://github.com/neocoin/rails3-generators.git"
@@ -41,6 +41,7 @@ gem "rails_config"
 gem 'rmagick',    :require => 'RMagick'
 
 gem 'rake', '~> 0.9.2'
+gem 'simple_xlsx_writer', '~> 0.5.3'
 gem 'state_machine', '~> 1.1.2'
 gem 'stripe'
 #gem 'sunspot_solr'
