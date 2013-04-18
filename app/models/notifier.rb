@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class Notifier < ActionMailer::Base
   default :from => '"The UFC FIT team" <no-reply@ufcfit.com>'
 
@@ -44,8 +46,9 @@ class Notifier < ActionMailer::Base
          :subject => "Thank you for Registering!")
   end
 
-  def send_file_to_list(file, file_name, list, subject)
-    attachments[file_name] = File.read(file)
+  def send_file_to_list(export_doc_id, list, subject)
+    export_doc = ExportDocument.find(export_doc_id)
+    attachments[export_doc.doc_file_name] = open(export_doc.doc.url) {|f| f.read }
     mail(:to => [list],
          :subject => subject)
   end
