@@ -33,7 +33,7 @@ want_login_header: false
 tax_per_state_id: true
 
 email_list:
-  daily_report: ['msong@ufcfit.com', 'phil@velcromagnet.com']
+  daily_report: [ 'msong@ufcfit.com', 'phil@velcromagnet.com' ]
 
 paperclip:
   s3_protocol: https
