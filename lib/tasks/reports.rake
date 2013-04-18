@@ -9,19 +9,19 @@ namespace :reports do
       start_time  = (Time.zone.now - 1.day).beginning_of_day
       end_time    = start_time.end_of_day
 
-      order_count         = Order.completed_between(start_time, end_time).count
-      order_item_count    = OrderItem.includes(:order).
+      order_count         = Order.finished.completed_between(start_time, end_time).count
+      order_item_count    = OrderItem.purchased.includes(:order).
           where('orders.completed_at <= ?',   end_time).
           where('orders.completed_at >= ?',   start_time).count
-      order_gross_revenue = OrderItem.includes(:order).
+      order_gross_revenue = OrderItem.purchased.includes(:order).
           where('orders.completed_at <= ?',   end_time).
           where('orders.completed_at >= ?',   start_time).sum(:price)
-
-      file_name = "DailySummaryReport_#{I18n.localize(start_time, :format => :file_time)}.xlsx"
+file_time = Time.zone.now
+      file_name = "DailySummaryReport_#{I18n.localize(file_time, :format => :file_time)}.xlsx"
       file_path_and_name = "#{Rails.root}/#{file_name}"
 
       serializer = SimpleXlsx::Serializer.new(file_name) do |doc|
-        doc.add_sheet("DailySummaryReport_#{I18n.localize(start_time, :format => :file_time)}") do |sheet|
+        doc.add_sheet("DailySummaryReport_#{I18n.localize(file_time, :format => :file_time)}") do |sheet|
           sheet.add_row(["#{order_count} Orders"])
           sheet.add_row(['', 'SKU','# of Items', 'Gross Revenue'])
           sheet.add_row(["Total", '', "#{order_item_count}", "#{order_gross_revenue}"])
