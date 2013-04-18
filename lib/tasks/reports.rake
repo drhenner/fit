@@ -6,7 +6,7 @@ namespace :reports do
     # rake reports:daily:summary
     task :summary => :environment do
       include ActionView::Helpers::NumberHelper
-      start_time  = (Time.zone.now - 3.day).beginning_of_day
+      start_time  = (Time.zone.now - 1.day).beginning_of_day
       end_time    = start_time.end_of_day
 
       order_count         = Order.finished.completed_between(start_time, end_time).count
