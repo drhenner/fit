@@ -1,7 +1,7 @@
 class Admin::Fulfillment::SubscriptionsController < Admin::Fulfillment::BaseController
   helper_method :sort_column, :sort_direction, :user_addresses
   def index
-    @subscriptions = Subscription.includes([:user, {:order_item => :order}]).order(sort_column + " " + sort_direction).
+    @subscriptions = Subscription.active.includes([:user, {:order_item => :order}]).order(sort_column + " " + sort_direction).
                     with_email(params[:email]).
                     paginate(:page => pagination_page, :per_page => pagination_rows)
   end

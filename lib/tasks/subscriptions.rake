@@ -47,4 +47,19 @@ namespace :subscription do
       puts "+++++===================#{subscription.id}===============================------"
     end
   end
+  # rake subscription:set_canceled_subscriptions_to_active
+  task :set_canceled_subscriptions_to_active => :environment do
+    # Get the orders that are preordered
+    puts 'START'
+    Subscription.where(:subscriptions => {:canceled => true}).all.each do |subscription|
+      # canceling means they canceled... active means it was at some point purchased.
+      # you can't cancel until you have purchased
+      if !subscription.order_item.order.in_progress?
+        puts "+++++================  SET #{subscription.id} ACTIVE ===========================------"
+        puts "+++++================ #{subscription.user.email} ===========================------"
+        subscription.update_attribute(:active, true)
+      end
+      puts "+++++===================#{subscription.id}===============================------"
+    end
+  end
 end

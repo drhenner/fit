@@ -38,7 +38,6 @@ class Subscription < ActiveRecord::Base
 
   def cancel!
     self.remaining_payments = 0
-    self.active             = false
     self.canceled           = true
     self.save
   end
