@@ -648,6 +648,16 @@ describe Order, "#find_by_number(num)" do
   end
 end
 
+describe Order, "#between(start, end)" do
+  it "should return finished Orders " do
+    order1 = create(:order, :completed_at => nil)
+    order2 = create(:order, :completed_at => Time.zone.now - 10.seconds)
+    order3 = create(:order, :completed_at => Time.zone.now - 2.days)
+    orders = Order.completed_between(Time.zone.now - 1.day, Time.zone.now).all
+    orders.size.should == 1
+    orders.include?(order2).should be_true
+  end
+end
 
 describe Order, "#find_finished_order_grid(params = {})" do
   it "should return finished Orders " do

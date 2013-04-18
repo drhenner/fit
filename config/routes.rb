@@ -253,6 +253,7 @@ Hadean::Application.routes.draw do
     namespace :document do
       resources :invoices
       resources :newsletters
+      resources :export_documents, :only => [ :index]
     end
   end
 
