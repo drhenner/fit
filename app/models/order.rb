@@ -538,6 +538,11 @@ class Order < ActiveRecord::Base
     shipments_count > 0
   end
 
+  def self.completed_between(start_time, end_time)
+    where('orders.completed_at <= ?',   end_time).
+    where('orders.completed_at >= ?',   start_time)
+  end
+
   # paginated results from the admin orders that are completed grid
   #
   # @param [Optional params]
