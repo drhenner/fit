@@ -6,7 +6,7 @@ namespace :reports do
     # rake reports:daily:summary
     task :summary => :environment do
       include ActionView::Helpers::NumberHelper
-      start_time  = (Time.zone.now - 1.day).beginning_of_day
+      start_time  = (Time.zone.now - 3.day).beginning_of_day
       end_time    = start_time.end_of_day
 
       order_count         = Order.finished.completed_between(start_time, end_time).count
@@ -32,7 +32,24 @@ file_time = Time.zone.now
                       where('orders.completed_at >= ?',   start_time).count
             sheet.add_row(["#{variant.product_name}","#{variant.sku}", "#{item_count}", "#{variant.price * item_count.to_f}"])
           end
+
+          sheet.add_row(['Orders'])
+          sheet.add_row([''])
+          sheet.add_row(['Order #', 'Product', 'SKU', 'Completed At', 'City', 'State'])
+          Order.includes(:ship_address, {:order_items => :variant}).finished.completed_between(start_time, end_time).find_each do |order|
+            order.order_items.each do |item|
+              sheet.add_row([ "#{order.number}",
+                              "#{item.variant.product_name}",
+                              "#{item.variant.sku}",
+                              "#{order.display_completed_at(:us_time)}",
+                              "#{order.ship_address.try(:city)}",
+                              "#{order.ship_address.try(:display_state_name)}"])
+            end
+          end
         end
+
+
+
       end
 
       file = File.open( file_name )
