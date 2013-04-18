@@ -452,32 +452,35 @@ class User < ActiveRecord::Base
     finished_orders.select{|o| o.completed_at < at }.size
   end
 
+  class << self
+    def from_omniauth!(auth)
+      find_with_omniauth(auth) || create_with_omniauth!(auth)
+    end
 
-  def self.from_omniauth!(auth)
-    find_with_omniauth(auth) || create_with_omniauth!(auth)
+    private
+
+    def find_with_omniauth(auth)
+      user = where(auth.slice(:provider, :uid)).first
+      user.update_attributes!(
+        email: auth.info.email,
+        first_name: auth.info.first_name,
+        last_name: auth.info.last_name) if user
+      user
+    end
+
+    def create_with_omniauth!(auth)
+      create!(
+        provider: auth.provider,
+        uid: auth.uid,
+        email: auth.info.email,
+        first_name: auth.info.first_name,
+        last_name: auth.info.last_name,
+        country_id: Country::USA_ID
+      )
+    end
   end
 
   private
-
-  def self.find_with_omniauth(auth)
-    user = where(auth.slice(:provider, :uid)).first
-    user.update_attributes!(
-      email: auth.info.email,
-      first_name: auth.info.first_name,
-      last_name: auth.info.last_name) if user
-    user
-  end
-
-  def self.create_with_omniauth!(auth)
-    create!(
-      provider: auth.provider,
-      uid: auth.uid,
-      email: auth.info.email,
-      first_name: auth.info.first_name,
-      last_name: auth.info.last_name,
-      country_id: Country::USA_ID
-    )
-  end
 
   def name_required?
     name_required || registered_user?
@@ -515,7 +518,6 @@ class User < ActiveRecord::Base
 
   def needs_password?
     uid.blank?
-    #((new_record? || password_changed?) && state != 'signed_up')
   end
 
   #def create_cim_profile
