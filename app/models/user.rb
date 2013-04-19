@@ -476,7 +476,7 @@ class User < ActiveRecord::Base
         email: auth.info.email,
         first_name: auth.info.first_name,
         last_name: auth.info.last_name,
-        country_id: Country.where(:abbreviation => auth.info.country.alpha3).first
+        country: Country.where(:abbreviation => auth.info.country.alpha3).first
       )
     end
   end
