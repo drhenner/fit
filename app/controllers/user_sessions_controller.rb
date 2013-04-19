@@ -1,8 +1,7 @@
 class UserSessionsController < ApplicationController
   skip_before_filter :redirect_to_welcome
   def new
-    @user_session = UserSession.new
-    @user = User.new
+    redirect_to '/auth/ufc'
   end
 
   def create

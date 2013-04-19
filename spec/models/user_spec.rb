@@ -415,3 +415,46 @@ describe User, "#admin_grid(params = {})" do
     admin_grid.include?(user2).should be_true
   end
 end
+
+
+describe User, '.from_omniauth!' do
+  before(:each) do
+    @existent_user = FactoryGirl.create(:user)
+  end
+
+  let(:user) { FactoryGirl.build(:user)}
+  let(:auth) { OmniAuth::AuthHash.new({
+                 provider: user.provider,
+                 uid: user.uid,
+                 info: {
+                   email: user.email,
+                   first_name: user.first_name,
+                   last_name: user.last_name
+                 } }) }
+
+  let(:auth2) { OmniAuth::AuthHash.new({
+                 provider: @existent_user.provider,
+                 uid: @existent_user.uid,
+                 info: {
+                   email: @existent_user.email,
+                   first_name: @existent_user.first_name,
+                   last_name: @existent_user.last_name
+                 } }) }
+
+  let(:auth3) { OmniAuth::AuthHash.new({
+                  provider: @existent_user.provider,
+                  uid: @existent_user.uid,
+                  info: {
+                    email: 'fooo@bar.com',
+                    first_name: 'John',
+                    last_name: 'Doe'
+                  }
+  })}
+
+  it { expect { User.from_omniauth!(auth) }.to change { User.count }.by(1) }
+  it { expect { User.from_omniauth!(auth2) }.to change { User.count }.by(0) }
+  it { expect(User.from_omniauth!(auth2)).to eq(@existent_user) }
+
+  it { expect(User.from_omniauth!(auth3)).to eq(@existent_user) }
+  it { expect(User.from_omniauth!(auth3).email).to eq('fooo@bar.com') }
+end

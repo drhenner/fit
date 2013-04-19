@@ -33,6 +33,8 @@ gem 'nested_set', '~> 1.7.0'
 
 gem "nifty-generators", :git => 'git://github.com/drhenner/nifty-generators.git'
 gem 'nokogiri', '~> 1.5.6'
+gem 'omniauth',             '1.1.3', require: false
+gem 'omniauth-ufc',         git: "https://c7acc59ab24cd118fb6295255ce7806b61fb1ca4:x-oauth-basic@github.com/RoR-ecommerce/ufc-omniauth.git", require: false
 gem 'paperclip', '~> 3.4.1'
 gem 'prawn', '~> 0.12.0'
 

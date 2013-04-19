@@ -37,3 +37,8 @@ paperclip:
 
 mailchimp:
   api_key: <%= ENV['MAILCHIMP_API_KEY'] %>
+
+ufc:
+  client_id: <%= ENV['UFC_CLIENT_ID'] %>
+  client_secret: <%= ENV['UFC_CLIENT_SECRET']%>
+  oauth_site: <%= ENV['UFC_OAUTH_SITE'] %>

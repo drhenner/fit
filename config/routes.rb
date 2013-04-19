@@ -12,7 +12,7 @@ Hadean::Application.routes.draw do
   match 'loaderio-93a086e0760b88038535f27e6b626d2b'  => 'welcome#load'
 
   match 'admin'   => 'admin/users#index'
-  match 'login'   => 'user_sessions#new'
+  match 'login' => 'user_sessions#new'
   match 'signin'  => 'user_sessions#new'
   match 'sign-in' => 'user_sessions#new'
 
@@ -20,6 +20,8 @@ Hadean::Application.routes.draw do
   match 'signout'  => 'user_sessions#destroy'
   match 'signup'  => 'customer/registrations#new'
   match 'admin/merchandise' => 'admin/merchandise/summary#index'
+
+  get '/auth/:provider/callback' => 'user_oauth#create', :as => :callback
 
   resource  :about,             :only => [:show]
   resource  :contact_us,        :only => [:show]
