@@ -60,6 +60,7 @@ class User < ActiveRecord::Base
                   :birth_date,
                   :form_birth_date,
                   :country_id,
+                  :country,
                   :address_attributes,
                   :phones_attributes,
                   :customer_service_comments_attributes,
@@ -475,7 +476,7 @@ class User < ActiveRecord::Base
         email: auth.info.email,
         first_name: auth.info.first_name,
         last_name: auth.info.last_name,
-        country_id: Country::USA_ID
+        country_id: Country.where(:abbreviation => auth.info.country.alpha3).first
       )
     end
   end
