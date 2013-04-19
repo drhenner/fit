@@ -15,6 +15,9 @@ class Myaccount::CreditCardsController < Myaccount::BaseController
     else
       render :action => 'new'
     end
+  rescue Stripe::CardError => e
+    flash[:alert] = e.message
+    redirect_to myaccount_credit_cards_url
   end
 
   def destroy

@@ -14,6 +14,9 @@ class Shopping::PaymentsController < Shopping::BaseController
     else
       render :index, :alert => 'Something went wrong!'
     end
+  rescue Stripe::CardError => e
+    flash[:alert] = e.message
+    redirect_to shopping_payments_url
   end
 
   #  update
