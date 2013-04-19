@@ -1,0 +1,12 @@
+Hello <%= @user.first_name %>,
+
+Your order with UFC FIT has been canceled. Below are the details of the canceled order.
+
+Order Number: <%= @order.number %>
+Order Summary:
+<% @order.order_items.group_by(&:variant).each do |variant, order_items| %>
+  <%= order_items.size %> <%= variant.product_name %>
+<% end %>
+Your credit card will not be charged.
+
+-The UFC FIT Team
