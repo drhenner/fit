@@ -19,8 +19,8 @@ class UserOauthController < ApplicationController
         end
       end
     end
-    flash[:session_alert] =  I18n.t('login_failure')
-    redirect_to login_url
+    flash[:notice] = I18n.t('login_failure')
+    redirect_to root_url
   end
 
   private
@@ -40,8 +40,8 @@ class UserOauthController < ApplicationController
 
   def verify_auth_hash
     unless auth_hash
-      flash[:session_alert] =  I18n.t('login_failure')
-      redirect_to login_url and return
+      flash[:notice] = I18n.t('login_failure')
+      redirect_to root_url
     end
   end
 end
