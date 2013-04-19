@@ -5,7 +5,4 @@ class UserSession < Authlogic::Session::Base
   #def to_key
   #   self.keys.to_a
   #end
-  def new
-    redirect_to '/auth/ufc'
-  end
 end
