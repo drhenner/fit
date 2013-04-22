@@ -1,4 +1,5 @@
 class UserOauthController < ApplicationController
+  force_ssl
   before_filter :verify_auth_hash
 
   def create

@@ -4,5 +4,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     :client_options => {
       site: Settings.ufc.oauth_site,
       ssl: { ca_file: Settings.ssl_cert_path }
-    }
+    },
+    :provider_ignores_state => true
 end
