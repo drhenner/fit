@@ -29,6 +29,7 @@ class UserSessionsController < ApplicationController
     current_user_session.destroy
     reset_session
     cookies.delete(:hadean_uid)
+    redirect_to "#{Settings.ufc.oauth_site_logout_url}" and return if Settings.ufc.oauth_site_logout_url
     redirect_to login_url, :notice => I18n.t('logout_successful')
   end
 
