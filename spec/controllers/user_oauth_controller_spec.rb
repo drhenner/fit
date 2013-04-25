@@ -1,28 +1,66 @@
 require 'spec_helper'
 
 describe UserOauthController do
-  describe "#create" do
-    context "when omni auth hash is missing" do
-      it "displays a message with login failure and redirects to login page" do
-        stub_redirect_to_welcome
-        post :create
-        response.should redirect_to login_url
+  describe "#annonymous user" do
+    context "when email doesn't exist in the system" do
+      before(:each) do
+        stub_omniauth_hash
+        get 'ufc', provider: 'ufc'
+        @user = User.where(:email => "john@doe.com").first
       end
+
+      it { @user.should_not be_nil }
+
+      it "should create user with uid" do
+        user = User.where(:provider => "ufc", :uid => "1234567").first
+        user.should_not be_nil
+      end
+      it { flash[:notice].should == I18n.t('login_successful')}
+
+      it { response.should redirect_to root_url }
     end
 
-    context "displays a message with login failure and redirects to login page" do
-      it "should display a message woth login successful and redirect to root url" do
-        stub_env_for_omniauth(nil)
-        post :create
-        response.should redirect_to login_url
+    context "when email exists in the system" do
+      before(:each) do
+        stub_omniauth_hash
+        User.create(:email => "john@doe.com", :first_name => "John", :last_name => "Doe", :country_id => 214 )
+
+        get 'ufc', provider: 'ufc'
       end
+
+      it { flash[:notice].should == I18n.t('login_successful')}
+
+      it { response.should redirect_to root_url }
+    end
+  end
+
+  describe "#ufc" do
+    context "when omni auth hash is missing" do
+      before(:each) do
+        stub_redirect_to_welcome
+        get 'ufc', provider: 'ufc'
+      end
+
+      it { flash[:notice].should == I18n.t('login_failure')}
+
+      it { response.should redirect_to root_url }
     end
   end
 end
 
-
-def stub_env_for_omniauth(provider = "ufc", uid = "1234567", email = "john@doe.com", first_name = "John", last_name = "Doe")
-  env = { "omniauth.auth" => { "provider" => provider, "uid" => uid, "info" => { "email" => email, "first_name" => first_name, "last_name" => last_name } } }
-  controller.stubs(:env).returns(env)
-  env
+def stub_omniauth
+  OmniAuth.config.test_mode = true
+  env = { "omniauth.auth" => OmniAuth::AuthHash.new({
+                              :provider => 'ufc',
+                              :uid => '1234567',
+                              :info => {
+                                'first_name' => 'John',
+                                'last_name' => 'Doe',
+                                'email' => 'john@doe.com',
+                                'country' => {
+                                  'alpha3' => 'USA'
+                                }
+                              }
+                            }) }
+  request.stubs(:env).returns(env)
 end

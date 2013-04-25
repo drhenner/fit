@@ -1,8 +1,8 @@
 class UserOauthController < ApplicationController
-  force_ssl
+  force_ssl unless Rails.env == "test"
   before_filter :verify_auth_hash
 
-  def create
+  def ufc
     @current_user  = User.from_omniauth!(auth_hash)
     if current_user
       @user_session = UserSession.new(current_user, true)

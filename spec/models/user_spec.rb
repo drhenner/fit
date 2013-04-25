@@ -429,16 +429,22 @@ describe User, '.from_omniauth!' do
                  info: {
                    email: user.email,
                    first_name: user.first_name,
-                   last_name: user.last_name
+                   last_name: user.last_name,
+                   country: {
+                     alpha3: user.country.abbreviation
+                   }
                  } }) }
 
   let(:auth2) { OmniAuth::AuthHash.new({
-                 provider: @existent_user.provider,
-                 uid: @existent_user.uid,
-                 info: {
-                   email: @existent_user.email,
-                   first_name: @existent_user.first_name,
-                   last_name: @existent_user.last_name
+                  provider: @existent_user.provider,
+                  uid: @existent_user.uid,
+                  info: {
+                    email: @existent_user.email,
+                    first_name: @existent_user.first_name,
+                    last_name: @existent_user.last_name,
+                    country: {
+                      alpha3: user.country.abbreviation
+                    }
                  } }) }
 
   let(:auth3) { OmniAuth::AuthHash.new({
@@ -447,7 +453,10 @@ describe User, '.from_omniauth!' do
                   info: {
                     email: 'fooo@bar.com',
                     first_name: 'John',
-                    last_name: 'Doe'
+                    last_name: 'Doe',
+                    country: {
+                      alpha3: 'USA'
+                    }
                   }
   })}
 
