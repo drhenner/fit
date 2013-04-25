@@ -22,6 +22,7 @@ Hadean::Application.routes.draw do
   match 'admin/merchandise' => 'admin/merchandise/summary#index'
 
   get '/auth/:provider/callback' => 'user_oauth#ufc', :as => :callback
+  get '/auth/failure' => 'user_oauth#failure'
 
   resource  :about,             :only => [:show]
   resource  :contact_us,        :only => [:show]

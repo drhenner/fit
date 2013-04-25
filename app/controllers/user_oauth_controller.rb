@@ -24,6 +24,11 @@ class UserOauthController < ApplicationController
     redirect_to root_url
   end
 
+  def failure
+    flash[:notice] = I18n.t('login_failure')
+    redirect_to root_url
+  end
+
   private
 
   def set_user_to_cart_items
