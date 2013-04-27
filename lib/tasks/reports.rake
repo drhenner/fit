@@ -3,6 +3,47 @@ require 'simple_xlsx'
 
 namespace :reports do
   namespace :daily do
+
+    task :on_demand => :environment do
+      include ActionView::Helpers::NumberHelper
+      start_date = Time.zone.parse(ENV['start_date']).to_datetime
+      end_date = Time.zone.parse(ENV['end_date']).to_datetime
+
+      file_time = Time.zone.now
+      file_name = "DailySummaryReport_#{I18n.localize(file_time, :format => :file_time)}.xlsx"
+      file_path_and_name = "#{Rails.root}/#{file_name}"
+
+      serializer = SimpleXlsx::Serializer.new(file_name) do |doc|
+        doc.add_sheet("DailySummaryReport_#{I18n.localize(file_time, :format => :file_time)}") do |sheet|
+          row = [""]
+          start_date.upto(end_date){ |day|
+            row << day
+          }
+          sheet.add_row(row)
+
+          Variant.includes(:product).active.find_each do |variant|
+            row = ["#{variant.product_name}"]
+            start_date.upto(end_date) do |day|
+              start_time = day.beginning_of_day
+              end_time = day.end_of_day
+
+              item_count = OrderItem.includes(:order).
+                      where('order_items.variant_id = ?', variant.id).
+                      where('orders.completed_at <= ?',   end_time).
+                      where('orders.completed_at >= ?',   start_time).count
+
+              row << item_count
+            end
+            sheet.add_row(row)
+          end
+        end
+      end
+      file = File.open( file_name )
+      export_doc = save_summary_doc(file, start_time, end_time)
+      file.close
+    end
+
+
     # rake reports:daily:summary
     task :summary => :environment do
       include ActionView::Helpers::NumberHelper
