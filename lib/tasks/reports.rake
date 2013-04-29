@@ -2,8 +2,50 @@ require 'net/ftp'
 require 'simple_xlsx'
 
 namespace :reports do
-  namespace :daily do
+  namespace :orders do
+    task :on_demand => :environment do
+      include ActionView::Helpers::NumberHelper
+      start_date = Time.zone.parse(ENV['start_date']).to_datetime.beginning_of_day
+      end_date = Time.zone.parse(ENV['end_date']).to_datetime.end_of_day
 
+      file_time = Time.zone.now
+      file_name = "OrderSummaryReport_#{I18n.localize(file_time, :format => :file_time)}.xlsx"
+      file_path_and_name = "#{Rails.root}/#{file_name}"
+
+      serializer = SimpleXlsx::Serializer.new(file_name) do |doc|
+        doc.add_sheet("OrderSummaryReport_#{I18n.localize(file_time, :format => :file_time)}") do |sheet|
+
+          sheet.add_row(["ID", "ORDER NUMBER", "ITEMS", "", "ITEM COUNT", "STATE"])
+
+          raw_items = OrderItem.includes(:order).
+                    where('orders.completed_at <= ?',   end_date).
+                    where('orders.completed_at >= ?',   start_date)
+
+          grouped_items = raw_items.group_by{|i| i.order }
+          grouped_items.each do |order, items|
+            row = ["#{order.id}", "#{order.number}", "", "", order.order_items.count, order.state]
+            sheet.add_row(row)
+            items.each do |item|
+              sheet.add_row(["", "", "#{item.variant.product_name}", 1])
+            end
+          end
+
+          #orders = Order.finished.completed_between(start_date, end_date)
+          #orders.each do |order|
+            #row = ["#{order.id}", "#{order.number}", "", "", order.order_items.count]
+            #sheet.add_row(row)
+            #order.order_items.each do |item|
+              #sheet.add_row(["", "", "#{item.variant.product_name}", 1])
+            #end
+          #end
+        end
+      end
+      file = File.open( file_name )
+      file.close
+    end
+  end
+
+  namespace :daily do
     task :on_demand => :environment do
       include ActionView::Helpers::NumberHelper
       start_date = Time.zone.parse(ENV['start_date']).to_datetime
@@ -29,6 +71,7 @@ namespace :reports do
 
               item_count = OrderItem.includes(:order).
                       where('order_items.variant_id = ?', variant.id).
+                      where('orders.state != ?', 'canceled').
                       where('orders.completed_at <= ?',   end_time).
                       where('orders.completed_at >= ?',   start_time).count
 
@@ -39,7 +82,6 @@ namespace :reports do
         end
       end
       file = File.open( file_name )
-      export_doc = save_summary_doc(file, start_time, end_time)
       file.close
     end
 
