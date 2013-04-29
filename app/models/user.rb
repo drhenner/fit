@@ -190,6 +190,8 @@ class User < ActiveRecord::Base
                           :length => { :maximum => 255 }
   validate :validate_age
 
+  validates :uid, :presence => true
+  validates :provider, :presence => true
   validates :password, :presence => { :if => :needs_password? }, :confirmation => true
   validates :password,    :format => { :with => /^(?=.*\d)(?=.*[a-zA-Z]).{6,25}$/,
                                        :message  => 'must be 6 characters and contain at least one digit and character'},
