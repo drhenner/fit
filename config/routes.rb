@@ -5,6 +5,7 @@ Hadean::Application.routes.draw do
   resource :success_stories,             :only => [:show]
   resource :meal_plan
   resource :lifestyle
+  resource :xyience
 
   resource :google12299642d5975b38, :only => :show
   resource :iuwhcbphqoimcsid,       :only => :show
