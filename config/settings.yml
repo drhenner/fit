@@ -26,6 +26,7 @@ authnet:
 vat: false
 require_state_in_address: true
 force_ssl: false
+ssl_cert_path: <%= ENV['SSL_CERT_PATH'] || '/usr/lib/ssl/certs/ca-certificates.crt' %>
 redirect: false
 redirect_www: false
 
@@ -64,3 +65,9 @@ mandrill:
 
 mailchimp:
   api_key: <%= ENV['MAILCHIMP_API_KEY'] %>
+
+ufc:
+  client_id: <%= ENV['UFC_CLIENT_ID'] %>
+  client_secret: <%= ENV['UFC_CLIENT_SECRET']%>
+  oauth_site: <%= ENV['UFC_OAUTH_SITE'] %>
+  oauth_site_logout_url: <%= ENV['UFC_OAUTH_SITE_LOGOUT_URL'] %>

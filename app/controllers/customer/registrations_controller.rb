@@ -6,10 +6,7 @@ class Customer::RegistrationsController < ApplicationController
   end
 
   def new
-    @registration = true
-    @user         = User.new
-    @user_session = UserSession.new
-    render :template => 'user_sessions/new'
+    redirect_to '/auth/ufc'
   end
 
   def create

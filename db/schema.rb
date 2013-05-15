@@ -11,8 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130411060543) do
-
+ActiveRecord::Schema.define(:version => 20130414171835) do
 
   create_table "accounting_adjustments", :force => true do |t|
     t.integer  "adjustable_id",                                 :null => false
@@ -737,6 +736,8 @@ ActiveRecord::Schema.define(:version => 20130411060543) do
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
     t.integer  "country_id"
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["access_token"], :name => "index_users_on_access_token", :unique => true
@@ -746,6 +747,7 @@ ActiveRecord::Schema.define(:version => 20130411060543) do
   add_index "users", ["last_name"], :name => "index_users_on_last_name"
   add_index "users", ["perishable_token"], :name => "index_users_on_perishable_token", :unique => true
   add_index "users", ["persistence_token"], :name => "index_users_on_persistence_token", :unique => true
+  add_index "users", ["uid"], :name => "index_users_on_uid", :unique => true
 
   create_table "users_newsletters", :force => true do |t|
     t.integer  "user_id",       :null => false
