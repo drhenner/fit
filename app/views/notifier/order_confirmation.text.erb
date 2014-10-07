@@ -1,0 +1,27 @@
+Hello <%= @user.first_name %>,
+
+Thank you for placing your order with UFC FIT. Below are the details of your order.
+
+Shipping Address:
+<% if @order.ship_address %>
+  <%= render :partial => '/shared/compact_address', :locals => { :shopping_address => @order.ship_address } %>
+<% end %>
+Billing Address:
+<% if @order.bill_address %>
+  <%= render :partial => '/shared/compact_address', :locals => { :shopping_address => @order.bill_address } %>
+<% end %>
+
+Order Number: <%= @order.number %>
+
+Order Summary:
+
+<% @order.order_items.group_by(&:variant).each do |variant, order_items| %>
+  <%= order_items.size %> <%= variant.product_name %>
+<% end %>
+Order Total (<%= number_to_currency @invoice.amount %>)
+
+Your order is currently being processed and you'll receive a shipping confirmation with tracking information via email. If any of the above information is incorrect or if you have any additional questions, please contact our customer service department at: 
+
+http://support.ufcfit.com/
+
+-The UFC FIT Team
